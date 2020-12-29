@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'走进海迈 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+</head>
+<body>
+<!-- 头部分-->
+<th:block th:replace="common/layout::header"/>
+<style scoped="scoped">
+
+    .container-outside{
+        background-color: #fbfbfb;
+        padding-bottom: 20px;
+    }
+
+    .container-body {
+        background-color: #fff;
+        position: relative;
+        top: -60px;
+        padding: 64px 100px 104px 100px;
+    }
+
+    .classify-title{
+        font-size: 32px;
+        font-weight: bold;
+        color: #2a2e2e;
+    }
+
+    .line-center {
+        height: 1px;
+        /*width: 50px;*/
+        width: 125px;
+        background-color: #005cbf;
+    }
+
+    .company-name{
+        font-weight:bold;
+        color:#000000;
+        letter-spacing: 1.5px;
+    }
+
+    .font-16px-66{
+        font-size: 16px;
+        color: #666666;
+        text-align: justify
+    }
+
+    .font-16px-33{
+        font-size: 16px;
+        color: #666666;
+        letter-spacing: 1.5px;
+        text-align: justify
+    }
+
+    .font-20px-33{
+        font-size: 20px;
+        color: #333333;
+        letter-spacing: 1.5px;
+        font-weight: bold;
+    }
+
+    .header-png{
+        margin-top: -35px;
+    }
+
+    .enter-haimai-card{
+        width: 315px;
+        height: 384px
+    }
+
+    .enter-haimai-industry-div{
+        margin-top: 60px;
+    }
+
+    .enter-haimai-industry-img{
+        width: 102px;
+        height: 102px;
+    }
+
+    .card-body{
+        padding: 20px 35px;
+    }
+
+    .enter-haimai-card-title{
+        font-size: 20px;
+        color: #000000;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .enter-haimai-card-text{
+        margin-top: -5px;
+        font-size: 14px;
+        color: #666666;
+        text-align: justify
+    }
+
+    .banner-div{
+        height: 350px;
+        /*background: url('/image/produceSystem/product_system_banner.png') no-repeat;*/
+        background: url('/image/intoHymake/into_hymake_banner_bg.png') no-repeat;
+        background-size: 100% 350px;
+    }
+    .text-div{
+        width: 100%;
+        padding-top: 90px;
+    }
+    .banner-title{
+        font-size: 44px;
+        color: #ffffff;
+    }
+    .banner-text{
+        font-size: 18px;
+        width: 670px;
+        color: #ffffff;
+        line-height: 36px;
+        margin-top: 9px
+    }
+    .banner-img-content{
+        /*padding-top: 25px;
+        padding-bottom: 25px;*/
+        margin-top: -180px;
+    }
+
+</style>
+   <!-- <div>
+        <img class="card-img-top h-400px" src="/image/enterHaimai/into_hymake_banner.png">
+    </div>-->
+    <div class="banner-div" style="">
+        <!--<img class="card-img-top h-400px" src="/image/solution/solution_banner.png">-->
+        <div class="container d-flex">
+            <div class="text-div">
+                <div class="banner-title">海迈科技</div>
+                <div class="banner-text">
+                    中国建筑数据服务的领先实践者与推动者
+                </div>
+            </div>
+            <img class="banner-img-content" src="/image/intoHymake/into_hymake_banner_content_img.png" alt="">
+        </div>
+    </div>
+    <div class="container-outside">
+        <div class="container container-body">
+            <div>
+                <div class="text-center">
+                    <div class="classify-title">
+                        走进海迈
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <hr class="line-center ">
+                    </div>
+                </div>
+                <div style="margin-top: 16px">
+                    <p class="font-16px-66 text-indent-2">
+                        <span class="company-name">厦门海迈科技股份有限公司</span>（证券简称：海迈科技，证券代码：830892）创建于2002年，是国家高新技术企业、福建省企业技术中心、福建省建设领域信息化工程技术研究中心的依托单位，是福建省版权保护重点企业、福建省创新试点企业、福建省科技小巨人领军企业。
+                    </p>
+                    <p class="font-16px-66 text-indent-2">
+                        海迈科技，给建筑赋予生命，让生活融于自然，推动信息技术与建筑业的深度融合：为建设相关方，提供建设成本管理的产品服务与综合解决方案；为建设工程招投标、政府采购、产权交易等公共资源交易和企业采购，提供综合解决方案；为监管方、建设方、施工方，提供建设工程项目管理、质量、安全、档案、信用等产品服务；为小区、园区、开发区，提供建筑运维、房产服务的综合解决方案和智慧服务；面向建设领域的机构和从业人员，提供线上线下的培训服务……
+                    </p>
+                    <p class="font-16px-66 text-indent-2">
+                        作为建筑数据服务商，海迈科技以“居善地、心善渊、与善仁、言善信、正善治、事善能、动善时”为理念，将建筑全生命期服务融入“数字中国，智慧城市”的建设进程，为健康建筑与智慧城市的综合解决方案赋予“安全、绿色、智慧”的创新内涵。“构建数字建筑，赋能产业升级，服务现代生活，共促和谐发展”，海迈科技作为中国建筑数据服务商的领先实践者，正以独具匠心的鲜明特色，翻开中国建设信息化进程的崭新一页。
+                    </p>
+                </div>
+            </div>
+
+
+            <div>
+                <div class="text-center" style="margin-top:84px">
+                    <div class="classify-title">
+                        领军人物
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <hr class="line-center ">
+                    </div>
+                </div>
+                <div class="media" style="margin-top: 32px">
+                    <img src="/image/intoHymake/chairman_header.png" class="header-png" alt="">
+                    <div class="media-body" style="margin-left: 60px;margin-top: 10px;">
+                        <p class="font-16px-33">
+                            “居善地，心善渊，与善仁，言善信，正善治，事善能，动善时。夫惟不争，故无尤。”
+                            这是海迈作为高新科技企业、软件企业追求和践行的经营之道。
+                        </p>
+                        <div class="d-flex justify-content-end" style="margin-top: 55px">
+                            <div style="height:2px;width: 35px;margin-top:20px;background-color: #333333">
+                            </div>
+                            <div class="font-20px-33" style="margin-left: 5px;">
+                                李敏（董事长）
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div>
+                <div class="text-center" style="margin-top: 84px">
+                    <div class="classify-title">
+                        行业积累
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <hr class="line-center ">
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 24px">
+                    <div class="col-4">
+                        <div class="card enter-haimai-card">
+                            <div class="text-center enter-haimai-industry-div">
+                                <img src="/image/intoHymake/intellectual_property_icon.png" class="card-img-top enter-haimai-industry-img" alt="">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-title text-center enter-haimai-card-title">知识产权</div>
+                                <p class="card-text enter-haimai-card-text">
+                                    海迈科技拥有发明专利和软件著作权200多项，覆盖建设信息化领域的各个方面。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card enter-haimai-card">
+                            <div class="text-center enter-haimai-industry-div">
+                                <img src="/image/intoHymake/industry_status_icon.png" class="card-img-top enter-haimai-industry-img" alt="">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-title text-center enter-haimai-card-title">行业地位</div>
+                                <p class="card-text enter-haimai-card-text">
+                                    海迈科技作为建筑信息化领域的领先实践者，在国家级行业协会、多个委员会中，担任副主任委员角色。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card enter-haimai-card">
+                            <div class="text-center enter-haimai-industry-div">
+                                <img src="/image/intoHymake/standard_set_icon.png" class="card-img-top enter-haimai-industry-img" alt="">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-title text-center enter-haimai-card-title">标准制定</div>
+                                <p class="card-text enter-haimai-card-text">
+                                    海迈科技注重标准引领和转化，主导和参与了多项国家、省、市建设信息化及BIM相关标准、规程、导则的制定。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 28px">
+                    <div class="col-4">
+                        <div class="card enter-haimai-card">
+                            <div class="text-center enter-haimai-industry-div">
+                                <img src="/image/intoHymake/important_projects_icon.png" class="card-img-top enter-haimai-industry-img" alt="">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-title text-center enter-haimai-card-title">重要专项</div>
+                                <p class="card-text enter-haimai-card-text">
+                                    海迈科技主导和参与多项国家部委、省、市的重大和重要专项，引领建设信息化领域的技术发展趋势。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card enter-haimai-card">
+                            <div class="text-center enter-haimai-industry-div">
+                                <img src="/image/intoHymake/research_cooperation_icon.png" class="card-img-top enter-haimai-industry-img" alt="">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-title text-center enter-haimai-card-title">产学研合作</div>
+                                <p class="card-text enter-haimai-card-text">
+                                    海迈科技与科研院所、高等学校和重点企业建立不同层级的合作，联合开展理论研究、技术攻关与人才培养。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card enter-haimai-card">
+                            <div class="text-center enter-haimai-industry-div">
+                                <img src="/image/intoHymake/qualification_honor_icon.png" class="card-img-top enter-haimai-industry-img" alt="">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-title text-center enter-haimai-card-title">资质荣誉</div>
+                                <p class="card-text enter-haimai-card-text">
+                                    海迈科技具有建设信息领域的全面资质，多次荣获国际、行业、省市的重点表彰。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+</body>
+</html>

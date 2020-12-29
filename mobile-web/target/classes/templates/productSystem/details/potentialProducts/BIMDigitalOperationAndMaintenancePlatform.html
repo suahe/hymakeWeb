@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'BIM数字运维平台 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .main-content{
+
+        }
+        .detail-title{
+            padding-bottom: 0.4rem;
+        }
+        .detail-title h4 {
+            color: #0066cc;
+            text-align: center;
+            position: relative;
+            padding: 0;
+            padding-top: 0.55rem;
+            padding-bottom: 0.25rem;
+            display: inline-block;
+            margin: 0;
+            float: none !important;
+            left: 50%;
+            transform:translate(-50%,0);
+            font-size: 0.4rem;
+        }
+        .detail-title h4:after {
+            content: '';
+            width: 30%;
+            height: 2px;
+            background-color: #0066cc;
+            position: absolute;
+            left: 50%;
+            transform:translate(-50%,0);
+            bottom: 0;
+            min-width: 35px;
+        }
+        .detail-text{
+            font-size: 0.28rem;
+            color: #666666;
+            text-indent: 2em;
+            text-align: justify;
+        }
+        .detail-pad{
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .core-values-part{
+            background-color: #f4f4f5;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            padding-bottom: 0.75rem;
+        }
+        .core-values-img{
+            width: 0.93rem;
+            height: 0.93rem;
+            margin-top: 0.15rem;
+        }
+        .core-values-row-bg{
+            background-color: #ffffff;
+        }
+        .core-values-row{
+            display: flex;
+            padding: 0.22rem 0.2rem;
+        }
+        .core-values-profile{
+            margin-left: 0.5rem;
+        }
+        .core-values-title{
+            font-size: 0.38rem;
+            color: #333333;
+            text-align: justify;
+        }
+        .core-values-content{
+            font-size: 0.28rem;
+            color: #666666;
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+<!--引入详情页头部-->
+<th:block th:replace="common/layout::detail-header"/>
+<main class="main-content">
+    <div class="detail-pad">
+        <div class="detail-text" style="padding-top: 0.61rem;padding-bottom: 0.61rem;">
+            潜力产品BIM数字运维平台，以建筑为载体，以BIM+GIS、物联网、云计算、大数据、人工智能等技术为支撑，面向各行业的各类建筑管理需求，为建筑或建筑群构建安全、绿色、智慧的空间环境，提升服务及运营效率，降低成本与能耗，提升信任度，打造精准贴身、灵活丰富的服务能力。
+        </div>
+        <img class="w-100" style="padding-bottom: 0.75rem;" src="/image/productSystem/details/potentialProducts/BIMDigitalOperationAndMaintenancePlatform/shu-zi-yun-wei.png" alt="">
+    </div>
+    <div class="core-values-part">
+        <div class="detail-title">
+            <h4>核心价值</h4>
+        </div>
+        <div style="margin-top: 0.3rem;" class="core-values-row-bg">
+            <div class="core-values-row">
+                <img class="core-values-img" src="/image/productSystem/details/potentialProducts/BIMDigitalOperationAndMaintenancePlatform/zhi-hui-yun-ying.png" alt="">
+                <div class="core-values-profile">
+                    <div class="core-values-title">
+                        智慧运营
+                    </div>
+                    <div class="core-values-content">
+                        构建智能高效的平台，完善建筑各项管理流程，提高管理效率与运营能力
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 0.3rem;" class="core-values-row-bg">
+            <div class="core-values-row">
+                <img class="core-values-img" src="/image/productSystem/details/potentialProducts/BIMDigitalOperationAndMaintenancePlatform/an-quan-guan-li.png" alt="">
+                <div class="core-values-profile">
+                    <div class="core-values-title">
+                        安全管理
+                    </div>
+                    <div class="core-values-content">
+                        利用监控设备，传感设备，实现人脸识别，大数据分析，保障建筑资产安全管理
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 0.3rem;" class="core-values-row-bg">
+            <div class="core-values-row">
+                <img style=" width: 0.93rem;height: 0.93rem;margin-top: 0.15rem;" src="/image/productSystem/details/potentialProducts/BIMDigitalOperationAndMaintenancePlatform/jie-neng-fen-xiang.png" alt="">
+                <div class="core-values-profile">
+                    <div class="core-values-title">
+                        节能分析
+                    </div>
+                    <div class="core-values-content">
+                        基于云计算的运维大数据，可以进行智慧节能分析，提供多种节能方案
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

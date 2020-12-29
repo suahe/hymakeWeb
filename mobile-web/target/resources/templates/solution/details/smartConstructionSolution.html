@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'智慧建设解决方案 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .main-content{
+
+        }
+        .detail-title{
+            padding-bottom: 0.4rem;
+        }
+        .detail-title h4 {
+            color: #0066cc;
+            text-align: center;
+            position: relative;
+            padding: 0;
+            padding-top: 0.55rem;
+            padding-bottom: 0.25rem;
+            display: inline-block;
+            margin: 0;
+            float: none !important;
+            left: 50%;
+            transform:translate(-50%,0);
+            font-size: 0.4rem;
+        }
+        .detail-title h4:after {
+            content: '';
+            width: 30%;
+            height: 2px;
+            background-color: #0066cc;
+            position: absolute;
+            left: 50%;
+            transform:translate(-50%,0);
+            bottom: 0;
+            min-width: 35px;
+        }
+        .detail-text{
+            font-size: 0.28rem;
+            color: #666666;
+            text-indent: 2em;
+            text-align: justify;
+        }
+        .detail-text p{
+            margin-bottom: 0.12rem;
+        }
+        .detail-pad{
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+
+    </style>
+</head>
+<body>
+<!--引入详情页头部-->
+<th:block th:replace="common/layout::detail-header"/>
+<main class="main-content">
+    <div class="detail-pad">
+        <div class="detail-text" style="padding-top: 0.61rem;padding-bottom: 0.61rem;">
+            海迈科技智慧建设解决方案，是以智慧城市为载体，围绕建筑全生命期，采用全方位设计理念，贯穿于工程咨询、规划、勘察、设计、招标、施工、运营维护全过程，提供智慧工地、智慧建筑、智慧小区、智慧园区以及智慧城市的综合解决方案。
+        </div>
+        <img class="w-100" style="padding-bottom: 0.75rem;" src="/image/solution/details/smartConstructionSolution/img1.png" alt="">
+    </div>
+
+</main>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

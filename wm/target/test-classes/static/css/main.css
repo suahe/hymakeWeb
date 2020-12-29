@@ -1,0 +1,18 @@
+/* 表格选中底色修改 */
+.fixed-table-container tbody .selected td{
+    background: #1ab394 !important;
+    color: #FFFFFF;
+}
+
+.right-label{
+	padding-top: 7px;
+	padding-left: 0;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: left;
+}
+
+.form-control[readonly]{
+	background-color: white !important;
+	border: 1px solid #e5e6e7 !important;
+}

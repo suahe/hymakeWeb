@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'智慧园区解决方案 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .main-content{
+
+        }
+        .detail-title{
+            padding-bottom: 0.4rem;
+        }
+        .detail-title h4 {
+            color: #0066cc;
+            text-align: center;
+            position: relative;
+            padding: 0;
+            padding-top: 0.55rem;
+            padding-bottom: 0.25rem;
+            display: inline-block;
+            margin: 0;
+            float: none !important;
+            left: 50%;
+            transform:translate(-50%,0);
+            font-size: 0.4rem;
+        }
+        .detail-title h4:after {
+            content: '';
+            width: 30%;
+            height: 2px;
+            background-color: #0066cc;
+            position: absolute;
+            left: 50%;
+            transform:translate(-50%,0);
+            bottom: 0;
+            min-width: 35px;
+        }
+        .detail-text{
+            font-size: 0.28rem;
+            color: #666666;
+            text-indent: 2em;
+            text-align: justify;
+        }
+        .detail-text p{
+            margin-bottom: 0.12rem;
+        }
+        .detail-pad{
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+        .bim-gis-part{
+            padding-bottom: 0.35rem;
+        }
+        .icon-part{
+            display: flex;
+        }
+        .left-icon-part{
+            width: 50%;
+            text-align: center;
+        }
+        .right-icon-part{
+            width: 50%;
+            text-align: center;
+        }
+        .icon-title{
+            font-size: 0.3rem;
+            color: #333333;
+            padding-top: 0.1rem;
+            padding-bottom: 0.25rem;
+        }
+        .icon{
+            width: 0.93rem;
+            height: 0.93rem;
+        }
+    </style>
+</head>
+<body>
+<!--引入详情页头部-->
+<th:block th:replace="common/layout::detail-header"/>
+<main class="main-content">
+    <div class="detail-pad">
+        <div class="detail-text" style="padding-top: 0.61rem;padding-bottom: 0.61rem;">
+            海迈科技智慧园区解决方案，以高清影像图为基础，定位建筑，分析园区地理空间，通过叠加地籍、房籍、关键基础设施等数据，分层展示园区不同的空间数据。在BIM+GIS空间管理的基础上，实现园区建筑资产、设备设施资产的数字化运维，对建筑总能耗、各子系统能耗、设备能耗进行多维度数据统计、对比整合天网工程、园区单位、物业小区的监控设施，实现园区的出入安全监控与异常状态监控，保障园区安全。
+        </div>
+        <img class="w-100" src="/image/solution/details/smartParkSolution/img1.png" alt="">
+    </div>
+    <div class="bim-gis-part">
+        <div class="detail-title">
+            <h4>BIM+GIS</h4>
+        </div>
+        <div class="icon-part">
+            <div class="left-icon-part">
+                <img class="icon" src="/image/solution/details/smartParkSolution/kong-jian.png" alt="">
+                <div class="icon-title">空间管理</div>
+            </div>
+            <div class="right-icon-part">
+                <img class="icon" src="/image/solution/details/smartParkSolution/neng-hao.png" alt="">
+                <div class="icon-title">能耗管理</div>
+            </div>
+        </div>
+        <div class="icon-part">
+            <div class="left-icon-part">
+                <img class="icon" src="/image/solution/details/smartParkSolution/she-bei.png" alt="">
+                <div class="icon-title">设备管理</div>
+            </div>
+            <div class="right-icon-part">
+                <img class="icon" src="/image/solution/details/smartParkSolution/zi-chan.png" alt="">
+                <div class="icon-title">资产管理</div>
+            </div>
+        </div>
+        <div class="icon-part">
+            <div class="left-icon-part">
+                <img class="icon" src="/image/solution/details/smartParkSolution/an-fang.png" alt="">
+                <div class="icon-title">安防管理</div>
+            </div>
+        </div>
+    </div>
+</main>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

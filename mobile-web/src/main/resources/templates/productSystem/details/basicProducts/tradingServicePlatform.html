@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'交易服务平台 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .main-content{
+
+        }
+        .detail-title{
+            padding-bottom: 0.4rem;
+        }
+        .detail-title h4 {
+            color: #0066cc;
+            text-align: center;
+            position: relative;
+            padding: 0;
+            padding-top: 0.55rem;
+            padding-bottom: 0.25rem;
+            display: inline-block;
+            margin: 0;
+            float: none !important;
+            left: 50%;
+            transform:translate(-50%,0);
+            font-size: 0.4rem;
+        }
+        .detail-title h4:after {
+            content: '';
+            width: 30%;
+            height: 2px;
+            background-color: #0066cc;
+            position: absolute;
+            left: 50%;
+            transform:translate(-50%,0);
+            bottom: 0;
+            min-width: 35px;
+        }
+        .detail-text{
+            font-size: 0.28rem;
+            color: #666666;
+            text-indent: 2em;
+            text-align: justify;
+        }
+        .detail-text p{
+            margin-bottom: 0.12rem;
+        }
+        .detail-pad{
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+
+    </style>
+</head>
+<body>
+<!--引入详情页头部-->
+<th:block th:replace="common/layout::detail-header"/>
+<main class="main-content">
+    <div class="detail-pad">
+        <div class="detail-text" style="padding-top: 0.61rem;padding-bottom: 0.49rem;">
+            <p>
+                基础产品交易服务平台，是满足公共资源交易技术规范的要求，为公共资源交易中心打造集信息化、电子化、智慧化服务能力于一身的服务平台。平台提供公共资源交易门户网站，建立标准接口与电子交易平台、各级服务或监督平台进行对接，可实现招标采购公告、答疑补遗、中标公告等交易信息的多网发布。平台提供企业信息、场地资源、专家资源的共享和专家抽取、场地预约、工作流业务办理等专业交易服务。
+            </p>
+            <p>
+                交易服务平台实时对接电子交易平台，依照技术规范汇聚全过程的交易数据和文件资料，实现交易大数据的形成，平台对交易主体信息、交易数据可进行全方位、多角度的分析，为用户提供决策支持。
+            </p>
+            <p>
+                交易服务平台通过集成人脸识别、视频直播、变声电话、电子签章等智能化技术，为公共资源交易中心打造评标场所人脸门禁系统、远程变声澄清系统、专家电签系统等智慧化能力。此外，平台还提供电子鉴证、远程监督、消息通讯、标准化人机交互等通用服务。
+            </p>
+        </div>
+        <img class="w-100" style="padding-bottom: 0.75rem;" src="/image/productSystem/details/basicProducts/tradingServicePlatform/jiao-yi-fu-wu.png" alt="">
+    </div>
+</main>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

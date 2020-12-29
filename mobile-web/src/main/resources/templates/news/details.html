@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'新闻详情 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .main-content{
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+        .news-detail{
+            text-align: justify;
+        }
+        .news-detail-title{
+            font-size: 0.38rem;
+            color: #000000;
+            font-weight: 500;
+            padding-top: 0.59rem;
+            padding-bottom: 0.06rem;
+        }
+        .news-detail-desc{
+            padding-bottom: 0.49rem;
+            display: flex;
+        }
+        .news-detail-push-time{
+            font-size: 0.26rem;
+            color: #999999;
+        }
+        .news-detail-author{
+            margin-left: 0.5rem;
+            font-size: 0.26rem;
+            color: #999999;
+        }
+        .news-detail-content-part{
+            text-align: justify;
+            padding-bottom: 0.61rem;
+        }
+        .news-detail-content{
+            font-size: 0.28rem;
+            color: #333333;
+        }
+        .news-detail-content-part p{
+            margin-bottom:0.16rem;
+        }
+    </style>
+</head>
+<body>
+<!--引入详情页头部-->
+<th:block th:replace="common/layout::detail-header"/>
+<main class="main-content">
+    <div class="news-detail">
+        <div class="news-detail-title"  th:text="${news?.title}"></div>
+        <div class="news-detail-desc">
+            <div class="news-detail-push-time" th:text="'发布时间：'+${news?.pushTime!=null and news?.pushTime!=''?#dates.format(news?.pushTime, 'yyyy-MM-dd'):''}"></div>
+            <div class="news-detail-author" th:text="'发布者：'+${news?.authorName!=null and news?.authorName!=''?news?.authorName:''}"></div>
+        </div>
+    </div>
+    <div class="news-detail-content-part">
+        <div class="news-detail-content" th:utext="${news?.content}">新闻资讯内容</div>
+    </div>
+</main>
+<th:block th:replace="common/layout::footer"/>
+<script>
+    $(function () {
+        //解决新闻详情与pc端新闻自适应问题
+        /*$('.news-detail-content-part img').css('width','auto').css('maxWidth','6.5rem').css('height','auto');*/
+        var parent = $('.news-detail-content-part img').parent();
+        if(parent){
+            $.each(parent, function (i, item) {
+                item.style.textIndent = 0;
+            })
+        }
+    })
+</script>
+
+</body>
+</html>

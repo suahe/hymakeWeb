@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>下拉框分类管理</title>
+	<th:block th:replace="fragments/include::common_header" />
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+	<div class="ibox">
+		<div class="ibox-title">
+			<h4>下拉框分类管理</h4>
+		</div>
+		<div class="ibox-content">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="pull-left" style="padding-bottom: 10px;" >
+						<button id="_add_button" type="button" class="btn btn-outline btn-primary">增加</button>
+						<button id="_del_button" type="button" class="btn btn-outline btn-danger">删除</button>
+					</div>
+					<div class="pull-right" style="padding-right: 0px;">
+						<form id="_search_form" class="form-inline">
+							<select id="_search_belong_page_type" name="belongPagetype" class="form-control" ></select>
+							<div class="input-group pull-right" style="padding-left: 10px;">
+								<input id="_search_name" name="name" type="text" class="form-control" style="width: 300px;" placeholder="请输入查询名称">
+								<span class="input-group-btn">
+											<button id="_search" type="button" class="btn btn-default">搜索</button>
+											<button id="_search_reset" type="button" class="btn btn-default">重置</button>
+										</span>
+							</div>
+						</form>
+					</div>
+					<table id="_t_drop_down_box"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 新增信息模态窗口 -->
+<div class="modal fade" id="_t_drop_down_box_add_window" tabindex="-1" role="dialog" aria-labelledby="#_t_drop_down_box_add_window">
+	<div class="modal-dialog" role="document" style="width: 450px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">下拉框分类管理--新增</h4>
+			</div>
+			<div class="modal-body">
+				<form id="_t_drop_down_box_add_form" class="form-horizontal">
+					<div class="form-group">
+						<label for="_name_add" class="col-xs-3 control-label">名称</label>
+						<div class="col-xs-9">
+							<input type="text" id="_name_add" name="name" class="form-control" placeholder="请输入名称" >
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="_belong_page_type_add" class="col-xs-3 control-label">所属页面</label>
+						<div class="col-xs-9" id="_select_div_add">
+							<select id="_belong_page_type_add" name="belongPageType" class="form-control" ></select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-3 control-label">标签(多选)</label>
+						<div class="col-xs-9">
+							<select multiple="multiple" id="label_ids_add" name="labelIds"  class="label-ids" style="width:100%;">
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-3 control-label">产品(多选)</label>
+						<div class="col-xs-9">
+							<select multiple="multiple" id="product_ids_add" name="productIds"  class="label-ids" style="width:100%;">
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="_sequ_add" class="col-xs-3 control-label">排序号</label>
+						<div class="col-xs-9">
+							<input type="text" id="_sequ_add" name="sequ" class="form-control" placeholder="请输入排序号" >
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button id="_t_drop_down_box_add_close_button" type="button" class="btn btn-default">取消</button>
+				<button id="_t_drop_down_box_add_button" type="button" class="btn btn-primary">保存信息</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 编辑信息模态窗口 -->
+<div class="modal fade" id="_t_drop_down_box_edit_window" tabindex="-1" role="dialog" aria-labelledby="#_t_drop_down_box_edit_window">
+	<div class="modal-dialog" role="document" style="width: 450px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">下拉框分类管理--编辑</h4>
+			</div>
+			<div class="modal-body">
+				<form id="_t_drop_down_box_edit_form" class="form-horizontal">
+					<input type="text" id="_dropDownBoxId_edit" name="dropDownBoxId" style="display: none;" >
+					<div class="form-group">
+						<label for="_name_edit" class="col-xs-3 control-label">名称</label>
+						<div class="col-xs-9">
+							<input type="text" id="_name_edit" name="name" class="form-control" placeholder="请输入标题" >
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="_belong_page_type_edit" class="col-xs-3 control-label">所属页面</label>
+						<div class="col-xs-9" >
+							<select id="_belong_page_type_edit" name="belongPageType" class="form-control" ></select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-3 control-label">标签(多选)</label>
+						<div class="col-xs-9">
+							<select multiple="multiple" id="label_ids_edit" name="labelIds"  class="label-ids" style="width:100%;">
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-3 control-label">产品(多选)</label>
+						<div class="col-xs-9">
+							<select multiple="multiple" id="product_ids_edit" name="productIds"  class="label-ids" style="width:100%;">
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="_sequ_edit" class="col-xs-3 control-label">排序号</label>
+						<div class="col-xs-9">
+							<input type="text" id="_sequ_edit" name="sequ" class="form-control" placeholder="请输入排序号" >
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button id="_t_drop_down_box_edit_close_button" type="button" class="btn btn-default">取消</button>
+				<button id="_t_drop_down_box_edit_button" type="button" class="btn btn-primary">保存信息</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	.multiselect-wrapper {
+		display: inline-block;
+		position: relative;
+		vertical-align: middle;
+		text-align: left;
+	}
+
+	.multiselect-wrapper button {
+		text-align: left;
+	}
+
+	.multiselect-wrapper span {
+		margin-left: 3px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: block;
+	}
+
+	.multiselect-wrapper .dropdown-menu {
+		width: 100%;
+	}
+
+	.multiselect-wrapper .caret {
+		position: absolute;
+		top: 13px;
+		right: 10px;
+		width: 0;
+		height: 0;
+	}
+
+	.multiselect-wrapper label.checkbox, .multiselect-wrapper label.radio {
+		padding: 3px 20px 3px 30px !important;
+		width: 100%;
+	}
+</style>
+<script type="text/javascript">
+	$(document).ready(function(){
+		//清除多选下拉框选项
+		$("select[name='belongPageType']").on("change",function () {
+			$("#label_ids_add").multiselect('dataprovider',[]);
+			$("#label_ids_edit").multiselect('dataprovider',[]);
+			$("#product_ids_add").multiselect('dataprovider',[]);
+			$("#product_ids_edit").multiselect('dataprovider',[]);
+		})
+		//新增多选下拉框初始化
+		$("#label_ids_add").multiselect({
+			enableClickableOptGroups: false,
+			enableCollapsibleOptGroups: false,
+			//buttonWidth:283,  //选择框的大小
+			includeSelectAllOption: false,
+			selectAllJustVisible:false,
+			maxHeight:200,
+			buttonWidth: "100%",
+			buttonContainer: "<div class='multiselect-wrapper'/>",
+			//下拉回调函数
+			onDropdownShow: function (event) {
+				label_addOption_add();
+			},
+		});
+		//编辑多选下拉框初始化
+		$("#label_ids_edit").multiselect({
+			enableClickableOptGroups: false,
+			enableCollapsibleOptGroups: false,
+			//buttonWidth:283,  //选择框的大小
+			includeSelectAllOption: false,
+			selectAllJustVisible:false,
+			maxHeight:200,
+			buttonWidth: "100%",
+			buttonContainer: "<div class='multiselect-wrapper'/>",
+			//下拉回调函数
+			onDropdownShow: function (event) {
+				label_addOption_edit();
+			},
+		});
+		//新增多选下拉框初始化
+		$("#product_ids_add").multiselect({
+			enableClickableOptGroups: false,
+			enableCollapsibleOptGroups: false,
+			//buttonWidth:283,  //选择框的大小
+			includeSelectAllOption: false,
+			selectAllJustVisible:false,
+			maxHeight:200,
+			buttonWidth: "100%",
+			buttonContainer: "<div class='multiselect-wrapper'/>",
+			//下拉回调函数
+			onDropdownShow: function (event) {
+				product_addOption_add();
+			},
+		});
+		//编辑多选下拉框初始化
+		$("#product_ids_edit").multiselect({
+			enableClickableOptGroups: false,
+			enableCollapsibleOptGroups: false,
+			//buttonWidth:283,  //选择框的大小
+			includeSelectAllOption: false,
+			selectAllJustVisible:false,
+			maxHeight:200,
+			buttonWidth: "100%",
+			buttonContainer: "<div class='multiselect-wrapper'/>",
+			//下拉回调函数
+			onDropdownShow: function (event) {
+				product_addOption_edit();
+			},
+		});
+		//新增多选下拉框初始化
+		function label_addOption_add(){
+			var _belongPageType = $("#_belong_page_type_add").val();
+			if(!_belongPageType){
+				swal({
+					title: "系统提示",
+					text: "请先选择所属页面类型！",
+					type: "info",
+					confirmButtonColor: "#1AB394",
+					confirmButtonText: "确定",
+					timer: 2000
+				});
+			}else {
+				$.get('../lc/getLabels',{'belongPageType':_belongPageType},function(data){
+					if(data){
+						$("#label_ids_add").multiselect('dataprovider',data);
+					}
+				});
+			}
+		}
+		//编辑多选下拉框初始化
+		function label_addOption_edit(){
+			var _belongPageType = $("#_belong_page_type_edit").val();
+			var _dropDownBoxId = $('#_dropDownBoxId_edit').val();
+			if(!_belongPageType){
+				swal({
+					title: "系统提示",
+					text: "请先选择所属页面类型！",
+					type: "info",
+					confirmButtonColor: "#1AB394",
+					confirmButtonText: "确定",
+					timer: 2000
+				});
+			}else {
+				$.get('../lc/getLabels',{'belongPageType':_belongPageType,'dropDownBoxId':_dropDownBoxId},function(data){
+					if(data){
+						$("#label_ids_edit").multiselect('dataprovider',data);
+					}
+				});
+			}
+		}
+
+		//新增多选下拉框初始化
+		function product_addOption_add(){
+			var _belongPageType = $("#_belong_page_type_add").val();
+			if(!_belongPageType){
+				swal({
+					title: "系统提示",
+					text: "请先选择所属页面类型！",
+					type: "info",
+					confirmButtonColor: "#1AB394",
+					confirmButtonText: "确定",
+					timer: 2000
+				});
+			}else {
+				$.get('../pc/getProductsByDropDownBoxId',{'belongPageType':_belongPageType},function(data){
+					if(data){
+						$("#product_ids_add").multiselect('dataprovider',data);
+					}
+				});
+			}
+		}
+		//编辑多选下拉框初始化
+		function product_addOption_edit(){
+			var _belongPageType = $("#_belong_page_type_edit").val();
+			var _dropDownBoxId = $('#_dropDownBoxId_edit').val();
+			if(!_belongPageType){
+				swal({
+					title: "系统提示",
+					text: "请先选择所属页面类型！。",
+					type: "info",
+					confirmButtonColor: "#1AB394",
+					confirmButtonText: "确定",
+					timer: 2000
+				});
+			}else {
+				$.get('../pc/getProductsByDropDownBoxId',{'belongPageType':_belongPageType,'dropDownBoxId':_dropDownBoxId},function(data){
+					if(data){
+						$("#product_ids_edit").multiselect('dataprovider',data);
+					}
+				});
+			}
+		}
+
+		$('#_search_belong_page_type').btSelect({
+			code: 'CPLX'
+			,width: 150
+		});
+		$('#_belong_page_type_add').btSelect({
+			code: 'CPLX'
+			,width: 283
+		});
+		$('#_belong_page_type_edit').btSelect({
+			code: 'CPLX'
+			,width: 283,
+			value:1
+		});
+		/* 初始化Token */
+		secjs.init();
+
+		/* t_chronology表列表信息*/
+		$("#_t_drop_down_box").bootstrapTable({
+			url: '../ddbc/list'
+			,method: 'GET'
+			,totalField: 'total'
+			,dataField: 'list'
+			,pagination: true
+			,pageSize: 10
+			,pageList: [10,20,100]
+			,sidePagination: "server"
+			,singleSelect: true
+			,clickToSelect: true
+			,columns: [
+				{checkbox: true,valign: 'middle'}
+				,{field: 'dropDownBoxId',title: '下拉框分类编号',halign: 'center',align: 'left',valign: 'middle',visible: false}
+				,{field: 'name',title: '名称',halign: 'center',align: 'left',valign: 'middle',visible: true
+					,formatter:function(value,row,index){
+						return '<a class="edit" data-id="'+row.dropDownBoxId+'" href="javascript:void(0);">'+ value +'</a>'
+					}
+				}
+				,{field: 'belongPageTypeName',title: '所属页面类型',halign: 'center',align: 'left',valign: 'middle',visible: true}
+				,{field: 'labelNames',title: '关联标签名称',halign: 'center',align: 'left',valign: 'middle',visible: true}
+				,{field: 'productNames',title: '关联产品标题',halign: 'center',align: 'left',valign: 'middle',visible: true}
+				,{field: 'sequ',title: '排序号',halign: 'center',align: 'left',valign: 'middle',visible: true}
+				,{field: 'pushTime',title: '设置发布状态',halign: 'center',align: 'center',valign: 'middle',visible: true
+					,formatter:function(value,row,index){
+						if(null == value){
+							return '<a class="stat-push" data-id="'+row.dropDownBoxId+'" href="javascript:void(0);">发布</a>'
+						}else{
+							return '<span>已发布（'+value+'）</span><a class="stat-pull" data-id="'+row.dropDownBoxId+'" href="javascript:void(0);">下架</a>'
+						}
+					}
+				}
+			]
+			,queryParams: function (params) {	//设置查询条件
+				return {
+					"offset": params.offset
+					,"limit": params.limit
+					,"name": $('#_search_name').val()
+					,"belongPageType": $('#_search_belong_page_type').val()
+				};
+			}
+		});
+
+		/* 查询 */
+		$("#_search").click(function(){
+			$("#_t_drop_down_box").bootstrapTable('refresh');
+		});
+
+		/* 查询重置 */
+		$("#_search_reset").click(function(){
+			$('#_search_belong_page_type').empty();
+			$('#_search_form')[0].reset();
+			$("#_t_drop_down_box").bootstrapTable('refresh');
+		});
+
+		/* 弹出新增信息窗口 */
+		$("#_add_button").click(function(){
+			$('#_t_drop_down_box_add_form')[0].reset();
+			$('#_belong_page_type_add').empty();
+			$("#label_ids_add").multiselect('dataprovider',[]);
+			$("#product_ids_add").multiselect('dataprovider',[]);
+			$('#_t_drop_down_box_add_window').modal('show');
+		});
+
+		/* 验证新增信息表单 */
+		$('#_t_drop_down_box_add_form').bootstrapValidator({
+			message: '验证提示信息',
+			fields: {
+				name: {
+					validators:{
+						notEmpty:{
+							message: '必填'
+						},
+						stringLength:{
+							max: 100,
+							message: '长度应小于100个字'
+						}
+					}
+				}
+				,belongPagetype: {
+					validators:{
+						notEmpty:{
+							message: '必填'
+						}
+					}
+				}
+				,sequ: {
+					validators:{
+						notEmpty:{
+							message: '必填'
+						},
+						stringLength:{
+							max: 9,
+							message: '长度应小于9位数'
+						}
+					}
+				}
+			}
+		});
+
+		/* 保存新增信息 */
+		$('#_t_drop_down_box_add_button').click(function(){
+			var _form = $('#_t_drop_down_box_add_form');
+			_form.bootstrapValidator('validate');
+			var flag = _form.data('bootstrapValidator').isValid();
+			if(flag){
+				$.post('../ddbc/add', _form.serialize(),function(r){
+					if(r > 0){
+						$("#_t_drop_down_box").bootstrapTable('refresh');
+						_form.data('bootstrapValidator').resetForm();
+						$('#_t_drop_down_box_add_window').modal('hide');
+						message.saveSuccess();
+					}else{
+						message.saveFall();
+					}
+				});
+			}
+		});
+
+		/* 关闭新增信息窗口 */
+		$('#_t_drop_down_box_add_close_button').click(function(){
+			$('#_t_drop_down_box_add_window').modal('hide');
+		});
+
+		/* 编辑  链接点击事件 */
+		$("#_t_drop_down_box").on("click",".edit",function(event){
+			$('#_belong_page_type_edit').empty();
+			var _dropDownBoxId = $(this).data('id');
+			$.get('../ddbc/view', {'dropDownBoxId':_dropDownBoxId},function(r){
+				$.setForm('#_t_drop_down_box_edit_form',r);
+				$('#_belong_page_type_edit').append("<option value='" + r.belongPageType + "'>" + r.belongPageTypeName + "</option>");
+				label_addOption_edit();
+				product_addOption_edit();
+				$('#_t_drop_down_box_edit_window').modal('show');
+			});
+		});
+
+		/* 验证编辑信息表单 */
+		$('#_t_drop_down_box_edit_form').bootstrapValidator({
+			message: '验证提示信息',
+			fields: {
+				name: {
+					validators:{
+						notEmpty:{
+							message: '必填'
+						},
+						stringLength:{
+							max: 100,
+							message: '长度应小于100个字'
+						}
+					}
+				}
+				,belongPagetype: {
+					validators:{
+						notEmpty:{
+							message: '必填'
+						}
+					}
+				}
+				,sequ: {
+					validators:{
+						notEmpty:{
+							message: '必填'
+						},
+						stringLength:{
+							max: 9,
+							message: '长度应小于9位数'
+						}
+					}
+				}
+			}
+		});
+
+		/* 保存编辑信息 */
+		$('#_t_drop_down_box_edit_button').click(function(){
+			var _form = $('#_t_drop_down_box_edit_form');
+			_form.bootstrapValidator('validate');
+			var flag = _form.data('bootstrapValidator').isValid();
+			if(flag){
+				$.post('../ddbc/edit', _form.serialize(),function(r){
+					if(r > 0){
+						$("#_t_drop_down_box").bootstrapTable('refresh');
+						_form.data('bootstrapValidator').resetForm();
+						$('#_t_drop_down_box_edit_window').modal('hide');
+						message.saveSuccess();
+					}else{
+						message.saveFall();
+					}
+				});
+			}
+		});
+
+		/* 关闭编辑信息窗口 */
+		$('#_t_drop_down_box_edit_close_button').click(function(){
+			$('#_t_drop_down_box_edit_window').modal('hide');
+		});
+
+		/** 点击 下架 */
+		$("#_t_drop_down_box").on("click",".stat-push",function(event){
+
+			$.post('../ddbc/updateStatus', {'dropDownBoxId':$(this).data('id'),'mark':1},function(r){
+				if(r > 0){
+					message.success("上架下拉框分类信息成功");
+					$("#_t_drop_down_box").bootstrapTable('refresh');
+				}else{
+					message.warning("上架下拉框分类信息失败");
+				}
+			})
+		});
+		/** 点击 下架 */
+		$("#_t_drop_down_box").on("click",".stat-pull",function(event){
+
+			$.post('../ddbc/updateStatus', {'dropDownBoxId':$(this).data('id'),'mark':0},function(r){
+				if(r > 0){
+					message.success("下架下拉框分类信息成功");
+					$("#_t_drop_down_box").bootstrapTable('refresh');
+				}else{
+					message.warning("下架下拉框分类信息失败");
+				}
+			})
+		});
+
+		/* 删除信息 */
+		$('#_del_button').click(function () {
+			var row = $('#_t_drop_down_box').bootstrapTable('getSelections');
+			if (typeof(row) != 'undefined' && row.length != 0){
+				swal({
+					type: "warning",
+					title: "确认要删除？",
+					text: "你的操作会删除选择的记录",
+					showCancelButton: true,
+					cancelButtonText: "取消",
+					confirmButtonColor: "#1AB394",
+					confirmButtonText: "确定删除？",
+					closeOnConfirm: false
+				}, function () {
+					var _dropDownBoxId = row[0].dropDownBoxId;
+					$.get('../ddbc/del', {'dropDownBoxId':_dropDownBoxId},function(r){
+						if(r > 0){
+							message.delSuccess();
+							$("#_t_drop_down_box").bootstrapTable('refresh');
+						}else{
+							message.delFall();
+						}
+					})
+				});
+			}else{
+				message.selectOne();
+			}
+		});
+	})
+</script>
+</body>
+</html>

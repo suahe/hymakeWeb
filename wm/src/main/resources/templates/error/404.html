@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <title>404错误</title>
+	    <link rel="shortcut icon" href="../favicon.ico">
+	    <link th:href="@{/modules/bootstrap/css/bootstrap.css}" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" th:src="@{/js/jquery-3.3.1.js}" charset="utf-8"></script>
+		<!-- BootStrap dropdown 组件 注意：必须在bootstrap.js前引用 -->
+	    <script type="text/javascript" th:src="@{/modules/popper/popper.js}" charset="utf-8"></script>
+		<!-- BootStrap 主JS -->
+		<script type="text/javascript" th:src="@{/modules/bootstrap/js/bootstrap.js}" charset="utf-8"></script>
+		<!-- 动画库 -->
+		<link th:href="@{/modules/animate/animate.css}" rel="stylesheet" type="text/css" />
+		<!-- inspinia -->
+		<link th:href="@{/modules/inspinia/style.css}" rel="stylesheet" type="text/css" />
+		<!-- inspinia -->
+		<script type="text/javascript" th:src="@{/modules/inspinia/inspinia.js}" charset="utf-8"></script>
+	    <!-- 页面加载进度条 -->
+	    <script type="text/javascript" th:src="@{/modules/pace/pace.js}" charset="utf-8"></script>
+	    <!-- slimScroll滚动条 -->
+	    <script type="text/javascript" th:src="@{/modules/slimscroll/jquery.slimscroll.js}" charset="utf-8"></script>
+	</head>
+	<body class="gray-bg">
+	    <div class="middle-box text-center animated fadeInUp">
+	        <h1>404</h1>
+	        <h3 class="font-bold">页面未找到</h3>
+	        <div class="error-desc">
+	            	抱歉，页面好像不见了~
+	            <br/>您可以返回主页看看或者<a href="mailto:">联系管理员</a>吐槽
+	            <br/><a th:href="@{/}" class="btn btn-primary m-t">传送回 主页</a>
+	        </div>
+	    </div>
+	</body>
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'产品体系 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .bg-fa{
+            background-color: #fafafa;
+        }
+
+        .link {
+            margin-top: 10px;
+        }
+
+        .link li {
+            float: left;
+            display: inline;
+            margin-left: 107px;
+        }
+
+        .link li a {
+            color: #666666;
+            font-size: 16px;
+            font-weight: 500;
+            padding-bottom: 6px;
+            display: block;
+            text-decoration: none;
+            margin-top: 5px;
+        }
+
+        .link li.active {
+            border-bottom: 2px solid #0066cc;
+        }
+
+        .link li.active a {
+            color: #0066cc;
+            text-decoration: none;
+            margin-top: 5px;
+            margin-bottom: 4px;
+        }
+
+        .icon_img {
+            width: 56px;
+            height: 56px;
+        }
+
+        .dispaly_none {
+            display:none;
+        }
+
+        .produce-system-card{
+            line-height: 2;
+            width: 585px;
+            height: 360px;
+            background: url('/image/productSystem/product_system_bg.png');
+        }
+        .produce-system-card-body{
+            padding: 52px 40px 30px 40px;
+        }
+        .produce-system-card-title{
+            font-size: 22px;
+            color: #333333;
+            font-weight: bold;
+            margin-top: 8px;
+            margin-left: 30px;
+        }
+        .produce-system-card-text{
+            font-size: 16px;
+            color: #666666;
+            margin-top: 28px;
+            text-align: justify;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+
+        .btn-div{
+            margin-top: 32px;
+            margin-bottom: 30px
+        }
+
+        .btn-a{
+            font-size: 16px;
+            padding: 0.25rem 0.8rem;
+        }
+
+        .banner-div{
+            height: 350px;
+            /*background: url('/image/produceSystem/product_system_banner.png') no-repeat;*/
+            background: url('/image/productSystem/product_banner_bg.png') no-repeat;
+            background-size: 100% 350px;
+        }
+        .text-div{
+            width: 100%;
+            padding-top: 90px;
+        }
+        .banner-title{
+            font-size: 44px;
+            color: #ffffff;
+        }
+        .banner-text{
+            font-size: 18px;
+            width: 670px;
+            color: #ffffff;
+            line-height: 2;
+            margin-top: 9px
+        }
+        .banner-img-content{
+            padding-top: 25px;
+            padding-bottom: 25px;
+        }
+    </style>
+</head>
+<body>
+<!-- 头部分-->
+<th:block th:replace="common/layout::header"/>
+<div class="banner-div">
+    <!--<img class="card-img-top h-400px" src="/image/produceSystem/product_system_banner.png">-->
+        <div class="container d-flex">
+            <div class="text-div">
+                <div class="banner-title">产品体系</div>
+                <div class="banner-text">
+                    覆盖建筑全生命期的设计、招投标、施工、运维的全过程，率先实现国内和省内多个创新。
+                </div>
+            </div>
+            <img class="banner-img-content" src="/image/productSystem/product_banner_content.png" alt="">
+        </div>
+</div>
+<div class="nav bg-fa" id="newsTab"  style="height: 60px">
+    <div class="container">
+        <ul class="link">
+            <li id="core" class="ml-0"><a href="/productSystem?active=0">核心产品</a></li>
+            <li id="base"><a href="/productSystem?active=1">基础产品</a></li>
+            <li id="extend"><a href="/productSystem?active=2">扩展产品</a></li>
+            <li id="additional"><a href="/productSystem?active=3">附加产品</a></li>
+            <li id="potential"><a href="/productSystem?active=4">潜力产品</a></li>
+        </ul>
+    </div>
+</div>
+<div class="container" style="margin-bottom: 80px;">
+    <div id="core_produce">
+        <div class="row" style="margin-top: 40px">
+            <div class="col-6">
+                <div class="card produce-system-card">
+                    <div class="card-body produce-system-card-body">
+                        <div class="d-flex">
+                            <img class="icon_img" src="/image/productSystem/calculation_software_icon.png" alt="">
+                            <div class="card-title produce-system-card-title">算量软件</div>
+                        </div>
+                        <p class="card-text produce-system-card-text">
+                            核心产品“爽算”系列算量软件，包含土建钢筋、安装算量软件，应用于建设工程预算、招投标阶段、施工过程提量和结算阶段，服务于业主、施工企业、中介咨询等单位的工程造价人员，支持CAD图纸导入与管理，快速识别底图图元，同时内嵌计算规则，实现快速计算及汇总。
+                        </p>
+                        <div class="btn-div">
+                            <a href="/productSystem/coreProducts/calculationSoftware" class="btn btn-outline-primary btn-lg btn-a">产品详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card produce-system-card">
+                    <div class="card-body produce-system-card-body">
+                        <div class="d-flex">
+                            <img class="icon_img" src="/image/productSystem/price_software_icon.png" alt="">
+                            <div class="card-title produce-system-card-title">计价软件</div>
+                        </div>
+                        <p class="card-text produce-system-card-text">
+                            核心产品计价软件是我国最早推行的清单计价软件之一，荣获“福建省名牌产品”，技术处于国内领先地位。在提供便捷管理、高效编制、智能检查的功能，满足工作需要的同时，依托大数据服务，帮助造价人员逐步形成个人、企业知识经验的积累，快速提升能力。
+                        </p>
+                        <div class="btn-div">
+                            <a href="/productSystem/coreProducts/priceSoftware" class="btn btn-outline-primary btn-lg btn-a">产品详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 30px">
+            <div class="col-6">
+                <div class="card produce-system-card">
+                    <div class="card-body produce-system-card-body">
+                        <div class="d-flex">
+                            <img class="icon_img" src="/image/productSystem/bim_product_icon.png" alt="">
+                            <div class="card-title produce-system-card-title">BIM产品</div>
+                        </div>
+                        <p class="card-text produce-system-card-text">
+                            核心产品计价软件是我国最早推行的清单计价软件之一，荣获“福建省名牌产品”，技术处于国内领先地位。在提供便捷管理、高效编制、智能检查的功能，满足工作需要的同时，依托大数据服务，帮助造价人员逐步形成个人、企业知识经验的积累，快速提升能力。
+                        </p>
+                        <div class="btn-div">
+                            <a href="/productSystem/coreProducts/BIMProduct" class="btn btn-outline-primary btn-lg btn-a">产品详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card produce-system-card">
+                    <div class="card-body produce-system-card-body">
+                        <div class="d-flex">
+                            <img class="icon_img" src="/image/productSystem/place.png" alt="">
+                            <div class="card-title produce-system-card-title">造价会员制平台</div>
+                        </div>
+                        <p class="card-text produce-system-card-text">
+                            核心产品造价会员制平台，是面向所有造价从业人员推出的一套服务体系。该体系旨在为造价从业人员提供全方位的服务支持，让造价从业人员利用互联网和云技术，对工程造价数据进行积累、存储和再利用...
+                        </p>
+                        <div class="btn-div">
+                            <a href="/productSystem/coreProducts/costMembership" class="btn btn-outline-primary btn-lg btn-a">产品详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--基础产品-->
+    <div id="base_produce" class="dispaly_none">
+        <div class="row" style="margin-top: 40px">
+            <div class="col-6">
+                <div class="card produce-system-card">
+                    <div class="card-body produce-system-card-body">
+                        <div class="d-flex">
+                            <img class="icon_img" src="/image/productSystem/bidding_evaluation_review_software_icon.png" alt="">
+                            <div class="card-title produce-system-card-title">招投标评估评审软件</div>
+                        </div>
+                        <p class="card-text produce-system-card-text">
+                            基础产品招标投标评估评审软件，面向招标代理、评标专家和投标人，分别推出建设工程招投标的评标辅助系统及投标预评估系统。
+                        </p>
+                        <div class="btn-div">
+                            <a href="/productSystem/basicProducts/biddingEvaluationReviewSoftware" class="btn btn-outline-primary btn-lg btn-a">产品详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card produce-system-card">
+                    <div class="card-body produce-system-card-body">
+                        <div class="d-flex">
+                            <img class="icon_img" src="/image/productSystem/electronic_trading_platform_icon.png" alt="">
+                            <div class="card-title produce-system-card-title">电子交易平台</div>
+                        </div>
+                        <p class="card-text produce-system-card-text">
+                            基础产品海易招电子交易平台，是为第三方主体打造的专有电子交易平台，通过云服务、移动交易，提供更安全、更简易、更快捷的交易服务。平台具备满足“多交易模式、低成本搭建、多终端支持”的特点，适用于建设工程招标投标、政企采购、产权交易等业务领域，支持公开招标、邀请招标、竞争性谈判、竞争性磋商、单一来源采购、询价、挂牌交易、竞价交易、拍卖等类别的交易方式。同时，该平台可为运营方进行量身定制化服务。
+                        </p>
+                        <div class="btn-div">
+                            <a href="/productSystem/basicProducts/electronicTradingPlatform" class="btn btn-outline-primary btn-lg btn-a">产品详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 30px">
+            <div class="col-6">
+                <div class="card produce-system-card">
+                    <div class="card-body produce-system-card-body">
+                        <div class="d-flex">
+                            <img class="icon_img" src="/image/productSystem/place.png" alt="">
+                            <div class="card-title produce-system-card-title">交易服务平台</div>
+                        </div>
+                        <p class="card-text produce-system-card-text">
+                            基础产品交易服务平台，是满足公共资源交易技术规范的要求，为公共资源交易中心打造集信息化、电子化、智慧化服务能力于一身的服务平台。
+                        </p>
+                        <div class="btn-div">
+                            <a href="/productSystem/basicProducts/tradingServicePlatform" class="btn btn-outline-primary btn-lg btn-a">产品详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card produce-system-card">
+                    <div class="card-body produce-system-card-body">
+                        <div class="d-flex">
+                            <img class="icon_img" src="/image/productSystem/place.png" alt="">
+                            <div class="card-title produce-system-card-title">工程建设监管平台</div>
+                        </div>
+                        <p class="card-text produce-system-card-text">
+                            基础产品工程建设监管平台，以工程项目为主线，以建设工地为切入点，以工程质量安全为抓手，以信息技术为引领，以“互联网+监管”服务，构建一站式的建设工程质量安全一体化监管体系，服务于行业主管部门、建设单位、监理单位、施工单位，以及项目经理和从业人员，适用于房建、市政、交通、水利等工程建设，具有全业务、全参与、多来源、一站式的鲜明特色。
+                        </p>
+                        <div class="btn-div">
+                            <a href="/productSystem/basicProducts/engineeringConstructionSupervisionPlatform" class="btn btn-outline-primary btn-lg btn-a">产品详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--扩展产品-->
+    <div id="extend_produce" class="dispaly_none">
+        <div class="row" style="margin-top: 40px">
+            <div class="col-6">
+                <div class="card produce-system-card">
+                    <div class="card-body produce-system-card-body">
+                        <div class="d-flex">
+                            <img class="icon_img" src="/image/productSystem/electronic_archive_icon.png" alt="">
+                            <div class="card-title produce-system-card-title">电子档案平台</div>
+                        </div>
+                        <p class="card-text produce-system-card-text">
+                            扩展产品电子档案平台，是为建筑企业提供新型的文件管理方式，通过电子文件的形式取代纸质文件，在实现无纸化的同时，节省大量时间；利用云技术与分布式架构，在保证企业资料安全不丢失的同时，获得更高的服务稳定性和更低的维护成本；结合电子签章及校验技术，使得电子档案具有与纸质资料同等的法律效力。
+                        </p>
+                        <div class="btn-div">
+                            <a href="/productSystem/extendedProducts/electronicFilePlatform" class="btn btn-outline-primary btn-lg btn-a">产品详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card produce-system-card">
+                    <div class="card-body produce-system-card-body">
+                        <div class="d-flex">
+                            <img class="icon_img" src="/image/productSystem/place.png" alt="">
+                            <div class="card-title produce-system-card-title">企业信用管理平台</div>
+                        </div>
+                        <p class="card-text produce-system-card-text">
+                            扩展产品企业信用管理平台，是为施工企业提供的企业级增值服务，助力施工企业落实主体责任、防范工程事故、降低信用丢分风险，提高企业行业竞争力。
+                        </p>
+                        <div class="btn-div">
+                            <a href="/productSystem/extendedProducts/enterpriseCreditManagementPlatform" class="btn btn-outline-primary btn-lg btn-a">产品详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--附加产品-->
+    <div id="additional_produce" class="dispaly_none">
+        <div class="row" style="margin-top: 40px">
+            <div class="col-6">
+                <div class="card produce-system-card">
+                    <div class="card-body produce-system-card-body">
+                        <div class="d-flex">
+                            <img class="icon_img" src="/image/productSystem/place.png" alt="">
+                            <div class="card-title produce-system-card-title">勘察设计管理平台</div>
+                        </div>
+                        <p class="card-text produce-system-card-text">
+                            基础产品勘察设计管理平台，是以“互联网+政务服务”为理念、“多审合一”为基础的信息管理平台，结合管理部门办公业务的特点，围绕行业管理、施工图管理全流程而创建。落实“互联网+”行动计划...
+                        </p>
+                        <div class="btn-div">
+                            <a href="/productSystem/additionalProducts/surveyAndDesignManagementPlatform" class="btn btn-outline-primary btn-lg btn-a">产品详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card produce-system-card">
+                    <div class="card-body produce-system-card-body">
+                        <div class="d-flex">
+                            <img class="icon_img" src="/image/productSystem/place.png" alt="">
+                            <div class="card-title produce-system-card-title">项目视频监管平台</div>
+                        </div>
+                        <p class="card-text produce-system-card-text">
+                            扩展产品项目视频监管平台，通过建立建筑企业项目、专家、项目负责人、检查条款等数据库，利用项目现场视频监控系统，实现企业总部对各项目部的远程质量、安全检查，发现问题后在系统内发出责令整改单，项目部在系统内反馈整改情况，形成质量安全检查闭环。
+                        </p>
+                        <div class="btn-div">
+                            <a href="/productSystem/additionalProducts/projectVideoMonitoringPlatform" class="btn btn-outline-primary btn-lg btn-a">产品详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="potential_produce" class="dispaly_none">
+        <div class="row" style="margin-top: 40px">
+            <div class="col-6">
+                <div class="card produce-system-card">
+                    <div class="card-body produce-system-card-body">
+                        <div class="d-flex">
+                            <img class="icon_img" src="/image/productSystem/bim_digital_operation_and_maintenance_platform_icon.png" alt="">
+                            <div class="card-title produce-system-card-title">BIM数字运维平台</div>
+                        </div>
+                        <p class="card-text produce-system-card-text">
+                            潜力产品BIM数字运维平台，以建筑为载体，以BIM+GIS、物联网、云计算、大数据、人工智能等技术为支撑，面向各行业的各类建筑管理需求，为建筑或建筑群构建安全、绿色、智慧的空间环境，提升服务及运营效率，降低成本与能耗，提升信任度，打造精准贴身、灵活丰富的服务能力。
+                        </p>
+                        <div class="btn-div">
+                            <a href="/productSystem/potentialProducts/BIMDigitalOperationAndMaintenancePlatform" class="btn btn-outline-primary btn-lg btn-a">产品详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card produce-system-card">
+                    <div class="card-body produce-system-card-body">
+                        <div class="d-flex">
+                            <img class="icon_img" src="/image/productSystem/place.png" alt="">
+                            <div class="card-title produce-system-card-title">商品房价格评估调控系统</div>
+                        </div>
+                        <p class="card-text produce-system-card-text">
+                            潜力产品商品房价格评估调控系统，是以实现新建商品房价格评估的科学管理为目标，以成本估价法和市场比较法为指导思想，以信息化技术为手段，以合理成本为基础，以市场供求为导向，兼顾“国家、企业、消费者”三方利益，进行价格评估体系建设，打造指标分析法的房价评估模式。同时，系统并采用“价比+量比”双管齐下，进行评估动态修正，实现按区域、按项目科学、准确、合理指导新建商品房定价，完善市场调控体系，促进房地产业健康发展。
+                        </p>
+                        <div class="btn-div">
+                            <a href="/productSystem/potentialProducts/commercialHousingPriceEvaluationAndControlSystem" class="btn btn-outline-primary btn-lg btn-a">产品详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+</body>
+</html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var active = getUrlParam('active');
+        setDisplay(active);
+
+        /*$('#newsTab a').click(function () {
+            let that = $(this);
+            //设置导航actice状态 改变内容
+            setDisplay(that.text())
+        })*/
+
+        $('.card').mouseenter(function () {
+            var that = $(this);
+            that.addClass("aceive-shadow");
+        })
+
+        $('.card').mouseleave(function () {
+            //获取所有的.card元素
+            var cards = $('.card');
+            cards.removeClass("aceive-shadow");
+        })
+    })
+    /*设置导航actice状态 改变内容*/
+    function setDisplay(active) {
+        var core_produce = $('#core_produce');
+        var core = $('#core');
+        var base_produce = $('#base_produce');
+        var base = $('#base');
+        var extend_produce = $('#extend_produce');
+        var extend = $('#extend');
+        var additional_produce = $('#additional_produce');
+        var additional = $('#additional');
+        var potential_produce = $('#potential_produce');
+        var potential = $('#potential');
+        if(!active||active.indexOf('0')!=-1){
+            core.siblings().removeClass("active");
+            core.addClass("active");
+            core_produce.removeClass('dispaly_none')
+            core_produce.siblings().addClass("dispaly_none");
+        }else if(active.indexOf('1')!=-1){
+            base.siblings().removeClass("active");
+            base.addClass("active");
+            base_produce.removeClass('dispaly_none')
+            base_produce.siblings().addClass("dispaly_none");
+        } else if(active.indexOf('2')!=-1){
+            extend.addClass("active");
+            extend.siblings().removeClass("active");
+            extend_produce.removeClass('dispaly_none')
+            extend_produce.siblings().addClass("dispaly_none");
+        }else if(active.indexOf('3')!=-1){
+            additional.siblings().removeClass("active");
+            additional.addClass("active");
+            additional_produce.removeClass('dispaly_none')
+            additional_produce.siblings().addClass("dispaly_none");
+        }else if(active.indexOf('4')!=-1){
+            potential.siblings().removeClass("active");
+            potential.addClass("active");
+            potential_produce.removeClass('dispaly_none')
+            potential_produce.siblings().addClass("dispaly_none");
+        }
+    }
+    function getUrlParam(name) {//a标签跳转获取参数
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return (decodeURIComponent(r[2])); return null;
+    }
+</script>

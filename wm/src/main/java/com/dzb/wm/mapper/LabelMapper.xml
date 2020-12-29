@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dzb.wm.mapper.LabelMapper">
+
+	<sql id="all">
+			label_id
+			,belong_page_type
+			,name
+			,sequ
+			,push_time
+	</sql>
+
+	<select id="selectPagination" resultType="LabelEntity">
+		SELECT <include refid="all" />
+		FROM t_label
+		WHERE 1 = 1
+		<if test="belongPageType != null and belongPageType != ''">
+			and belong_page_type = #{belongPageType}
+		</if>
+		<if test="name != null and name != ''">
+			and name like '%${name}%'
+		</if>
+		ORDER BY belong_page_type ASC,sequ ASC
+	</select>
+
+	<insert id="insert" parameterType="LabelEntity">
+		insert into t_label (
+			label_id
+			,name
+			,belong_page_type
+			,sequ
+			,update_userid
+			,update_time
+		)
+		values(
+			#{labelId}
+			,#{name}
+			,#{belongPageType}
+			,#{sequ}
+			,#{updateUserid}
+			,#{updateTime}
+		)
+	</insert>
+
+	<delete id="del" parameterType="long">
+		delete from t_label where label_id = #{labelId}
+	</delete>
+
+	<select id="getByPkey" resultType="LabelEntity">
+		select <include refid="all" /> from
+		t_label where label_id = #{labelId}
+	</select>
+
+	<update id="update" parameterType="LabelEntity">
+		update t_label set
+		name = #{name},belong_page_type = #{belongPageType},sequ = #{sequ}
+		,update_userid = #{updateUserid},update_time = #{updateTime}
+		where label_id = #{labelId}
+	</update>
+
+	<select id="getLabels" resultType="LabelEntity">
+		SELECT l.label_id,l.name
+		<if test="dropDownBoxId != null">
+			, IF(EXISTS(
+			SELECT * FROM t_drop_down_box_label dl WHERE dl.label_id = l.label_id AND dl.drop_down_box_id = #{dropDownBoxId}
+			),1,0) AS selected
+		</if>
+		FROM t_label l where l.belong_page_type = #{belongPageType}
+	</select>
+
+	<insert id="batchInsertSelectedProcut">
+		insert into t_label_product (
+		id
+		,label_id
+		,product_id
+		)
+		values
+		<foreach collection="labelProdcutEntitieList" item="item" index="index" separator=",">
+			(#{item.id},#{item.labelId},#{item.productId})
+		</foreach>
+	</insert>
+
+	<delete id="delSelectedProduct" parameterType="Long">
+		delete from t_label_product where label_id = #{labelId}
+	</delete>
+
+	<select id="getProdcutNames" parameterType="Long" resultType="String">
+		SELECT  (
+			SELECT GROUP_CONCAT(p.title) FROM t_label_product lp LEFT JOIN t_product p ON lp.product_id = p.product_id WHERE lp.label_id = l.label_id
+ 		) AS productNames FROM t_label l where l.label_id = #{labelId}
+	</select>
+
+	<update id="updateState" parameterType="LabelEntity">
+		update t_label set
+		push_time = #{pushTime}
+		where label_id = #{labelId}
+	</update>
+</mapper>

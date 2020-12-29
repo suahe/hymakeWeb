@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'新闻资讯 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <script type="text/javascript" src="/js/dropload/dropload.min.js" charset="utf-8"></script>
+    <style scoped="scoped">
+        .main-content{
+
+        }
+        .proTopLabel {
+            padding: 0.35rem 0.5rem;
+            font-size: 0;
+        }
+
+        .proTopLabel a {
+            display: inline-block;
+            width: 1.5rem;
+            height: 0.68rem;
+            margin-right: 0.16rem;
+            text-align: center;
+            line-height: 0.68rem;
+            font-size: 0.28rem;
+            color: #6C6C6C;
+            border: 1px solid #DDDDDD;
+        }
+
+        .proTopLabel a:hover{
+            text-decoration: none;
+        }
+        .proTopLabel a:nth-child(4n) {
+            margin-right: 0;
+        }
+
+        .proTopLabel a.on {
+            color: #005bac;
+            text-decoration: none;
+            border-color: #449ef9;
+        }
+
+        .news-part{
+            padding:0 0.5rem;
+            /*min-height: 1.45rem;*/
+        }
+        .news-info{
+            font-size: 0.26rem;
+            color: #666666;
+        }
+        .news-content{
+            display: -webkit-box;
+            overflow: hidden;
+            white-space: normal!important;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            margin-bottom: 0.53rem;
+            font-size: 0.28rem;
+        }
+        .news-content>a{
+            text-decoration: none;
+            font-size: 0.28rem;
+            color: #333333;
+            text-align: justify;
+        }
+        .news-title{
+            display: -webkit-box;
+            overflow: hidden;
+            white-space: normal!important;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            margin-bottom: 0.03rem;
+            font-size: 0.36rem;
+        }
+        .news-title >a{
+            text-decoration: none;
+            font-size: 0.36rem;
+            color: #000000;
+            text-align: justify;
+            font-weight: 500;
+        }
+        .news-title>a:hover {
+            color: #0066cc;
+        }
+
+
+
+        .dropload-up, .dropload-down {
+            position: relative;
+            height: 0;
+            overflow: hidden;
+            color: #999999;
+            font-size: 0.24rem;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+
+        .dropload-down {
+            height: 0.5rem;
+        }
+
+        .dropload-refresh, .dropload-update, .dropload-load, .dropload-noData {
+            height: 0.5rem;
+            line-height: 0.5rem;
+            text-align: center;
+        }
+
+        .dropload-load .loading {
+            display: inline-block;
+            height: 0.16rem;
+            width: 0.16rem;
+            border-radius: 100%;
+            margin: 0rem 0.1rem;
+            border: 1px solid #999;
+            border-bottom-color: transparent;
+            vertical-align: middle;
+            -webkit-animation: rotate 0.75s linear infinite;
+            animation: rotate 0.75s linear infinite;
+        }
+        .navFix{
+            background:#FFF;
+            position:sticky;
+            top:1.12rem;
+            z-index:2;
+        }
+        .no-data{
+            color: #999999;
+            font-size: 0.24rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<!--引入头部-->
+<th:block th:replace="common/layout::header"/>
+<main class="main-content">
+    <div>
+        <img class="w-100" src="/image/news/news-banner.png" alt="">
+    </div>
+    <div id="newsNav" class="proTopLabel">
+        <a th:classappend="${type=='1'}?'on'" href="/news?type=1&page=1">公司新闻</a>
+        <a th:classappend="${type=='2'}?'on'" href="/news?type=2&page=1">产品新闻</a>
+        <a th:classappend="${type=='3'}?'on'" href="/news?type=3&page=1">行业新闻</a>
+        <a th:classappend="${type=='4'}?'on'" href="/news?type=4&page=1">通知公告</a>
+    </div>
+
+    <div id="news" class="news-part">
+
+    </div>
+</main>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //当内容高度不够手机屏幕高度，增加高度
+        var mobileHeight=window.innerHeight;
+        var bodyHeight =  $('body').css('height').replace('px','');
+        if (mobileHeight>bodyHeight){
+            var contentHeight = mobileHeight - bodyHeight - 24;
+            $('#news').css('minHeight',contentHeight+'px');
+        }
+
+        var headHeight=200;  //这个高度其实有更好的办法的。使用者根据自己的需要可以手工调整。
+        var label=$("#newsNav");
+        $(window).scroll(function(){
+            if($(this).scrollTop()>headHeight){
+                label.addClass("navFix");
+            }
+            else{
+                label.removeClass("navFix");
+            }
+        })
+    })
+    var all_pages = "7";
+    var p = 0;
+    $(function () {
+        var type = [[${type}]]
+        // dropload
+        if (all_pages > 0) {
+            $('.main-content').dropload({
+                scrollArea: window,
+                //上拉
+                domDown: {
+                    domClass: 'dropload-down',
+                    domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+                    domLoad: '<div class="dropload-load">加载中<span class="loading"></span></div>',
+                    domNoData: '<div class="dropload-noData">已加载全部</div>'
+                },
+                //上拉在后面插入内容
+                loadDownFn: function (me) {
+                    if (all_pages == 1) {
+                        me.lock();
+                        me.noData();
+                        me.resetload();
+                        return;
+                    }
+
+                    p++;
+                    var data = {"type": type, "page": p};
+                    $.ajax({
+                        type: 'POST',
+                        url: "/news/pageList",
+                        dataType: 'json',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: data,
+                        success: function (data) {
+                            /*var r_data = JSON.parse(JSON.stringify(data));*/
+                            var r_data = data;
+                            if (r_data.list != "") {
+                                var result = "";
+                                $.each(r_data.list, function (i, item) {
+                                    var detial_url = "";
+                                    if(!item.url){
+                                        detial_url = '/news/details/'+item.newsId;
+                                    }else {
+                                        detial_url = item.url;
+                                    }
+                                    result += '<div >' +
+                                        '            <div class="news-info">'+item.newTypeName+' | '+item.pushTimeStr+'</div>' +
+                                        '            <div class="news-title">' +
+                                        '                <a href="'+detial_url+'">'+item.title+'</a>' +
+                                        '            </div>' +
+                                        '            <div class="news-content">' +
+                                        '                <a href="'+detial_url+'">'+(item.overview==null?'':item.overview)+'</a>' +
+                                        '            </div>' +
+                                        '        </div>';
+
+                                });
+                                $("#news").append(result);
+                                var p_num = r_data.pages;
+                                if (p_num == 1) {
+                                    //$(".load.load1").css("display", "none");
+                                    me.lock();
+                                    me.noData();
+                                    me.resetload();
+                                    return;
+                                }
+                                if (r_data.pages == p) {
+                                    //$(".load.load1").css("display", "none");
+                                    me.lock();
+                                    me.noData();
+                                }
+                                // 每次数据加载完，必须重置
+                                me.resetload();
+                                //$(".soluWrap.pad35").attr("data_p", p);
+
+                            } else {
+                                var result = ' <div class="no-data">' +
+                                    '            暂无数据' +
+                                    '        </div>'
+                                $("#news").append(result);
+                                //$(".load.load1").css("display", "none");
+                                me.lock();
+                                me.noData();
+                                me.resetload();
+                            }
+                        },
+                        error: function (xhr, type) {
+                            // alert('请刷新重试');
+                            // 即使加载出错，也得重置
+                            me.resetload();
+                        }
+                    });
+                },
+                threshold: 400
+            });
+        }
+        $('#news').on('click', '.clearfloat', function (e) {
+            e.preventDefault();
+
+            var param = {
+                page: p,
+                top: $(window).scrollTop()
+            };
+            var list = $('#news').html();
+            var aList = JSON.stringify(list);
+            var aParam = JSON.stringify(param);
+            // alert('sess'+p);
+            // console.log(aList);
+            sessionStorage.setItem('productList', aList);
+            sessionStorage.setItem('productParam', aParam);
+            window.location.href = $(this).attr('href');
+        })
+    });
+</script>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

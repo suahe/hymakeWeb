@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'BIM全过程咨询解决方案 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .main-content{
+
+        }
+        .detail-title{
+            padding-bottom: 0.4rem;
+        }
+        .detail-title h4 {
+            color: #0066cc;
+            text-align: center;
+            position: relative;
+            padding: 0;
+            padding-top: 0.55rem;
+            padding-bottom: 0.25rem;
+            display: inline-block;
+            margin: 0;
+            float: none !important;
+            left: 50%;
+            transform:translate(-50%,0);
+            font-size: 0.4rem;
+        }
+        .detail-title h4:after {
+            content: '';
+            width: 30%;
+            height: 2px;
+            background-color: #0066cc;
+            position: absolute;
+            left: 50%;
+            transform:translate(-50%,0);
+            bottom: 0;
+            min-width: 35px;
+        }
+        .detail-text{
+            font-size: 0.28rem;
+            color: #666666;
+            text-indent: 2em;
+            text-align: justify;
+        }
+        .detail-text p{
+            margin-bottom: 0.12rem;
+        }
+        .detail-pad{
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+
+    </style>
+</head>
+<body>
+<!--引入详情页头部-->
+<th:block th:replace="common/layout::detail-header"/>
+<main class="main-content">
+    <div class="detail-pad">
+        <div class="detail-text" style="padding-top: 0.61rem;padding-bottom: 0.61rem;">
+            BIM全过程咨询，通过BIM项目协同及运维管理平台，集成建筑、结构、机电、绿色建筑分析及装饰等BIM模型，为决策、设计、施工和运营各阶段工程咨询提供数据平台支持。通过BIM技术进行信息收集、数据核算，集成项目全生命期的真实数据，实现项目各参与方之间的信息交互，提高信息的传递效率，形成BIM全过程工程咨询的精细化管理，创新工作模式，逐渐完成项目大数据的积累和应用，进行质量、成本、工期、安全、合同等方面的管理，实现建设项目全过程信息共享和资源整合。
+        </div>
+        <img class="w-100" style="margin-bottom: 0.75rem;" src="/image/solution/details/BIMWholeProcessConsultingSolution/img1.png" alt="">
+    </div>
+
+</main>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

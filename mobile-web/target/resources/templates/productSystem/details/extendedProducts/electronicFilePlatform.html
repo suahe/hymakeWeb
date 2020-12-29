@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'电子档案平台 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .main-content{
+
+        }
+        .detail-title{
+            padding-bottom: 0.4rem;
+        }
+        .detail-title h4 {
+            color: #0066cc;
+            text-align: center;
+            position: relative;
+            padding: 0;
+            padding-top: 0.55rem;
+            padding-bottom: 0.25rem;
+            display: inline-block;
+            margin: 0;
+            float: none !important;
+            left: 50%;
+            transform:translate(-50%,0);
+            font-size: 0.4rem;
+        }
+        .detail-title h4:after {
+            content: '';
+            width: 30%;
+            height: 2px;
+            background-color: #0066cc;
+            position: absolute;
+            left: 50%;
+            transform:translate(-50%,0);
+            bottom: 0;
+            min-width: 35px;
+        }
+        .detail-text{
+            font-size: 0.28rem;
+            color: #666666;
+            text-indent: 2em;
+            text-align: justify;
+        }
+        .detail-pad{
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .honor-part{
+            background-color: #f4f4f5;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            padding-bottom: 0.75rem;
+        }
+        .honor-img{
+            width: 0.93rem;
+            height: 0.93rem;
+            margin-top: 0.15rem;
+        }
+        .honor-row-bg{
+            background-color: #ffffff;
+        }
+        .honor-row{
+            display: flex;
+            padding: 0.22rem 0.2rem;
+        }
+        .honor-profile{
+            margin-left: 0.5rem;
+        }
+        .honor-content{
+            font-size: 0.28rem;
+            color: #666666;
+            text-align: justify;
+        }
+
+        .product-adv-part{
+            padding-right: 0.5rem;
+            padding-left: 0.5rem;
+        }
+        .product-adv-cls{
+
+        }
+        .product-adv-cls-title{
+            font-size: 0.34rem;
+            color: #333333;
+            padding-top: 0.23rem;
+        }
+        .product-adv-cls-con{
+            font-size: 0.28rem;
+            color: #666666;
+            text-indent: 2em;
+            text-align: justify;
+            padding-bottom: 0.61rem;
+        }
+    </style>
+</head>
+<body>
+<!--引入详情页头部-->
+<th:block th:replace="common/layout::detail-header"/>
+<main class="main-content">
+    <div class="detail-pad">
+        <div class="detail-text" style="padding-top: 0.61rem;padding-bottom: 0.61rem;">
+            海迈电子档案平台是以建设工程资料电子化为目标，以工程项目为核心，连接各方责任主体的协同平台，实现工程资料编制、签批、签章、存储、管理和归档等全流程信息化应用；实现信息汇集共享、提高质量管控。通过无纸化办公，提高行业人员的工作效率，践行“节能减耗，绿色施工”。
+        </div>
+        <img class="w-100" src="/image/productSystem/details/extendedProducts/electronicFilePlatform/dian-zi-dang-an-ping-tai.png" alt="">
+    </div>
+    <div class="product-adv-part">
+        <div class="detail-title">
+            <h4>产品优势</h4>
+        </div>
+        <div class="product-adv-cls">
+            <img class="w-100" src="/image/productSystem/details/extendedProducts/electronicFilePlatform/biao-ge-mu-ban.png" alt="">
+           <div class="product-adv-cls-dsc">
+               <div class="product-adv-cls-title">表格模板齐全，保障合规性</div>
+               <div class="product-adv-cls-con">
+                   齐全的表格模板库，并根据行业新规范，实时更新内业资料表格模板，保障内业资料编制符合要求。
+               </div>
+           </div>
+        </div>
+        <div class="product-adv-cls">
+            <img class="w-100" src="/image/productSystem/details/extendedProducts/electronicFilePlatform/xie-tong-ban-gong.png" alt="">
+            <div class="product-adv-cls-dsc">
+                <div class="product-adv-cls-title">在线协同办公，电子签章</div>
+                <div class="product-adv-cls-con">
+                    工程各方责任主体在线协同办公，通过电子签章技术，在线签批盖章，保障电子文件的合法性、完整性、可靠性及不可否认性。
+                </div>
+            </div>
+        </div>
+        <div class="product-adv-cls">
+            <img class="w-100" src="/image/productSystem/details/extendedProducts/electronicFilePlatform/xin-xi-gong-xiang.png" alt="">
+            <div class="product-adv-cls-dsc">
+                <div class="product-adv-cls-title">信息汇集共享，节能减耗</div>
+                <div class="product-adv-cls-con">
+                    与多个建设行业相关系统对接，同步获取工程相关信息、建筑材料检测报告等电子原件，实现信息汇集、共享，大量减少纸张消耗。
+                </div>
+            </div>
+        </div>
+        <div class="product-adv-cls">
+            <img class="w-100" src="/image/productSystem/details/extendedProducts/electronicFilePlatform/feng-xian-yu-jing.png" alt="">
+            <div class="product-adv-cls-dsc">
+                <div class="product-adv-cls-title">风险预警，保证内业资料质量</div>
+                <div class="product-adv-cls-con">
+                    对“漏章错章”等现象自动预警，提升内业资料合规性，并解决人工排查耗时耗力的痛点。
+                </div>
+            </div>
+        </div>
+        <div class="product-adv-cls">
+            <img class="w-100" src="/image/productSystem/details/extendedProducts/electronicFilePlatform/zhi-neng-gui-dang.png" alt="">
+            <div class="product-adv-cls-dsc">
+                <div class="product-adv-cls-title">智能归档整理，提升效率、降低难度</div>
+                <div class="product-adv-cls-con">
+                    智能关联与排序，生成符合档案馆规范要求的归档文件，解决传统耗时长且易出错的弊端，大幅提升归档整理的效率、降低归档难度。
+                </div>
+            </div>
+        </div>
+        <div class="product-adv-cls">
+            <img class="w-100" src="/image/productSystem/details/extendedProducts/electronicFilePlatform/yi-dong-ying-yong.png" alt="">
+            <div class="product-adv-cls-dsc">
+                <div class="product-adv-cls-title">移动应用，彰显形象实力</div>
+                <div class="product-adv-cls-con">
+                    扫一扫，相关文件、信息一目了然，彰显项目部良好形象和企业实力。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="honor-part">
+        <div class="detail-title">
+            <h4>荣誉及认证</h4>
+        </div>
+        <div style="margin-top: 0.3rem;" class="honor-row-bg">
+            <div class="honor-row">
+                <img class="honor-img" src="/image/productSystem/details/extendedProducts/electronicFilePlatform/ping-tai-you-shi-1.png" alt="">
+                <div class="honor-profile">
+                    <div class="honor-content">
+                        为福建省建设工程资料电子化<br/>
+                        归档工作，树立行业的样板工程
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 0.3rem;" class="honor-row-bg">
+            <div class="honor-row">
+                <img class="honor-img" src="/image/productSystem/details/extendedProducts/electronicFilePlatform/ping-tai-you-shi-2.png" alt="">
+                <div class="honor-profile">
+                    <div class="honor-content">
+                        厦门市高新科技成果转化项目<br/>
+                        福建省工业和信息化重点新产品<br/>
+                        福建省科技示范工程计划项目
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 0.3rem;" class="honor-row-bg">
+            <div class="honor-row">
+                <img style=" width: 0.93rem;height: 0.93rem;margin-top: 0.15rem;" src="/image/productSystem/details/extendedProducts/electronicFilePlatform/ping-tai-you-shi-3.png" alt="">
+                <div class="honor-profile">
+                    <div class="honor-content">
+                        获颁多项专利、<br/>
+                        ISO9001认证、权威软件测评
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

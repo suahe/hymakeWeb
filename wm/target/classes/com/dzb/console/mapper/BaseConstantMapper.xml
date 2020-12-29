@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	@Description t_base_constant 表数据库操作SQL语句
+	@author daizb@hymake.com
+	@date 2020-06-26 16:45:46
+	@version 1.0
+	@remark create by ca
+-->
+
+<mapper namespace="com.dzb.console.mapper.BaseConstantMapper">
+
+	<!-- 
+		CONSTANT_ID				bigint			#{constantId}			常量编号
+		NAME				varchar			#{name}			常量名称
+		KEYWORD				varchar			#{keyword}			常量键
+		VALUE				varchar			#{value}			常量值
+		REMARK				varchar			#{remark}			备注
+		UPDATE_USERID				varchar			#{updateUserid}			更新人
+		UPDATE_TIME				datetime			#{updateTime}			更新时间
+	-->
+
+	<sql id="all">
+			CONSTANT_ID
+			,NAME
+			,KEYWORD
+			,VALUE
+			,REMARK
+			,UPDATE_USERID
+			,UPDATE_TIME
+	</sql>
+	
+	<select id="selectPagination" resultType="baseConstantEntity" parameterType="baseConstantEntity">
+		select 
+			<include refid="all" /> 
+		from 
+			t_base_constant
+		order by 
+			UPDATE_TIME DESC
+	</select>
+	
+	<select id="selectByPkey" resultType="baseConstantEntity" parameterType="long">
+		select 
+			<include refid="all" />
+		from 
+			t_base_constant
+		where 
+			CONSTANT_ID = #{constantId}
+	</select>
+	
+	<select id="countByKeyword" resultType="int" parameterType="String">
+		select 
+			count(CONSTANT_ID)
+		from 
+			t_base_constant
+		where 
+			KEYWORD = #{keyword}
+	</select>
+	
+	<select id="selectValueByKeyword" resultType="String" parameterType="String">
+		select 
+			VALUE
+		from 
+			t_base_constant
+		where 
+			KEYWORD = #{keyword}
+	</select>
+	
+	<insert id="insert" parameterType="baseConstantEntity">
+		insert into t_base_constant (
+			CONSTANT_ID
+			,NAME
+			,KEYWORD
+			,VALUE
+			,REMARK
+			,UPDATE_USERID
+			,UPDATE_TIME
+		) values (
+			#{constantId}
+			,#{name}
+			,#{keyword}
+			,#{value}
+			,#{remark}
+			,#{updateUserid}
+			,#{updateTime}
+		)
+	</insert>
+	
+	<update id="update" parameterType="baseConstantEntity">
+		update t_base_constant set 
+			NAME = #{name}
+			,KEYWORD = #{keyword}
+			,VALUE = #{value}
+			,REMARK = #{remark}
+			,UPDATE_USERID = #{updateUserid}
+			,UPDATE_TIME = #{updateTime}
+		where
+			CONSTANT_ID = #{constantId}
+	</update>
+	
+	<update id="updateKeywordAndValue" parameterType="baseConstantEntity">
+		update t_base_constant set 
+			VALUE = #{value}
+			,UPDATE_USERID = #{updateUserid}
+			,UPDATE_TIME = #{updateTime}
+		where
+			KEYWORD = #{keyword}
+	</update>
+	
+	<delete id="delete" parameterType="long">
+		delete from t_base_constant where CONSTANT_ID = #{constantId}
+	</delete>
+	
+</mapper>

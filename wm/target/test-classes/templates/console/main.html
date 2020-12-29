@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	<head>
+		<meta charset="UTF-8">
+		<title>海迈科技官方网站管理系统</title>
+		<th:block th:replace="fragments/include::common_header" />
+	</head>
+	<style>
+		
+	</style>
+	<script>
+        $(document).ready(function() {
+        	
+        	// 显示菜单
+            $('#side-menu').metisMenu();
+        	
+        	//$('#main').load('../bulc/load');
+        	//加载菜单主面板
+        	$(".menuLink").click(function(e){
+        		
+        		var url = $(this).attr("data-url");
+        		if(undefined != url && '-' != url){
+        			main.loadHTML(url,'main');
+        		}
+        	});
+        	
+
+ 
+        	//加载头像文件
+        	$("#partraitImage").attr("src","/main/loadPartraitByActiveUser?t="+ Math.random());
+        	
+        });
+    </script>
+	<body style="min-width: 800px;">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element" style="text-align: center;">
+                            <img id="partraitImage" width="64px" height="64px" alt="image" class="rounded-circle"/>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:void(0);">
+                                <span class="block m-t-xs font-bold" sec:authentication="principal.username" >账号</span>
+                                <span class="text-muted text-xs block"><span sec:authentication="principal.name">用户名称</span><b class="caret"></b></span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInDown m-t-xs">
+                                <li><a class="dropdown-item menuLink" href="javascript:void(0);" data-url="../main/setting">系统设置</a></li>
+                                <li class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="javascript:document.logout.submit();">登出</a></li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+							Hymake
+                        </div>
+                    </li>
+				</ul>
+				<ul class="nav metismenu" id="side-menu">
+                    <!-- class="active" -->
+                    <li class="_menuBody" th:classappend="${userStat.index} == 0 ? 'active':''" th:each="firstNode,userStat:${menuTree}">
+						<a class="menuLink" href="javascript:void(0);" th:attr="data-url=${firstNode.extra.url}">
+							<i style="width: 12px; text-align: center;" class="fa" th:classappend="${firstNode.extra.icon}"></i>
+							<span class="nav-label" th:text="${firstNode.text}"></span>
+							<span th:unless="${firstNode.get('nodes')} == null" class="fa arrow"></span>
+						</a>
+						<ul class="nav nav-second-level">
+							<li th:each="secondNode:${firstNode.get('nodes')}">
+								<a class="menuLink" href="javascript:void(0);" th:attr="data-url=${secondNode.extra.url}">
+									<i style="width: 12px; text-align: center;" class="fa" th:classappend="${secondNode.extra.icon}"></i>
+									<span th:text="${secondNode.text}" th:remove="tag"></span>
+									<span th:unless="${secondNode.get('nodes')} == null" class="fa arrow"></span>
+								</a>
+								<ul class="nav nav-third-level">
+									<li th:each="thirdNode:${secondNode.get('nodes')}">
+										<a class="menuLink" href="javascript:void(0);" th:attr="data-url=${thirdNode.extra.url}">
+											<span th:text="${thirdNode.text}" th:remove="tag"></span>
+										</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+                </ul>
+            </div>
+        </nav>
+        <div id="page-wrapper" class="gray-bg">
+	        <div class="row border-bottom">
+		        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+			        <div class="navbar-header">
+			            <a class="navbar-minimalize minimalize-style btn btn-primary " href="javascript:void(0);">
+			            	<i class="fa fa-bars"></i>
+			            </a>
+			            <span class="" style="font-size: 22px;float: left;margin: 11px 5px 11px 10px;">
+			            	海迈科技官方网站管理系统
+			            </span>
+			        </div>
+		            <ul class="nav navbar-top-links navbar-right">
+		                <li>
+		                    <a target="_blank" href="http://www.hymake.com">
+		                        <i class="glyphicon glyphicon-th-list"></i>前往官网
+		                    </a>
+		                </li>
+		                <li>
+		                    <form name="logout" th:action="@{/logout}" method="post">
+							</form>
+                            <a href="javascript:document.logout.submit();">
+                                <i class="glyphicon glyphicon-log-in"></i>退出
+                            </a>
+		                </li>
+		            </ul>
+		        </nav>
+	        </div>
+	        <div id="main">
+				
+	        </div>
+            <div class="footer">
+                <div class="float-right">
+                    <strong>Copyright</strong> 厦门海迈科技股份有限公司 &copy; 2020-2022
+                </div>
+            </div>
+        </div>
+	</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'企业信用管理平台 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .main-content{
+
+        }
+        .detail-title{
+            padding-bottom: 0.4rem;
+        }
+        .detail-title h4 {
+            color: #0066cc;
+            text-align: center;
+            position: relative;
+            padding: 0;
+            padding-top: 0.55rem;
+            padding-bottom: 0.25rem;
+            display: inline-block;
+            margin: 0;
+            float: none !important;
+            left: 50%;
+            transform:translate(-50%,0);
+            font-size: 0.4rem;
+        }
+        .detail-title h4:after {
+            content: '';
+            width: 30%;
+            height: 2px;
+            background-color: #0066cc;
+            position: absolute;
+            left: 50%;
+            transform:translate(-50%,0);
+            bottom: 0;
+            min-width: 35px;
+        }
+        .detail-text{
+            font-size: 0.28rem;
+            color: #666666;
+            text-indent: 2em;
+            text-align: justify;
+        }
+        .detail-pad{
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+        .platform-fun-part{
+            padding-right: 0.5rem;
+            padding-left: 0.5rem;
+        }
+        .platform-fun-titele{
+            font-size: 0.34rem;
+            color: #333333;
+        }
+        .platform-fun-con{
+            font-size: 0.28rem;
+            color: #666666;
+            text-indent: 2em;
+            text-align: justify;
+            padding-bottom: 0.61rem;
+        }
+        .platform-cha-part{
+            background-color: #f4f4f5;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            padding-bottom: 0.75rem;
+        }
+        .platform-cha-row-bg{
+            background-color: #ffffff;
+        }
+        .platform-cha-row{
+            display: flex;
+            padding: 0.22rem 0.2rem;
+        }
+        .platform-cha-profile{
+            margin-left: 0.5rem;
+        }
+        .platform-cha-img{
+            width: 0.93rem;
+            height: 0.93rem;
+            margin-top: 0.19rem;
+        }
+        .platform-cha-title{
+            font-size: 0.38rem;
+            color: #333333;
+            text-align: justify;
+        }
+        .platform-cha-content{
+            font-size: 0.28rem;
+            color: #666666;
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+<!--引入详情页头部-->
+<th:block th:replace="common/layout::detail-header"/>
+<main class="main-content">
+    <div class="detail-pad">
+        <div class="detail-text" style="padding-top: 0.61rem;">
+            扩展产品企业信用管理平台，是为施工企业提供的企业级增值服务，助力施工企业落实主体责任、防范工程事故、降低信用丢分风险，提高企业行业竞争力。平台包含风险预警、信用管理、移动服务等功能。
+        </div>
+    </div>
+    <div class="platform-fun-part">
+        <div class="detail-title">
+            <h4>平台功能</h4>
+        </div>
+        <img class="w-100" style="padding-bottom: 0.75rem;" src="/image/productSystem/details/extendedProducts/enterpriseCreditManagementPlatform/ping-tai-gong-neng.png" alt="">
+        <div>
+            <div class="platform-fun-titele">风险预警</div>
+            <div class="platform-fun-con">
+                对接近期限的监管办理事项、企业及人员黑名单等进行预警。
+            </div>
+        </div>
+        <div>
+            <div class="platform-fun-titele">信用管理</div>
+            <div class="platform-fun-con">
+                实现企业综合信用分的查询、对比，通过信用分析模型，进行排名预测、分析。
+            </div>
+        </div>
+        <div>
+            <div class="platform-fun-titele">统计分析</div>
+            <div class="platform-fun-con">
+                可通过多种形式展现信用体系数据的统计分析。
+            </div>
+        </div>
+        <div>
+            <div class="platform-fun-titele">移动端预警提醒</div>
+            <div class="platform-fun-con">
+                通过微信移动端绑定企业账号，实现移动端订阅接收每日企业风险事项的预警提醒。
+            </div>
+        </div>
+        <div class="detail-text">
+            平台对接近期限的监管办理事项、企业及人员黑名单等进行预警；实现对企业综合信用分、项目信用分、人员信用分的查询、分析和排名；通过信用分析数据模型，针对项目双随机检查清单，进行项目信用分和企业信用分模拟分值预测；通过微信服务号定期提醒风险事项预警，具体包括：安全月考评、季度考评、竣工考评、企业考评风险预警；竣工结算、合同备案、合同履约、风险预警；自查自纠、责改单反馈、双随机检查风险预警等。
+        </div>
+    </div>
+
+    <div class="platform-cha-part">
+        <div class="detail-title">
+            <h4>平台特点</h4>
+        </div>
+        <div class="platform-cha-row-bg">
+            <div class="platform-cha-row">
+                <img class="platform-cha-img" src="/image/productSystem/details/extendedProducts/enterpriseCreditManagementPlatform/ping-tai-te-dian-1.png" alt="">
+                <div class="platform-cha-profile">
+                    <div class="platform-cha-title">
+                        期限提醒
+                    </div>
+                    <div class="platform-cha-content">
+                        <div><span>月度考评</span> <span style="margin-left: 0.7rem;">季度考评</span></div>
+                        <div><span>竣工考评</span> <span  style="margin-left: 0.7rem;">企业考评</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 0.3rem;" class="platform-cha-row-bg">
+            <div class="platform-cha-row">
+                <img class="platform-cha-img" src="/image/productSystem/details/extendedProducts/enterpriseCreditManagementPlatform/ping-tai-te-dian-2.png" alt="">
+                <div class="platform-cha-profile">
+                    <div class="platform-cha-title">
+                        工作辅助
+                    </div>
+                    <div class="platform-cha-content">
+                        <div><span>竣工结算</span> <span style="margin-left: 0.7rem;">合同履约</span></div>
+                        <div><span>合同备案</span> <span  style="margin-left: 0.7rem;">风险预警</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 0.3rem;" class="platform-cha-row-bg">
+            <div class="platform-cha-row">
+                <img class="platform-cha-img" src="/image/productSystem/details/extendedProducts/enterpriseCreditManagementPlatform/ping-tai-te-dian-3.png" alt="">
+                <div class="platform-cha-profile">
+                    <div class="platform-cha-title">
+                        风险预警
+                    </div>
+                    <div class="platform-cha-content">
+                        <div><span>自查自纠</span> <span style="margin-left: 0.7rem;">责改单反馈</span></div>
+                        <div><span>双随机风险预警</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 0.3rem;" class="platform-cha-row-bg">
+            <div class="platform-cha-row">
+                <img class="platform-cha-img" src="/image/productSystem/details/extendedProducts/enterpriseCreditManagementPlatform/ping-tai-te-dian-4.png" alt="">
+                <div class="platform-cha-profile">
+                    <div class="platform-cha-title">
+                        数据分析
+                    </div>
+                    <div class="platform-cha-content">
+                        <div><span>扣分预测</span> <span style="margin-left: 0.7rem;">扣分统计</span></div>
+                        <div><span>清单条款</span> <span  style="margin-left: 0.7rem;">双随机检查</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'房屋大数据解决方案 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .main-content{
+
+        }
+        .detail-title{
+            padding-bottom: 0.4rem;
+        }
+        .detail-title h4 {
+            color: #0066cc;
+            text-align: center;
+            position: relative;
+            padding: 0;
+            padding-top: 0.55rem;
+            padding-bottom: 0.25rem;
+            display: inline-block;
+            margin: 0;
+            float: none !important;
+            left: 50%;
+            transform:translate(-50%,0);
+            font-size: 0.4rem;
+        }
+        .detail-title h4:after {
+            content: '';
+            width: 30%;
+            height: 2px;
+            background-color: #0066cc;
+            position: absolute;
+            left: 50%;
+            transform:translate(-50%,0);
+            bottom: 0;
+            min-width: 35px;
+        }
+        .detail-text{
+            font-size: 0.28rem;
+            color: #666666;
+            text-indent: 2em;
+            text-align: justify;
+        }
+        .detail-text p{
+            margin-bottom: 0.12rem;
+        }
+        .detail-pad{
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+
+    </style>
+</head>
+<body>
+<!--引入详情页头部-->
+<th:block th:replace="common/layout::detail-header"/>
+<main class="main-content">
+    <div class="detail-pad">
+        <div class="detail-text" style="padding-top: 0.61rem;padding-bottom: 0.49rem;">
+            <p>
+                以“立足住房管理、面向政府部门、服务社会大众”为指导思想，在房屋管理业务基础上，制定房屋数据库标准，指导整合房屋事务管理相关数据，结合不动产登记中的权属登记数据、不动产单元管理数据和测绘部门房产测绘数据，建立以房屋自然属性为核心的房屋公共基础数据库。
+            </p>
+            <p>
+                在此基础上，为住房保障、房屋交易、房屋租赁、公积金服务、房屋安全等业务提供基础数据服务；构建“房屋一张图”数据服务系列，为相关政策制定提供决策数据支撑；为规划、住建、应急、民政、工商、税务、公安、社保、财政等部门提供数据共享服务；为打通房屋规划、建设、管理、不动产登记各环节创造基础条件；以房屋公共基础数据为核心，整合市政府各职能部门的业务成果数据；构建“1个房屋公共基础数据库+N个房屋业务专题数据库”，建设具有弹性扩展能力的房屋业务数据中心。
+            </p>
+        </div>
+        <img class="w-100" style="padding-bottom: 0.75rem;" src="/image/solution/details/housingBigDataSolution/img1.png" alt="">
+    </div>
+
+</main>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

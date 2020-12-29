@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	@Description t_investor 表数据库操作SQL语句
+	@author daizb@hymake.com
+	@date 2020-08-11 19:02:47
+	@version 1.0
+	@remark create by ca
+-->
+
+<mapper namespace="com.hymake.web.mapper.InvestorMapper">
+
+	<!-- 
+		INVESTOR_ID				bigint			#{investorId}			投资者关系信息编号
+		TYPE				varchar			#{type}			公告类型
+		TITLE				varchar			#{title}			标题
+		PATH				varchar			#{path}			文档链接
+		PUSH_TIME				datetime			#{pushTime}			发布时间
+		UPDATE_USERID				varchar			#{updateUserid}			更新人
+		UPDATE_TIME				datetime			#{updateTime}			更新时间
+	-->
+
+	<sql id="all">
+			INVESTOR_ID
+			,TYPE
+			,TITLE
+			,PATH
+			,PUSH_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+	</sql>
+	
+	<select id="selectPagination" resultType="investorEntity" parameterType="investorEntity">
+		select 
+			<include refid="all" /> 
+		from 
+			t_investor
+		where
+		PUSH_TIME is not null
+		<if test="null != type and '' != type">
+			and TYPE = #{type}
+		</if>
+		order by
+			PUSH_TIME DESC
+	</select>
+	
+	<select id="selectByPkey" resultType="investorEntity" parameterType="long">
+		select 
+			<include refid="all" />
+		from 
+			t_investor
+		where 
+			INVESTOR_ID = #{investorId}
+	</select>
+	
+	<insert id="insert" parameterType="investorEntity">
+		insert into t_investor (
+			INVESTOR_ID
+			,TYPE
+			,TITLE
+			,PATH
+			,PUSH_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+		) values (
+			#{investorId}
+			,#{type}
+			,#{title}
+			,#{path}
+			,#{pushTime}
+			,#{updateUserid}
+			,#{updateTime}
+		)
+	</insert>
+	
+	<update id="update" parameterType="investorEntity">
+		update t_investor set 
+			TYPE = #{type}
+			,TITLE = #{title}
+			,PATH = #{path}
+			,PUSH_TIME = #{pushTime}
+			,UPDATE_USERID = #{updateUserid}
+			,UPDATE_TIME = #{updateTime}
+		where
+			INVESTOR_ID = #{investorId}
+	</update>
+	
+	<delete id="delete" parameterType="long">
+		delete from t_investor where INVESTOR_ID = #{investorId}
+	</delete>
+	
+	<update id="updatePushTimeByInvestorId" parameterType="investorEntity">
+		update t_investor set 
+			PUSH_TIME = #{pushTime}
+			,UPDATE_USERID = #{updateUserid}
+			,UPDATE_TIME = #{updateTime}
+		where
+			INVESTOR_ID = #{investorId}
+	</update>
+	
+</mapper>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'智慧小区解决方案 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .main-content{
+
+        }
+        .detail-title{
+            padding-bottom: 0.4rem;
+        }
+        .detail-title h4 {
+            color: #0066cc;
+            text-align: center;
+            position: relative;
+            padding: 0;
+            padding-top: 0.55rem;
+            padding-bottom: 0.25rem;
+            display: inline-block;
+            margin: 0;
+            float: none !important;
+            left: 50%;
+            transform:translate(-50%,0);
+            font-size: 0.4rem;
+        }
+        .detail-title h4:after {
+            content: '';
+            width: 30%;
+            height: 2px;
+            background-color: #0066cc;
+            position: absolute;
+            left: 50%;
+            transform:translate(-50%,0);
+            bottom: 0;
+            min-width: 35px;
+        }
+        .detail-text{
+            font-size: 0.28rem;
+            color: #666666;
+            text-indent: 2em;
+            text-align: justify;
+        }
+        .detail-text p{
+            margin-bottom: 0.12rem;
+        }
+        .detail-pad{
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+
+    </style>
+</head>
+<body>
+<!--引入详情页头部-->
+<th:block th:replace="common/layout::detail-header"/>
+<main class="main-content">
+    <div class="detail-pad">
+        <div class="detail-text" style="padding-top: 0.61rem;padding-bottom: 0.49rem;">
+            <p>
+                小区和社区是居民生活最重要的载体之一，但传统的业主委员会、物业委员会和居委会自治性治理架构，公共问题凸显，纠纷不断，既难以完整体现政府的城市治理理念，也难以真正反映广大业主的诉求。因此，多元共治已成为各方的共同需求。
+            </p>
+            <p>
+                海迈科技智慧小区解决方案，一方面以电子投票作为切入点，将投票与个人身份捆绑，不占用场地资源，随时随地对重要议题表达诉求，创新了协商式民主机制和社会治理模式，真正做到“重心下移，力量下沉”；另一方面，海迈科技智慧小区解决方案以三大频繁应用场景作为抓手，包括人脸门禁、停车诱导和错峰以及公维报修，不断培育居民的行为粘性；同时，规范服务流程、提升服务质量、降低运维成本。在此基础上，进一步提供快速和个性化的物业、租赁、培训、教育、商圈等增值服务，实现小区治理现代化、小区管理自主化，以及公共便民服务多元化。
+            </p>
+        </div>
+        <img style="padding-bottom: 0.75rem;" class="w-100" src="/image/solution/details/smartCommunitySolution/img1.png" alt="">
+    </div>
+
+</main>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	@Description t_base_type 表数据库操作SQL语句
+	@author 38840472@qq.com
+	@date 2020-05-12 17:51:09
+	@version 1.0
+	@remark create by ca
+-->
+
+<mapper namespace="com.dzb.console.mapper.BaseTypeMapper">
+
+	<!-- 
+		BASE_TYPE_ID				varchar			#{baseTypeId}			编号
+		NAME				varchar			#{name}			名称
+		CODE				varchar			#{code}			代码
+		TYPE				int			#{type}			类型（1：列表，2：树）
+		VER				int			#{ver}			版本
+		CREATE_USERID				varchar			#{createUserid}			创建人
+		CREATE_TIME				timestamp			#{createTime}			创建时间
+		UPDATE_USERID				varchar			#{updateUserid}			更新人
+		UPDATE_TIME				timestamp			#{updateTime}			更新时间
+	-->
+
+	<sql id="all">
+			BASE_TYPE_ID
+			,NAME
+			,CODE
+			,TYPE
+			,VER
+			,CREATE_USERID
+			,CREATE_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+	</sql>
+	
+	<select id="selectPagination" resultType="baseTypeEntity" parameterType="baseTypeEntity">
+		select 
+			<include refid="all" /> 
+		from 
+			t_base_type
+		<where>
+			<if test="type != '' and type != null">
+				TYPE = #{type}
+			</if>
+		</where>
+		order by
+			UPDATE_TIME DESC
+	</select>
+	
+	<select id="selectByPkey" resultType="baseTypeEntity" parameterType="String">
+		select 
+			<include refid="all" />
+		from 
+			t_base_type
+		where 
+			BASE_TYPE_ID = #{baseTypeId}
+	</select>
+	
+	<insert id="insert" parameterType="baseTypeEntity">
+		insert into t_base_type (
+			BASE_TYPE_ID
+			,NAME
+			,CODE
+			,TYPE
+			,VER
+			,CREATE_USERID
+			,CREATE_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+		) values (
+			#{baseTypeId}
+			,#{name}
+			,#{code}
+			,#{type}
+			,#{ver}
+			,#{createUserid}
+			,#{createTime}
+			,#{updateUserid}
+			,#{updateTime}
+		)
+	</insert>
+	
+	<update id="update" parameterType="baseTypeEntity">
+		update t_base_type set 
+			NAME = #{name}
+			,CODE = #{code}
+			,TYPE = #{type}
+			,VER = #{ver}
+			,UPDATE_USERID = #{updateUserid}
+			,UPDATE_TIME = #{updateTime}
+		where
+			BASE_TYPE_ID = #{baseTypeId}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from t_base_type where BASE_TYPE_ID = #{baseTypeId}
+	</delete>
+	
+	<select id="selectByCode" resultType="String" parameterType="String">
+		select 
+			BASE_TYPE_ID
+		from 
+			t_base_type
+		where 
+			CODE = #{code}
+			and VER = 0
+	</select>
+	
+</mapper>

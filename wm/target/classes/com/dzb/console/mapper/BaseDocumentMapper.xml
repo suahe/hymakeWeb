@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	@Description t_base_document 表数据库操作SQL语句
+	@author 38840472@qq.com
+	@date 2020-05-08 14:21:58
+	@version 1.0
+	@remark create by ca
+-->
+
+<mapper namespace="com.dzb.console.mapper.BaseDocumentMapper">
+
+	<!-- 
+		DOCUMENT_ID				varchar			#{documentId}			文档编号
+		NAME				varchar			#{name}			文件名
+		EXT				varchar			#{ext}			扩展名
+		PATH				varchar			#{path}			文件路径
+		MD5KEY				varchar			#{md5key}			MD5标识
+		SIZE				int			#{size}			文件大小
+		IS_DEL				int			#{isDel}			有效状态
+		CREATE_USERID				varchar			#{createUserid}			创建人
+		CREATE_TIME				timestamp			#{createTime}			创建时间
+		UPDATE_USERID				varchar			#{updateUserid}			更新人
+		UPDATE_TIME				timestamp			#{updateTime}			更新时间
+	-->
+
+	<sql id="all">
+			DOCUMENT_ID
+			,NAME
+			,EXT
+			,PATH
+			,MD5KEY
+			,SIZE
+			,IS_DEL
+			,CREATE_USERID
+			,CREATE_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+	</sql>
+	
+	<select id="selectPagination" resultType="baseDocumentEntity" parameterType="baseDocumentEntity">
+		select 
+			<include refid="all" /> 
+		from 
+			t_base_document
+	</select>
+	
+	<select id="selectByPkey" resultType="baseDocumentEntity" parameterType="String">
+		select 
+			<include refid="all" />
+		from 
+			t_base_document
+		where 
+			DOCUMENT_ID = #{documentId}
+	</select>
+	
+	<insert id="insert" parameterType="baseDocumentEntity">
+		insert into t_base_document (
+			DOCUMENT_ID
+			,NAME
+			,EXT
+			,PATH
+			,MD5KEY
+			,SIZE
+			,IS_DEL
+			,CREATE_USERID
+			,CREATE_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+		) values (
+			#{documentId}
+			,#{name}
+			,#{ext}
+			,#{path}
+			,#{md5key}
+			,#{size}
+			,#{isDel}
+			,#{createUserid}
+			,#{createTime}
+			,#{updateUserid}
+			,#{updateTime}
+		)
+	</insert>
+	
+	<update id="update" parameterType="baseDocumentEntity">
+		update t_base_document set 
+			NAME = #{name}
+			,EXT = #{ext}
+			,PATH = #{path}
+			,MD5KEY = #{md5key}
+			,SIZE = #{size}
+			,IS_DEL = #{isDel}
+			,CREATE_USERID = #{createUserid}
+			,CREATE_TIME = #{createTime}
+			,UPDATE_USERID = #{updateUserid}
+			,UPDATE_TIME = #{updateTime}
+		where
+			DOCUMENT_ID = #{documentId}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from t_base_document where DOCUMENT_ID = #{documentId}
+	</delete>
+	
+	<select id="selectByMd5" resultType="String" parameterType="String">
+		select 
+			DOCUMENT_ID
+		from 
+			t_base_document
+		where 
+			MD5KEY = #{md5key}
+	</select>
+	
+</mapper>

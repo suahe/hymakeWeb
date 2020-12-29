@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	@Description t_base_type_tree 表数据库操作SQL语句
+	@author 38840472@qq.com
+	@date 2020-05-14 10:41:46
+	@version 1.0
+	@remark create by ca
+-->
+
+<mapper namespace="com.dzb.console.mapper.BaseTypeTreeMapper">
+
+	<!-- 
+		BASE_TYPE_TREE_ID				varchar			#{baseTypeTreeId}			树型编号
+		BASE_TYPE_ID				varchar			#{baseTypeId}			数据字典编号
+		NAME				varchar			#{name}			名称
+		FULL_NAME				varchar			#{fullName}			全名
+		VALUE				varchar			#{value}			代码
+		SEQU				int			#{sequ}			排序
+		BASE_TYPE_TREE_PID				varchar			#{baseTypeTreePid}			树型父编号
+		CREATE_USERID				varchar			#{createUserid}			创建人
+		CREATE_TIME				timestamp			#{createTime}			创建时间
+		UPDATE_USERID				varchar			#{updateUserid}			更新人
+		UPDATE_TIME				timestamp			#{updateTime}			更新时间
+	-->
+
+	<sql id="all">
+			BASE_TYPE_TREE_ID
+			,BASE_TYPE_ID
+			,NAME
+			,FULL_NAME
+			,VALUE
+			,SEQU
+			,BASE_TYPE_TREE_PID
+			,CREATE_USERID
+			,CREATE_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+	</sql>
+	
+	<select id="selectPagination" resultType="baseTypeTreeEntity" parameterType="baseTypeTreeEntity">
+		select 
+			<include refid="all" /> 
+		from 
+			t_base_type_tree
+		<where>
+			<if test="baseTypeId != '' and baseTypeId != null">
+				BASE_TYPE_ID = #{baseTypeId}
+			</if>
+		</where>
+		order by
+			SEQU
+	</select>
+	
+	<select id="selectByPkey" resultType="baseTypeTreeEntity" parameterType="String">
+		select 
+			<include refid="all" />
+		from 
+			t_base_type_tree
+		where 
+			BASE_TYPE_TREE_ID = #{baseTypeTreeId}
+	</select>
+	
+	<insert id="insert" parameterType="baseTypeTreeEntity">
+		insert into t_base_type_tree (
+			BASE_TYPE_TREE_ID
+			,BASE_TYPE_ID
+			,NAME
+			,FULL_NAME
+			,VALUE
+			,SEQU
+			,BASE_TYPE_TREE_PID
+			,CREATE_USERID
+			,CREATE_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+		) values (
+			#{baseTypeTreeId}
+			,#{baseTypeId}
+			,#{name}
+			,#{fullName}
+			,#{value}
+			,#{sequ}
+			,#{baseTypeTreePid}
+			,#{createUserid}
+			,#{createTime}
+			,#{updateUserid}
+			,#{updateTime}
+		)
+	</insert>
+	
+	<update id="update" parameterType="baseTypeTreeEntity">
+		update t_base_type_tree set 
+			NAME = #{name}
+			,FULL_NAME = #{fullName}
+			,VALUE = #{value}
+			,UPDATE_USERID = #{updateUserid}
+			,UPDATE_TIME = #{updateTime}
+		where
+			BASE_TYPE_TREE_ID = #{baseTypeTreeId}
+	</update>
+	
+	<update id="updateFullName" parameterType="baseTypeTreeEntity">
+		update t_base_type_tree set 
+			FULL_NAME = #{fullName}
+			,UPDATE_USERID = #{updateUserid}
+			,UPDATE_TIME = #{updateTime}
+		where
+			BASE_TYPE_TREE_ID = #{baseTypeTreeId}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from t_base_type_tree where BASE_TYPE_TREE_ID = #{baseTypeTreeId}
+	</delete>
+	
+	<select id="selectByBaseTypeId" resultType="baseTypeTreeEntity" parameterType="string">
+		select 
+			<include refid="all" /> 
+		from 
+			t_base_type_tree
+		where 
+			BASE_TYPE_ID = #{baseTypeId}
+		order by
+			SEQU
+	</select>
+	
+	<select id="selectTreeNameByCodeAndValue" resultType="baseTypeTreeEntity" parameterType="baseTypeTreeEntity">
+		select 
+			<include refid="all" /> 
+		from 
+			t_base_type_tree
+		where 
+			BASE_TYPE_ID = #{baseTypeId}
+			and VALUE = #{value}
+	</select>
+	
+	<select id="selectMaxByBaseTypeId" resultType="Integer" parameterType="string">
+		select 
+			max(sequ) as max
+		from 
+			t_base_type_tree
+		where 
+			BASE_TYPE_ID = #{baseTypeId}
+	</select>
+	
+	<select id="selectUpBySequAndBaseTypeTreePid" resultType="baseTypeTreeEntity" parameterType="baseTypeTreeEntity">
+		select 
+			BASE_TYPE_TREE_ID
+			,BASE_TYPE_ID
+			,NAME
+			,VALUE
+			,SEQU
+			,BASE_TYPE_TREE_PID
+		from
+			t_base_type_tree
+		where 
+			SEQU &lt; #{sequ}
+			and BASE_TYPE_TREE_PID = #{baseTypeTreePid}
+		order by
+			SEQU DESC
+		limit 0,1
+	</select>
+	
+	<select id="selectDownBySequAndBaseTypeTreePid" resultType="baseTypeTreeEntity" parameterType="baseTypeTreeEntity">
+		select 
+			BASE_TYPE_TREE_ID
+			,BASE_TYPE_ID
+			,NAME
+			,VALUE
+			,SEQU
+			,BASE_TYPE_TREE_PID
+		from
+			t_base_type_tree
+		where 
+			SEQU &gt; #{sequ}
+			and BASE_TYPE_TREE_PID = #{baseTypeTreePid}
+		order by
+			SEQU
+		limit 0,1
+	</select>
+	
+	<update id="updateSequ" parameterType="baseTypeTreeEntity">
+		update t_base_type_tree set 
+			SEQU = #{sequ}
+			,UPDATE_USERID = #{updateUserid}
+			,UPDATE_TIME = #{updateTime}
+		where
+			BASE_TYPE_TREE_ID = #{baseTypeTreeId}
+	</update>
+	
+	<select id="selectByBaseTypeTreePid" resultType="baseTypeTreeEntity" parameterType="string">
+		select 
+			<include refid="all" /> 
+		from 
+			t_base_type_tree
+		where 
+			BASE_TYPE_TREE_PID = #{baseTypeTreePid}
+		order by
+			SEQU
+	</select>
+	
+</mapper>

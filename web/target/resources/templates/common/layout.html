@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>网站框架公共部分</title>
+    <th:block th:fragment="meta">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="format-detection" content="telephone=no,email=no,address=no"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <meta name="renderer" content="webkit"/>
+        <meta name="author" th:content="${author}"/>
+        <meta name="description" th:content="${description}"/>
+    </th:block>
+    <th:block th:fragment="static">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+        <link href="/modules/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="/modules/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link href="/css/main.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" th:src="@{/js/jquery-3.5.1.min.js}" charset="utf-8"></script>
+        <script type="text/javascript" th:src="@{/modules/to-top/jquery.toTop.min.js}" charset="utf-8"></script>
+        <!-- 对首页特殊处理和公共导航栏控制-->
+        <script type="text/javascript" src="/modules/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
+        <script th:inline="javascript">
+            $(document).ready(function () {
+                //低版本浏览器判断 begin
+                /*var DEFAULT_VERSION = "10.0";
+                var ua = navigator.userAgent.toLowerCase();
+                var isIE = ua.indexOf("msie") > -1;
+                var safariVersion;
+                if (isIE) {
+                    safariVersion = ua.match(/msie ([\d.]+)/)[1];   //获取浏览器版本号
+                }
+                if (safariVersion*1 <= DEFAULT_VERSION*1) {   //若版本号低于IE10，则跳转到如下页面
+                    window.location.href = "/common/browserTips";    //提示页面（修改路径）
+                };*/
+                //低版本浏览器判断 end
+
+                //导航栏 begin
+                /*$(window).scroll(function() {
+                    if ($(this).scrollTop() > 1) {
+                        $("nav").addClass("f-nav");
+                    } else {
+                        $("nav").removeClass("f-nav");
+                    }
+                });*/
+                //遮罩层
+                var productSystem = $('#productSystem').css('display')
+                var solution = $('#solution').css('display')
+                if(productSystem==='none'&&solution==='none'){
+                    $(".shadow").css({'display':'none'});
+                }else {
+                    $(".shadow").css({'display':'block'});
+                }
+                $('.showMask').mouseenter(function(){
+                    $(".shadow").css({'display':'block'});
+                });
+
+                $('.showMask').mouseleave(function(){
+                    $(".shadow").css({'display':'none'});
+                });
+
+
+                //导航栏 end
+
+                //右侧悬浮菜单 begin
+                b();
+                /*$('#gotop').click(function () {
+                    $(document).scrollTop(0);
+                });*/
+                $('#gotop').toTop({
+                    autohide: true,
+                    offset: 420,
+                    speed: 600,
+                    position:true,
+                });
+
+                $('.right-slide .icon .tel').not('.up,.down').mouseenter(function(){
+                    $('.right-slide .info').removeClass('hover');
+                    $('.right-slide .info').addClass('tel-hover');
+                    //$('.right-slide .info li').hide();
+                    $('.right-slide .info li.'+$(this).attr('class')).show();
+                    var tel = $('.right-slide .icon .tel');
+                    tel.removeClass('tel');
+                    tel.addClass('active_tel');
+                    var wx = $('.right-slide .icon .active_wx');
+                    if(wx){
+                        wx.removeClass('active_wx');
+                        wx.addClass('wx');
+                    }
+                    var tel = $('.right-slide .icon .tel');
+                    tel.removeClass('tel');
+                    tel.addClass('active_tel');
+                });
+                $('.right-slide .icon .wx').not('.up,.down').mouseenter(function(){
+                    $('.right-slide .info').removeClass('tel-hover');
+                    $('.right-slide .info').addClass('hover');
+                    $('.right-slide .info li').hide();
+                    $('.right-slide .info li.'+$(this).attr('class')).show();
+                    var wx = $('.right-slide .icon .wx');
+                    wx.removeClass('wx');
+                    wx.addClass('active_wx');
+                    var tel = $('.right-slide .icon .active_tel');
+                    if(tel){
+                        tel.removeClass('active_tel');
+                        tel.addClass('tel');
+                    }
+                });
+
+                $('.right-slide').mouseleave(function(){
+                    $('.right-slide .info').removeClass('hover');
+                    $('.right-slide .info').removeClass('tel-hover');
+                    $('.right-slide .info li').hide();
+                    var wx = $('.right-slide .icon .active_wx');
+                    var tel = $('.right-slide .icon .active_tel');
+                    wx.removeClass('active_wx');
+                    wx.addClass('wx');
+                    tel.removeClass('active_tel');
+                    tel.addClass('tel');
+                });
+                //右侧悬浮菜单 end
+
+                //底部 begin
+                $('#more').mouseenter(function(){
+                    var moreImg = $('#more img');
+                    moreImg.attr('src','/image/footer/more_active.png');
+                    var a = $('#more a');
+                    a.css('color','#005fb9')
+                });
+
+                $('#more').mouseleave(function(){
+                    var moreImg = $('#more img');
+                    moreImg.attr('src','/image/footer/more.png')
+                    var a = $('#more a');
+                    a.css('color','#666666')
+                });
+                //底部 end
+            });
+
+            //右侧悬浮菜单 begin
+            function b() {
+                h = $(window).height();
+                t = $(document).scrollTop();
+                if (t > h) {
+                    $('#gotop').show();
+                } else {
+                    $('#gotop').hide();
+                }
+            }
+
+            $(window).scroll(function (e) {
+                b();
+            });
+            //右侧悬浮菜单 end
+        </script>
+    </th:block>
+</head>
+<body>
+<!-- 网站公共页头 <th:block th:replace="common/layout::header" /> -->
+<th:block th:fragment="header">
+    <nav class="f-nav navbar navbar-expand-lg navbar-light menu-navbar">
+        <div class="container">
+            <div class="mr-auto logo">
+                <a class="navbar-brand" href="/">
+                    <img alt="厦门海迈"  th:src="@{/image/logo.png}">
+                </a>
+            </div>
+            <div class="mr-auto stock" style=" margin-right: auto !important;">
+                <span class="split"></span>
+                <span>
+                    证券代码：830892
+                </span>
+            </div>
+            <div class="ml-auto">
+                <ul class="nav justify-content-end menu-bar">
+                    <li class="nav-item menu-item">
+                        <a class="nav-link" style="" href="/" >首页</a>
+                    </li>
+                    <li class="nav-item menu-item dropdown showMask">
+                        <a class="nav-link dropdown-toggle" href="/productSystem?active=0" role="button" aria-haspopup="true" aria-expanded="false">
+                            产品体系
+                        </a>
+                        <div id="productSystem" class="dropdown-menu mt-0 dropdown-menu-full menu-column-bar" aria-labelledby="navbarDropdown" >
+                            <div class="row m-0" style="padding-right: 70px;padding-left: 110px;">
+                                <div class="col-1-5 menu-column">
+                                    <div class="menu-column-header">
+                                        <a href="/productSystem?active=0" >核心产品</a>
+                                    </div>
+                                    <div class="split-line">
+                                        <hr>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/productSystem/coreProducts/calculationSoftware">算量软件</a>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/productSystem/coreProducts/priceSoftware">计价软件</a>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/productSystem/coreProducts/BIMProduct">海迈BIM产品</a>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/productSystem/coreProducts/costMembership">造价会员制平台</a>
+                                    </div>
+                                </div>
+                                <div class="col-1-5 menu-column">
+                                    <div class="menu-column-header">
+                                        <a href="/productSystem?active=1">基础产品</a>
+                                    </div>
+                                    <div class="split-line">
+                                        <hr>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/productSystem/basicProducts/biddingEvaluationReviewSoftware">招投标评估评审软件</a>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/productSystem/basicProducts/electronicTradingPlatform">电子交易平台</a>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/productSystem/basicProducts/tradingServicePlatform">交易服务平台</a>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/productSystem/basicProducts/engineeringConstructionSupervisionPlatform">工程建设监管平台</a>
+                                    </div>
+                                </div>
+                                <div class="col-1-5 menu-column">
+                                    <div class="menu-column-header">
+                                        <a href="/productSystem?active=2">扩展产品</a>
+                                    </div>
+                                    <div class="split-line">
+                                        <hr>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/productSystem/extendedProducts/electronicFilePlatform">电子档案平台</a>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/productSystem/extendedProducts/enterpriseCreditManagementPlatform">企业信用管理平台</a>
+                                    </div>
+                                </div>
+                                <div class="col-1-5 menu-column">
+                                    <div class="menu-column-header">
+                                        <a href="/productSystem?active=3">附加产品</a>
+                                    </div>
+                                    <div class="split-line">
+                                        <hr>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/productSystem/additionalProducts/surveyAndDesignManagementPlatform">勘察设计管理平台</a>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/productSystem/additionalProducts/projectVideoMonitoringPlatform">项目视频监管平台</a>
+                                    </div>
+                                </div>
+                                <div class="col-1-5 menu-column">
+                                    <div class="menu-column-header">
+                                        <a href="/productSystem?active=4">潜力产品</a>
+                                    </div>
+                                    <div class="split-line">
+                                        <hr>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/productSystem/potentialProducts/BIMDigitalOperationAndMaintenancePlatform">BIM数字运维平台</a>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/productSystem/potentialProducts/commercialHousingPriceEvaluationAndControlSystem">商品房价格评估调控系统</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item menu-item dropdown showMask">
+                        <a class="nav-link dropdown-toggle"  href="/solution" role="button" aria-haspopup="true" aria-expanded="false">
+                            解决方案
+                        </a>
+                        <div id="solution" class="dropdown-menu mt-0 dropdown-menu-full no-column-header-bar" aria-labelledby="navbarDropdown">
+                            <div class="row m-0" style="padding-right: 70px;padding-left: 110px;">
+                                <div class="col-1-5 menu-column">
+                                    <div class="menu-column-item">
+                                        <a href="/solution/BIMWholeProcessConsultingSolution">BIM全过程咨询解决方案</a>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/solution/BIMVolumeAndPriceIntegrationSolution">BIM量价一体化解决方案</a>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/solution/constructionCostControlSolution">建设成本管控解决方案</a>
+                                    </div>
+                                </div>
+                                <div class="col-1-5 menu-column">
+                                    <div class="menu-column-item">
+                                        <a href="/solution/electronicTradingSolution">电子交易解决方案</a>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/solution/publicResourceTradingSolution">公共资源交易解决方案</a>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/solution/smartConstructionSiteSolution">智慧工地解决方案</a>
+                                    </div>
+                                </div>
+                                <div class="col-1-5 menu-column">
+                                    <div class="menu-column-item">
+                                        <a href="/solution/commercialHousingSupervisionSolution">商品房监管解决方案</a>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/solution/smartSettlementSolution">智慧安居解决方案</a>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/solution/housingBigDataSolution">房屋大数据解决方案</a>
+                                    </div>
+                                </div>
+                                <div class="col-1-5 menu-column">
+                                    <div class="menu-column-item">
+                                        <a href="/solution/smartEducationSolution">智慧教育解决方案</a>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/solution/smartConstructionSolution">智慧建设解决方案</a>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/solution/smartCommunitySolution">智慧小区解决方案</a>
+                                    </div>
+                                </div>
+                                <div class="col-1-5 menu-column">
+                                    <div class="menu-column-item">
+                                        <a href="/solution/smartParkSolution">智慧园区解决方案</a>
+                                    </div>
+                                    <div class="menu-column-item">
+                                        <a href="/solution/smartCityConsultingSolution">智慧城市咨询解决方案</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item menu-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="/operateService" role="button" aria-haspopup="true" aria-expanded="false">运营服务</a>
+                        <div class="dropdown-menu text-center mt-0" style="left: auto;margin-left: -20px;" aria-labelledby="dropdownMenuButton">
+                            <a style="margin-top: 10px;" class="dropdown-item" href="/operateService?active=0">海云网</a>
+                            <a class="dropdown-item" href="/operateService?active=1">海家网</a>
+                            <a class="dropdown-item" href="/operateService?active=2">海材网</a>
+                            <a class="dropdown-item" href="/operateService?active=3">海招网</a>
+                            <a class="dropdown-item" href="/operateService?active=4">海建网</a>
+                            <a class="dropdown-item" href="/operateService?active=5">海学堂</a>
+                            <a style="margin-bottom: 10px;" class="dropdown-item" href="/operateService?active=6">海商城</a>
+                        </div>
+                    </li>
+                    <li class="nav-item menu-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="/news" role="button" aria-haspopup="true" aria-expanded="false">新闻资讯</a>
+                        <div class="dropdown-menu text-center mt-0" style="left: auto;margin-left: -20px;" aria-labelledby="dropdownMenuButton">
+                            <a style="margin-top: 10px;" class="dropdown-item" href="/news?type=1">公司新闻</a>
+                            <a class="dropdown-item" href="/news?type=2">产品新闻</a>
+                            <a class="dropdown-item" href="/news?type=3">行业新闻</a>
+                            <a style="margin-bottom: 10px;" class="dropdown-item" href="/news?type=4">通知公告</a>
+                        </div>
+                    </li>
+                    <li class="nav-item menu-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="/investorRelations" role="button" aria-haspopup="true" aria-expanded="false">投资者关系</a>
+                        <div class="dropdown-menu text-center mt-0" style="left: auto;margin-left: -12px;" aria-labelledby="dropdownMenuButton">
+                            <a style="margin-top: 10px;" class="dropdown-item" href="/investorRelations?type=1">公司公告</a>
+                            <a class="dropdown-item" href="/investorRelations?type=2">定期公告</a>
+                            <a class="dropdown-item" href="/investorRelations?type=3">公司治理</a>
+                            <a style="margin-bottom: 10px;" class="dropdown-item" href="/investorRelations?type=4">联系方式</a>
+                        </div>
+                    </li>
+                    <li class="nav-item menu-item dropdown">
+                        <a style="padding-right: 0;" class="nav-link dropdown-toggle" href="/aboutHymake/intoHymake" role="button" aria-haspopup="true" aria-expanded="false">
+                            关于海迈
+                        </a>
+                        <div class="dropdown-menu text-center mt-0" style="left: auto;margin-left: -20px;" aria-labelledby="dropdownMenuButton">
+                            <a style="margin-top: 10px;" class="dropdown-item" href="/aboutHymake/intoHymake">走进海迈</a>
+                            <a class="dropdown-item" href="/aboutHymake/previousEvents">历届赛事</a>
+                            <a style="margin-bottom: 10px;" class="dropdown-item" href="/aboutHymake/growthProcess">成长历程</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--遮罩层-->
+    <div class="shadow"></div>
+</th:block>
+<!-- 网站公共页脚 <th:block th:replace="common/layout::footer" /> -->
+<th:block th:fragment="footer">
+    <div id="foot-top" style="margin-bottom:0;background-color: #e6ebf7;">
+    	<style scoped="scoped">
+    		.footer-column-item {
+    			/*margin-bottom: -1px;*/
+    		}
+			.footer-column-item > a {
+				font-size: 14px;
+				color: #333333;
+				text-decoration: none;
+			}
+			.footer-column-item > a:hover {
+				color: #005fb9;
+			}
+			.footer-column-item-title {
+				font-size: 18px; 
+				color: #000000; 
+				padding-bottom: 15px;
+			}
+			.footer-site-column-item > a {
+				font-size: 14px;
+				color: #333333;
+				text-decoration: none;
+				margin-left: 46px;
+			}
+			.footer-site-column-item > a:hover {
+				color: #005fb9;
+			}
+			.footer-site-column-item-title {
+				font-size: 18px;
+				color: #000000;
+			}
+			.footer-bottom-column-item{
+				font-size: 14px;
+				color: #cccccc;
+			}
+			.footer-bottom-column-item > a {
+				font-size: 14px;
+				color: #cccccc;
+				text-decoration: none;
+			}
+			.footer-bottom-column-item > a:hover {
+				color: #ffffff;
+			}
+			.footer-bottom-column-item > .split-line {
+				padding: 0px 5px;
+			}
+
+            .div-region{
+                margin-left: 140px;
+            }
+    	</style>
+        <div class="container">
+            <div class="d-flex justify-content-between">
+                <div style="margin-top: 71px; margin-bottom: 42px;">
+                    <div class="d-flex justify-content-between">
+                    	<div>
+                    		<div class="footer-column-item-title">
+                    			 用户服务
+                    		</div>
+                    		<div class="footer-column-item">
+                    			 <a href="/userService/commonProblem">常见问题</a>
+                    		</div>
+                    		<div class="footer-column-item">
+                    			<a href="/userService/resourceDownload">资源下载</a>
+                    		</div>
+                    		<div class="footer-column-item">
+                    			<a href="/userService/customerService">客户服务</a>
+                    		</div>
+                    		<div class="footer-column-item">
+                    			<a class="code-div" href="javascript:void(0);">
+                                    视频教程
+                                    <img class="show-code build_shool_show-code" src="/image/footer/builde_school_code.png" alt="">
+                                </a>
+                    		</div>
+                    	</div>
+                    	<div class="div-region">
+                    		<div class="footer-column-item-title">
+                    			 关于海迈
+                    		</div>
+                    		<div class="footer-column-item">
+                    			<a href="/aboutHymake/intoHymake">走进海迈</a>
+                    		</div>
+                    		<div class="footer-column-item">
+                    			<a href="/aboutHymake/previousEvents">历届赛事</a>
+                    		</div>
+                    		<div class="footer-column-item">
+                    			<a href="/joinHymake">加入海迈</a>
+                    		</div>
+                    		<div class="footer-column-item">
+                    			<a href="/aboutHymake/contactUs">联系我们</a>
+                    		</div>
+                    	</div>
+                    	<div class="div-region">
+                    		<div class="footer-column-item-title">
+                    			 关注海迈
+                    		</div>
+                    		<div class="footer-column-item">
+                    			<a class="code-div" href="javascript:void(0);">
+                                    海迈科技
+                                    <img class="show-code haimai_show-code" src="/image/footer/hymake_code.png" alt="">
+                                </a>
+                    		</div>
+                    		<div class="footer-column-item">
+                    			<a class="code-div" href="javascript:void(0);">
+                                    造价V服务
+                                    <img class="show-code cost_service_show-code" src="/image/footer/cost_service_code.png" alt="">
+                                </a>
+                    		</div>
+                    		<div class="footer-column-item">
+                    			<a class="code-div" href="javascript:void(0);">
+                                    建工大数据
+                                    <img class="show-code construction_big_data_show-code" src="/image/footer/construction_big_data.png" alt="">
+                                </a>
+                    		</div>
+                    		<div class="footer-column-item">
+                    			<a class="code-div" href="javascript:void(0);">
+                                    建设学堂
+                                    <img class="show-code build_shool_show-code" src="/image/footer/builde_school_code.png" alt="">
+                                </a>
+                    		</div>
+                    		<div class="footer-column-item">
+                    			<a id="more" href="/aboutHymake/followHymake">
+                                    更多
+                                    <span style="line-height: 24px; height: 24px;">
+                    				    <img style="width: 12px; height: 12px;" src="/image/footer/more.png" alt="">
+                    			    </span>
+                                </a>
+                    		</div>
+                    	</div>
+                    </div>
+                </div>
+                <div style="margin-top: 71px;margin-left: 147px">
+                	<div class="d-flex justify-content-between">
+                    	<div>
+                    		<div class="footer-column-item-title">
+                    			联系方式
+                    		</div>
+                    		<div style="font-size: 14px;color: #333333;margin-top: 3px;">
+                    			7×24小时服务热线：
+                    		</div>
+                    		<div style="font-size: 24px; color: #0066cc;margin-top:-7px;padding-bottom: 26px; font-weight: bold;">
+                    			0592-5070808
+                    		</div>
+                    		<div style="font-size: 14px;color: #333333;">
+                    			公司邮箱：
+                    		</div>
+                    		<div style="font-size: 24px;margin-top:-7px;padding-bottom: 52px;font-weight: bold;">
+                    			<a href="mailto:service@hymake.com" style="color: #0066cc; text-decoration: none;">service@hymake.com</a>
+                    		</div>
+                    	</div>
+                    	<div style="text-align: center;margin-left: 125px">
+                    		<div>
+                    			<img src="/image/footer/footer_code.png" style="width: 141px; height: 141px;margin-top: 9px;" alt="关注海迈科技">
+                    		</div>
+                    		<div class="text-center" style="font-size: 14px;color: #525252;margin-top: -1px">关注海迈科技</div>
+                    	</div>
+                    </div>
+                </div>
+            </div>
+            <hr style="margin: 0">
+            <div style="padding-top: 31px; padding-bottom: 33px;">
+                <div class="footer-site-column-item">
+                	<span class="footer-site-column-item-title">相关站点</span>
+                	<a target="_blank" href="http://www.zaojia.cn/">海迈造价家园</a>
+                	<a target="_blank" href="http://mall.hymake.cn/">海迈商城</a>
+                	<a target="_blank" href="http://www.xmjspx.cn/">海迈培训</a>
+                	<!--<a target="_blank" href="https://login.hymake.cn/login?service=http%3A%2F%2Fyun.hymake.cn%2Flogin1%2Fflag_koi">海迈造价云</a>-->
+                	<a target="_blank" href="http://www.efileyun.com/">海迈电子档案平台</a>
+                	<a target="_blank" href="http://www.hyebid.cn/hyweb/hyebid/hyIndex.do">海易招</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="foot-bottom" class="text-center" style="background-color: #333333; padding: 12px 0px;">
+        <div class="footer-bottom-column-item" style="height: 28px; line-height: 28px;">
+        	<span>友情链接：</span>
+            <a target="_blank" href="http://www.mnr.gov.cn/">自然资源部</a>
+            <span class="split-line">|</span>
+            <a target="_blank" href="http://www.mohurd.gov.cn/">住房和城乡建设部</a>
+            <span class="split-line">|</span>
+            <a target="_blank" href="http://www.miit.gov.cn/">工信部</a>
+            <span class="split-line">|</span>
+            <a target="_blank" href="http://zrzyt.fujian.gov.cn/">福建省自然资源厅</a>
+            <span class="split-line">|</span>
+            <a target="_blank" href="http://zjt.fujian.gov.cn/">福建省住房和城乡建设厅</a>
+            <span class="split-line">|</span>
+            <a target="_blank" href="http://gxt.fujian.gov.cn/">福建省工信厅</a>
+            <span class="split-line">|</span>
+            <a target="_blank" href="http://js.xm.gov.cn/">厦门市建设局</a>
+        </div>
+        <div class="footer-bottom-column-item">
+           	 <a style="padding: 0px 10px;" target="_black" href="https://beian.miit.gov.cn/">闽ICP备05022666号-1</a>Copyright © 2004-2020 厦门海迈科技股份有限公司  All Rights Reserved.
+        </div>
+    </div>
+</th:block>
+
+<!--右侧悬浮菜单 <th:block th:fragment="rightTools"/>-->
+<th:block th:fragment="rightTools">
+    <!--右侧悬浮菜单-->
+    <div class="right-slide">
+        <ul class="icon">
+            <!--<li class="qq"></li>-->
+            <li class="tel"></li>
+            <li class="wx"></li>
+        </ul>
+        <ul class="info">
+            <!--<li class="qq">
+                <p>在线沟通，请点我在线咨询</p>
+            </li>-->
+            <li class="tel">
+                <div >
+                    <p style="font-size:14px;color: #333333;margin-left:20px;margin-top: 8px">电话：</p>
+                    <p style="font-size:18px;color: #0066cc;margin-left:20px;margin-top: -25px">0592-5070808</p>
+                    <p style="font-size:14px;color: #333333;margin-left:20px;margin-top: -20px">传真：</p>
+                    <p style="font-size:18px;color: #0066cc;margin-left:20px;margin-top: -25px">0592-5090768</p>
+                </div>
+            </li>
+            <li class="wx">
+                <div class="img"><img src="/image/rightTools/right_code.png" /></div>
+            </li>
+        </ul>
+    </div>
+    <!--返回最上面-->
+    <a id="gotop" href="javascript:void(0)"></a>
+</th:block>
+
+</body>
+</html>

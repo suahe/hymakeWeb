@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'运营服务 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+</head>
+ <body>
+<!-- 头部分-->
+<th:block th:replace="common/layout::header"/>
+<style scoped="scoped">
+    .web-tile{
+        font-size: 30px;
+        color: #2a2e2e;
+        font-weight: bold;
+    }
+
+    .web-text{
+        font-size: 16px;
+        color: #666666;
+        margin-top: 7px;
+        text-align: justify
+    }
+
+    .banner-div{
+        height: 350px;
+        /*background: url('/image/produceSystem/product_system_banner.png') no-repeat;*/
+        background: url('/image/operateService/operate_service_banner_bg.png') no-repeat;
+        background-size: 100% 350px;
+    }
+    .text-div{
+        width: 100%;
+        padding-top: 90px;
+    }
+    .banner-title{
+        font-size: 44px;
+        color: #ffffff;
+    }
+    .banner-text{
+        font-size: 18px;
+        width: 670px;
+        color: #ffffff;
+        line-height: 36px;
+        margin-top: 9px
+    }
+    .banner-img-content{
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+</style>
+<div class="banner-div">
+    <!--<img class="card-img-top h-400px" src="/image/operateService/operate_service_banner.png">-->
+    <div class="container d-flex">
+        <div class="text-div">
+            <div class="banner-title">运营服务</div>
+            <div class="banner-text">
+             依托“云、大、物、移、智、区”的前沿技术，为主管部门、建设领域企业、专业岗位人员提供全方位的运营服务。
+            </div>
+        </div>
+        <img class="banner-img-content" src="/image/operateService/operate_service_banner_content.png" alt="">
+    </div>
+</div>
+<div>
+    <div class="container">
+        <div class="d-flex justify-content-between" style="margin-top: 125px;margin-bottom: 96px">
+            <div>
+                <div id="0" class="web-tile">海云网</div>
+                <div class="web-text text-indent-2">
+                    <p>
+                        海云网，又名“造价云服务”，是利用互联网和移动互联网、BIM、云计算、大数据等技术，海迈科技首创的造价会员制整套服务体系。通过推出造价一站式服务体系、一套会员账号、全系列产品适用，将传统的造价产品，提升为互联网服务，提供全方位的云服务支持，更好地满足造价从业人员对工程造价数据的积累存储和再利用的要求，大幅提升工作的便捷性和高效性。
+                    </p>
+                    <p>
+                       在个人空间方面，工程文档可随手上传保存；支持计价、BIM模型等在线展示；支持文件共享；在云组价方面，上传历史工程，或在海迈计价软件中上传云组价，如再遇到相同的清单、项目特征，只需复用云组价，一键应用，便捷、高效；在云资源方面，无需安装助手，即可在海迈造价云中进行信息价、品牌价的下载使用，支持会员软件下载，提供软件操作教学视频；在云定额/云材料方面，使用会员账号进行定额、材料上传，可永久使用相关数据。
+                    </p>
+                </div>
+            </div>
+            <div style="margin-left: 100px">
+                <img src="/image/operateService/operate_service_icon1.png" style="width: 220px;height: 350px;" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-light">
+        <div class="container" style="padding: 111px 0 111px 0">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <img src="/image/operateService/operate_service_icon2.png" style="width: 520px;height: 350px;" alt="">
+                </div>
+                <div style="margin-left: 100px">
+                    <p id="1" class="web-tile"> 海家网</p>
+                    <p class="web-text text-indent-2">
+                        海家网，又名“海迈造价家园网”，是为建设领域各方主体、造价专业人士和会员提供一站式服务的网络平台。服务内容包括海迈会员制服务，海迈计价软件、海迈算量软件、海迈BIM量价一体化软件、海迈投标预评估系统、材价等产品的软件下载、客服答疑、视频学习、课程培训、售后咨询等。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="margin-top: 111px;margin-bottom: 111px">
+        <div class="d-flex justify-content-between">
+            <div>
+                <div id="2" class="web-tile">海材网</div>
+                <div class="web-text text-indent-2">
+                    <p>
+                        海材网，又名“海迈建材商情网”，是为建设工程各方主体、造价从业人员以及材料厂商、供应商，提供建材商情信息的一站式信息服务平台，在现有材料信息价、品牌价发布渠道的基础上，提供全新的在线数据服务。
+                    </p>
+                    <p>
+                        平台建立配套的材机数据标准，提供材机品牌价服务、在线询价服务、常用材料价格走势、材料供需信息发布、部品部件信息服务、供应商信息服务等，并以PC端、移动端等为载体，方便管理、查询和使用。
+                    </p>
+                </div>
+
+            </div>
+            <div style="margin-left: 100px">
+                <img src="/image/operateService/operate_service_icon3.png" style="width: 620px;height: 350px;" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-light">
+        <div class="container" style="padding: 111px 0 111px 0">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <img src="/image/operateService/operate_service_icon4.png" style="width: 500px;height: 350px" alt="">
+                </div>
+                <div style="margin-left: 100px">
+                     <p id="3" class="web-tile">海招网</p>
+                    <div class="web-text text-indent-2">
+                        <p>
+                            海招网，又名“海易招网”，为企业提供量身定制的电子交易服务，招标代理机构、自主招标的企业可以通过海招网提供的电子交易平台进行招标采购。海招网依照国家法规及技术规范的要求，提供丰富的交易方式、评标办法供招标采购单位选择，可根据选择将网站发布的招标采购信息自动推送到省、国家招标采购网或公共服务平台，操作过程简捷规范、省时省力。其交易云服务为第三方单位提供快速建立独立交易平台的服务，通过账号注册、网站对接，即可建成本单位的专有交易平台。
+                        </p>
+                        <p>
+                           海招网为企业提供交易信息服务，对接在网络平台发布的交易信息，通过公众号、微网站为企业提供定制信息推送和移动交易服务。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="margin-top: 111px;margin-bottom: 111px">
+        <div class="d-flex justify-content-between">
+            <div>
+                 <p  id="4" class="web-tile">海建网</p>
+                <div  class="web-text text-indent-2">
+                    <p>
+                        海建网，又名“工程建设大数据服务”，以微信公众号的形式，面向施工企业和项目负责人提供多项移动服务，其中包含工程指标、行业动态信息、政策法规信息的推送和信用卫士增值服务。
+                    </p>
+                    <p>
+                        信用卫士基于海迈科技企业信用管理平台，通过移动端为施工企业提供项目级增值移动服务，可实现政策解读、扣分风险数量预警、标准化考评预警、合同履约预警、项目检查预警、双随机检查模拟自査记分等功能，有助于防止工程事故发生，降低综合信用丟分风险。该服务具有数据准确、模拟现场、贴近规范等特点，实现项目扣分、风险事项及时预警；提供模拟双随机检查服务，实时掌握对信用分影响较大的扣分条款，进行靶向处理，促进有效整改。
+                    </p>
+                </div>
+            </div>
+            <div style="margin-left: 100px">
+                <img src="/image/operateService/operate_service_icon5.png" style="width: 330px;height: 350px;" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-light">
+        <div class="container" style="padding: 111px 0 111px 0">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <img src="/image/operateService/operate_service_icon6.png" style="width: 700px;height: 350px;" alt="">
+                </div>
+                <div style="margin-left: 100px">
+                    <p id="5" class="web-tile">海学堂</p>
+                    <p class="web-text text-indent-2">
+                        海学堂，又名“海迈建设学堂”，是建设行业精品课程的在线学习平台。通过专业级录课系统和录播室确保课件质量，为广大从业人员提供工程造价、项目管理、BIM、专题研讨等各类专业课程及300余门免费企业通识课程；拥有场景化的学习环境、趣味性的学习地图、社交性的学习氛围，即时性的积分奖励，让在线学习变得生动有趣；可作为企业场景化在线学习平台，学习主题萃取与知识沉淀工具；也是企业人力资源管理平台，激活人才潜能、提升组织绩效；还是企业文化宣导载体、员工归属感建设工具。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="margin-top: 111px;margin-bottom: 111px">
+        <div class="d-flex justify-content-between">
+            <div>
+                <p id="6" class="web-tile">海商城</p>
+                <p class="web-text text-indent-2">
+                    海商城，又名“海迈商城”，是顺应“互联网+”的发展趋势，面向建设领域的B2B2C电商平台，也是业内率先上线的电商平台。海商城提供建筑全生命期所需的各类海迈科技软件产品、专业学习课程、书籍和生活用品，供业内企业及个人在线便捷选购。
+                </p>
+            </div>
+            <div style="margin-left: 100px">
+                <img src="/image/operateService/operate_service_icon7.png" style="width: 670px;height: 350px;" alt="">
+            </div>
+        </div>
+    </div>
+
+</div>
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+
+ <script>
+     $(document).ready(function () {
+         var active = getUrlParam('active');
+         locationCoordinate(active);
+     });
+
+     function locationCoordinate(active) {
+         if(active){
+             //屏幕移动到地图位置
+             var windowTop = $('#'+active).offset().top;
+             $('body,html').animate({scrollTop: windowTop-191}, 'fast');
+         }
+     }
+
+     function getUrlParam(name) {//a标签跳转获取参数
+         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+         var r = window.location.search.substr(1).match(reg);
+         if (r != null) return (decodeURIComponent(r[2])); return null;
+     }
+ </script>
+</body>
+</html>

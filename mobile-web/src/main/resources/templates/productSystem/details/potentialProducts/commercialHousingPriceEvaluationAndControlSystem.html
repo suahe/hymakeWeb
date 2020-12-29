@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'商品房价格评估调控系统 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .main-content{
+
+        }
+        .detail-title{
+            padding-bottom: 0.4rem;
+        }
+        .detail-title h4 {
+            color: #0066cc;
+            text-align: center;
+            position: relative;
+            padding: 0;
+            padding-top: 0.55rem;
+            padding-bottom: 0.25rem;
+            display: inline-block;
+            margin: 0;
+            float: none !important;
+            left: 50%;
+            transform:translate(-50%,0);
+            font-size: 0.4rem;
+        }
+        .detail-title h4:after {
+            content: '';
+            width: 30%;
+            height: 2px;
+            background-color: #0066cc;
+            position: absolute;
+            left: 50%;
+            transform:translate(-50%,0);
+            bottom: 0;
+            min-width: 35px;
+        }
+        .detail-text{
+            font-size: 0.28rem;
+            color: #666666;
+            text-indent: 2em;
+            text-align: justify;
+        }
+        .detail-pad{
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+        .system-adv-part{
+            background-color: #f4f4f5;
+            padding-right: 0.5rem;
+            padding-left: 0.5rem;
+            padding-bottom: 0.75rem;
+        }
+
+    </style>
+</head>
+<body>
+<!--引入详情页头部-->
+<th:block th:replace="common/layout::detail-header"/>
+<main class="main-content">
+    <div class="detail-pad">
+        <div class="detail-text" style="padding-top: 0.61rem;">
+            潜力产品商品房价格评估调控系统，是以实现新建商品房价格评估的科学管理为目标，以成本估价法和市场比较法为指导思想，以信息化技术为手段，以合理成本为基础，以市场供求为导向，兼顾“国家、企业、消费者”三方利益，进行价格评估体系建设，打造指标分析法的房价评估模式。同时，系统并采用“价比+量比”双管齐下，进行评估动态修正，实现按区域、按项目科学、准确、合理指导新建商品房定价，完善市场调控体系，促进房地产业健康发展。
+        </div>
+        <img class="w-100" style="padding-bottom: 0.6rem;" src="/image/productSystem/details/potentialProducts/commercialHousingPriceEvaluationAndControlSystem/xi-tong-cheng-xiao.png" alt="">
+    </div>
+    <div class="system-adv-part">
+        <div class="detail-title">
+            <h4>系统优势</h4>
+        </div>
+        <img class="w-100" src="/image/productSystem/details/potentialProducts/commercialHousingPriceEvaluationAndControlSystem/xi-tong-guan-li.png" alt="">
+    </div>
+
+</main>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

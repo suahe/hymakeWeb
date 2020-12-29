@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>用户信息管理</title>
+		<th:block th:replace="fragments/include::common_header" />
+	</head>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content">
+	        <div class="ibox">
+	            <div class="ibox-title">
+	                <h4>用户信息管理</h4>
+	            </div>
+	            <div class="ibox-content">
+	            	<div class="row" style="">
+	            		<div class="col-xs-12">
+	            			<div class="pull-left" style="padding: 0px 0px 15px 0px;">
+			            		<a id="_load_add" href="javascript:void(0);" class="btn btn-outline btn-primary" role="button">新增</a>
+			            		<a id="_load_edit" href="javascript:void(0);" class="btn btn-outline btn-primary" role="button">编辑</a>
+			            		<a id="_setting_lock" href="javascript:void(0);" class="btn btn-outline btn-primary" role="button">设置状态</a>
+							</div>
+							<div class="input-group pull-right" style="width: 350px;padding: 0px 0px 15px 0px;">
+								<input id="_searchText" type="text" class="form-control" placeholder="输入用户名称或账号……">
+								<span class="input-group-btn">
+									<button id="_search" type="button" class="btn btn-default">搜索</button>
+									<button id="_search_reset" type="button" class="btn btn-default">重置</button>
+								</span>
+							</div>
+	            		</div>
+	            	</div>
+	            	<div class="row">
+	            		<div class="col-xs-6">
+							<table id="_base_user_list"></table>
+						</div>
+						<div class="col-xs-6">
+							<div class="wrapper wrapper-content">
+						        <div class="ibox">
+						            <div class="ibox-title">
+						                <h5>扩展信息</h5>
+						                <div class="ibox-tools">
+						                	<a class="collapse-link">
+			                                   	<span id="attempts"></span>
+			                                </a>
+			                                 
+						                </div>
+						            </div>
+						            <div class="ibox-content">
+						            	<div class="row">
+											<div class="col-xs-4">
+												<input type="text" id="_images" name="images" style="display: none;" >
+												<div id="_browse_bar" style="width: 100%; text-align: center;">
+													<img id="_showImage" alt="用户头像" width="128px" height="128px" class="rounded-circle m-t-xs img-fluid" src="../images/partrait_image.jpg">
+												</div>
+												<div style="width: 100%; height: 34px; line-height: 34px; text-align: center; padding-top: 8px;">
+													<button id="_browse" type="button" class="btn btn-block btn-outline btn-primary" >换个头像</button>
+												</div>
+											</div>
+						            		<div class="col-xs-8">
+							            		<div class="card_view">
+							            			<label>
+							            				用户名
+							            			</label>
+							            			<div>
+							            				<span id="view_name"></span>
+							            			</div>
+							            		</div>
+							            		<div class="hr-line-dashed" style="margin: 5px 0px;"></div>
+							            		<div class="card_view">
+							            			<label>
+							            				部门
+							            			</label>
+							            			<div>
+							            				<span id="view_department_name"></span>
+							            			</div>
+							            		</div>
+							            		<div class="hr-line-dashed" style="margin: 5px 0px;"></div>
+							            		<form id="_user_ext_edit_form" class="form-horizontal">
+													<input type="text" id="_user_edit_userExtId" name="userExtId" style="display: none;">
+													<input type="text" id="_user_ext_edit_userId" name="userId" style="display: none;">
+													<div class="form-group">
+														<label for="_user_edit_mobile" class="col-xs-2 control-label" >电话</label>
+														<div class="col-xs-10">
+															<input type="text" class="form-control" id="_user_edit_mobile" name="mobile" placeholder="请输入电话">
+														</div>
+													</div>
+													<div class="form-group">
+														<label for="_user_edit_email" class="col-xs-2 control-label" >邮箱</label>
+														<div class="col-xs-10">
+															<input type="text" class="form-control" id="_user_edit_email" name="email" placeholder="请输入邮箱">
+														</div>
+													</div>
+												</form>
+							            		<div class="hr-line-dashed" style="margin: 5px 0px;"></div>
+							            		<div style="float: right; padding-top: 10px;">
+							            			<a id="_user_ext_edit_save_button" href="javascript:void(0);" class="btn btn-primary" role="button">保存扩展信息</a>
+							            		</div>
+						            		</div>
+						            	</div>
+						            </div>
+					           	</div>
+				           	</div>
+						</div>
+					</div>
+	            </div>
+	        </div>
+        </div>
+        <!-- 新增用户信息模态窗口 -->
+        <div class="modal fade" id="_user_add_window" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document" style="width: 450px;">
+				<div class="modal-content">
+					<div class="modal-header">
+                		<h4 class="modal-title" >新增用户信息</h4>
+					</div>
+					<div class="modal-body" style="">
+						<form id="_user_add_form" class="form-horizontal">
+							<div class="form-group">
+								<label for="username" class="col-xs-3 control-label">账号</label>
+								<div class="col-xs-9">
+									<input type="text" name="username" class="form-control" placeholder="请输入账号" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="name" class="col-xs-3 control-label">用户名</label>
+								<div class="col-xs-9">
+									<input type="text" name="name" class="form-control" placeholder="请输入用户名" >
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="_user_add_close_button" type="button" class="btn btn-default">取消</button>
+						<button id="_user_add_button" type="button" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 编辑用户信息模态窗口 -->
+        <div class="modal fade" id="_user_edit_window" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document" style="width: 450px;">
+				<div class="modal-content">
+					<div class="modal-header">
+                		<h4 class="modal-title" >编辑用户信息</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_user_edit_form" class="form-horizontal">
+							<input name="userId" type="hidden">
+							<div class="form-group">
+								<label for="username" class="col-xs-3 control-label">账号</label>
+								<div class="col-xs-9">
+									<input type="text" name="username" class="form-control" placeholder="请输入账号" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="name" class="col-xs-3 control-label">用户名</label>
+								<div class="col-xs-9">
+									<input type="text" name="name" class="form-control" placeholder="请输入用户名" >
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="_user_edit_close_button" type="button" class="btn btn-default">取消</button>
+						<button id="_user_edit_button" type="button" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<style type="text/css">
+			.card_view {
+				height: 34px;
+				line-height: 34px; 
+				font-size: 14px;
+			}
+			.card_view > label {
+				float: left;
+				 width: 80px;
+			}
+		</style>
+		<script type="text/javascript">
+		
+			/* 上传控件 参数设置 */
+		    var uploader = new plupload.Uploader({
+		    	url: '/buc/upi'
+	           ,browse_button: '_browse'
+	           ,multi_selection: false
+	           ,file_data_name: 'images'
+		       ,headers: {
+		    	   'X-CSRF-TOKEN': $("meta[name='_csrf']").attr("content")
+		       }
+	           ,filters: {
+					mime_types: [
+						{title: "图片类型", extensions: "jpg,jpeg"}
+					]
+		    		,max_file_size: '100kb'
+		    		,prevent_duplicates: false
+	           }
+	       });
+		
+			$(document).ready(function(){
+				
+				/*初始化Token*/
+				secjs.init();
+				
+				/* 上传控件初始化 */
+		        uploader.init();
+		        
+		        /* 上传控件 添加文件 */
+		        uploader.bind('FilesAdded',function(uploader,files){
+		            var file = files[0];
+		            var preloader = new moxie.image.Image();
+		            preloader.onload = function() {
+		                $('#_showImage').attr("src", preloader.getAsDataURL());
+		                $('#_images').val(preloader.getAsDataURL());
+		                preloader.destroy();
+		                preloader = null;
+		             };
+		             preloader.onerror = function(error){
+		            	 message.warning("添加文件失败");
+		            	 return;
+		             }
+		             preloader.load(file.getSource());
+		             uploader.start();
+		        });
+		        
+		        uploader.bind('BeforeUpload',function(uploader,files){
+		        	uploader.setOption("multipart_params", {
+		                "userId": $("#_user_ext_edit_userId").val()
+		            });
+		        });
+		        
+		        /* 上传控件 错误监听 */
+		        uploader.bind('Error',function(uploader,errObject){
+		        	message.warning(errObject.message);
+		        });
+				
+				/* 用户信息列表 */
+				$("#_base_user_list").bootstrapTable({
+					url: '../buc/list',
+					method: 'GET',
+					totalField: 'total',
+					dataField: 'list',
+					pagination: true,
+					pageSize:10,
+					pageList:[10,20,30,40,100],
+					sidePagination: "server",
+					singleSelect: true,
+					clickToSelect: false,
+					columns: [
+						{radio: true,valign: 'middle'}
+						,{field: 'userId',title: '用户编号',halign:'center',align: 'left',valign: 'middle',visible: false}
+						,{field: 'username',title: '账号',halign:'center',align: 'left',valign: 'middle'}
+						,{field: 'name',title: '用户名',halign:'center',align: 'left',valign: 'middle'}
+						,{field: 'isDel',title: '有效状态',halign:'center',align: 'center',valign: 'middle',
+							formatter:function(value,row,index){
+								if(0 == value){
+									return "有效";
+								}else{
+									return "<span style='color: #EC4758;'>锁定</span>";
+								}
+							}
+						}
+					],
+					onCheck: function(row, $element) {
+						
+						$('#_user_ext_edit_form')[0].reset();
+						
+						$("#userId").text("");
+						$("#attempts").text("");
+						$("#view_name").text("");
+						$("#view_department_name").text("");
+						
+						var userId = row.userId;
+						$("#_user_ext_edit_userId").val(userId);
+						$("#view_name").text(row.name+" ("+row.username+")");
+						$.get('../bdc/viewByUserId?userId='+userId, function(data) {
+							if(!$.isEmptyObject(data)){
+								$("#view_department_name").text(data.departmentName);
+							}
+						});
+						$.ajax({
+							type: "GET",
+							url: '../buc/loadViewExt',
+							data: "userId="+userId,
+							success: function(r){
+								if(!$.isEmptyObject(r)){
+									if(r.blocked){
+										$("#attempts").text("该账户已被锁定").css({"color":"#EC4758"});
+									}else{
+										if(0 < r.attempts){
+											$("#attempts").text("尝试登录次数："+r.attempts).css({"color":"#F8AC5A"});
+										}
+									}
+									$.setForm('#_user_ext_edit_form',r);
+								}
+							}
+						});
+						//加载头像文件
+						$("#_showImage").attr("src","/buc/loadPartrait?userId="+userId+"&t=" + Math.random());
+					},
+					onLoadSuccess: function(data){
+						if(data.list.length > 0){
+							$("#_base_user_list").bootstrapTable("checkBy", {field:"userId", values:[data.list[0].userId]});
+						}
+					},
+	                queryParams: function (params) {
+	                    return {
+							"offset": params.offset,
+				            "limit": params.limit,
+							"searchText":$("#_searchText").val()
+						};
+	                }
+				})
+				
+				/* 查询 */
+				$("#_search").click(function(){
+					$("#_base_user_list").bootstrapTable('refresh');
+				});
+				
+				/* 查询重置 */
+				$("#_search_reset").click(function(){
+					$("#_searchText").val('');
+					$("#_base_user_list").bootstrapTable('refresh');
+				});
+				
+				/* 验证新增用户信息表单 */
+				$('#_user_add_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						username:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 50,
+									message: '长度应小于50个字'
+								},
+								regexp:{
+									regexp: /^[a-z\d]+$/,
+									message: '必须为小写字母和数字'
+								}
+							}
+						},
+						name:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 100,
+									message: '长度应小于100个字'
+								},
+								regexp:{
+									regexp: /^[\u4e00-\u9fa5]+$/,
+									message: '必须为中文'
+								}
+							}
+						}
+					}
+				});
+				
+				/* 弹出新增用户信息页面 */
+				$("#_load_add").click(function(){
+					
+					$('#_user_add_form')[0].reset();
+					$('#_user_add_window').modal('show');
+				});
+				
+				/* 保存新增用户信息 */
+				$('#_user_add_button').click(function(){
+					
+					$('#_user_add_form').bootstrapValidator('validate');
+					var flag = $("#_user_add_form").data('bootstrapValidator').isValid();
+					if(flag){
+						$.ajax({
+							type: "POST",
+							url: '../buc/add',
+							data: $("#_user_add_form").serialize(),
+							success: function(r){
+								if(r > 0){
+									$("#_base_user_list").bootstrapTable('refresh');
+									$('#_user_add_window').modal('hide');
+								}else{
+									message.saveFall();
+								}
+							}
+						});
+					}
+				});
+				
+				/* 关闭新增用户信息 */
+				$('#_user_add_close_button').click(function(){
+					$('#_user_add_window').modal('hide');
+				});
+				
+				/* 弹出编辑用户信息页面 */
+				$('#_load_edit').click(function(){
+					
+					var userId = "-";
+	            	var row = $('#_base_user_list').bootstrapTable('getSelections');
+	            	if (typeof(row) != 'undefined' && row.length != 0){
+	            		userId = row[0].userId;
+						$.ajax({
+							type: "GET",
+							url: '../buc/loadEdit',
+							data: {'userId':userId},
+							success: function(r){
+								$.setForm('#_user_edit_form',r);
+								$('#_user_edit_window').modal('show');
+							}
+						});
+					}else{
+						message.selectOne();
+					}
+				});
+				
+				/* 验证编辑用户信息表单 */
+				$('#_user_edit_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						username:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 50,
+									message: '长度应小于50个字'
+								},
+								regexp:{
+									regexp: /^[a-z\d]+$/,
+									message: '必须为小写字母和数字'
+								}
+							}
+						},
+						name:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 100,
+									message: '长度应小于100个字'
+								},
+								regexp:{
+									regexp: /^[\u4e00-\u9fa5]+$/,
+									message: '必须为中文'
+								}
+							}
+						}
+					}
+				});
+				
+				/* 保存编辑用户信息 */
+				$('#_user_edit_button').click(function(){
+					
+					$('#_user_edit_form').bootstrapValidator('validate');
+					var flag = $("#_user_edit_form").data('bootstrapValidator').isValid();
+					if(flag){
+						$.ajax({
+							type: "POST",
+							url: '../buc/edit',
+							data: $("#_user_edit_form").serialize(),
+							success: function(r){
+								if(r > 0){
+									$("#_base_user_list").bootstrapTable('refresh');
+									$('#_user_edit_window').modal('hide');
+								}else{
+									message.saveFall();
+								}
+							}
+						});
+					}
+				});
+				
+				/* 关闭编辑用户信息 */
+				$('#_user_edit_close_button').click(function(){
+					$('#_user_edit_window').modal('hide');
+				});
+				
+				/* 锁定/解锁用户状态 */
+				$('#_setting_lock').click(function(){
+					
+					var userId = "-";
+	            	var row = $('#_base_user_list').bootstrapTable('getSelections');
+	            	if (row != undefined && row.length != 0){
+	            		userId = row[0].userId;
+						$.ajax({
+							type: "GET",
+							url: '../buc/updateIsDel',
+							data: {'userId':userId},
+							success: function(r){
+								$("#_base_user_list").bootstrapTable('refresh');
+							}
+						});
+					}else{
+						message.selectOne();
+					}
+				});
+				
+				/* 验证用户扩展信息表单 */
+				$('#_user_ext_edit_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						email:{
+							validators:{
+								stringLength:{
+									max: 100,
+									message: '长度应小于100个字'
+								},
+								emailAddress:{
+									message: '邮箱格式不正确'
+								}
+							}
+						}
+					}
+				});
+				
+				/* 保存编辑用户扩展信息 */
+				$('#_user_ext_edit_save_button').click(function(){
+					
+					var row = $('#_base_user_list').bootstrapTable('getSelections');
+	            	if (typeof(row) != 'undefined' && row.length != 0){
+	            		var _form = $('#_user_ext_edit_form');
+						_form.bootstrapValidator('validate');
+						var flag = _form.data('bootstrapValidator').isValid();
+						if(flag){
+							$.post('../buc/saveExt', _form.serialize(),function(data){
+								
+								if(!$.isEmptyObject(data)){
+									$("#_user_edit_userExtId").val(data);
+									message.saveSuccess();
+								}else{
+									message.saveFall();
+								}
+							});
+						}
+	            	}else{
+	            		message.selectOne();
+	            	}
+				});
+				
+			})
+		</script>
+	</body>
+</html>

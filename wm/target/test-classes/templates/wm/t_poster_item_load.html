@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>公告信息管理</title>
+    	<th:block th:replace="fragments/include::common_header" />
+	</head>
+	<style type="text/css">
+		
+	</style>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h4>公告信息管理<small style="padding-left: 5px;">发布视频公告会覆盖图片公告，目前只支持发布1条视频公告，建议图片公告不多于5条。</small></h4>
+				</div>
+				<div class="ibox-content">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="pull-left" style="padding-bottom: 10px;" >
+								<button id="_add_image_button" type="button" class="btn btn-outline btn-primary">增加图片</button>
+								<button id="_add_video_button" type="button" class="btn btn-outline btn-primary">增加视频</button>
+								<button id="_del_button" type="button" class="btn btn-outline btn-danger">删除</button>
+								<button id="_up_list_button" type="button" class="btn btn-outline btn-primary"><i class="fa fa-arrow-up"></i></button>
+								<button id="_down_list_button" type="button" class="btn btn-outline btn-primary"><i class="fa fa-arrow-down"></i></button>
+							</div>
+							<table id="_t_poster_item"></table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	    <script type="text/javascript">
+	    
+			$(document).ready(function(){
+
+		        secjs.init();
+	        
+		        var _posterItemId = "";
+		        
+		        $("#_t_poster_item").bootstrapTable({
+					url: '../pic/list'
+					,method: 'GET'
+					,totalField: 'total'
+					,dataField: 'list'
+					,pagination: true
+					,pageSize: 10
+					,pageList: [10,20,100]
+					,sidePagination: "server"
+					,singleSelect: true
+					,clickToSelect: true
+					,columns: [
+						{checkbox: true,valign: 'middle'}
+						,{field: 'posterItemId',title: '图片编号',halign: 'center',align: 'left',valign: 'middle',visible: false}
+						,{field: 'typeName',title: '公告类型',halign: 'center',align: 'center',valign: 'middle',visible: true}
+						,{field: 'name',title: '名称',halign: 'center',align: 'left',valign: 'middle',visible: true
+							,formatter:function(value,row,index){
+								return '<a class="edit" data-id="'+row.posterItemId+'" data-type="'+row.type+'" href="javascript:void(0);">'+ value +'</a>'
+							}
+						}
+						,{field: 'imageType',title: '图片类型',halign: 'center',align: 'left',valign: 'middle',visible: false}
+						,{field: 'url',title: '电脑端链接地址',halign: 'center',align: 'left',valign: 'middle',visible: true}
+						,{field: 'mobileUrl',title: '移动端链接地址',halign: 'center',align: 'left',valign: 'middle',visible: true}
+						,{field: 'isTargetName',title: '跳转方式',halign: 'center',align: 'center',valign: 'middle',visible: true}
+						,{field: 'sequ',title: '排序',halign: 'center',align: 'left',valign: 'middle',visible: false}
+						,{field: 'pushTime',title: '设置发布状态',halign: 'center',align: 'center',valign: 'middle',visible: true
+							,formatter:function(value,row,index){
+								if("" == row.path){
+									return '先上传图片或视频';
+								}else{
+									if(null == value){
+										return '<a class="stat-push" data-id="'+row.posterItemId+'" data-type="'+row.type+'" href="javascript:void(0);">发布</a>'
+									}else{
+										return '<span>已发布（'+value+'）</span><a class="stat-pull" data-id="'+row.posterItemId+'" href="javascript:void(0);">下架</a>'
+									}
+								}
+							}
+						}
+						,{field: 'updateUserid',title: '更新人',halign: 'center',align: 'left',valign: 'middle',visible: false}
+						,{field: 'updateTime',title: '更新时间',halign: 'center',align: 'left',valign: 'middle',visible: false}
+					]
+			        ,onLoadSuccess: function() {
+			        	$("#_t_poster_item").bootstrapTable("checkBy", {field:"posterItemId", values:[_posterItemId]});
+			        }
+		        });
+
+				/* 新增图片 按钮点击事件 */
+				$('#_add_image_button').click(function(){
+					
+					main.loadHTML("../pic/loadImageAdd",'main');
+				});
+				
+				/* 新增视频 按钮点击事件 */
+				$('#_add_video_button').click(function(){
+					
+					main.loadHTML("../pic/loadVideoAdd",'main');
+				});
+				
+				/* 编辑  链接点击事件 */
+				$("#_t_poster_item").on("click",".edit",function(event){
+					
+					var type = $(this).data('type');
+					var posterItemId = $(this).data('id');
+					if('TP' == type){
+						main.loadHTML("../pic/loadImageEdit?posterItemId="+posterItemId,'main');
+					}else{
+						main.loadHTML("../pic/loadVideoEdit?posterItemId="+posterItemId,'main');
+					}
+				});
+
+
+				/* 删除信息 */
+				$('#_del_button').click(function () {
+				  
+					var row = $('#_t_poster_item').bootstrapTable('getSelections');
+					if (typeof(row) != 'undefined' && row.length != 0){
+						swal({
+							type: "warning",
+							title: "确认要删除？",
+							text: "你的操作会删除选择的记录",
+							showCancelButton: true,
+							cancelButtonText: "取消",
+							confirmButtonColor: "#1AB394",
+							confirmButtonText: "确定删除？",
+							closeOnConfirm: false
+						}, function () {
+							var _posterImageId = row[0].posterItemId;
+							$.get('../pic/del', {'posterItemId':_posterImageId},function(r){
+								if(r > 0){
+									message.delSuccess();
+									$("#_t_poster_item").bootstrapTable('refresh');
+								}else{
+									message.delFall();
+								}
+							})
+						});
+					}else{
+						message.selectOne();
+					}
+				});
+				
+				
+				/* 排序下降一位 */
+				$('#_down_list_button').click(function(){
+					
+					var row = $('#_t_poster_item').bootstrapTable('getSelections');
+					if (typeof(row) != undefined && row.length != 0){
+						var posterItemId = row[0].posterItemId;
+						$.getJSON('../pic/down', {'posterItemId':posterItemId}, function(data) {
+							if(data > 0){
+								_posterItemId = posterItemId;
+								$("#_t_poster_item").bootstrapTable('refresh');
+							}else{
+								message.info('该节点已经不能移动');
+							}
+						});
+					}else{
+						message.selectOne();
+					}
+				});
+				
+				/* 排序上升一位 */
+				$('#_up_list_button').click(function(){
+					
+					var row = $('#_t_poster_item').bootstrapTable('getSelections');
+					if (typeof(row) != undefined && row.length != 0){
+						var posterItemId = row[0].posterItemId;
+						$.getJSON('../pic/up', {'posterItemId':posterItemId}, function(data) {
+							if(data > 0){
+								_posterItemId = posterItemId;
+								$("#_t_poster_item").bootstrapTable('refresh');
+							}else{
+								message.info('该节点已经不能移动');
+							}
+						});
+					}else{
+						message.selectOne();
+					}
+				});
+
+				
+				/** 点击 发布  按钮 弹出发布新闻资讯窗口*/
+				$("#_t_poster_item").on("click",".stat-push",function(event){
+					
+					var type = $(this).data('type');
+					var posterItemId = $(this).data('id');
+					if("SP" == type){
+						$.getJSON('../pic/countByType', {'type':'SP'}, function(data) {
+							if(data < 1){
+								$.post('../pic/push', {'posterItemId':posterItemId},function(r){
+									if(r > 0){
+										message.success("发布公告成功");
+										$("#_t_poster_item").bootstrapTable('refresh');
+									}else{
+										message.warning("发布公告失败");
+									}
+								})
+							}else{
+								message.warning("只能发布一条视频公告");
+							}
+						});
+					}else if("TP" == type){
+						$.post('../pic/push', {'posterItemId':posterItemId},function(r){
+							if(r > 0){
+								message.success("发布公告成功");
+								$("#_t_poster_item").bootstrapTable('refresh');
+							}else{
+								message.warning("发布公告失败");
+							}
+						})
+					}
+					
+				});
+				
+				
+				/** 点击 下架  按钮 弹出发布新闻资讯窗口*/
+				$("#_t_poster_item").on("click",".stat-pull",function(event){
+					
+					$.post('../pic/pull', {'posterItemId':$(this).data('id')},function(r){
+						if(r > 0){
+							message.success("下架公告成功");
+							$("#_t_poster_item").bootstrapTable('refresh');
+						}else{
+							message.warning("下架公告失败");
+						}
+					})
+				});
+				
+			})
+	    </script>
+	</body>
+</html>

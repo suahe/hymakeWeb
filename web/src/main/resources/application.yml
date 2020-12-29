@@ -1,0 +1,89 @@
+﻿server: 
+  servlet: 
+    context-path: /
+    session:
+      timeout: 28800
+  port: 88
+  tomcat: 
+    max-http-form-post-size: -1
+    threads:
+      max: 200
+      
+spring: 
+  resources:
+    static-locations: classpath:/static/
+  thymeleaf: 
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    cache: false
+    servlet:
+      content-type: text/html
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/wm?characterEncoding=UTF-8&useSSL=false
+#    username: hymake
+#    password: RSj0TBKQp3d2aZvo
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: "SELECT 1 FROM DUAL"
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: "stat,wall"
+      use-global-data-source-stat: true
+      connection-properties: "druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000"
+      stat-view-servlet:
+        enabled: true
+        login-username: daizb
+        login-password: 1
+        reset-enable: false
+        url-pattern: "/druid/*"
+      web-stat-filter: 
+        url-pattern: "/*"
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+      
+mybatis: 
+  type-aliases-package: com.hymake.web.entity
+  mapper-locations: classpath:com/hymake/web/mapper/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+    jdbc-type-for-null: null
+    default-statement-timeout: 60
+
+pagehelper: 
+  helperDialect: MYSQL
+  supportMethodsArguments: true
+  reasonable: true
+  params: count=countSql
+  
+  
+marvel: 
+  cache: 
+    constant: 
+      duration: 60 #设置常量缓存的时间（分钟）
+    basetype: 
+      duration: 10 #设置常量缓存的时间（分钟）
+  
+logging:
+  file:
+    name: logs/web.log
+    max-size: 5MB
+    clean-history-on-start: true
+    max-history: 90
+    total-size-cap: 1GB
+  level: 
+    root: warn
+    com.hymake.web.mapper: warn
+      

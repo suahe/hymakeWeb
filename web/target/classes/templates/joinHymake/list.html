@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+	<head>
+	    <meta charset="UTF-8">
+	    <th:block th:replace="common/layout::meta"/>
+	    <meta name="keywords" th:content="${keywords}"/>
+	    <title th:text="'加入我们  - ' + ${title}"></title>
+	    <th:block th:replace="common/layout::static"/>
+	    <script type="text/javascript" src="/modules/bootstrap-pagination/page.min.js" charset="utf-8"></script>
+	    <th:block th:replace="common/analytics::baidu"/>
+		<style scoped="scoped">
+			.bg-fa{
+				background-color: #fafafa;
+			}
+
+			.link {
+				margin-top: 10px;
+			}
+
+			.link li {
+				float: left;
+				display: inline;
+				margin-left: 60px;
+			}
+
+			.link li a {
+				color: #666666;
+				font-size: 16px;
+				font-weight: 500;
+				padding-bottom: 6px;
+				display: block;
+				text-decoration: none;
+				margin-top: 5px;
+			}
+
+			.link li.active {
+				border-bottom: 2px solid #0066cc;
+			}
+
+			.link li.active a {
+				color: #0066cc;
+				text-decoration: none;
+				margin-top: 5px;
+				margin-bottom: 4px;
+			}
+
+			.position_icon{
+				width: 30px;
+				height: 24px;
+				margin-top: 10px;
+			}
+
+			.detail_icon{
+				width: 30px;
+				height: 24px;
+				margin-top: -1px;
+			}
+
+			.join-card-body{
+				padding: 52px 0 52px 0;
+				border-bottom: 1px dashed #e6e6e6
+			}
+
+			.join-card-title{
+				font-size: 20px;
+				color: #000000;
+				font-weight:bold;
+				margin-left: 20px;
+				text-align: justify;
+			}
+
+			.join-card-body p{
+				margin-bottom: 4px;
+			}
+
+			.postInfo{
+				font-size: 20px;
+				color: #666666;
+				margin-left: 10px;
+			}
+
+			.jobRequire-title{
+				font-size: 16px;
+				color: #000000;
+				font-weight: bold;
+				margin-left: 16px;
+			}
+
+			.jobRequire-text{
+				font-size: 16px;
+				color: #666666;
+			}
+
+			.joinWay-title{
+				font-size: 16px;
+				color: #000000;
+				font-weight: bold;
+			}
+
+			.joinWay-text{
+				font-size: 16px;
+				color: #e55101;
+			}
+		</style>
+	</head>
+
+	<body>
+	<th:block th:replace="common/layout::header"/>
+	<div>
+		<img class="card-img-top" src="/image/joinHymake/join_banner.png">
+	</div>
+	<div class="nav bg-fa" style="height: 60px" id="newsTab">
+		<div class="container">
+			<ul class="link">
+				<li th:classappend="${joinType=='0'}?'active'" class="ml-0"><a href="/joinHymake?joinType=0">全部</a></li>
+				<li th:classappend="${joinType=='1'}?'active'"><a href="/joinHymake?joinType=1">技术类</a></li>
+				<li th:classappend="${joinType=='2'}?'active'"><a href="/joinHymake?joinType=2">运营类</a></li>
+				<li th:classappend="${joinType=='3'}?'active'"><a href="/joinHymake?joinType=3">产品类</a></li>
+				<li th:classappend="${joinType=='4'}?'active'"><a href="/joinHymake?joinType=4">服务类</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="container" style="margin-top: 40px;margin-bottom: 80px;">
+		<div th:each="item,itemStat: ${join}">
+			<div th:classappend="${itemStat.first}?'pt-0'" class="card-body join-card-body">
+				<div class="d-flex">
+					<img class="position_icon" src="/image/joinHymake/position_icon.png" alt="">
+					<div class="card-title">
+						<span class="join-card-title" th:text="${item?.postName}"></span>
+						<span class="postInfo">
+							<span>(</span>
+							<span th:text="${item?.joinTypeName}"></span><span>-</span><span th:text="${item?.workplaceName}"></span>
+							<span style="margin-left: 20px">招聘人数：</span><span th:text="${item?.recruitmentNumber}"></span><span>人</span>
+							<span  style="margin-left: 20px" th:text="${item?.expirationDate != null? #dates.format(item?.pushTime, 'yyyy-MM-dd'):'长期有效'}"></span>
+							<span>)</span>
+						</span>
+					</div>
+				</div>
+				<div>
+					<img class="detail_icon" src="/image/joinHymake/detail_icon.png" alt="">
+					<span class="jobRequire-title">岗位要求：</span>
+				</div>
+				<div class="jobRequire-text" th:utext="${item?.jobRequirements}"></div>
+				<div>
+					<span class="joinWay-title">应聘方式：</span>
+					<span class="joinWay-text">
+						<span>请将简历发送至：</span>
+						<span th:text="${item?.joinWay}"></span>
+					</span>
+				</div>
+			</div>
+		</div>
+		
+		<!--<table>
+			<tr th:each="item: ${join}">
+				<td th:text="${item?.joinTypeName}">招聘类型</td>
+				<td th:text="${item?.workplaceName}">工作地点</td>
+				<td th:text="${item?.recruitmentNumber}">招聘人数</td>
+				<td th:if="${item?.expirationDate == null}">
+					长期
+				</td>
+				<td th:if="${item?.expirationDate != null}" th:text="${#dates.format(item?.expirationDate, 'yyyy-MM-dd')}">
+					截止日期
+				</td>
+				<td th:text="${item?.postName}">岗位名称</td>
+				&lt;!&ndash; <td th:text="${item?.jobRequirements}">岗位要求</td> &ndash;&gt;
+				<td th:text="${item?.joinWay}">加入方式</td>
+				<td th:text="${#dates.format(item?.pushTime, 'yyyy-MM-dd')}">发布时间</td>
+			</tr>
+		</table>-->
+	</div>
+	<th:block th:replace="common/layout::rightTools"/>
+	<th:block th:replace="common/layout::footer"/>
+	</body>
+</html>

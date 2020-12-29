@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans" >
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta" />
+    <meta name="keywords" th:content="${keywords}" />
+    <title th:text="'智慧小区解决方案详情页 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static" />
+    <th:block th:replace="common/analytics::baidu" />
+</head>
+<body>
+<!-- 头部分-->
+<th:block th:replace="common/layout::header" />
+
+<div class="d-flex justify-content-center detail-bg">
+    <div style="margin-top: 60px">
+        <img class="detail-title-l"  src="/image/common/title_icon_L.png" alt="">
+        <b class="detail-title">智慧小区解决方案</b>
+        <img class="detail-title-r" src="/image/common/title_icon_R.png" alt="">
+    </div>
+</div>
+
+<div class="container detail-body">
+    <div class="detail-text text-indent-2">
+        <p>
+            小区和社区是居民生活最重要的载体之一，但传统的业主委员会、物业委员会和居委会自治性治理架构，公共问题凸显，纠纷不断，既难以完整体现政府的城市治理理念，也难以真正反映广大业主的诉求。因此，多元共治已成为各方的共同需求。
+        </p>
+        <p>
+            海迈科技智慧小区解决方案，一方面以电子投票作为切入点，将投票与个人身份捆绑，不占用场地资源，随时随地对重要议题表达诉求，创新了协商式民主机制和社会治理模式，真正做到“重心下移，力量下沉”；另一方面，海迈科技智慧小区解决方案以三大频繁应用场景作为抓手，包括人脸门禁、停车诱导和错峰以及公维报修，不断培育居民的行为粘性；同时，规范服务流程、提升服务质量、降低运维成本。在此基础上，进一步提供快速和个性化的物业、租赁、培训、教育、商圈等增值服务，实现小区治理现代化、小区管理自主化，以及公共便民服务多元化。
+        </p>
+    </div>
+    <div class="text-center" style="margin-top: 72px">
+        <img src="/image/solution/details/smartCommunitySolution/img1.png" alt="">
+    </div>
+</div>
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+</body>
+</html>

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'成长历程 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <script type="text/javascript" src="/js/dropload/dropload.min.js" charset="utf-8"></script>
+    <style scoped="scoped">
+        .main-content {
+
+        }
+
+
+        .proTopLabel {
+            padding: 0.35rem 0.5rem;
+            font-size: 0;
+        }
+
+        .proTopLabel a {
+            display: inline-block;
+            width: 1.5rem;
+            height: 0.68rem;
+            margin-right: 0.16rem;
+            text-align: center;
+            line-height: 0.68rem;
+            font-size: 0.28rem;
+            color: #6C6C6C;
+            border: 1px solid #DDDDDD;
+        }
+
+        .proTopLabel a:hover{
+            text-decoration: none;
+        }
+        .proTopLabel a:nth-child(4n) {
+            margin-right: 0;
+        }
+
+        .proTopLabel a.on {
+            color: #005bac;
+            text-decoration: none;
+            border-color: #449ef9;
+        }
+
+        .bgFFF {
+            background: #fff;
+        }
+
+        .pad50 {
+            padding: 0 0.50rem;
+        }
+
+        .proTop {
+            padding-top: 0.45rem;
+            padding-bottom: 0.4rem;
+        }
+
+        .proTop h2 {
+            font-size: 0.6rem;
+            color: #1D1D1D;
+            line-height: 0.84rem;
+        }
+
+        .proTop h3 {
+            margin-top: 0.16rem;
+            margin-bottom: 0.25rem;
+            font-size: 0.36rem;
+            font-weight: 600;
+            color: #1D1D1D;
+            line-height: 0.5rem;
+        }
+
+        .proTopDown {
+            height: 0.76rem;
+            margin-bottom: 0.3rem;
+            border: 1px solid #449ef9;
+        }
+
+        .selectW {
+            height: 100%;
+            padding: 0 0.72rem 0 0.3rem;
+            position: relative;
+        }
+
+        .selectW input {
+            width: 100%;
+            height: 100%;
+            font-size: 0.28rem;
+            color: #005bac;
+            box-sizing: border-box;
+            border: medium none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .selectW .selBtn {
+            display: inline-block;
+            width: 0.72rem;
+            height: 100%;
+            background: url(/image/chronology/down-icon.png) no-repeat center;
+            background-size: 0.14rem 0.11rem;
+            position: absolute;
+            top: 0;
+            right: 0.1rem;
+            *display: inherit;
+            *zoom: 1;
+            float: none;
+        }
+
+        .selectW .selBtn.active {
+            -ms-transform: rotate(-180deg);
+            -webkit-transform: rotate(-180deg);
+            transform: rotate(-180deg);
+        }
+
+        .selectDown {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: auto;
+            max-height: 4.2rem;
+            overflow: auto;
+            background: #fff;
+            top: 0.72rem;
+            left: 0;
+            z-index: 88;
+        }
+
+        .selectDown::-webkit-scrollbar-track-piece {
+            background-color: rgba(0, 0, 0, 0);
+            border-left: 1px solid rgba(0, 0, 0, 0);
+        }
+
+        .selectDown::-webkit-scrollbar {
+            width: 2px;
+            height: 2px;
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            border-radius: 0;
+        }
+
+        .selectDown::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.5);
+            background-clip: padding-box;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            min-height: 2px;
+        }
+
+        .selectDown::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(0, 0, 0, 0.6);
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            border-radius: 0;
+        }
+
+        .selectDown ul {
+            list-style: none;
+            margin-bottom: 0;
+            padding-inline-start: 0;
+        }
+
+        .selectDown ul li {
+            height: 0.6rem;
+            padding: 0 0.1rem 0 0.36rem;
+            line-height: 0.6rem;
+            font-size: 0.26rem;
+            color: #005bac;
+        }
+
+        .selectDown ul li:hover {
+            background: #f5f5f5;
+        }
+        .selectDown ul a:hover{
+            text-decoration: none;
+        }
+
+        .chronologys-part {
+            min-height: 1.45rem;
+        }
+
+        .dropload-up, .dropload-down {
+            position: relative;
+            height: 0;
+            overflow: hidden;
+            color: #999999;
+            font-size: 0.24rem;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+
+        .dropload-down {
+          /*  height: 0.5rem;*/
+        }
+
+        .dropload-refresh, .dropload-update, .dropload-load, .dropload-noData {
+            height: 0.5rem;
+            line-height: 0.5rem;
+            text-align: center;
+        }
+
+        .dropload-load .loading {
+            display: inline-block;
+            height: 0.16rem;
+            width: 0.16rem;
+            border-radius: 100%;
+            margin: 0rem 0.1rem;
+            border: 1px solid #999;
+            border-bottom-color: transparent;
+            vertical-align: middle;
+            -webkit-animation: rotate 0.75s linear infinite;
+            animation: rotate 0.75s linear infinite;
+        }
+
+
+
+        .chronology-year{
+            padding-bottom: 0.28rem;
+        }
+        .chronology-year h4 {
+            color: #0066cc;
+            text-align: center;
+            position: relative;
+            padding: 0;
+            padding-top: 0.55rem;
+            padding-bottom: 0.25rem;
+            display: inline-block;
+            margin: 0;
+            float: none !important;
+            left: 50%;
+            transform:translate(-50%,0);
+            font-size: 0.4rem;
+        }
+        .chronology-year h4:after {
+            content: '';
+            width: 30%;
+            height: 2px;
+            background-color: #0066cc;
+            position: absolute;
+            left: 50%;
+            transform:translate(-50%,0);
+            bottom: 0;
+            min-width: 35px;
+        }
+        .time-axis {
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+        .time-axis:before {
+            content: '';
+            position: absolute;
+            left: 1.24rem;
+            top: 15px;
+            width: 1px;
+            height: 100%;
+            background-color: #E4E4E4;
+        }
+        .time-axis-item {
+            list-style: none;
+            padding-left: 1.7rem;
+            position: relative;
+            font-size: 0.28rem;
+            color: #666666;
+            padding-bottom: 0.12rem;
+            text-align: justify;
+        }
+        .time-axis-date {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 0.28rem;
+            color: #000000;
+        }
+
+        .time-axis-date img{
+            /*position: absolute;*/
+            /*right: -0.59rem;*/
+            /*width: 13px;
+            height: 13px;*/
+            position: relative;
+            margin-left: 1.16rem;
+            margin-top: -0.36rem;
+            /*width: 0.25rem;
+            height: 0.25rem;*/
+            top: 28%;
+            display: block;
+            /*border: 1px solid #ccc;*/
+            border-radius: 100%;
+            /*background-color: #0066cc;*/
+            background: url("/image/chronology/dot-icon.png");
+        }
+        /*.time-axis-date span:after {
+            content: '';
+            position: absolute;
+            !*left: 0;
+            width: 7px;
+            height: 7px;*!
+            left: 0.005rem;
+            width: 0.15rem;
+            height: 0.15rem;
+
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 100%;
+        }*/
+        .time-axis-achievement {
+            margin: 0;
+        }
+        .chronology-year-part-1{
+            background-color: #f4f4f5;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            padding-bottom: 0.75rem;
+        }
+        .chronology-year-part-2{
+            background-color: #ffffff;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            padding-bottom: 0.75rem;
+        }
+        .navFix{
+            background:#FFF;
+            position:sticky;
+            top:1.12rem;
+            z-index:2;
+        }
+        .no-data{
+            color: #999999;
+            font-size: 0.24rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<!--引入头部-->
+<th:block th:replace="common/layout::header"/>
+<main class="main-content">
+    <div>
+        <img class="w-100" src="/image/intoHymake/into-hymake-banner.png" alt="">
+    </div>
+    <div id="aboutHymakeNav" class="proTopLabel">
+        <a href="/aboutHymake/intoHymake">走进海迈</a>
+        <a class="on" href="/aboutHymake/chronology">成长历程</a>
+        <a href="/aboutHymake/contactUs">联系我们</a>
+        <a href="/aboutHymake/joinHymake">加入海迈</a>
+    </div>
+    <div class="pad50 bgFFF">
+        <div class="proTopDown">
+            <div class="selectW">
+                <input type="text" name="" id="type_data" value="所有年份" readonly="readonly" unselectable="on"
+                       onfocus="this.blur()">
+                <span class="selBtn"></span>
+                <div class="selectDown">
+                    <ul>
+                        <a href="/aboutHymake/chronology">
+                            <li class="single-line">所有年份</li>
+                        </a>
+                        <a th:each="year: ${downYears}" th:href="'/aboutHymake/chronology?year=' + ${year}">
+                            <li class="single-line" th:text="${year}"></li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="chronologys" class="chronologys-part">
+
+    </div>
+</main>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //当内容高度不够手机屏幕高度，增加高度
+        var mobileHeight=window.innerHeight;
+        var bodyHeight =  $('body').css('height').replace('px','');
+        if (mobileHeight>bodyHeight){
+            var contentHeight = mobileHeight - bodyHeight;
+            $('#chronologys').css('minHeight',contentHeight+'px');
+        }
+
+        var headHeight=200;  //这个高度其实有更好的办法的。使用者根据自己的需要可以手工调整。
+        var label=$("#aboutHymakeNav");
+        $(window).scroll(function(){
+            if($(this).scrollTop()>headHeight){
+                label.addClass("navFix");
+            }
+            else{
+                label.removeClass("navFix");
+            }
+        })
+    })
+    var all_pages = "7";
+    var p = 0;
+    $(function () {
+        var years = [[${years}]]
+        // dropload
+        if (all_pages > 0) {
+            $('.main-content').dropload({
+                scrollArea: window,
+                //上拉
+                domDown: {
+                    domClass: 'dropload-down',
+                    domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+                    domLoad: '<div class="dropload-load">加载中<span class="loading"></span></div>',
+                    domNoData: '<div class="dropload-noData">已加载全部</div>'
+                },
+                //上拉在后面插入内容
+                loadDownFn: function (me) {
+                    if (all_pages == 1) {
+                        me.lock();
+                        me.noData();
+                        me.resetload();
+                        return;
+                    }
+
+                    var data = { "year": years[p]};
+                    p++;
+                    $.ajax({
+                        type: 'POST',
+                        url: "/aboutHymake/chronologysPage",
+                        dataType: 'json',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: data,
+                        success: function (data) {
+                            /*var r_data = JSON.parse(JSON.stringify(data));*/
+                            var r_data = data;
+                            if (r_data.list != "") {
+                                var result = "";
+                                if((p+1)%2==0){
+                                    result+='<div class="chronology-year-part-1">';
+                                }else {
+                                    result+='<div class="chronology-year-part-2">';
+                                }
+                                result+='<div class="chronology-year">' +
+                                    '          <h4>'+r_data.year+'</h4>' +
+                                    '    </div>'+
+                                     ' <ul class="time-axis">';
+                                $.each(r_data.list, function (i, item) {
+                                    result += '                <li class="time-axis-item">' +
+                                        '                    <div class="time-axis-date">'+item.occurrenceTimeStr+'<img src="/image/chronology/dot-icon.png"></img></div>' +
+                                        '                    <div class="time-axis-title">'+item.content+'</div>' +
+                                        '                    <p class="time-axis-achievement"></p></li>' ;
+
+                                });
+                                result +='         </ul>' +
+                                    '        </div>';
+                                $("#chronologys").append(result);
+                                var p_num = years.length;
+                                if (p_num == 1) {
+                                    //$(".load.load1").css("display", "none");
+                                    me.lock();
+                                    me.noData();
+                                    me.resetload();
+                                    return;
+                                }
+                                if (years.length == p) {
+                                    //$(".load.load1").css("display", "none");
+                                    me.lock();
+                                    me.noData();
+                                }
+                                // 每次数据加载完，必须重置
+                                me.resetload();
+                                //$(".soluWrap.pad35").attr("data_p", p);
+
+                            } else {
+                                var result = ' <div class="no-data">' +
+                                    '            暂无数据' +
+                                    '        </div>'
+                                $("#chronologys").append(result);
+                                //$(".load.load1").css("display", "none");
+                                me.lock();
+                                me.noData();
+                                me.resetload();
+                            }
+                        },
+                        error: function (xhr, type) {
+                            // alert('请刷新重试');
+                            // 即使加载出错，也得重置
+                            me.resetload();
+                        }
+                    });
+                },
+                threshold: 400
+            });
+        }
+        $('#chronologys').on('click', '.clearfloat', function (e) {
+            e.preventDefault();
+
+            var param = {
+                page: p,
+                top: $(window).scrollTop()
+            };
+            var list = $('#chronologys').html();
+            var aList = JSON.stringify(list);
+            var aParam = JSON.stringify(param);
+            // alert('sess'+p);
+            // console.log(aList);
+            sessionStorage.setItem('productList', aList);
+            sessionStorage.setItem('productParam', aParam);
+            window.location.href = $(this).attr('href');
+        })
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var selectText = getUrlParam('year');
+        if(selectText){
+            $("#type_data").val(selectText);
+        }
+    })
+    //获取输入栏参数
+    function getUrlParam(name) {//a标签跳转获取参数
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return (decodeURIComponent(r[2])); return null;
+    }
+    //下拉
+    var selectDown=function(){
+        $(".selectW").click(function(event){
+            $(this).find(".selectDown").slideToggle().siblings(".selBtn").toggleClass("active");
+            $(this).parents(".teacherHWInner").siblings(".teacherHWInner").find(".selectDown").slideUp().siblings(".selBtn").removeClass("active");
+            event.stopPropagation();
+        })
+        $(".selectDown ul li").click(function(){
+            $(this).parents(".selectDown").siblings("input").val($(this).text());
+        })
+        $("body").click(function(){
+            $(".selectDown").slideUp();
+            $(".selBtn").removeClass("active");
+        })
+
+        $(".teacherChoose a").click(function(){
+            $(this).addClass("on").siblings("a").removeClass("on");
+        })
+    }
+
+</script>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

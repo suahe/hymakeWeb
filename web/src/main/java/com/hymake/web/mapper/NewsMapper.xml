@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	@Description t_news 表数据库操作SQL语句
+	@author daizb@hymake.com
+	@date 2020-06-03 13:39:45
+	@version 1.0
+	@remark create by ca
+-->
+
+<mapper namespace="com.hymake.web.mapper.NewsMapper">
+
+	<!-- 
+		NEWS_ID				varchar			#{newsId}			资讯编号
+		IS_HEADLINE		varchar				#{isHeadline}		是否头条新闻
+		MEDIA_TYPE		varchar				#{mediaType}		媒体文件类型
+		EXT				varchar				#{ext}				扩展名
+		PATH			varchar				#{path}				媒体文件地址
+		NEW_TYPE				varchar			#{newType}			新闻类型
+		KEYWORDS				varchar			#{keywords}			关键词
+		TITLE				varchar			#{title}			标题
+		OVERVIEW				varchar			#{overview}			摘要
+		CONTENT				mediumtext			#{content}			内容
+		URL				varchar			#{url}			链接
+		AUTHOR				varchar			#{author}			作者
+		PUSH_TIME				datetime			#{pushTime}			推送时间
+		UPDATE_TIME				datetime			#{updateTime}			更新时间
+		UPDATE_USERID				varchar			#{updateUserid}			更新人
+	-->
+
+	<sql id="all">
+			NEWS_ID
+			,IS_HEADLINE
+			,MEDIA_TYPE
+			,EXT
+			,PATH
+			,NEW_TYPE
+			,KEYWORDS
+			,TITLE
+			,OVERVIEW
+			,CONTENT
+			,URL
+			,AUTHOR
+			,PUSH_TIME
+			,UPDATE_TIME
+			,UPDATE_USERID
+	</sql>
+	
+	<select id="selectPagination" resultType="newsEntity">
+		select 
+			NEWS_ID
+			,IS_HEADLINE
+			,NEW_TYPE
+			,TITLE
+			,AUTHOR
+			,PUSH_TIME,
+			URL
+		from 
+			t_news
+		<where>
+			PUSH_TIME != ''  and AUTHOR != ''
+			<if test="0 != newType">
+				and NEW_TYPE = #{newType}
+			</if>
+		</where>
+		order by
+			PUSH_TIME DESC
+	</select>
+	
+	<select id="selectByIsHeadline" resultType="newsEntity">
+		select 
+			NEWS_ID
+			,IS_HEADLINE
+			,PATH
+			,NEW_TYPE
+			,KEYWORDS
+			,TITLE
+			,OVERVIEW
+			,URL
+			,AUTHOR
+			,PUSH_TIME
+		from 
+			t_news
+		where
+			IS_HEADLINE = 1
+			and PUSH_TIME is not null
+		limit 0,1
+	</select>
+	
+	<select id="selectByTopNews" resultType="newsEntity">
+		select 
+			NEWS_ID
+			,NEW_TYPE
+			,KEYWORDS
+			,OVERVIEW
+			,TITLE
+			,URL
+			,AUTHOR
+			,PUSH_TIME
+		from 
+			t_news
+		where
+			IS_HEADLINE = 0
+			and NEW_TYPE = '1'
+			and PUSH_TIME is not null
+		order by
+			PUSH_TIME DESC
+		limit 0,4
+	</select>
+	
+	<select id="selectByNewsId" resultType="newsEntity" parameterType="long">
+		select 
+			NEWS_ID
+			,NEW_TYPE
+			,KEYWORDS
+			,OVERVIEW
+			,TITLE
+			,CONTENT
+			,URL
+			,AUTHOR
+			,PUSH_TIME
+		from 
+			t_news
+		where 
+			NEWS_ID = #{newsId}
+	</select>
+	
+</mapper>

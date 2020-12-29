@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'计价软件详情页 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style secoped="secoped">
+        .icon-img{
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+<!-- 头部分-->
+<th:block th:replace="common/layout::header"/>
+
+<div class="d-flex justify-content-center detail-bg">
+    <div style="margin-top: 60px">
+        <img class="detail-title-l"  src="/image/common/title_icon_L.png" alt="">
+        <b class="detail-title">计价软件</b>
+        <img class="detail-title-r" src="/image/common/title_icon_R.png" alt="">
+    </div>
+</div>
+
+<div class="container detail-body">
+    <p class="detail-text text-indent-2">
+        核心产品计价软件是我国最早推行的清单计价软件之一，荣获“福建省名牌产品”，技术处于国内领先地位。在提供便捷管理、高效编制、智能检查的功能，满足工作需要的同时，依托大数据服务，帮助造价人员逐步形成个人、企业知识经验的积累，快速提升能力。
+    </p>
+    <div class="text-center" style="margin-top: 72px">
+        <img src="/image/productSystem/details/priceSoftware/img1.png" alt="">
+    </div>
+    <p class="detail-text text-indent-2" style="margin-top: 112px">
+        针对不同行业的特点和需求，海迈科技不仅拥有针对房建、市政、园林等专业的计价软件版本，还提供电力、轨道、通信、公路等不同行业计价软件版本。根据国家发布的相关编制办法及相关配套定额，结合本地政策法规，精心研发而成，适用于全过程造价编制的需要。
+    </p>
+
+    <div class="text-center">
+        <div class="detail-classify-title">
+            海迈计价软件
+        </div>
+        <div class="d-flex justify-content-center">
+            <hr class="detail-line-center" style="width: 185px">
+        </div>
+    </div>
+
+   <!-- <div class="row" style="padding-top: 55px;padding-bottom: 55px;border-bottom: 1px solid #ededed">
+        <div class="col-2 text-center">
+            <img class="icon-img" src="/image/produceSystem/detail/priceSoftware/img2.png" alt="">
+        </div>
+        <div class="col-10">
+            <div class="detail-little-title">海迈计价软件(会员版)</div>
+            <div class="detail-text" style="margin-top: 9px">
+                海迈计价软件(会员版)，涵盖最新2013清单、福建省2017版费用定额及全专业定额，适用福建全省。支持清单计价、定额计价、模拟清单三种模式，广泛再政府、业主、设计、施工企业中使用，满足工程各阶段造价编制需要。
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 55px;padding-bottom: 55px;border-bottom: 1px solid #ededed">
+        <div class="col-2 text-center">
+            <img class="icon-img" src="/image/produceSystem/detail/priceSoftware/img3.png" alt="">
+        </div>
+        <div class="col-10">
+            <div class="detail-little-title">海迈计价软件(投标版)</div>
+            <div class="detail-text" style="margin-top: 9px">
+                海迈计价软件(轨道板)，内置《2013年建设工程工程量清单计价规范》(GB50500-2013)、厦门轨道清单、城市轨道交通工程预算定额(GCG103-2008)、厦门城市轨道交通工程预算定额及福建省2017预算定额等，软件满足各地区轨道交通工程概算、预算、招投标以及施工结算、竣工结算全过程造价编制的需求。
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 55px;padding-bottom: 55px;border-bottom: 1px solid #ededed">
+        <div class="col-2 text-center">
+            <img class="icon-img" src="/image/produceSystem/detail/priceSoftware/img3.png" alt="">
+        </div>
+        <div class="col-10">
+            <div class="detail-little-title">海迈计价软件(结算版)</div>
+            <div class="detail-text" style="margin-top: 9px">
+                海迈计价软件（结算版）实现结算三级审核模式，支持清单和定额两种结算方式，支持人工材料调差计算。
+            </div>
+        </div>
+    </div>-->
+    <div class="row" style="padding-top: 55px;padding-bottom: 55px;border-bottom: 1px solid #ededed">
+        <div class="col-2 text-center">
+            <img class="icon-img" src="/image/productSystem/details/priceSoftware/img3-1.png" alt="">
+        </div>
+        <div class="col-10">
+            <div class="detail-little-title">海迈计价软件(云计价平台)</div>
+            <div class="detail-text" style="margin-top: 9px">
+                海迈云计价平台是海迈科技全新打造、拥有自主知识产权的一体化综合计价软件平台。平台以海迈造价会员体系为基础，依托互联网+云+大数据+BIM等先进技术，集成多种工程台账模式，整合海迈全方位的在线资源服务，创新性的将概算、预算、结算及投标报价的工程造价全过程全业务嵌入同一平台，旨在为客户提供更便捷、高效的工作模式及更快乐的工作桌面环境。
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 55px;padding-bottom: 55px;border-bottom: 1px solid #ededed">
+        <div class="col-2 text-center">
+            <img class="icon-img" src="/image/productSystem/details/priceSoftware/img5.png" alt="">
+        </div>
+        <div class="col-10">
+            <div class="detail-little-title">海迈计价软件(轨道版)</div>
+            <div class="detail-text" style="margin-top: 9px">
+                海迈计价软件(轨道版)，内置《2013年建设工程工程量清单计价规范》(GB50500-2013)、厦门轨道清单、城市轨道交通工程预算定额(GCG103-2008)、厦门城市轨道交通工程预算定额及福建省2017预算定额等，软件满足各地区轨道交通工程概算、预算、招投标以及施工结算、竣工结算全过程造价编制的需求。
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 55px;padding-bottom: 55px;border-bottom: 1px solid #ededed">
+        <div class="col-2 text-center">
+            <img class="icon-img" src="/image/productSystem/details/priceSoftware/img6.png" alt="">
+        </div>
+        <div class="col-10">
+            <div class="detail-little-title">海迈计价软件(电力版)</div>
+            <div class="detail-text" style="margin-top: 9px">
+                海迈计价软件(电力版)，依据《中华人民共和国电力行业标准》及《国家电网公司企业标准》开发而成的全专业的电力工程计价软件。软件适用于35KV及以上电力工程、20KV及以下配网、电网技术改造、电网检修全过程造价编制及审核，支持清单计价和定额计价两种模式，内置标准清单、全专业定额及估价表。
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 55px;padding-bottom: 55px;border-bottom: 1px solid #ededed">
+        <div class="col-2 text-center">
+            <img class="icon-img" src="/image/productSystem/details/priceSoftware/img7.png" alt="">
+        </div>
+        <div class="col-10">
+            <div class="detail-little-title">海迈计价软件(通信版)</div>
+            <div class="detail-text" style="margin-top: 9px">
+                海迈计价软件(通信版)，依据工信部通信[2016]451号颁布的《信息通信建设工程概预算编制规程》及配套预算定额开发而成，软件支持通信工程概预算编制、审核、报表预览打印等。
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 55px;padding-bottom: 55px;border-bottom: 1px solid #ededed">
+        <div class="col-2 text-center">
+            <img class="icon-img" src="/image/productSystem/details/priceSoftware/img8.png" alt="">
+        </div>
+        <div class="col-10">
+            <div class="detail-little-title">海迈计价软件(公路版)</div>
+            <div class="detail-text" style="margin-top: 9px">
+                海迈计价软件(公路版)，依据《公路工程建设项目投资估算编制办法》 (JTG3820-2018)、《公路工程建设项目概算预算编制办法》 (JTG3830-2018)开发而成，适用公路工程概预算编制，集成福建省预算定额数据包，支持福建省刊物材机包和品牌材价包。
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+</body>
+</html>

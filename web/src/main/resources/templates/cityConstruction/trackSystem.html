@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'城市建设项目跟踪系统 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <script src="http://api.map.baidu.com/api?v=2.0&ak=W1a6ywZFkybedSCHadpRbkz4w5HYfG4R" type="text/javascript"
+            charset="utf-8"></script>
+</head>
+<body>
+<!-- 头部分-->
+<!--<th:block th:replace="common/layout::header"/>-->
+
+<style scoped="scoped">
+    .h-container{
+        padding: 0 184px;
+    }
+    .one-part {
+        background: url('/image/cityConstruction/one_part_bg.png') no-repeat;
+    }
+    .text-title {
+        text-align: center;
+        font-size: 48px;
+        color: #ffffff;
+        padding-top: 79px;
+        padding-bottom: 24px;
+    }
+    .text-content {
+        font-size: 26px;
+        color: #ffffff;
+        text-align: justify;
+        text-indent: 2em;
+    }
+    .two-part{
+        background: url('/image/cityConstruction/two_part_bg.png') no-repeat;
+    }
+    .there-part{
+        background: url('/image/cityConstruction/there_part_bg.png') no-repeat;
+    }
+</style>
+
+<div class="one-part">
+    <div class="container h-container">
+        <div class="text-title ">
+            <img style="padding-bottom: 8px" src="/image/cityConstruction/logo.png" alt=""> 城市建设项目跟踪系统
+        </div>
+        <div class="d-flex justify-content-center">
+            <p class="text-content">各部门协同对项目实施阶段全过程监控将信息化无缝延展到每个人手中。使得使用人员能够随时随地、及时有效的进行移动化信息处理，提高了内部的生产运作和管理的效率。</p>
+        </div>
+        <div class="text-center" style="padding-bottom: 34px">
+            <img src="/image/cityConstruction/phone_scan_code.png" alt="">
+        </div>
+    </div>
+</div>
+<div class="two-part">
+    <div class="container h-container">
+        <div style="padding-top: 111px">
+            <p class="text-content">重点项目建立项目进度预警排名机制，形成奖惩机制，精准监控项目短板。</p>
+            <p class="text-content">做好“十四五”项目谋划，建立未来3-5年城市建设项目库，并实行动态管理。</p>
+            <p class="text-content">历月进度图的进度对比，有效、快捷跟踪进度是否存在缓慢等现象、做到一发现一督促整改举措。</p>
+        </div>
+        <div class="text-center" style="padding-bottom: 134px">
+            <img src="/image/cityConstruction/img2.png" alt="">
+        </div>
+    </div>
+</div>
+<div class="there-part">
+    <div class="container h-container">
+        <div style="padding-top: 111px">
+            <p class="text-content">实时监控目前项目各项指标趋势，做到雷达式跟踪项目进度情况。</p>
+            <p class="text-content">实现以百度卫星图绘制搭建城建建设项目进度地貌图。</p>
+            <p class="text-content">以完成投资比例分析，了解月进度情况，各责任单位实时完成情况，做到查缺补漏，形成一套完整的网络横纵线。</p>
+        </div>
+        <div class="text-center" style="padding-bottom: 68px">
+            <img src="/image/cityConstruction/img3.png" alt="">
+        </div>
+    </div>
+</div>
+<!--<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>-->
+</body>
+</html>
+
+

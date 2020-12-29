@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	@Description t_join 表数据库操作SQL语句
+	@author daizb@hymake.com
+	@date 2020-06-26 00:31:49
+	@version 1.0
+	@remark create by ca
+-->
+
+<mapper namespace="com.dzb.wm.mapper.JoinMapper">
+
+	<!-- 
+		JOIN_ID				bigint			#{joinId}			招聘编号
+		JOIN_TYPE				varchar			#{joinType}			招聘类型
+		RECRUITMENT_NUMBER				int			#{recruitmentNumber}			招聘人数
+		WORKPLACE				varchar			#{workplace}			工作地点
+		EXPIRATION_DATE				datetime			#{expirationDate}			截止日期
+		POST_NAME				varchar			#{postName}			岗位名称
+		JOB_REQUIREMENTS				text			#{jobRequirements}			岗位要求
+		JOIN_WAY				varchar			#{joinWay}			加入方式
+		PUSH_TIME				datetime			#{pushTime}			发布时间
+		UPDATE_USERID				varchar			#{updateUserid}			更新人
+		UPDATE_TIME				datetime			#{updateTime}			更新时间
+	-->
+
+	<sql id="all">
+			JOIN_ID
+			,JOIN_TYPE
+			,RECRUITMENT_NUMBER
+			,WORKPLACE
+			,EXPIRATION_DATE
+			,POST_NAME
+			,JOB_REQUIREMENTS
+			,JOIN_WAY
+			,PUSH_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+	</sql>
+	
+	<select id="selectPagination" resultType="joinEntity" parameterType="joinEntity">
+		select 
+			<include refid="all" /> 
+		from 
+			t_join
+		order by
+			UPDATE_TIME DESC
+	</select>
+	
+	<select id="selectByPkey" resultType="joinEntity" parameterType="long">
+		select 
+			<include refid="all" />
+		from 
+			t_join
+		where 
+			JOIN_ID = #{joinId}
+	</select>
+	
+	<insert id="insert" parameterType="joinEntity">
+		insert into t_join (
+			JOIN_ID
+			,JOIN_TYPE
+			,RECRUITMENT_NUMBER
+			,WORKPLACE
+			,EXPIRATION_DATE
+			,POST_NAME
+			,JOB_REQUIREMENTS
+			,JOIN_WAY
+			,PUSH_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+		) values (
+			#{joinId}
+			,#{joinType}
+			,#{recruitmentNumber}
+			,#{workplace}
+			,#{expirationDate}
+			,#{postName}
+			,#{jobRequirements}
+			,#{joinWay}
+			,#{pushTime}
+			,#{updateUserid}
+			,#{updateTime}
+		)
+	</insert>
+	
+	<update id="update" parameterType="joinEntity">
+		update t_join set 
+			JOIN_TYPE = #{joinType}
+			,RECRUITMENT_NUMBER = #{recruitmentNumber}
+			,WORKPLACE = #{workplace}
+			,EXPIRATION_DATE = #{expirationDate}
+			,POST_NAME = #{postName}
+			,JOB_REQUIREMENTS = #{jobRequirements}
+			,JOIN_WAY = #{joinWay}
+			,UPDATE_USERID = #{updateUserid}
+			,UPDATE_TIME = #{updateTime}
+		where
+			JOIN_ID = #{joinId}
+	</update>
+	
+	<delete id="delete" parameterType="long">
+		delete from t_join where JOIN_ID = #{joinId}
+	</delete>
+	
+	<update id="updatePushTimeByJoinId" parameterType="joinEntity">
+		update t_join set 
+			PUSH_TIME = #{pushTime}
+			,UPDATE_USERID = #{updateUserid}
+			,UPDATE_TIME = #{updateTime}
+		where
+			JOIN_ID = #{joinId}
+	</update>
+	
+</mapper>

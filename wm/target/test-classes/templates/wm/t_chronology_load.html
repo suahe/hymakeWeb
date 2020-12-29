@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>大事记管理</title>
+		<th:block th:replace="fragments/include::common_header" />
+	</head>
+	<style type="text/css">
+		
+	</style>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h4>大事记管理</h4>
+				</div>
+				<div class="ibox-content">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="pull-left" style="padding-bottom: 10px;" >
+								<button id="_add_button" type="button" class="btn btn-outline btn-primary">增加</button>
+								<button id="_del_button" type="button" class="btn btn-outline btn-danger">删除</button>
+							</div>
+							<div class="pull-right" style="padding-right: 0px;">
+								<form id="_search_form" class="form-inline">
+									<input type="text" id="_search_occurrenceTime_start" name="occurrenceTime" class="form-control" style="width: 120px;" placeholder="开始时间" >
+									-
+									<input type="text" id="_search_occurrenceTime_end" name="occurrenceTime" class="form-control" style="width: 120px;" placeholder="结束时间" >
+									&nbsp;&nbsp;
+									<div class="input-group pull-right">
+										<input id="_search_content" name="content" type="text" class="form-control" style="width: 300px;" placeholder="请输入查询内容">
+										<span class="input-group-btn">
+											<button id="_search" type="button" class="btn btn-default">搜索</button>
+											<button id="_search_reset" type="button" class="btn btn-default">重置</button>
+										</span>
+									</div>
+								</form>
+							</div>
+							<table id="_t_chronology"></table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+       	<!-- 新增信息模态窗口 -->
+       	<div class="modal fade" id="_t_chronology_add_window" tabindex="-1" role="dialog" aria-labelledby="#_t_chronology_add_window">
+			<div class="modal-dialog" role="document" style="width: 450px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">大事记管理--新增</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_t_chronology_add_form" class="form-horizontal">
+							<div class="form-group">
+								<label for="occurrenceTime" class="col-xs-2 control-label">时间</label>
+								<div class="col-xs-10">
+									<input type="text" id="_occurrenceTime_add" name="occurrenceTime" class="form-control" placeholder="请输入时间" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="content" class="col-xs-2 control-label">内容</label>
+								<div class="col-xs-10">
+									<textarea rows="3" id="_content_add" name="content" class="form-control" placeholder="请输入内容"></textarea>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="_t_chronology_add_close_button" type="button" class="btn btn-default">取消</button>
+						<button id="_t_chronology_add_button" type="button" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 编辑信息模态窗口 -->
+		<div class="modal fade" id="_t_chronology_edit_window" tabindex="-1" role="dialog" aria-labelledby="#_t_chronology_edit_window">
+			<div class="modal-dialog" role="document" style="width: 450px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">大事记管理--编辑</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_t_chronology_edit_form" class="form-horizontal">
+							<input type="text" id="_chronologyId_edit" name="chronologyId" style="display: none;" >
+							<div class="form-group">
+								<label for="occurrenceTime" class="col-xs-2 control-label">时间</label>
+								<div class="col-xs-10">
+									<input type="text" id="_occurrenceTime_edit" name="occurrenceTime" class="form-control" placeholder="请输入时间" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="content" class="col-xs-2 control-label">内容</label>
+								<div class="col-xs-10">
+									<textarea rows="3" id="_content_edit" name="content" class="form-control" placeholder="请输入内容"></textarea>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="_t_chronology_edit_close_button" type="button" class="btn btn-default">取消</button>
+						<button id="_t_chronology_edit_button" type="button" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	    <script type="text/javascript">
+			$(document).ready(function(){
+
+		        /* 初始化Token */
+		        secjs.init();
+	        
+		        /* t_chronology表列表信息*/
+		        $("#_t_chronology").bootstrapTable({
+					url: '../cc/list'
+					,method: 'GET'
+					,totalField: 'total'
+					,dataField: 'list'
+					,pagination: true
+					,pageSize: 10
+					,pageList: [10,20,100]
+					,sidePagination: "server"
+					,singleSelect: true
+					,clickToSelect: true
+					,columns: [
+						{checkbox: true,valign: 'middle'}
+						,{field: 'chronologyId',title: '年表编号',halign: 'center',align: 'left',valign: 'middle',visible: false}
+						,{field: 'occurrenceTime',title: '时间',halign: 'center',align: 'left',valign: 'middle',visible: true}
+						,{field: 'content',title: '内容',halign: 'center',align: 'left',valign: 'middle',visible: true
+							,formatter:function(value,row,index){
+								return '<a class="edit" data-id="'+row.chronologyId+'" href="javascript:void(0);">'+ value +'</a>'
+							}
+						}
+					]
+					,queryParams: function (params) {	//设置查询条件
+						 return {
+							"offset": params.offset
+							,"limit": params.limit
+							,"occurrenceTimeStart": $('#_search_occurrenceTime_start').val()
+							,"occurrenceTimeEnd": $('#_search_occurrenceTime_end').val()
+							,"content": $('#_search_content').val()
+						};
+					}
+		        });
+		        
+		        /* 查询 */
+				$("#_search").click(function(){
+					$("#_t_chronology").bootstrapTable('refresh');
+				});
+				
+				/* 查询重置 */
+				$("#_search_reset").click(function(){
+					$('#_search_form')[0].reset();
+					$("#_t_chronology").bootstrapTable('refresh');
+				});
+		        
+		        $('#_search_occurrenceTime_start').datetimepicker({
+		        	language: 'zh-CN'
+		        	,minView: 'month'
+		        	,autoclose: true
+		            ,todayBtn: true
+		            ,format: 'yyyy-mm-dd'
+		            ,clearBtn: true
+		        });
+		        
+		        $('#_search_occurrenceTime_end').datetimepicker({
+		        	language: 'zh-CN'
+		        	,minView: 'month'
+		        	,autoclose: true
+		            ,todayBtn: true
+		            ,format: 'yyyy-mm-dd'
+		            ,clearBtn: true
+		        });
+		        
+		        $('#_occurrenceTime_add').datetimepicker({
+		        	language: 'zh-CN'
+		        	,minView: 'month'
+		        	,autoclose: true
+		            ,todayBtn: true
+		            ,format: 'yyyy-mm-dd'
+		        });
+		        
+		        $('#_occurrenceTime_edit').datetimepicker({
+		        	language: 'zh-CN'
+		        	,minView: 'month'
+		        	,autoclose: true
+		            ,todayBtn: true
+		            ,format: 'yyyy-mm-dd'
+		        });
+	        
+		        /* 弹出新增信息窗口 */
+		        $("#_add_button").click(function(){
+					$('#_t_chronology_add_form')[0].reset();
+					$('#_t_chronology_add_window').modal('show');
+		        });
+		        
+		        /* 验证新增信息表单 */
+				$('#_t_chronology_add_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						occurrenceTime: {
+							trigger: 'changeDate',
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								date: {
+									format: 'YYYY-MM-DD',
+									message: '日期格式不正确'
+								}
+							}
+						}
+						,content: {
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 200,
+									message: '长度应小于200个字'
+								}
+							}
+						}
+					}
+				});
+	        
+				/* 保存新增信息 */
+				$('#_t_chronology_add_button').click(function(){
+				
+					var _form = $('#_t_chronology_add_form');
+					_form.bootstrapValidator('validate');
+					var flag = _form.data('bootstrapValidator').isValid();
+					if(flag){
+						$.post('../cc/add', _form.serialize(),function(r){
+							if(r > 0){
+								$("#_t_chronology").bootstrapTable('refresh');
+								_form.data('bootstrapValidator').resetForm();
+								$('#_t_chronology_add_window').modal('hide');
+								message.saveSuccess();
+							}else{
+								message.saveFall();
+							}
+						});
+					}
+				});
+	        
+				/* 关闭新增信息窗口 */
+				$('#_t_chronology_add_close_button').click(function(){
+					$('#_t_chronology_add_window').modal('hide');
+				});
+				
+				/* 编辑  链接点击事件 */
+				$("#_t_chronology").on("click",".edit",function(event){
+					
+					var _chronologyId = $(this).data('id');
+					$.get('../cc/view', {'chronologyId':_chronologyId},function(r){
+						$.setForm('#_t_chronology_edit_form',r);
+						$('#_t_chronology_edit_window').modal('show');
+					});
+				});
+				
+				/* 验证编辑信息表单 */
+				$('#_t_chronology_edit_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						occurrenceTime: {
+							trigger: 'changeDate',
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								date: {
+									format: 'YYYY-MM-DD',
+									message: '日期格式不正确'
+								}
+							}
+						}
+						,content: {
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 200,
+									message: '长度应小于200个字'
+								}
+							}
+						}
+					}
+				});
+	        
+				/* 保存编辑信息 */
+				$('#_t_chronology_edit_button').click(function(){
+				
+					var _form = $('#_t_chronology_edit_form');
+					_form.bootstrapValidator('validate');
+					var flag = _form.data('bootstrapValidator').isValid();
+					if(flag){
+						$.post('../cc/edit', _form.serialize(),function(r){
+							if(r > 0){
+								$("#_t_chronology").bootstrapTable('refresh');
+								_form.data('bootstrapValidator').resetForm();
+								$('#_t_chronology_edit_window').modal('hide');
+								message.saveSuccess();
+							}else{
+								message.saveFall();
+							}
+						});
+					}
+				});
+	        
+				/* 关闭编辑信息窗口 */
+				$('#_t_chronology_edit_close_button').click(function(){
+					$('#_t_chronology_edit_window').modal('hide');
+				});
+
+				/* 删除信息 */
+				$('#_del_button').click(function () {
+				  
+					var row = $('#_t_chronology').bootstrapTable('getSelections');
+					if (typeof(row) != 'undefined' && row.length != 0){
+						swal({
+							type: "warning",
+							title: "确认要删除？",
+							text: "你的操作会删除选择的记录",
+							showCancelButton: true,
+							cancelButtonText: "取消",
+							confirmButtonColor: "#1AB394",
+							confirmButtonText: "确定删除？",
+							closeOnConfirm: false
+						}, function () {
+							var _chronologyId = row[0].chronologyId;
+							$.get('../cc/del', {'chronologyId':_chronologyId},function(r){
+								if(r > 0){
+									message.delSuccess();
+									$("#_t_chronology").bootstrapTable('refresh');
+								}else{
+									message.delFall();
+								}
+							})
+						});
+					}else{
+						message.selectOne();
+					}
+				});
+			})
+	    </script>
+	</body>
+</html>

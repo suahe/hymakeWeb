@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	@Description t_join 表数据库操作SQL语句
+	@author daizb@hymake.com
+	@date 2020-06-26 00:31:49
+	@version 1.0
+	@remark create by ca
+-->
+
+<mapper namespace="com.hymake.web.mapper.JoinMapper">
+
+	<!-- 
+		JOIN_ID				bigint			#{joinId}			招聘编号
+		JOIN_TYPE				varchar			#{joinType}			招聘类型
+		RECRUITMENT_NUMBER				int			#{recruitmentNumber}			招聘人数
+		WORKPLACE				varchar			#{workplace}			工作地点
+		EXPIRATION_DATE				datetime			#{expirationDate}			截止日期
+		POST_NAME				varchar			#{postName}			岗位名称
+		JOB_REQUIREMENTS				text			#{jobRequirements}			岗位要求
+		JOIN_WAY				varchar			#{joinWay}			加入方式
+		PUSH_TIME				datetime			#{pushTime}			发布时间
+		UPDATE_USERID				varchar			#{updateUserid}			更新人
+		UPDATE_TIME				datetime			#{updateTime}			更新时间
+	-->
+
+	<sql id="all">
+			JOIN_ID
+			,JOIN_TYPE
+			,RECRUITMENT_NUMBER
+			,WORKPLACE
+			,EXPIRATION_DATE
+			,POST_NAME
+			,JOB_REQUIREMENTS
+			,JOIN_WAY
+			,PUSH_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+	</sql>
+	
+	<select id="selectPagination" resultType="joinEntity" parameterType="joinEntity">
+		select 
+			<include refid="all" /> 
+		from 
+			t_join
+		where
+			PUSH_TIME is not null
+		<!--如果为0 则查询全部-->
+		<if test="joinType != null and joinType != '' and joinType != 0">
+			and join_type = ${joinType}
+		</if>
+		order by
+			UPDATE_TIME DESC
+	</select>
+	
+	
+</mapper>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>网站框架公共部分</title>
+    <th:block th:fragment="meta">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name = "format-detection" content = "telephone=no">
+        <meta name="format-detection" content="telephone=yes,email=no,address=no"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <meta name="renderer" content="webkit"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" th:content="${author}"/>
+        <meta name="description" th:content="${description}"/>
+    </th:block>
+    <th:block th:fragment="static">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+        <link href="/css/bootstrap/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="/font/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" th:src="@{/js/jquery/jquery-3.5.1.min.js}" charset="utf-8"></script>
+        <script type="text/javascript" th:src="@{/js/to-top/jquery.toTop.min.js}" charset="utf-8"></script>
+        <script type="text/javascript" src="/js/bootstrap/bootstrap.min.js" charset="utf-8"></script>
+        <link href="/css/main/style.css" rel="stylesheet" type="text/css"/>
+        <link href="/css/navbar/navbar.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="/js/navbar/mobleFontSet.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/js/navbar/navbar.js" charset="utf-8"></script>
+        <!--解决手机物理键返回上级页面刷新页面-->
+       <!-- <script src="/js/jquery/jquery.cookie.min.js"></script>
+        <script>
+            $(function () {
+                window.addEventListener('pageshow', function (event) {
+                    if(event.persisted || window.performance && window.performance.navigation.type == 2){
+                        console.log('window.performance.navigation.type: '+ window.performance.navigation.type)
+                        //location.refresh();   //此处可以写你的实际应用的代码
+
+                        var str =   window.location.href;
+                        str = str.substring(str.lastIndexOf("/") );
+                        if ($.cookie(str)) {//$.cookie()：取cookie；
+                            $("html,body").animate({ scrollTop: $.cookie(str) }, 1000);
+                        }else {
+                        }
+                    }
+                },false);
+            })
+            $(window).scroll(function () {//滚动时，将滚动条的高度记录到cookie中
+                var str = window.location.href;
+                str = str.substring(str.lastIndexOf("/") );
+                var top = $(document).scrollTop();
+                $.cookie(str, top, { path: '/' });//保存到cookie中
+                return $.cookie(str);
+            })
+        </script>-->
+    </th:block>
+</head>
+<body>
+<!-- 网站公共页头 <th:block th:replace="common/layout::header" /> -->
+<th:block th:fragment="header">
+    <header class="head-bg">
+        <div>
+            <form action="/search" method="get">
+                <div id="top" class="clearfloat">
+                    <div class="left">
+                        <a href="/" class="logo"><img src="/image/logo.png"></a>
+                        <div class="mr-auto stock" style=" margin-right: auto !important;">
+                            <span class="split"></span>
+                            <span>
+                            证券代码：830892
+                        </span>
+                        </div>
+                        <div class="topSearch clearfloat">
+                            <span class="topSearchClose"></span>
+                            <div class="topSearchW">
+                                <input type="text" name="keyword" id="" value="" placeholder="搜索">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <span class="searchBtn"></span>
+                        <span class="muen"></span>
+                    </div>
+                    <button class="topSearchBtn" type="submit"></button>
+                </div>
+            </form>
+            <div id="nav">
+                <!--<span class="navClose"></span>-->
+                <ul>
+                    <li>
+                        <h2>
+                            <a href="/">首页</a>
+                        </h2>
+                    </li>
+                    <li>
+                        <h2>
+                            <a href="/productSystem">产品体系</a>
+                            <span></span>
+                        </h2>
+                        <div id="productSystemCls" class="navDown">
+                            <!--<a href="/productSystem?dropDownBoxName=核心产品">核心产品</a>
+                            <a href="/productSystem?dropDownBoxName=基础产品">基础产品</a>
+                            <a href="/productSystem?dropDownBoxName=扩展产品">扩展产品</a>
+                            <a href="/productSystem?dropDownBoxName=附加产品">附加产品</a>
+                            <a href="/productSystem?dropDownBoxName=潜力产品">潜力产品</a>-->
+                        </div>
+                    </li>
+                    <li>
+                        <h2>
+                            <a href="/solution">解决方案</a>
+                            <span></span>
+                        </h2>
+                        <div id="solutionCls" class="navDown">
+                          <!--  <a href="/solution?on=all">全部</a>-->
+                            <!--<a href="/solution?labelName=政府部门">政府部门</a>
+                            <a href="/solution?labelName=行业企业">行业企业</a>
+                            <a href="/solution?labelName=高等院校">高等院校</a>-->
+                        </div>
+                    </li>
+                    <li>
+                        <h2>
+                            <a href="/operateService">运营服务</a>
+                        </h2>
+                    </li>
+                    <li>
+                        <h2>
+                            <a href="/news">新闻资讯</a>
+                            <span></span>
+                        </h2>
+                        <div class="navDown">
+                            <a href="/news?type=1">公司新闻</a>
+                            <a href="/news?type=2">产品新闻</a>
+                            <a href="/news?type=3">行业新闻</a>
+                            <a href="/news?type=4">通知公告</a>
+                        </div>
+                    </li>
+                    <li>
+                        <h2>
+                            <a href="/investorRelations">投资者关系</a>
+                            <span></span>
+                        </h2>
+                        <div class="navDown">
+                            <a href="/investorRelations?type=1">公司公告</a>
+                            <a href="/investorRelations?type=2">定期公告</a>
+                            <a href="/investorRelations?type=3">公司治理</a>
+                            <a href="/investorRelations?type=4">联系方式</a>
+                        </div>
+                    </li>
+                    <li>
+                        <h2>
+                            <a href="/aboutHymake/intoHymake">关于海迈</a>
+                            <span></span>
+                        </h2>
+                        <div class="navDown">
+                            <a href="/aboutHymake/intoHymake">走进海迈</a>
+                            <a href="/aboutHymake/chronology">成长历程</a>
+                            <a href="/aboutHymake/contactUs">联系我们</a>
+                            <a href="/aboutHymake/joinHymake">加入海迈</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <!--<div class="navbar-height"></div>-->
+    <!--遮罩层-->
+    <div class="shadow"></div>
+    <script>
+        //点击导航图标
+        $(".muen").click(function () {
+            let isDisplay = $("#nav").css("display");
+            if (isDisplay=="none"){
+                $("#nav").css("display","block");
+                $(".shadow").css("display","block");
+            }else {
+                $("#nav").css("display","none");
+                $(".shadow").css("display","none")
+            }
+        });
+        //点击遮罩
+        $(".shadow").click(function () {
+            $("#nav").css("display","none");
+            $(".shadow").css("display","none")
+        })
+        $(document).ready(function () {
+            //获取产品体系分类
+            getProductSystemCls();
+            //获取解决方案分类
+            getSolutionCls();
+        })
+        //获取产品体系分类
+        function getProductSystemCls() {
+            $.ajax({
+                type: 'GET',
+                url: "/productSystem/getDropDownBoxList",
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {},
+                success: function (data) {
+                    var r_data = JSON.parse(JSON.stringify(data));
+                    var result = "";
+                    if (r_data != "") {
+                        $.each(r_data, function (i, item) {
+                            result += '<a href="/productSystem?dropDownBoxId='+item.dropDownBoxId+'">'+item.name+'</a>';
+                        });
+                        $("#productSystemCls").append(result);
+                    } else {
+
+                    }
+                },
+                error: function (xhr, type) {
+                }
+            });
+        }
+        //获取解决方案分类
+        function getSolutionCls() {
+            $.ajax({
+                type: 'GET',
+                url: "/solution/getLabelList",
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {},
+                success: function (data) {
+                    var r_data = JSON.parse(JSON.stringify(data));
+                    var result = "";
+                    if (r_data != "") {
+                        $.each(r_data, function (i, item) {
+                            result += ' <a href="/solution?labelId='+item.labelId+'">'+item.name+'</a>';
+                        });
+                        $("#solutionCls").append(result);
+                    } else {
+
+                    }
+                },
+                error: function (xhr, type) {
+                }
+            });
+        }
+    </script>
+</th:block>
+
+<!-- 网站公共页脚 <th:block th:replace="common/layout::footer" /> -->
+<th:block th:fragment="footer">
+<style scoped="scoped">
+    .foot-bg{
+        background-color: #333333;
+        margin-bottom: 0;
+    }
+    .footer-cont{
+        padding: 0 0.5rem;
+    }
+    .foot-cls{
+        padding: 0.65rem 0 0.47rem 0;
+    }
+    .foot-cls-cont{
+        display: inline-block;
+        width: 32.2%;
+        text-align: center;
+    }
+    .foot-cls-cont a{
+        text-decoration: none;
+    }
+    .foot-cls-img{
+        width: 0.95rem;
+        height: 0.95rem;
+    }
+    .foot-cls-cont-text{
+        font-size: 0.26rem;
+        color: #ffffff;
+        text-decoration: none;
+    }
+
+    .foot-comp-cont{
+        padding-bottom: 0.6rem;
+        border-bottom:  1px solid #5c5c5c;
+        display: flex;
+    }
+    .foot-code-div{
+        padding-left: 0.57rem;
+    }
+    .foot-code-img{
+        width: 1.44rem;
+        height: 1.44rem;
+    }
+    .foot-tel-div{
+        padding-left: 0.7rem;
+    }
+    .foot-tel-div a{
+        text-decoration: none;
+    }
+    .foot-tel-div a:hover{
+        text-decoration: none;
+        color: #499ffb;
+    }
+    .foot-server-tel-info{
+        font-size: 0.3rem;
+        color: #ffffff;
+    }
+    .foot-server-tel{
+        font-size: 0.46rem;
+        color: #499ffb;
+    }
+    .foot-desc-cont{
+        padding-top: 0.21rem;
+        text-align: center;
+        font-size: 0.18rem;
+        color: #d6d6d6;
+        padding-bottom: 0.21rem;
+    }
+    .foot-desc-cont a{
+        color: #d6d6d6;
+        text-decoration: none;
+    }
+</style>
+<footer class="foot-bg">
+    <div class="footer-cont">
+        <div class="foot-cls">
+            <div class="foot-cls-cont">
+                <a href="/aboutHymake/followHymake">
+                    <img class="foot-cls-img" src="/image/footer/follow-hymake-icon.png" alt="">
+                    <div class="foot-cls-cont-text">关注海迈</div>
+                </a>
+            </div>
+
+            <div class="foot-cls-cont">
+                <a href="/customerService">
+                    <img class="foot-cls-img" src="/image/footer/customer-service-icon.png" alt="">
+                    <div class="foot-cls-cont-text">客户服务</div>
+                </a>
+            </div>
+            <div class="foot-cls-cont">
+                <a href="/aboutHymake/contactUs">
+                    <img class="foot-cls-img" src="/image/footer/contact-us-icon.png" alt="">
+                    <div class="foot-cls-cont-text">联系我们</div>
+                </a>
+            </div>
+        </div>
+        <div class="foot-comp-cont">
+            <div class="foot-code-div">
+                <img class="foot-code-img" src="/image/footer/hymake-code.png" alt="">
+            </div>
+            <div class="foot-tel-div">
+                <div class="foot-server-tel-info">7×24小时服务热线</div>
+                <a href="tel:0592-5070808" class="foot-server-tel">0592-5070808</a>
+            </div>
+        </div>
+        <div class="foot-desc-cont">
+            <div><a href="https://beian.miit.gov.cn/">闽ICP备05022666号-1</a></div>
+            <div>Copyright © 2004-2020 厦门海迈科技股份有限公司  All Rights Reserved.</div>
+        </div>
+    </div>
+</footer>
+</th:block>
+
+<!-- 网站公共页头 <th:block th:replace="common/layout::detail-header" /> -->
+<th:block th:fragment="detail-header">
+    <style scoped="scoped">
+        .detail-header{
+            background: #EBEBEC;
+            position: sticky;
+            z-index: 5;
+            top: 0;
+        }
+
+        #detail-top {
+            width: 100%;
+            height: 1.12rem;
+            line-height: 1.12rem;
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            /*position: fixed;*/
+            top: 0;
+            left: 0;
+        }
+
+        #detail-top .left {
+            float: left;
+            height: 100%;
+            margin-left: 0.5rem;
+            position: relative;
+        }
+        #detail-top .center {
+            height: 100%;
+            font-size: 0.34rem;
+            color: #333333;
+            width: 90%;
+            text-align: center;
+        }
+        #detail-top .detail-retrun {
+            /* width: 3.38rem;*/
+            height: 100%;
+            left: 0;
+        }
+        .detail-retrun-img{
+            width: 0.21rem;
+            height: 0.32rem;
+        }
+    </style>
+    <div class="detail-header">
+        <div id="detail-top" class="clearfloat">
+            <div class="left">
+                <a href="javascript:history.go(-1);" class="detail-retrun"><img class="detail-retrun-img" src="/image/common/details-return.png"></a>
+            </div>
+            <div class="center" th:text="${detailTitle}"></div>
+
+        </div>
+    </div>
+</th:block>
+
+</body>
+</html>

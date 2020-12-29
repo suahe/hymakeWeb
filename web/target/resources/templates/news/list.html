@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'新闻资讯 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <script type="text/javascript" src="/modules/bootstrap-pagination/page.min.js" charset="utf-8"></script>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+
+        /*新闻列表导航条*/
+        .bg-fa{
+          background-color: #fafafa;
+        }
+
+        .link {
+            margin-top: 10px;
+        }
+
+        .link li {
+            float: left;
+            display: inline;
+            margin-left: 80px;
+        }
+
+        .link li a {
+            color: #666666;
+            font-size: 16px;
+            font-weight: 500;
+            padding-bottom: 6px;
+            display: block;
+            text-decoration: none;
+            margin-top: 5px;
+        }
+
+        .link li.active {
+            border-bottom: 2px solid #0066cc;
+        }
+
+        .link li.active a {
+            color: #0066cc;
+            text-decoration: none;
+            margin-top: 5px;
+            margin-bottom: 4px;
+        }
+       /* font-size:20 设置*/
+        /*#news tr{
+            padding-top: 18px;
+            padding-bottom: 18px;
+        }*/
+        /* font-size:16 设置*/
+        /*#news tr{
+            padding-top: 22px;
+            padding-bottom: 22px;
+        }*/
+
+        .flex-row{
+            padding: 29px 0;
+        }
+
+        .date-td{
+            color: #666666;
+            font-size: 20px;
+            /*防止日期为空时不好看*/
+            width: 111.4px;
+        }
+
+        .grey-tiny-vertical-line {
+            height: 23px;
+            border: 0.5px solid #e6e6e6;
+            float: left;
+            margin-top: 9px;
+            margin-left: 25px;
+        }
+
+        .type-td{
+            color:#666666;
+            font-size: 20px;
+            margin-left: 25px;
+        }
+
+        .title-td{
+            margin-left: 12px;
+        }
+
+        .title-td>a{
+            font-size: 20px;
+            color: #000000;
+            text-decoration-line: none;
+        }
+
+        .title-td>a:hover{
+            color: #0066cc;
+        }
+
+        .banner-div{
+            height: 350px;
+            /*background: url('/image/produceSystem/product_system_banner.png') no-repeat;*/
+            background: url('/image/news/news_banner_bg.png') no-repeat;
+            background-size: 100% 350px;
+        }
+        .text-div{
+            width: 100%;
+            padding-top: 90px;
+        }
+        .banner-title{
+            font-size: 44px;
+            color: #ffffff;
+        }
+        .banner-text{
+            font-size: 18px;
+            width: 670px;
+            color: #ffffff;
+            line-height: 2;
+            margin-top: 9px;
+            letter-spacing: 1px;
+        }
+        .banner-img-content{
+            padding-top: 25px;
+            padding-bottom: 25px;
+        }
+
+        .no-all-type-title{
+            margin-left: 25px;
+        }
+
+        .no-all-type-title>a{
+            font-size: 20px;
+            color: #000000;
+            text-decoration-line: none;
+        }
+
+        .no-all-type-title>a:hover{
+            color: #0066cc;
+        }
+
+        .line-1{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            line-clamp: 1;
+            -webkit-box-orient: vertical;
+            width: 58rem;
+        }
+    </style>
+</head>
+<body>
+<th:block th:replace="common/layout::header"/>
+
+<!--<div>
+    <img class="card-img-top h-400px" src="image/news/news_banner.png">
+</div>-->
+
+<div class="banner-div">
+    <div class="container d-flex">
+        <div class="text-div">
+            <div class="banner-title">新闻资讯</div>
+            <div class="banner-text">
+                您的关注与信任，是我们激流勇进的强大动力
+            </div>
+        </div>
+        <img class="banner-img-content" src="/image/news/news_bannner_content.png" alt="">
+    </div>
+</div>
+<div class="nav bg-fa" id="newsTab"  style="height: 60px">
+    <div class="container">
+        <ul class="link">
+            <li th:classappend="${type=='0'}?'active'" class="ml-0"><a href="/news?type=0">全部新闻</a></li>
+            <li th:classappend="${type=='1'}?'active'"><a href="/news?type=1">公司新闻</a></li>
+            <li th:classappend="${type=='2'}?'active'"><a href="/news?type=2">产品新闻</a></li>
+            <li th:classappend="${type=='3'}?'active'"><a href="/news?type=3">行业新闻</a></li>
+            <li th:classappend="${type=='4'}?'active'"><a href="/news?type=4">通知公告</a></li>
+        </ul>
+    </div>
+
+</div>
+<div class="container" style="margin-bottom:60px">
+    <div>
+        <div class="new_main" id='F1'>
+            <div th:each="item: ${news}">
+                <div class="d-flex flex-row" style="border-bottom: 1px dashed #e6e6e6">
+                    <div class="date-td" th:text="${#dates.format(item?.pushTime, 'yyyy-MM-dd')}"></div>
+                    <div><div class="grey-tiny-vertical-line"></div></div>
+                    <div th:if="${type=='0'}" class="type-td" th:text="${'['+item?.newTypeName+']'}">-</div>
+                    <div th:classappend="${type=='0'}?'title-td':'no-all-type-title'" class="line-1">
+                        <a style="text-decoration-line: none" th:href="${item?.url!=null and item?.url!=''}?${item?.url}:'/news/details/' + ${item?.newsId}" target="_blank" th:text="${item?.title}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center" style="margin-top: 45px">
+           <!-- <div aria-label="navigation">
+                <ul class="pagination" id="_page">
+                    <li class="page-item"><a class="page-link" th:href="@{/news(type=${type},page=1)}"><span aria-hidden="true">&laquo;</span></a></li>
+                    <li style="display: none;" th:each="row: ${#numbers.sequence(1,total)}" class="page-item" th:classappend="${row == offset} ? 'active' : ''">
+                        <a class="page-link" th:href="@{/news(type=${type},page=${row})}" th:text="${row}" >-</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/news(type=${type},page=${total})}">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="page_bar"></div>-->
+            <div id="page" class="paging pagmr"></div>
+        </div>
+
+    </div>
+
+</div>
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+
+</body>
+</html>
+
+<script src="/js/page/laypage.min.js"></script>
+<script src="/js/page/common.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //由于多加了一个tr下划线，所以每页条数是两倍
+        /*$('#news').page({
+            listNum: 10
+        });
+
+        $('#newsTab a').click(function () {
+            let that = $(this);
+            that.parent().addClass("active");
+            that.parent().siblings().removeClass("active");
+            //由于多加了一个tr下划线，所以每页条数是两倍
+            $('#news').page({
+                listNum: 10,
+                condition: that.text()
+            });
+        })*/
+
+
+        /*var _obj = $('#_page');
+        var _limit = 5;
+        var _offset = _obj.children('.active').index();
+        for(var i=_offset; i<=(_offset + _limit); i++){
+            _obj.children('li:eq('+ i +')').css("display","inline");
+        };
+        for(var i=_offset; i>=(_offset - _limit); i--){
+            if(i > 0){
+                _obj.children('li:eq('+ i +')').css("display","inline");
+            }
+        }*/
+
+
+    });
+    $(function(){
+        initLinkPage({cont:'page',sum:[[${total}]],type:[[${type}]],view:'F1'});
+    })
+
+</script>

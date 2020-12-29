@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'企业信用管理平台详情页 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+</head>
+<body>
+<!-- 头部分-->
+<th:block th:replace="common/layout::header"/>
+
+<div class="d-flex justify-content-center detail-bg">
+    <div style="margin-top: 60px">
+        <img class="detail-title-l"  src="/image/common/title_icon_L.png" alt="">
+        <b class="detail-title">企业信用管理平台</b>
+        <img class="detail-title-r" src="/image/common/title_icon_R.png" alt="">
+    </div>
+</div>
+
+<div class="container detail-body">
+    <p class="detail-text text-indent-2">
+        扩展产品企业信用管理平台，是为施工企业提供的企业级增值服务，助力施工企业落实主体责任、防范工程事故、降低信用丢分风险，提高企业行业竞争力。平台包含风险预警、信用管理、移动服务等功能。
+    </p>
+    <div class="text-center">
+        <div class="detail-classify-title" style="margin-top: 96px;">
+            平台功能
+        </div>
+        <div class="d-flex justify-content-center">
+            <hr class="detail-line-center ">
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:40px;">
+        <div class="d-flex justify-content-between">
+            <img style="margin-left: 40px;border-right: 1px solid #ededed;" src="/image/productSystem/details/enterpriseCreditManagementPlatform/img1.png" alt="">
+            <div style="margin-left: 50px;">
+                <div class="detail-little-title" style="margin-top: -10px;">风险预警</div>
+                <div class="detail-text" style="margin-top: 10px">
+                    对接近期限的监管办理事项、企业及人员黑名单等进行预警。
+                </div>
+                <div class="detail-little-title" style="margin-top: 15px">信用管理</div>
+                <div class="detail-text"  style="margin-top: 10px">
+                    实现企业综合信用分的查询、对比，通过信用分析模型，进行排名预测、分析。
+                </div>
+                <div class="detail-little-title" style="margin-top: 15px">统计分析</div>
+                <div class="detail-text"  style="margin-top: 10px">
+                    可通过多种形式展现信用体系数据的统计分析。
+                </div>
+                <div class="detail-little-title" style="margin-top: 15px">移动端预警提醒</div>
+                <div class="detail-text"  style="margin-top: 10px">
+                    通过微信移动端绑定企业账号，实现移动端订阅接收每日企业风险事项的预警提醒。
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="detail-text text-indent-2" style="margin-top: 100px">
+        平台对接近期限的监管办理事项、企业及人员黑名单等进行预警；实现对企业综合信用分、项目信用分、人员信用分的查询、分析和排名；通过信用分析数据模型，针对项目双随机检查清单，进行项目信用分和企业信用分模拟分值预测；通过微信服务号定期提醒风险事项预警，具体包括：安全月考评、季度考评、竣工考评、企业考评风险预警；竣工结算、合同备案、合同履约、风险预警；自查自纠、责改单反馈、双随机检查风险预警等。
+    </p>
+
+    <div class="text-center">
+        <div class="detail-classify-title" style="margin-top: 96px;">
+            平台特点
+        </div>
+        <div class="d-flex justify-content-center">
+            <hr class="detail-line-center ">
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 40px">
+        <div class="col-3 text-center">
+            <img src="/image/productSystem/details/enterpriseCreditManagementPlatform/img2.png" alt="">
+            <div class="detail-little-title" style="margin-top: 20px">期限提醒</div>
+            <div class="text-center detail-text" style="margin-top: 7px;">
+                <div><span style="color: #2387f8;margin-right: 8px;">●</span>月度考评</div>
+                <div><span style="color: #2387f8;margin-right: 8px;">●</span>季度考评</div>
+                <div><span style="color: #2387f8;margin-right: 8px;">●</span>竣工考评</div>
+                <div><span style="color: #2387f8;margin-right: 8px;">●</span>企业考评</div>
+            </div>
+        </div>
+        <div class="col-3 text-center">
+            <img src="/image/productSystem/details/enterpriseCreditManagementPlatform/img3.png" alt="">
+            <div class="detail-little-title" style="margin-top: 20px">工作辅助</div>
+            <div class="text-center detail-text" style="margin-top: 7px;">
+                <div><span style="color: #2387f8;margin-right: 8px;">●</span>竣工结算</div>
+                <div><span style="color: #2387f8;margin-right: 8px;">●</span>合同履约</div>
+                <div><span style="color: #2387f8;margin-right: 8px;">●</span>合同备案</div>
+                <div><span style="color: #2387f8;margin-right: 8px;">●</span>风险预警</div>
+            </div>
+        </div>
+        <div class="col-3 text-center">
+            <img src="/image/productSystem/details/enterpriseCreditManagementPlatform/img4.png" alt="">
+            <div class="detail-little-title" style="margin-top: 20px">风险预警</div>
+            <div class="text-center detail-text" style="margin-top: 7px;">
+                <div><span style="color: #2387f8;margin-right: 8px;margin-left: -48px;">●</span>自查自纠</div>
+                <div><span style="color: #2387f8;margin-right: 8px;margin-left: -32px;">●</span>责改单反馈</div>
+                <div><span style="color: #2387f8;margin-right: 8px;">●</span>双随机风险预警</div>
+            </div>
+        </div>
+        <div class="col-3 text-center">
+            <img src="/image/productSystem/details/enterpriseCreditManagementPlatform/img5.png" alt="">
+            <div class="detail-little-title" style="margin-top: 20px">数据分析</div>
+            <div class="text-center detail-text" style="margin-top: 7px;">
+                <div><span style="color: #2387f8;margin-right: 8px;margin-left: -16px;">●</span>扣分预测</div>
+                <div><span style="color: #2387f8;margin-right: 8px;margin-left: -16px;">●</span>扣分统计</div>
+                <div><span style="color: #2387f8;margin-right: 8px;margin-left: -16px;">●</span>清单条款</div>
+                <div><span style="color: #2387f8;margin-right: 8px;">●</span>双随机检查</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+</body>
+</html>

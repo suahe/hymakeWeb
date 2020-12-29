@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	@Description t_base_constant 表数据库操作SQL语句
+	@author daizb@hymake.com
+	@date 2020-06-26 16:45:46
+	@version 1.0
+	@remark create by ca
+-->
+
+<mapper namespace="com.hymake.web.mapper.BaseConstantMapper">
+
+	<!-- 
+		CONSTANT_ID				bigint			#{constantId}			常量编号
+		NAME				varchar			#{name}			常量名称
+		KEYWORD				varchar			#{keyword}			常量键
+		VALUE				varchar			#{value}			常量值
+		REMARK				varchar			#{remark}			备注
+		UPDATE_USERID				varchar			#{updateUserid}			更新人
+		UPDATE_TIME				datetime			#{updateTime}			更新时间
+	-->
+
+	<sql id="all">
+			CONSTANT_ID
+			,NAME
+			,KEYWORD
+			,VALUE
+			,REMARK
+			,UPDATE_USERID
+			,UPDATE_TIME
+	</sql>
+	
+	<select id="selectValueByKeyword" resultType="String" parameterType="String">
+		select 
+			VALUE
+		from 
+			t_base_constant
+		where 
+			KEYWORD = #{keyword}
+	</select>
+	
+</mapper>

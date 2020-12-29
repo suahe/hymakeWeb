@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>用户操作日志管理</title>
+		<th:block th:replace="fragments/include::common_header" />
+	</head>
+	<style type="text/css">
+		
+	</style>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content">
+	        <div class="ibox">
+	            <div class="ibox-title">
+	                <h4>用户操作日志管理</h4>
+	            </div>
+	            <div class="ibox-content">
+	            	<div class="pull-left" style="">
+					</div>
+					<div class="input-group pull-right" style="width: 450px;padding: 0px 0px 15px 0px;">
+						<input id="_searchText" type="text" class="form-control" placeholder="输入用户名……">
+						<span class="input-group-btn">
+							<button id="_search" type="button" class="btn btn-default">搜索</button>
+							<button id="_search_reset" type="button" class="btn btn-default">重置</button>
+						</span>
+					</div>
+					<table id="base_operationlog_list"></table>
+	            </div>
+	        </div>
+        </div>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				
+				$("#base_operationlog_list").bootstrapTable({
+					url: '../bolc/list',
+					method: 'GET',
+					totalField: 'total',
+					dataField: 'list',
+					pagination: true,
+					pageSize: 10,
+					pageList:[10,20,30,40,100],
+					sidePagination: "server",
+					singleSelect:true,
+					columns: [
+						{field: 'logTime',title: '记录时间',halign:'center',align: 'center',valign: 'middle'}
+						,{field: 'username',title: '用户名',halign:'center',align: 'left',valign: 'middle'}
+						,{field: 'moduleName',title: '模块名称',halign:'center',align: 'left',valign: 'middle'}
+						,{field: 'submoduleName',title: '子模块名称',halign:'center',align: 'left',valign: 'middle'}
+					],
+	                queryParams: function (params) {
+	                    return {
+							"offset": params.offset,
+				            "limit": params.limit,
+							"searchText":$("#_searchText").val()
+						};
+	                }
+				})
+				
+				$("#_search").click(function(){
+					$("#base_operationlog_list").bootstrapTable('refresh');
+				});
+				
+				$("#_search_reset").click(function(){
+					$("#_searchText").val('');
+					$("#base_operationlog_list").bootstrapTable('refresh');
+				});
+			});
+		</script>
+	</body>
+</html>

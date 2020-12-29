@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hymake.mobileWeb.mapper.SearchMapper">
+
+	<sql id="all">
+			id
+			,title
+			,content
+			,source
+			,url
+			,sequ
+			,CREATE_USERID
+			,CREATE_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+	</sql>
+
+	<select id="selectPagination" parameterType="string" resultType="SearchEntity">
+		select ss.id,ss.title,ss.content,ss.source,ss.url from(
+			select s.id,s.title,s.content,s.source,s.url
+			from t_search s
+			where s.title like concat('%',#{keyword},'%') or s.content like concat('%',#{keyword},'%')
+			order by sequ asc
+		) ss
+		union all
+		select nn.news_id,nn.title,nn.overview,nn.source,nn.url from (
+			select n.news_id,n.title,n.overview,'新闻' source,n.url from t_news n
+			where n.push_time is not null and n.title like concat('%',#{keyword},'%') or n.overview like concat('%',#{keyword},'%')
+			order by update_time desc
+		) nn
+	</select>
+	
+</mapper>

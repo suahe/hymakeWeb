@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans" >
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta" />
+    <meta name="keywords" th:content="${keywords}" />
+    <title th:text="'商品房监管解决方案详情页 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static" />
+    <th:block th:replace="common/analytics::baidu" />
+</head>
+<body>
+<!-- 头部分-->
+<th:block th:replace="common/layout::header" />
+
+<div class="d-flex justify-content-center detail-bg">
+    <div style="margin-top: 60px">
+        <img class="detail-title-l"  src="/image/common/title_icon_L.png" alt="">
+        <b class="detail-title">商品房监管解决方案</b>
+        <img class="detail-title-r" src="/image/common/title_icon_R.png" alt="">
+    </div>
+</div>
+
+<div class="container detail-body">
+    <p class="detail-text text-indent-2">
+        海迈科技商品房市场监管解决方案，通过形成宏微观统一、“地、楼、房”一体的楼盘表基础数据，全面涵盖商品房规划、建设投资、销售管理、公积金管理、二手房租售交易和物业管理的业务监管过程，监管范畴包括房屋、从业主体、交易资金和购房群体四大方面，形成综合大数据中心。
+    </p>
+    <div class="text-center" style="margin-top: 72px">
+        <img src="/image/solution/details/commercialHousingSupervisionSolution/img1.png" alt="">
+    </div>
+</div>
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+</body>
+</html>

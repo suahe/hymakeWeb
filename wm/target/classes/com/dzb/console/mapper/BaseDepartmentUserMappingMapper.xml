@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	@Description t_base_department_user_mapping 表数据库操作SQL语句
+	@author 38840472@qq.com
+	@date 2020-05-27 00:34:45
+	@version 1.0
+	@remark create by ca
+-->
+
+<mapper namespace="com.dzb.console.mapper.BaseDepartmentUserMappingMapper">
+
+	<!-- 
+		DEPARTMENT_USER_ID				varchar			#{departmentUserId}			部门人员关系编号
+		USER_ID				varchar			#{userId}			用户编号
+		DEPARTMENT_ID				varchar			#{departmentId}			部门信息编号
+		IS_LEADER				int			#{isLeader}			是否为负责人
+		IS_DEL				int			#{isDel}			有效状态
+		CREATE_USERID				varchar			#{createUserid}			创建人
+		CREATE_TIME				timestamp			#{createTime}			创建时间
+		UPDATE_USERID				varchar			#{updateUserid}			更新人
+		UPDATE_TIME				timestamp			#{updateTime}			更新时间
+	-->
+
+	<sql id="all">
+			DEPARTMENT_USER_ID
+			,USER_ID
+			,DEPARTMENT_ID
+			,IS_LEADER
+			,IS_DEL
+			,CREATE_USERID
+			,CREATE_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+	</sql>
+	
+	<insert id="insert" parameterType="baseDepartmentUserMappingEntity">
+		insert into t_base_department_user_mapping (
+			DEPARTMENT_USER_ID
+			,USER_ID
+			,DEPARTMENT_ID
+			,IS_LEADER
+			,IS_DEL
+			,CREATE_USERID
+			,CREATE_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+		) values (
+			#{departmentUserId}
+			,#{userId}
+			,#{departmentId}
+			,#{isLeader}
+			,#{isDel}
+			,#{createUserid}
+			,#{createTime}
+			,#{updateUserid}
+			,#{updateTime}
+		)
+	</insert>
+	
+	<delete id="delete" parameterType="String">
+		delete from t_base_department_user_mapping where DEPARTMENT_USER_ID = #{departmentUserId}
+	</delete>
+	
+	<select id="selectDepartmentByUserId" resultType="baseDepartmentEntity" parameterType="String" >
+		select 
+			t_base_department.DEPARTMENT_ID
+			,t_base_department.DEPARTMENT_NAME
+			,t_base_department.DEPARTMENT_PID
+			,t_base_department.REMARK
+			,t_base_department.SEQU
+			,t_base_department.IS_DEL
+			,t_base_department.CREATE_USERID
+			,t_base_department.CREATE_TIME
+			,t_base_department.UPDATE_USERID
+			,t_base_department.UPDATE_TIME
+		from 
+			t_base_department_user_mapping,t_base_department
+		where 
+			t_base_department_user_mapping.DEPARTMENT_ID = t_base_department.DEPARTMENT_ID
+		and
+			USER_ID = #{userId}
+	</select>
+	
+	<!-- 目前的逻辑：一个用户只能属于一个部门，所以去掉部门编号的过滤
+		select
+			t_base_user.USER_ID
+			,t_base_user.NAME
+			,t_base_user.USERNAME
+		from
+			t_base_user where t_base_user.USER_ID not in (
+				select 
+					t_base_department_user_mapping.USER_ID 
+				from 
+					t_base_department_user_mapping
+				where
+					t_base_department_user_mapping.DEPARTMENT_ID = #{departmentId}
+			)
+			<if test="username != '' and username != null">
+				and( t_base_user.USERNAME like concat('%',#{username},'%')
+			</if>
+			<if test="name != '' and name != null">
+				or t_base_user.NAME like concat('%',#{name},'%'))
+			</if> 
+	-->
+	
+	<select id="selectUnUserByDepartmentIdPagination" resultType="baseUserEntity" parameterType="baseDepartmentUserMappingEntity">
+		select
+			t_base_user.USER_ID
+			,t_base_user.NAME
+			,t_base_user.USERNAME
+		from
+			t_base_user where t_base_user.USER_ID not in (
+				select 
+					t_base_department_user_mapping.USER_ID 
+				from 
+					t_base_department_user_mapping
+			)
+			<if test="username != '' and username != null">
+				and( t_base_user.USERNAME like concat('%',#{username},'%')
+			</if>
+			<if test="name != '' and name != null">
+				or t_base_user.NAME like concat('%',#{name},'%'))
+			</if>
+	</select>
+	
+	<select id="selectUserByDepartmentIdPagination" resultType="baseUserEntity" parameterType="String">
+		select
+			t_base_user.USER_ID
+			,t_base_user.NAME
+			,t_base_user.USERNAME
+		from
+			t_base_user
+		left join
+			t_base_department_user_mapping
+		on
+			t_base_user.USER_ID = t_base_department_user_mapping.USER_ID
+		where
+			t_base_department_user_mapping.DEPARTMENT_ID = #{departmentId}
+	</select>
+	
+	<delete id="deleteByUserIdAndDepartmentId" parameterType="baseDepartmentUserMappingEntity">
+		delete from t_base_department_user_mapping where DEPARTMENT_ID = #{departmentId} and USER_ID = #{userId}
+	</delete>
+	
+	<delete id="deleteByDepartmentId" parameterType="String">
+		delete from t_base_department_user_mapping where DEPARTMENT_ID = #{departmentId}
+	</delete>
+	
+</mapper>

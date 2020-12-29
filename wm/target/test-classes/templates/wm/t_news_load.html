@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>新闻资讯管理</title>
+    <th:block th:replace="fragments/include::common_header" />
+	</head>
+	<style type="text/css">
+		
+	</style>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h4>新闻资讯管理</h4>
+				</div>
+				<div class="ibox-content">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="pull-left" style="padding-bottom: 10px;" >
+								<button id="_add_button" type="button" class="btn btn-outline btn-primary">增加</button>
+								<button id="_del_button" type="button" class="btn btn-outline btn-danger">删除</button>
+							</div>
+							<div class="pull-right" style="padding-right: 0px;">
+								<form id="_search_form" class="form-inline">
+									<div class="checkbox checkbox-success" style="padding: 3px 10px 0px 0px;">
+										<input id="_search_sortUpdateTime" name="sortUpdateTime" type="checkbox">
+										<label for="_search_sortUpdateTime">
+											最新
+										</label>
+									</div>
+									<div class="checkbox checkbox-success" style="padding: 3px 10px 0px 0px;">
+										<input id="_search_headline" name="headline" type="checkbox" value="headline">
+										<label for="_search_headline">
+											头条
+										</label>
+									</div>
+									<div class="checkbox checkbox-success" style="padding: 3px 10px 0px 0px;">
+										<input id="_search_targetBlack" name="targetBlack" type="checkbox" value="black" checked="checked">
+										<label for="_search_targetBlack">
+											外链
+										</label>
+									</div>
+									<div class="checkbox checkbox-success" style="padding: 3px 10px 0px 0px;">
+										<input id="_search_targetSelf" name="targetSelf" type="checkbox" value="self" checked="checked">
+										<label for="_search_targetSelf">
+											站内
+										</label>
+									</div>
+									<div class="checkbox checkbox-success" style="padding: 3px 10px 0px 0px;">
+										<input id="_search_pushState" name="pushState" type="checkbox" value="1">
+										<label for="_search_pushState">
+											未发布
+										</label>
+									</div>
+									<input type="text" id="_search_pushTime_start" name="pushTimeStart" class="form-control _datatime" style="width: 100px;" placeholder="开始时间" >
+									-
+									<input type="text" id="_search_pushTime_end" name="pushTimeEnd" class="form-control _datatime" style="width: 100px;" placeholder="结束时间" >
+									<select id="_search_newType" name="newType" ></select>
+									<div class="input-group pull-right"  style="padding-left: 10px;">
+										<input id="_search_title" name="title" type="text" class="form-control" style="width: 300px;" placeholder="请输入查询标题">
+										<span class="input-group-btn">
+											<button id="_search" type="button" class="btn btn-default">搜索</button>
+											<button id="_search_reset" type="button" class="btn btn-default">重置</button>
+										</span>
+									</div>
+								</form>
+							</div>
+							<div class="pull-right form-inline" style="padding-right: 0px;">
+								
+							</div>
+							<input type="hidden" id="_websiteUrl" th:value="${websiteUrl}">
+							<table id="_t_news"></table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 发布新闻资讯模态窗口 -->
+		<div class="modal fade" id="_push_news_window" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document" style="width: 350px;">
+				<div class="modal-content">
+					<div class="modal-header">
+		        		<h4 class="modal-title">发布新闻资讯</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_push_news_form" class="form-horizontal">
+							<input type="text" id="_push_news_newsId" name="newsId" style="display: none;" >
+							<div class="form-group">
+								<label for="_push_news_pushTime" class="col-xs-4 control-label" >发布时间</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="_push_news_pushTime" name="pushTime" placeholder="请输入发布时间" style="width: 150px;">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="_push_news_close_button" type="button" class="btn btn-default">取消</button>
+						<button id="_push_news_save_button" type="button" class="btn btn-primary">发布新闻资讯</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	    <script type="text/javascript">
+			$(document).ready(function(){
+				
+		        /* 初始化Token */
+		        secjs.init();
+		        
+		        $('._datatime').datetimepicker({
+		        	language: 'zh-CN'
+		        	,minView: 'month'
+		        	,autoclose: true
+		            ,todayBtn: true
+		            ,format: 'yyyy-mm-dd'
+		            ,clearBtn: true
+		        });
+		        
+		        $('#_search_newType').btSelect({
+		        	code: 'XWLX'
+		        	,placeholder: "请选择资讯类型"
+		        	,width: 140
+		        });
+		        
+				var _websiteUrl = $('#_websiteUrl').val();
+				
+		        $("#_t_news").bootstrapTable({
+					url: '../nc/list'	//URL
+					,method: 'GET'		//请求模式"GET","POST"
+					,totalField: 'total'
+					,dataField: 'list'
+					,pagination: true	//显示分页控件
+					,pageSize: 10		//每页默认条数
+					,pageList: [10,20,100]		//可选择分页条数
+					,sidePagination: "server"	//设置分页模式"server","client"
+					,singleSelect: true		//设置是否单选
+					,clickToSelect: true
+					,showJumpto: true
+					,columns: [
+						{checkbox: true,valign: 'middle'}
+						,{field: 'newsId',title: '资讯编号',halign: 'center',align: 'left',valign: 'middle',visible: false}
+						,{field: 'newTypeName',title: '资讯类型',halign: 'center',align: 'center',valign: 'middle',visible: true}
+						,{field: 'title',title: '标题',halign: 'center',align: 'left',valign: 'middle',visible: true
+							,formatter:function(value,row,index){
+								return '<a class="edit" data-id="'+row.newsId+'" href="javascript:void(0);">'+ value +'</a>'
+							}
+						}
+						,{field: 'keywords',title: '关键词',halign: 'center',align: 'left',valign: 'middle',visible: true}
+						,{field: 'authorName',title: '发布者',halign: 'center',align: 'center',valign: 'middle',visible: false}
+						,{field: 'url',title: '预览',halign: 'center',align: 'center',valign: 'middle',visible: true
+							,formatter:function(value,row,index){
+								if(null == value || "" == value) {
+									var _url = _websiteUrl + '/news/view/' + row.newsId;
+									return "<a href="+ _url +" target='_black'>站内</a>";
+								}else{
+									return "<a href="+ value +" target='_black'>外链</a>";
+								}
+							}
+						}
+						,{field: 'isHeadline',title: '设置头条',halign: 'center',align: 'center',valign: 'middle',visible: true
+							,formatter:function(value,row,index){
+								if(null == row.path || "" == row.path){
+									return '<span>不能设为头条</span>'
+								}else{
+									if(1 == value) {
+										return '<span style="padding: 0px 5px;">头条</span><a class="isHeadline-cancel" data-id="'+row.newsId+'" href="javascript:void(0);">取消</a>'
+									}else{
+										return '<a class="isHeadline-confirm" data-id="'+row.newsId+'" href="javascript:void(0);">设为头条</a>'
+									}
+								}
+							}
+						}
+						,{field: 'pushTime',title: '设置发布状态',halign: 'center',align: 'center',valign: 'middle',visible: true
+							,formatter:function(value,row,index){
+								if(null == value){
+									return '<a class="stat-push" data-id="'+row.newsId+'" href="javascript:void(0);">发布</a>'
+								}else{
+									return '<span>已发布（'+value+'）</span><a class="stat-pull" data-id="'+row.newsId+'" href="javascript:void(0);">下架</a>'
+								}
+							}
+						}
+					]
+					,queryParams: function (params) {
+						 return {
+							"offset": params.offset
+							,"limit": params.limit
+							,'title': $('#_search_title').val()
+							,"sortUpdateTime": $('#_search_sortUpdateTime').prop("checked")
+							,"pushTimeStart": $('#_search_pushTime_start').val()
+							,"pushTimeEnd": $('#_search_pushTime_end').val()
+							,"pushState": $('#_search_pushState').prop("checked")
+							,"headline": $('#_search_headline').prop("checked")
+							,"targetBlack": $('#_search_targetBlack').prop("checked")
+							,"targetSelf": $('#_search_targetSelf').prop("checked")
+							,'newType': $('#_search_newType').val()
+						};
+					}
+		        });
+		        
+		        $('#_search_sortUpdateTime,#_search_pushState,#_search_headline,#_search_targetBlack,#_search_targetSelf').click(function(){
+		        	$("#_t_news").bootstrapTable('refresh');
+		        });
+		        
+		        /* 查询 */
+				$("#_search").click(function(){
+					
+					$("#_t_news").bootstrapTable('refresh');
+				});
+				
+				/* 查询重置 */
+				$("#_search_reset").click(function(){
+					$('#_search_form')[0].reset();
+					$('#_search_newType').btSelectInit();
+					$("#_t_news").bootstrapTable('refresh');
+				});
+	        
+		        /* 打开新增页面 */
+		        $("#_add_button").click(function(){
+		        	main.loadHTML("../nc/loadAdd",'main');
+		        });
+		        
+		        $('#_push_news_pushTime').datetimepicker({
+		        	language: 'zh-CN'
+		        	,autoclose: true
+		            ,todayBtn: true
+		            ,format: 'yyyy-mm-dd hh:ii'
+		        }).datetimepicker('setDate', new Date());
+				
+				 /* 编辑  链接点击事件 */
+				$("#_t_news").on("click",".edit",function(event){
+					var newsId = $(this).data('id');
+					main.loadHTML("../nc/loadEdit?newsId="+newsId,'main');
+				});
+
+				/* 删除信息 */
+				$('#_del_button').click(function () {
+				  
+					var row = $('#_t_news').bootstrapTable('getSelections');
+					if (typeof(row) != 'undefined' && row.length != 0){
+						if(null == row[0].pushTime){
+							swal({
+								type: "warning",
+								title: "确认要删除？",
+								text: "你的操作会删除选择的记录",
+								showCancelButton: true,
+								cancelButtonText: "取消",
+								confirmButtonColor: "#1AB394",
+								confirmButtonText: "确定删除？",
+								closeOnConfirm: false
+							}, function () {
+								var _newsId = row[0].newsId;
+								$.get('../nc/del', {'newsId':_newsId},function(r){
+									if(r > 0){
+										message.delSuccess();
+										$("#_t_news").bootstrapTable('refresh');
+									}else{
+										message.delFall();
+									}
+								})
+							});
+						} else {
+							message.info("该新闻资讯已上架，请先下架后再删除。");
+						}
+					}else{
+						message.selectOne();
+					}
+				});
+				
+				
+		        /* 验证表单 - 发布新闻资讯 */
+				$('#_push_news_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						pushTime:{
+							trigger: 'changeDate'
+							,validators:{
+								notEmpty:{
+									message: '必填'
+								}
+								,date:{
+									format: 'YYYY-MM-DD hh:mm'
+									,message: '日期格式不正确'
+								}
+							}
+						}
+					}
+				});
+				
+				/* 保存发布新闻资讯 */
+				$('#_push_news_save_button').click(function(){
+					
+					var _form = $('#_push_news_form');
+					_form.bootstrapValidator('validate');
+					var flag = _form.data('bootstrapValidator').isValid();
+					if(flag){
+						$.post('../nc/push', _form.serialize(),function(r){
+							if(r > 0){
+								$("#_t_news").bootstrapTable('refresh');
+								_form.data('bootstrapValidator').resetForm();
+								$('#_push_news_window').modal('hide');
+								message.success("发布新闻资讯成功");
+							}else{
+								message.warning("发布新闻资讯失败");
+							}
+						});
+					}
+				});
+				/* 关闭发布新闻资讯模态窗口 */
+				$('#_push_news_close_button').click(function(){
+					$('#_push_news_window').modal('hide');
+				});
+				
+				/** 点击 发布 按钮 弹出发布新闻资讯窗口*/
+				$("#_t_news").on("click",".stat-push",function(event){
+					
+					$('#_push_news_newsId').val($(this).data('id'));
+					$('#_push_news_window').modal('show');
+				});
+				
+				/** 点击 下架  按钮 弹出发布新闻资讯窗口*/
+				$("#_t_news").on("click",".stat-pull",function(event){
+					
+					$.post('../nc/pull', {'newsId':$(this).data('id')},function(r){
+						if(r > 0){
+							message.success("下架新闻资讯成功");
+							$("#_t_news").bootstrapTable('refresh');
+						}else{
+							message.warning("下架新闻资讯失败");
+						}
+					})
+				});
+				
+				/** 点击 设置为头条 按钮 弹出发布新闻资讯窗口*/
+				$("#_t_news").on("click",".isHeadline-confirm",function(event){
+					
+					var _newsId = $(this).data('id');
+					$.get('../nc/countByIsHeadline', {},function(r){
+						if(r > 0){
+							message.warning("只能设置一条新闻资讯为头条");
+						}else{
+							$.post('../nc/confirmHeadline', {'newsId':_newsId},function(r){
+								if(r > 0){
+									message.success("设置头条新闻资讯成功");
+									$("#_t_news").bootstrapTable('refresh');
+								}else{
+									message.warning("设置头条新闻资讯失败");
+								}
+							})
+						}
+					})
+				});
+				
+				/** 点击 取消头条 按钮 弹出发布新闻资讯窗口*/
+				$("#_t_news").on("click",".isHeadline-cancel",function(event){
+					
+					$.post('../nc/cancelHeadline', {'newsId':$(this).data('id')},function(r){
+						if(r > 0){
+							message.success("取消设置头条新闻资讯成功");
+							$("#_t_news").bootstrapTable('refresh');
+						}else{
+							message.warning("取消设置头条新闻资讯失败");
+						}
+					})
+				});
+				
+			})
+	    </script>
+	</body>
+</html>

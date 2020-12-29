@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'造价会员制平台详情页 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+</head>
+<body>
+<!-- 头部分-->
+<th:block th:replace="common/layout::header"/>
+
+<div class="d-flex justify-content-center detail-bg">
+    <div style="margin-top: 60px">
+        <img class="detail-title-l"  src="/image/common/title_icon_L.png" alt="">
+        <b class="detail-title">造价会员制平台</b>
+        <img class="detail-title-r" src="/image/common/title_icon_R.png" alt="">
+    </div>
+</div>
+
+<div class="container detail-body">
+    <p class="detail-text text-indent-2">
+        海迈造价会员制是福建省唯一的造价云服务体系。该体系利用互联网+、云计算、大数据、BIM等先进技术，为造价从业人员提供全方位、智能化的服务支持，更好地满足岗位级、部门级、企业级的工作需要，以及工程造价数据的积累、再利用，大幅提升造价工作的便捷性与高效性。
+    </p>
+
+    <div class="text-center" style="margin-top: 72px;">
+        <img src="/image/productSystem/details/costMembership/img1.png" alt="">
+    </div>
+
+    <div class="text-center">
+        <div class="detail-classify-title" style="margin-top: 76px">
+            平台特点
+        </div>
+        <div class="d-flex justify-content-center">
+            <hr class="detail-line-center">
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:40px;">
+        <div class="d-flex justify-content-between">
+            <img style="margin-left: 30px;border-right: 1px solid #ededed;" src="/image/productSystem/details/costMembership/img2.png" alt="">
+            <div style="margin-left: 45px;">
+                <div class="detail-little-title" style="margin-top: -10px;">行业首创造价会员制</div>
+                <div class="detail-text" style="margin-top: 10px">
+                    行业首创SaaS模式，是面向所有造价从业人员推出的一站式服务体系，一套会员账号、全系统产品适用、全方位服务支持，可更好地满足岗位级、部门级、企业级的工作需要、大幅提高工作的便捷性与高效性。
+                </div>
+                <div class="detail-little-title" style="margin-top: 15px">造价协同应用平台</div>
+                <div class="detail-text"  style="margin-top: 10px">
+                    融合互联网技术，提供集招投标规范管理、计价软件权限控制、快速编制控制价、快速投标报价和实时追溯工程历史版本及修改人等功能服务为一体的企业造价协同应用解决方案，使团队管理、招投标清单编制更加轻松高效！
+                </div>
+                <div class="detail-little-title" style="margin-top: 15px">工程造价大数据</div>
+                <div class="detail-text"  style="margin-top: 10px">
+                    海迈造价云平台支持工程造价数据的云端上传和下载；海材网提供材机品牌价服务、在线询价、常用材料价格走势、材料供需信息等全新的材价指标在线大数据服务，极大方便造价从业人员对工程造价数据的查询、积累、储存和再利用。
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+</body>
+</html>

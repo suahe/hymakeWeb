@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'电子交易解决方案 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .main-content{
+
+        }
+        .detail-title{
+            padding-bottom: 0.4rem;
+        }
+        .detail-title h4 {
+            color: #0066cc;
+            text-align: center;
+            position: relative;
+            padding: 0;
+            padding-top: 0.55rem;
+            padding-bottom: 0.25rem;
+            display: inline-block;
+            margin: 0;
+            float: none !important;
+            left: 50%;
+            transform:translate(-50%,0);
+            font-size: 0.4rem;
+        }
+        .detail-title h4:after {
+            content: '';
+            width: 30%;
+            height: 2px;
+            background-color: #0066cc;
+            position: absolute;
+            left: 50%;
+            transform:translate(-50%,0);
+            bottom: 0;
+            min-width: 35px;
+        }
+        .detail-text{
+            font-size: 0.28rem;
+            color: #666666;
+            text-indent: 2em;
+            text-align: justify;
+        }
+        .detail-text p{
+            margin-bottom: 0.12rem;
+        }
+        .detail-pad{
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .values-highlight-part{
+            background-color: #f4f4f5;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            padding-bottom: 0.75rem;
+        }
+
+        .values-highlight-row{
+            padding: 0.22rem 0.2rem;
+            background-color: #ffffff;
+        }
+        .values-highlight-title{
+            font-size: 0.36rem;
+            color: #333333;
+        }
+        .values-highlight-content{
+            font-size: 0.28rem;
+            color: #666666;
+            text-align: justify;
+        }
+        .trans-mode-part{
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            padding-bottom: 0.61rem;
+            background-color: #ffffff;
+        }
+        .trans-mode-cls{
+            font-size: 0.28rem;
+            color: #666666;
+            display: flex;
+        }
+        .spot{
+            color: #2387f8;
+            margin-right: 0.2rem;
+            font-size: 0.2rem;
+            margin-top: 0.09rem;
+        }
+    </style>
+</head>
+<body>
+<!--引入详情页头部-->
+<th:block th:replace="common/layout::detail-header"/>
+<main class="main-content">
+    <div class="detail-pad">
+        <div class="detail-text" style="padding-top: 0.61rem;padding-bottom: 0.61rem;">
+            通过电子招标投标交易平台、政企采购平台、电子保函平台、3D电子摇球软件、远程智慧评标平台、场地预约系统、投标保证金系统、专家抽取通知系统、评标变声澄清系统等系列产品，为各行业的招标采购提供“专业、全面、可靠、合规”的全过程电子化交易解决方案，以及完善的平台级服务。覆盖公开招标、邀请招标、竞争性谈判、竞争性磋商、单一来源采购、询价、竞价、拍卖等不同方式；满足工程、货物、服务等不同类型；支持网上投标、远程开标、异地评标等不同形态；集成云计算、人脸识别、视频直播、智能门禁等不同技术，具有五位一体的强大安全保障体系。同时，与各级公共平台共享数据和业务接口，实现协同共享。
+        </div>
+    </div>
+    <div class="values-highlight-part">
+        <div class="detail-title">
+            <h4>价值亮点</h4>
+        </div>
+        <div>
+            <img class="w-100" src="/image/solution/details/electronicTradingSolution/img1.png" alt="">
+            <div style="margin-top: 0.3rem;" class="values-highlight-row">
+                <div class="values-highlight-title">
+                    多种交易模式
+                </div>
+                <div class="values-highlight-content">
+                    依照《招标投标法》、《政府采购法》等规范设计，并且提供拍卖、竞价等更多的交易方式。
+                </div>
+            </div>
+            <div style="margin-top: 0.3rem;" class="values-highlight-row">
+                <div class="values-highlight-title">
+                    降低成本
+                </div>
+                <div class="values-highlight-content">
+                    可快速在云平台上搭建交易平台，免去购置硬件网络和后期维护的费用，快速见效。
+                </div>
+            </div>
+            <div style="margin-top: 0.3rem;" class="values-highlight-row">
+                <div class="values-highlight-title">
+                    针对性强
+                </div>
+                <div class="values-highlight-content">
+                    主要针对场外交易，可根据交易方式的不同量身定制合适的交易平台。
+                </div>
+            </div>
+            <div style="margin-top: 0.3rem;" class="values-highlight-row">
+                <div class="values-highlight-title">
+                    多种客户端支持
+                </div>
+                <div class="values-highlight-content">
+                    除传统电脑浏览器支持外，提供多种移动交易方式。
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="trans-mode-part">
+        <div class="detail-title">
+            <h4>交易方式</h4>
+        </div>
+        <div class="trans-mode-cls"><div class="spot">●</div><span><div>公开招标</div></span></div>
+        <div class="trans-mode-cls"><div class="spot">●</div><span><div>竞争性磋商</div></span></div>
+        <div class="trans-mode-cls"><div class="spot">●</div><span><div>邀请招标</div></span></div>
+        <div class="trans-mode-cls"><div class="spot">●</div><span><div>挂牌交易</div></span></div>
+        <div class="trans-mode-cls"><div class="spot">●</div><span><div>单一来源采购</div></span></div>
+        <div class="trans-mode-cls"><div class="spot">●</div><span><div>竞价交易</div></span></div>
+        <div class="trans-mode-cls"><div class="spot">●</div><span><div>询价</div></span></div>
+        <div class="trans-mode-cls"><div class="spot">●</div><span><div>拍卖</div></span></div>
+        <div class="trans-mode-cls"><div class="spot">●</div><span><div>竞争性谈判</div></span></div>
+    </div>
+</main>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

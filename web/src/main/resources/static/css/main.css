@@ -1,0 +1,492 @@
+/*公共样式 begin*/
+.h-200px{
+    height: 200px;
+}
+
+.h-400px{
+    height: 400px;
+}
+
+.padding-0{
+    padding:0
+}
+
+body {
+    min-width: 1200px;
+    font-family:”微软雅黑”;
+    line-height: 2;
+    min-width: 1200px;
+}
+
+.container{
+    min-width: 1200px;
+}
+
+.aceive-shadow{
+     /*box-shadow: 0px 1px 10px rgba(0,75,141,0.1);*/
+    box-shadow: 0 1px 10px rgba(27, 31, 35, .15);
+}
+
+/*首页样式*/
+/*导航栏样式 begin*/
+
+.f-nav {
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    position: sticky;
+}
+.navbar{
+    padding:0;
+}
+
+.dropdown:hover > .dropdown-menu {
+    display: block;
+}
+
+.dropdown > .dropdown-toggle:active {
+   /* pointer-events: none;*/
+}
+
+.dropdown {
+    position: static;
+}
+
+.dropdown-menu {
+    top: 76px;
+    border: 0px;
+    background-color: #ffffff;
+    border-radius:0;
+    box-shadow: inset 0px 3px 5px 0px rgba(0,75,141,0.1),0px 3px 5px 0px rgba(0,75,141,0.1);
+}
+
+.dropdown-menu-full {
+    width: 100%;
+}
+
+.dropdown-toggle::after {
+    display: none !important;
+}
+.menu-navbar{
+    height: 76px;
+    /*padding: 0px 64px;*/
+    background-color: #ffffff;
+    box-shadow: 0px 3px 5px 0px rgba(0,75,141,0.1);
+}
+.logo {
+    /*padding: 0px 0px 0px 35px;*/
+    margin-right: -2px !important;
+}
+.stock {
+    color: #333333;
+    font-size: 18px;
+    padding: 0px 0px 0px 0px;
+}
+.stock > .split {
+    border-right:1px solid #cccccc;
+    margin-right: 10px;
+}
+.menu-bar > .menu-item > a {
+    font-size: 20px;
+    color: #333333;
+    padding: 18px 20px;
+    font-weight: 500;
+}
+.menu-bar > .menu-item > a:hover {
+    color: #0066CC;
+}
+.menu-column-bar {
+    padding-top: 50px;
+    /*padding-bottom: 80px;*/
+    padding-bottom: 60px;
+    border-radius: 0px;
+    /* border-top: 1px solid #cccccc; */
+    /*box-shadow: inset 0px 15px 10px -15px #cccccc;*/
+    box-shadow: inset 0px 3px 5px 0px rgba(0,75,141,0.1),0px 3px 5px 0px rgba(0,75,141,0.1);
+}
+
+.no-column-header-bar {
+    padding-top: 30px;
+    padding-bottom: 60px;
+    border-radius: 0px;
+    /* border-top: 1px solid #cccccc; */
+    /*box-shadow: inset 0px 15px 10px -15px #cccccc;*/
+    box-shadow: inset  0px 3px 5px 0px rgba(0,75,141,0.1), 0px 3px 5px 0px rgba(0,75,141,0.1);
+}
+
+.menu-column > .menu-column-header {
+    /*padding-bottom: 24px;*/
+    margin-bottom: 24px;
+}
+.menu-column > .menu-column-header a{
+    font-size: 20px;
+    color: #333333;
+    font-weight:bold;
+    text-decoration: none;
+    background-color: transparent;
+    /*增加a标签范围的点击区域*/
+    display:block;
+}
+.menu-column > .menu-column-header a:hover {
+    color: #0066CC;
+}
+.menu-column > .split-line {
+    padding-bottom: 5px;
+}
+.menu-column > .split-line hr {
+    border:0.5px solid #cccccc;
+    width: 80%;
+    padding: 0px;
+    margin: 0px;
+    text-align: left;
+}
+.menu-column > .menu-column-item {
+    /*padding-top: 25px;*/
+    margin-top: 25px;
+}
+.menu-column > .menu-column-item > a {
+    font-size: 16px;
+    color: #666666;
+    text-decoration: none;
+    background-color: transparent;
+    /*增加a标签范围的点击区域*/
+    display:block;
+}
+.menu-column > .menu-column-item > a:hover {
+    color: #0066CC;
+}
+
+
+.dropdown-item{
+    color: #666666;
+}
+.col-1-5{
+    flex: 0 0 20%;
+    max-width: 20%;
+}
+/*遮罩层*/
+.shadow{
+    width:100%;
+    position:fixed;
+    left:0;
+    top:0;
+    bottom: 0;
+    z-index:1000;
+    background-color:#000;
+    opacity:0.6;
+    display:none;
+}
+
+/*导航栏样式 end*/
+
+/*右侧悬浮菜单*/
+* {
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+}
+
+.right-slide{
+    /*width: 60px;*/
+    height: 120px;
+    position: fixed;
+    top: 50%;
+    margin-top: -126px;
+    background: #fff;
+    right: 0;
+    border-radius: 2px 0 0 2px;
+    z-index: 999;
+    box-shadow: 1px 1px 5px 1px rgba(0,75,141,0.1);
+}
+.right-slide ul{
+    list-style: none;
+}
+
+.right-slide .icon li{
+    width: 60px;
+    height: 60px;
+}
+
+.right-slide .icon li.qq{
+    background-position:-385px -73px ;
+}
+
+.right-slide .icon li.tel{
+    background: url(/image/rightTools/right_little_phone.png) no-repeat;
+    border-radius: 2px 0 0 0;
+}
+
+.right-slide .icon li.active_tel{
+    background: url(/image/rightTools/right_little_phone_active.png) no-repeat;
+}
+
+.right-slide .icon li.wx{
+    background: url(/image/rightTools/right_little_code.png) no-repeat;
+    border-radius: 0 0 0 2px;
+}
+
+.right-slide .icon li.active_wx{
+    background: url(/image/rightTools/right_little_code_active.png) no-repeat;
+}
+
+
+.right-slide .info{
+    top: 61%;
+    /*height: 120px;*/
+    position: absolute;
+    right: 100%;
+    background: #fff;
+    width: 0px;
+    overflow: hidden;
+    margin-top: -73px;
+    transition:0.5s;
+    border-radius:4px 0 0 4px ;
+}
+
+.right-slide .info.hover{
+    width: 120px;
+    box-shadow: -1px 1px 5px 1px rgba(0,75,141,0.1);
+}
+
+.right-slide .info.tel-hover{
+    width: 166px;
+    height: 120px;
+    box-shadow: -1px 1px 5px 1px rgba(0,75,141,0.1);
+}
+
+.right-slide .info li{
+    width: 145px;
+    color: #CCCCCC;
+    text-align: center;
+}
+
+.right-slide .info li p{
+    font-size: 1.1em;
+    line-height: 2em;
+    /*padding: 15px;*/
+    text-align: left;
+}
+
+.right-slide .info li.qq p a{
+    display: block;
+    margin-top: 12px;
+    width: 100px;
+    height: 32px;
+    line-height: 32px;
+    color: #00DFB9;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid #00DFB9;
+    border-radius: 5px;
+}
+
+.right-slide .info li.qq p a:hover{
+    color: #FFFFFF;
+    border: none;
+    background: #00E0DB;
+}
+
+.right-slide .info li div.img{
+    height: 110px;
+    width: 110px;
+    background: #fff;
+    margin: 5px;
+}
+
+.right-slide .info li div.img img{
+    width: 100%;
+    height: 100%;
+}
+
+/*自适应 当屏小于1050时隐藏*/
+@media screen and (max-width: 1050px) {
+    .right-slide{
+        display: none;
+    }
+}
+
+#gotop {
+    width: 60px;
+    height: 60px;
+    background: url(/image/rightTools/right_little_top.png) no-repeat;
+    position: fixed;
+    right: 10px;
+    cursor: pointer;
+    _position: absolute;
+    _bottom: auto;
+    border-radius: 2px 0 0 2px;
+    box-shadow: 1px 1px 5px 1px rgba(0,75,141,0.1);
+}
+
+#gotop {
+    bottom: 67px;
+    _margin-bottom: 67px;
+    margin-right: -15px;
+}
+
+/*尾部导航 begin*/
+#footer_table th , #footer_table td{
+    padding: 0.6rem;
+}
+#footer_table td a{
+    text-decoration-line: none;
+}
+
+#footer_site a{
+    text-decoration-line: none;
+}
+/*尾部导航 end*/
+
+
+/*产品体系和解决方案详情页*/
+.detail-bg{
+    height: 200px;
+    background: url("/image/common/detail_banner_bg.png");
+    background-size: 100% 200px;
+}
+
+.detail-content-div{
+    width: 100%;
+    padding-top: 70px;
+}
+
+.detail-title-l{
+    width: 54px;
+    height: 16px;
+    margin-top: -24px;
+}
+
+.detail-title{
+    color: #0066cc;
+    font-size: 40px;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.detail-body{
+    margin-top:72px;
+    margin-bottom: 80px;
+}
+
+.detail-text{
+    font-size: 16px;
+    color: #666666;
+    text-align: justify;
+}
+
+.detail-title-r{
+    width: 54px;
+    height: 16px;
+    margin-top: -14px;
+}
+
+.detail-classify-title{
+    font-size: 32px;
+    font-weight: 500;
+    color: #2a2e2e;
+    margin-top: 56px;
+}
+
+.detail-line-center {
+    height: 1px;
+    /*width: 50px;*/
+    width: 125px;
+    background-color: #005cbf;
+}
+
+.detail-little-title{
+    font-size: 22px;
+    color: #2a2e2e;
+    font-weight: 500;
+}
+
+.text-indent-2{
+    text-indent: 2em;
+}
+
+/*底部悬浮二维码*/
+.code-div{
+    position: relative;
+}
+
+.code-div img.show-code {
+    position: absolute;
+    z-index: 99;
+    top: -41px;
+    /*right: -114px;*/
+    width: 107px;
+    max-width: none;
+    height: 100px;
+    transform: scale(0);
+    transform-origin: top right;
+    opacity: 0;
+    border-radius: .25rem;
+    /*-webkit-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;*/
+
+}
+
+.code-div img.haimai_show-code {
+    right: -122px;
+}
+.code-div img.cost_service_show-code {
+    right: -113px;
+}
+.code-div img.build_shool_show-code {
+    right: -122px;
+}
+.code-div img.haimai_education_show-code {
+    right: -121px;
+}
+
+.construction_big_data_show-code{
+    right: -108px;
+}
+.code-div:hover img.show-code {
+    transform: scale(1);
+    opacity: 1;
+}
+
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    z-index: 15;
+    width: 60%;
+    padding-left: 0;
+    margin-left: -30%;
+    text-align: center;
+    list-style: none;
+}
+
+.carousel-indicators li {
+    display: inline-block;
+    width: 10px;
+    height: 2px;
+    /*margin: 1px;*/
+    text-indent: -999px;
+    cursor: pointer;
+    background-color: #fff \9;
+    /*background-color: rgba(0, 0, 0, 0);*/
+    border: 1px solid grey;
+    border-radius: 1px;
+}
+.carousel-indicators .active {
+    width: 10px;
+    height: 2px;
+    margin: 0;
+    background-color: #fff;
+    border: 1px solid white; /*没有这边框，切换的时候指针不会变白 */
+}
+
+.col-1-5{
+    position: relative;
+    width: 100%;
+    -ms-flex: 0 0 20%;
+    flex: 0 0 20%;
+    max-width: 20%;
+}

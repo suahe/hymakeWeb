@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dzb.wm.mapper.SearchMapper">
+
+	<sql id="all">
+			id
+			,title
+			,content
+			,source
+			,url
+			,sequ
+			,CREATE_USERID
+			,CREATE_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+	</sql>
+
+	<select id="selectPagination" parameterType="SearchEntity" resultType="SearchEntity">
+		select <include refid="all" />
+		from t_search
+		where 1=1
+		<if test="title!=null and title!=''">
+			and title like concat('%',#{title},'%')
+		</if>
+		<if test="content!=null and content!=''">
+			and content like concat('%',#{content},'%')
+		</if>
+		<if test="source!=null and source!=''">
+			and source like concat('%',#{source},'%')
+		</if>
+		order by sequ asc
+	</select>
+
+	<select id="selectByPkey" resultType="SearchEntity" parameterType="long">
+		select
+		<include refid="all" />
+		from
+		t_search
+		where
+		id = #{id}
+	</select>
+
+	<insert id="insert" parameterType="SearchEntity">
+		insert into t_search (
+		id
+		,title
+		,content
+		,source
+		,url
+		,sequ
+		,create_userid
+		,create_time
+		) values (
+		#{id}
+		,#{title}
+		,#{content}
+		,#{source}
+		,#{url}
+		,#{sequ}
+		,#{createUserid}
+		,#{createTime}
+		)
+	</insert>
+
+	<update id="update" parameterType="SearchEntity">
+		update t_search set
+		title = #{title}
+		,content = #{content}
+		,source = #{source}
+		,url = #{url}
+		,sequ = #{sequ}
+		,update_userid = #{updateUserid}
+		,UPDATE_TIME = #{updateTime}
+		where
+		id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="long">
+		delete from t_search where id = #{id}
+	</delete>
+</mapper>

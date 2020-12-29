@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'商品房价格评估调控系统详情页 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+</head>
+<body>
+<!-- 头部分-->
+<th:block th:replace="common/layout::header"/>
+
+<div class="d-flex justify-content-center detail-bg">
+    <div style="margin-top: 60px">
+        <img class="detail-title-l"  src="/image/common/title_icon_L.png" alt="">
+        <b class="detail-title">商品房价格评估调控系统</b>
+        <img class="detail-title-r" src="/image/common/title_icon_R.png" alt="">
+    </div>
+</div>
+
+<div class="container detail-body">
+    <p class="detail-text text-indent-2">
+        潜力产品商品房价格评估调控系统，是以实现新建商品房价格评估的科学管理为目标，以成本估价法和市场比较法为指导思想，以信息化技术为手段，以合理成本为基础，以市场供求为导向，兼顾“国家、企业、消费者”三方利益，进行价格评估体系建设，打造指标分析法的房价评估模式。同时，系统并采用“价比+量比”双管齐下，进行评估动态修正，实现按区域、按项目科学、准确、合理指导新建商品房定价，完善市场调控体系，促进房地产业健康发展。
+    </p>
+    <div class="text-center" style="margin-top: 10px">
+        <img src="/image/productSystem/details/commercialHousingPriceEvaluationAndControlSystem/img1.png" alt="">
+    </div>
+    <div class="text-center">
+        <div class="detail-classify-title" style="margin-top: 96px;">
+            系统优势
+        </div>
+        <div class="d-flex justify-content-center">
+            <hr class="detail-line-center ">
+        </div>
+    </div>
+    <div class="text-center" style="margin-top: 34px">
+        <img src="/image/productSystem/details/commercialHousingPriceEvaluationAndControlSystem/img2.png" alt="">
+    </div>
+</div>
+
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+</body>
+</html>

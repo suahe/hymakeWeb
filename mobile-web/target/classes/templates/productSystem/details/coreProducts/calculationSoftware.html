@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'算量软件 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .main-content{
+
+        }
+        .detail-title{
+            padding-bottom: 0.4rem;
+        }
+        .detail-title h4 {
+            color: #0066cc;
+            text-align: center;
+            position: relative;
+            padding: 0;
+            padding-top: 0.55rem;
+            padding-bottom: 0.25rem;
+            display: inline-block;
+            margin: 0;
+            float: none !important;
+            left: 50%;
+            transform:translate(-50%,0);
+            font-size: 0.4rem;
+        }
+        .detail-title h4:after {
+            content: '';
+            width: 30%;
+            height: 2px;
+            background-color: #0066cc;
+            position: absolute;
+            left: 50%;
+            transform:translate(-50%,0);
+            bottom: 0;
+            min-width: 35px;
+        }
+        .icon-part{
+            display: flex;
+        }
+        .left-icon-part{
+            width: 50%;
+            text-align: center;
+        }
+        .right-icon-part{
+            width: 50%;
+            text-align: center;
+        }
+        .icon-title{
+            font-size: 0.3rem;
+            color: #333333;
+            padding-top: 0.1rem;
+            padding-bottom: 0.25rem;
+        }
+        .icon{
+            width: 0.93rem;
+            height: 0.93rem;
+        }
+        .detail-text{
+            font-size: 0.28rem;
+            color: #666666;
+            text-indent: 2em;
+            text-align: justify;
+        }
+        .detail-text-pad{
+            margin-top: -0.14rem;
+            padding: 0 0.5rem 0.61rem 0.5rem;
+        }
+        .series-product-part-bg{
+            background-color: #f4f4f5;
+        }
+        .series-product-part{
+            padding: 0 0.5rem 0.61rem 0.5rem;
+        }
+        .series-product{
+            padding-bottom: 0.31rem;
+            border-bottom: 0.02rem solid #ffffff;
+        }
+        .series-product-title-div{
+            display: flex;
+            padding-top: 0.3rem;
+            padding-bottom: 0.3rem;
+        }
+        .series-product-img{
+            width: 1rem;
+            height: 1rem;
+        }
+        .series-product-title{
+            font-size: 0.34rem;
+            color: #333333;
+            margin-top: 0.12rem;
+            margin-left: 0.4rem;
+        }
+    </style>
+</head>
+<body>
+<!--引入详情页头部-->
+<th:block th:replace="common/layout::detail-header"/>
+<main class="main-content">
+    <div class="detail-text" style="padding: 0.61rem 0.5rem 0 0.5rem;">
+        核心产品算量软件包含了土建算量软件、安装算量软件，应用于建设工程预算、招投标阶段、施工过程提量和结算阶段，服务于业主、施工企业、中介咨询等单位的工程造价人员，支持CAD图纸导入与管理，快速识别底图图元，同时内嵌计算规则，实现快速计算及汇总。
+    </div>
+    <div class="detail-title">
+        <h4>产品特点</h4>
+    </div>
+    <div class="icon-part">
+        <div class="left-icon-part">
+            <img class="icon" src="/image/productSystem/details/coreProducts/calculationSoftware/s-j-s-d.png" alt="">
+            <div class="icon-title">所见所得</div>
+        </div>
+        <div class="right-icon-part">
+            <img class="icon" src="/image/productSystem/details/coreProducts/calculationSoftware/y-x-y-y.png" alt="">
+            <div class="icon-title">易学易用</div>
+        </div>
+    </div>
+    <div class="icon-part">
+        <div class="left-icon-part">
+            <img class="icon" src="/image/productSystem/details/coreProducts/calculationSoftware/w-f-d-j.png" alt="">
+            <div class="icon-title">无缝对接</div>
+        </div>
+        <div class="right-icon-part">
+            <img class="icon" src="/image/productSystem/details/coreProducts/calculationSoftware/y-t-d-l.png" alt="">
+            <div class="icon-title">有图对量</div>
+        </div>
+    </div>
+    <div class="detail-text detail-text-pad">
+        此外，海迈工程量计算书软件可以模拟手工计算底稿，精确计算、量入为出，与海迈计价软件实现量价一体，无缝对接。
+    </div>
+    <div class="series-product-part-bg">
+        <div class="detail-title">
+            <h4>系列产品</h4>
+        </div>
+        <div class="series-product-part">
+            <div class="series-product">
+                <div class="series-product-title-div">
+                    <img class="series-product-img" src="/image/productSystem/details/coreProducts/calculationSoftware/an-zhuang-suan-liang.png" alt="">
+                    <div class="series-product-title">
+                        海迈安装算量软件
+                    </div>
+                </div>
+                <div class="detail-text">
+                    海迈安装算量软件是一款应用于建设工程招投标阶段、施工阶段和结算阶段的机电工程计算软件，专业内容包含电气专业、给排水专业、通风空调专业、智能化专业等。主要面向建设工程领域中业主、施工企业、中介咨询某单位的工程造价人员。
+                </div>
+            </div>
+            <div class="series-product">
+                <div class="series-product-title-div">
+                    <img class="series-product-img" src="/image/productSystem/details/coreProducts/calculationSoftware/tu-jian-suan-liang.png" alt="">
+                    <div class="series-product-title">
+                        海迈土建算量软件
+                    </div>
+                </div>
+                <div class="detail-text">
+                    海迈土建算量软件是一款以Excel输入为基础,井辅以自研的CAD插件，自动读取图形数据，构建土建与钢筋工程量构成要素、构件之间相互关系，形成土建工程计量相关联的构件组成模块，按福建省现行建筑工程计量规则，自动计算出量并完成套价工作。
+                </div>
+            </div>
+            <div>
+                <div class="series-product-title-div">
+                    <img class="series-product-img" src="/image/productSystem/details/coreProducts/calculationSoftware/ji-suan-shu.png" alt="">
+                    <div class="series-product-title">
+                        海迈工程量计算书软件
+                    </div>
+                </div>
+                <div class="detail-text">
+                    海迈工程量计算书软件是一款模拟手工计算底稿的算量软件，符合造价员手动算量的思维，精确计算，量入为出，可与海迈计价软件无缝对接。适用于建设工程招投标阶段、施工阶段和结算阶段，主要面向建设工程领域中业主、施工企业、中介咨询等单位的工程造价人员。
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</main>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

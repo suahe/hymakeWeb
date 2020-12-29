@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'关注海迈 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+
+        .code-bg{
+            background: url(/image/followHymake/hymake_code_bg.png) 0 70px no-repeat;
+        }
+
+        .code-padding{
+            margin-top: 362px;margin-left: 7px;
+        }
+
+        .img-240px-240px{
+            width: 240px;
+            height: 240px;
+        }
+
+        .l-code-text-div{
+            margin-left: -120px;
+            margin-top: 8px;
+        }
+
+        .l-code-title{
+            font-size: 20px;
+            color: #333333;
+            font-weight:bold;
+            margin-top: 11px;
+        }
+
+        .l-code-text{
+            font-size: 16px;
+            color: #666666;
+            margin-top: -7px;
+        }
+
+        .r-code-text-div{
+            margin-top: 12px;
+        }
+
+        .r-code-title{
+            font-size: 20px;
+            color: #333333;
+            font-weight:bold;
+        }
+
+        .r-code-text{
+            font-size: 14px;
+            color: #666666;
+            margin-top: -5px;
+        }
+
+        .color-cc{
+            color: #cccccc;
+        }
+
+        
+    </style>
+</head>
+<body>
+<!-- 头部分-->
+<th:block th:replace="common/layout::header"/>
+
+<div>
+    <img class="card-img-top" src="/image/followHymake/follow_hymake_banner.png">
+</div>
+<div class="container" style="margin-top: 104px;margin-bottom: 80px;">
+
+    <div class="row">
+        <div class="col-4 code-bg">
+            <img src="/image/followHymake/hymake_code.png" alt="" class="code-padding">
+            <div class="text-center l-code-text-div" >
+                <div class="l-code-title">海迈科技</div>
+                <div class="l-code-text">建筑数据服务商</div>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="row">
+                <div class="col-4">
+                    <div class="text-center">
+                        <img class="rounded img-240px-240px" src="/image/followHymake/cost_service_code.png"/>
+                    </div>
+                    <div class="text-center r-code-text-div">
+                        <div class="r-code-title">海迈工程造价V服务</div>
+                        <div class="r-code-text">交易信息<span class="color-cc"> | </span>最新政策<span  class="color-cc"> | </span>会员服务</div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="text-center">
+                        <img class="rounded img-240px-240px" src="/image/followHymake/hai_yi_zhao_code.png"/>
+                    </div>
+                    <div class="text-center r-code-text-div">
+                        <div class="r-code-title">海易招</div>
+                        <div class="r-code-text">权威<span class="color-cc"> | </span>准确<span  class="color-cc"> | </span>高效<span  class="color-cc"> | </span>全面</div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="text-center">
+                        <img class="rounded img-240px-240px" src="/image/followHymake/construction_big_data_code.png"/>
+                    </div>
+                    <div class="text-center r-code-text-div">
+                        <div class="r-code-title">福建工程建设大数据</div>
+                        <div class="r-code-text">产品介绍<span class="color-cc"> | </span>最新政策<span  class="color-cc"> | </span>会员服务</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 47px">
+                <div class="col-4">
+                    <div class="text-center">
+                        <img class="rounded img-240px-240px" src="/image/followHymake/smart_community_code.png"/>
+                    </div>
+                    <div class="text-center r-code-text-div">
+                        <div class="r-code-title">海南智慧管家小区服务</div>
+                        <div class="r-code-text">通知公告<span class="color-cc"> | </span>最新政策<span  class="color-cc"> | </span>会员服务</div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="text-center">
+                        <img class="rounded img-240px-240px" src="/image/followHymake/builde_school_code.png"/>
+                    </div>
+                    <div class="text-center r-code-text-div">
+                        <div class="r-code-title">建设学堂</div>
+                        <div class="r-code-text">执业考证<span class="color-cc"> | </span>BIM认证<span  class="color-cc"> | </span>工程管理</div>
+                        <div class="r-code-text">考题研讨<span class="color-cc"> | </span>八 大 员<span  class="color-cc"> | </span>学历提升</div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="text-center">
+                        <img class="rounded img-240px-240px" src="/image/followHymake/hymake_education_code.png"/>
+                    </div>
+                    <div class="text-center r-code-text-div">
+                        <div class="r-code-title">海迈教育</div>
+                        <div class="r-code-text">在线教育<span class="color-cc"> | </span>产教融合<span  class="color-cc"> | </span>协同育人</div>
+                        <div class="r-code-text">培训认证<span class="color-cc"> | </span>推荐就业<span  class="color-cc"> | </span>BIM咨询</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+</body>
+</html>

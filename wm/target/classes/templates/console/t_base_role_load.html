@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>角色管理</title>
+		<th:block th:replace="fragments/include::common_header" />
+	</head>
+	<style type="text/css">
+		
+	</style>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content">
+	        <div class="ibox">
+	            <div class="ibox-title">
+	                <h4>角色管理</h4>
+	            </div>
+	            <div class="ibox-content">
+	            	<div class="row">
+	            		<div class="col-xs-5">
+	            			<div class="ibox">
+					            <div class="ibox-title">
+					            	<h4 class="pull-left">角色信息</h4>
+					            	<div class="pull-right" style="padding-bottom: 5px;">
+					            		<a id="_role_add_button" class="btn btn-outline btn-primary" role="button">新增</a>
+										<a id="_role_edit_button" class="btn btn-outline btn-primary" role="button">编辑</a>
+										<a id="_role_del_button" class="btn btn-outline btn-danger" role="button">删除</a>
+					            	</div>
+					            </div>
+					            <div class="ibox-content">
+					            	<div id="_role_tree"></div>
+					            </div>
+				           	</div>
+	            		</div>
+	            		<div class="col-xs-7">
+	            			<div class="ibox">
+					            <div class="ibox-title">
+					            	<h4 class="pull-left" style="padding-bottom: 8px;">人员信息</h4>
+					            	<div class="pull-right" style="padding-bottom: 5px;">
+					            		<a id="_user_select_botton" class="btn btn-outline btn-primary" role="button">添加</a>
+										<a id="_user_del_botton" class="btn btn-outline btn-danger" role="button">移除</a>
+					            	</div>
+					            </div>
+					            <div class="ibox-content">
+					            	<table id="base_user_checked_list"></table>
+					            </div>
+				           	</div>
+	            		</div>
+					</div>
+	            </div>
+	        </div>
+        </div>
+		
+		<!-- 新增角色信息 -->
+		<div class="modal fade" id="_role_add_window" tabindex="-1" role="dialog" aria-labelledby="#_role_add_window">
+			<div class="modal-dialog" role="document" style="width: 450px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">新增角色信息</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_role_add_form" class="form-horizontal">
+							<input type="hidden" id="rolePid" name="rolePid" /> <!-- 角色父编号  -->
+							<input type="hidden" id="isLeaf" name="isLeaf" /> <!-- 是否为叶子节点  -->
+							<div class="form-group">
+								<label for="roleName" class="col-xs-3 control-label">角色名称</label>
+								<div class="col-xs-9">
+									<input type="text" name="roleName" class="form-control" placeholder="请输入角色名称" >
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" id="_role_add_form_submit" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="_role_edit_window" tabindex="-1" role="dialog" aria-labelledby="#_role_edit_window">
+			<div class="modal-dialog" role="document" style="width: 450px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">编辑角色信息</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_role_edit_form" class="form-horizontal">
+							<input type="hidden" id="_edit_roleId" name="roleId" /> <!-- 角色编号  -->
+							<div class="form-group">
+								<label for="roleName" class="col-xs-3 control-label">角色名称</label>
+								<div class="col-xs-9">
+									<input type="text" id="_edit_roleName" name="roleName" class="form-control" placeholder="请输入角色名称" >
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" id="_role_edit_form_submit" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 选择用户信息 -->
+		<div class="modal fade" id="_user_select_window" tabindex="-1" role="dialog" aria-labelledby="#_user_select_window">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">选择用户信息</h4>
+					</div>
+					<div class="panel-body" style="padding: 5px 0px 0px 5px;">
+						<form action="" class="navbar-form navbar-left">
+							<div class="input-group">
+								<input id="_searchText" type="text" class="form-control" placeholder="输入搜素信息……" style="width: 250px;">
+								<span class="input-group-btn">
+									<button id="_search" type="button" class="btn btn-default">搜索</button>
+									<button id="_reset" type="button" class="btn btn-default">重置</button>
+								</span>
+							</div>
+						</form>
+					</div>
+					<div class="modal-body">
+						<table id="base_user_list"></table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" id="_user_select_submit" class="btn btn-primary">选择用户信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				
+				/*初始化Token*/
+				secjs.init();
+				roleTree();
+				
+				$('#_role_add_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						roleName:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength: {
+									max: 50,
+									message: '值须小于50字符'
+								}
+							}
+						}
+					}
+				});
+				
+				$('#_role_add_button').click(function(){
+					$('#_role_add_form')[0].reset();
+					var _rolePid,_isLeaf
+					var treeData = $('#_role_tree').treeview('getSelected');
+					if (typeof(treeData) == 'undefined' || treeData.length == 0){
+						_rolePid = "";
+						_isLeaf = 1;
+					}else{
+						_rolePid = treeData[0].id;
+						_isLeaf = 1;
+					}
+					$("#rolePid").val(_rolePid);
+					$("#isLeaf").val(_isLeaf);
+					$('#_role_add_window').modal('show');
+				});
+				
+				
+				$('#_role_add_form_submit').click(function(){
+					
+					$('#_role_add_form').bootstrapValidator('validate');
+					var flag = $("#_role_add_form").data('bootstrapValidator').isValid();
+					if(flag){
+						$.ajax({
+						    url:'../brc/add',
+						    data: $('#_role_add_form').serialize(),
+						    type: "POST",
+						    cache:false,
+						    async:true,
+						    success:function(result){
+						    	if(result){
+						    		roleTree();
+						        	$('#_role_add_window').modal('hide');
+						        }else{
+						        	message.saveFall();
+						        }
+						    }
+						});
+					}
+				});
+				
+				$('#_role_edit_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						roleName:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength: {
+									max: 50,
+									message: '值须小于50字符'
+								}
+							}
+						}
+					}
+				});
+				
+				$('#_role_edit_button').click(function(){
+					$('#_role_edit_form')[0].reset();
+					var treeData = $('#_role_tree').treeview('getSelected');
+					if (typeof(treeData) == 'undefined' || treeData.length == 0){
+						message.selectOne();
+					}else{
+						$("#_edit_roleId").val(treeData[0].id);
+						$("#_edit_roleName").val(treeData[0].text);
+						$('#_role_edit_window').modal('show');
+					}
+				});
+				
+				$('#_role_edit_form_submit').click(function(){
+					$('#_role_edit_form').bootstrapValidator('validate');
+					var flag = $("#_role_edit_form").data('bootstrapValidator').isValid();
+					if(flag){
+						$.ajax({
+						    url:'../brc/edit',
+						    data: $('#_role_edit_form').serialize(),
+						    type: "POST",
+						    cache:false,
+						    async:true,
+						    success:function(result){
+	
+						    	if(result){
+						        	roleTree();
+						        	$('#_role_edit_window').modal('hide');
+						        }else{
+						        	message.saveFall();
+						        }
+						    }
+						});
+					}
+				});
+				
+				$('#_role_del_button').click(function(){
+					
+					var treeData = $('#_role_tree').treeview('getSelected');
+					if (typeof(treeData) == undefined || treeData.length == 0){
+						message.selectOne();
+					}else{
+						if(typeof(treeData[0].nodes) != "undefined"){
+							message.info("请选择子节点！");
+						}else{
+							var _roleId = treeData[0].id;
+							swal({
+								title: "确认要删除？",
+								text: "你的操作会删除选择的记录",
+								type: "warning",
+								showCancelButton: true,
+								cancelButtonText: "取消",
+								confirmButtonColor: "#1AB394",
+								confirmButtonText: "确定删除？",
+								closeOnConfirm: false
+							}, function () {
+								$.ajax({
+									type: "GET",
+									url: "../brc/del",
+									data:{roleId:_roleId},
+									success: function(result){
+										if(result){
+											swal({
+												title: "删除成功!",
+												text: "您所选中的记录删除成功。",
+												type: "success",
+												confirmButtonColor: "#1AB394",
+												confirmButtonText: "确定"
+											});
+											roleTree();
+											$("#base_user_checked_list").bootstrapTable('refresh');
+										}else{
+											swal({
+												title: "删除失败!",
+												text: "您所选中的记录删除失败，请联系管理员。",
+												type: "error",
+												confirmButtonColor: "#1AB394",
+												confirmButtonText: "确定"
+											});
+										}
+									}
+								});
+							});
+						}
+					}
+				});
+				
+				$("#_user_select_botton").click(function(){
+					var treeData = $('#_role_tree').treeview('getSelected');
+					if (typeof(treeData) == 'undefined' || treeData.length == 0){
+						message.selectOne();
+					}else{
+						$('#_searchText').val('');
+						$("#base_user_list").bootstrapTable('refresh');
+						$('#_user_select_window').modal('show');
+					}
+				})
+				
+				$("#base_user_list").bootstrapTable({
+					url: '../brc/uncheckedList',
+					method: 'GET',
+					totalField: 'total',
+					dataField: 'list',
+					pagination: true,
+					pageSize:10,
+					pageList:[10,20,30,40],//分页步进值
+					sidePagination: "server",
+					columns: [
+						{checkbox: true}
+						,{field: 'username',title: '账号',halign:'center',align: 'left',valign: 'middle'}
+						,{field: 'name',title: '用户名',halign:'center',align: 'left',valign: 'middle'}
+					],
+	                queryParams: function (params) {
+	                	var roleId = "-";
+	                	var searchText = $('#_searchText').val();
+	                	var treeData = $('#_role_tree').treeview('getSelected');
+	    				if (typeof(treeData) != 'undefined' && treeData.length != 0){
+	    					roleId = treeData[0].id;
+	    				}
+	                    return {
+							"offset": params.offset,
+				            "limit": params.limit,
+							"roleId": roleId,
+							"searchText":searchText
+						};
+	                }
+				})
+				
+				$("#_search").click(function(){
+					$("#base_user_list").bootstrapTable('refresh');
+				});
+	
+				$("#_reset").click(function(){
+					$('#_searchText').val('');
+					$("#base_user_list").bootstrapTable('refresh');
+				});
+				
+				$("#_user_select_submit").click(function(){
+					
+					var treeData = $('#_role_tree').treeview('getSelected');
+					if (typeof(treeData) == 'undefined' || treeData.length == 0){
+						message.selectOne();
+					}else{
+						var roleId = treeData[0].id;
+						var _checkbox = $("#base_user_list").bootstrapTable('getSelections');
+						var userIds = new Array();
+						$.each(_checkbox,function(i, n){
+							userIds[i] =  n.userId;
+						})
+						if(userIds.length > 0){
+							$.ajax({
+								type: "POST",
+								url: "../brc/au2r",
+								async: false,
+								traditional:true,
+								data:{roleId:roleId,userIds:userIds},
+								success: function(resultData){
+									if(resultData){
+										$("#base_user_checked_list").bootstrapTable('refresh');
+										$('#_user_select_window').modal('hide');
+									}
+								}
+							});
+						}else{
+							bootbox.alert({
+								size: "small",
+								title: "系统提示",
+								message: "请选择用户信息！"
+							})
+						}
+						
+					}
+				});
+				
+				$("#base_user_checked_list").bootstrapTable({
+					url: '../brc/checkedList',
+					method: 'GET',
+					totalField: 'total',
+					dataField: 'list',
+					pagination: true,
+					clickToSelect: true,
+					pageSize:10,
+					pageList:[10,20,30,40],//分页步进值
+					sidePagination: "server",
+					columns: [
+						{checkbox: true}
+						,{field: 'username',title: '账号',halign:'center',align: 'left',valign: 'middle'}
+						,{field: 'name',title: '用户名',halign:'center',align: 'left',valign: 'middle'}
+					],
+	                queryParams: function (params) {
+	                	
+	                	var _roleId = '-';
+	                	var treeData = $('#_role_tree').treeview('getSelected');
+	    				if (typeof(treeData) != 'undefined' && treeData.length != 0){
+	    					_roleId = treeData[0].id;
+	    				}
+	                    return {
+							"offset": params.offset,
+				            "limit": params.limit,
+							"roleId": _roleId
+						};
+	                }
+				})
+				
+				$("#_user_del_botton").click(function(){
+					
+					var treeData = $('#_role_tree').treeview('getSelected');
+					var checkboxData  = $("#base_user_checked_list").bootstrapTable('getSelections');
+					if (typeof(checkboxData) == 'undefined' || checkboxData.length == 0){
+						message.selectOne();
+					}else{
+						var roleId = treeData[0].id;
+						var userIds = new Array();
+						$.each(checkboxData,function(i, n){
+							userIds[i] =  n.userId;
+						})
+						$.ajax({
+						    url:'../brc/delByUR',
+						    type: "POST",
+						    traditional:true,
+							data:{roleId:roleId, userIds:userIds},
+						    success:function(result){
+						    	if(result){
+						    		$("#base_user_checked_list").bootstrapTable('refresh');
+						        }else{
+						        	message.saveFall();
+						        }
+						    }
+						});
+					}
+				});
+				
+			});
+			
+			function roleTree(){
+				$.ajax({
+					type: "GET",
+					url: "../brc/tree",
+					async: false,
+					success: function(resultData){
+						var data = JSON.stringify(resultData);
+						$('#_role_tree').treeview({
+							selectedBackColor: '#1ab394',
+							data:data,
+							enableLinks:true,
+							levels:4,
+							onNodeSelected:function(event,data){
+								$("#base_user_checked_list").bootstrapTable('refresh');
+							}
+						});
+					}
+				});
+			}
+		</script>
+	</body>
+</html>

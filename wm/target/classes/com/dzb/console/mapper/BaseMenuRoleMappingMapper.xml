@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	@Description t_base_menu_role_mapping 表数据库操作SQL语句
+	@author 38840472@qq.com
+	@date 2018-12-19 16:05:03
+	@version 1.0
+	@remark create by ca
+-->
+
+<mapper namespace="com.dzb.console.mapper.BaseMenuRoleMappingMapper">
+
+	<!-- 
+		MENU_ROLE_MAPPING_ID				varchar			#{menuRoleMappingId}			菜单角色映射编号
+		MENU_ID				varchar			#{menuId}			菜单编号
+		ROLE_ID				varchar			#{roleId}			角色编号
+	-->
+
+	<sql id="all">
+			MENU_ROLE_MAPPING_ID
+			,MENU_ID
+			,ROLE_ID
+	</sql>
+	
+	<select id="selectPagination" resultType="baseMenuRoleMappingEntity" parameterType="baseMenuRoleMappingEntity">
+		select 
+			<include refid="all" /> 
+		from 
+			t_base_menu_role_mapping
+	</select>
+	
+	<select id="selectByPkey" resultType="baseMenuRoleMappingEntity" parameterType="String">
+		select 
+			<include refid="all" />
+		from 
+			t_base_menu_role_mapping
+		where 
+			MENU_ROLE_MAPPING_ID = #{menuRoleMappingId}
+	</select>
+	
+	<insert id="insert" parameterType="baseMenuRoleMappingEntity">
+		insert into t_base_menu_role_mapping (
+			MENU_ROLE_MAPPING_ID
+			,MENU_ID
+			,ROLE_ID
+		) values (
+			#{menuRoleMappingId}
+			,#{menuId}
+			,#{roleId}
+		)
+	</insert>
+	
+	<update id="update" parameterType="baseMenuRoleMappingEntity">
+		update t_base_menu_role_mapping set 
+			MENU_ID = #{menuId}
+			,ROLE_ID = #{roleId}
+		where
+			MENU_ROLE_MAPPING_ID = #{menuRoleMappingId}
+	</update>
+	
+	<delete id="delete" parameterType="baseMenuRoleMappingEntity">
+		delete from t_base_menu_role_mapping where MENU_ID = #{menuId} and ROLE_ID = #{roleId}
+	</delete>
+	
+	<delete id="deleteByMenuId" parameterType="baseMenuRoleMappingEntity">
+		delete from t_base_menu_role_mapping where MENU_ID = #{menuId}
+	</delete>
+	
+	<select id="selectRoleIdByMenuId" resultType="String" parameterType="String">
+		select 
+			ROLE_ID
+		from 
+			t_base_menu_role_mapping
+		where 
+			MENU_ID = #{menuId}
+	</select>
+	
+	<select id="selectRoleIdsByMenuId" resultType="baseRoleEntity" parameterType="String">
+		SELECT
+			t_base_role.ROLE_NAME,
+			t_base_role.ROLE_ID,
+			t_base_role.ROLE_PID,
+			t_base_role.IS_LEAF,
+			t_base_role.SEQU,
+			t_base_role.IS_DEL,
+			t_base_role.CREATE_USERID,
+			t_base_role.CREATE_TIME,
+			t_base_role.UPDATE_USERID,
+			t_base_role.UPDATE_TIME
+		FROM
+			t_base_role
+		LEFT JOIN 
+			t_base_menu_role_mapping 
+		ON 
+			t_base_menu_role_mapping.ROLE_ID = t_base_role.ROLE_ID
+		WHERE
+			t_base_menu_role_mapping.MENU_ID = #{menuId}
+	</select>
+	
+	<select id="selectMenuByRoleId" resultType="baseMenuEntity" parameterType="String">
+		SELECT
+			t_base_menu.MENU_ID,
+			t_base_menu.MENU_NAME,
+			t_base_menu.ICON_CSS,
+			t_base_menu.URL,
+			t_base_menu.MENU_PID,
+			t_base_menu.SEQU
+		FROM
+			t_base_menu
+		LEFT JOIN 
+			t_base_menu_role_mapping 
+		ON 
+			t_base_menu_role_mapping.MENU_ID = t_base_menu.MENU_ID
+		WHERE
+			t_base_menu_role_mapping.ROLE_ID = #{roleId}
+		order by t_base_menu.SEQU
+	</select>
+	
+</mapper>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'浏览器提示页面 - ' + ${title}"></title>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .lowie{
+            position: static;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+        }
+        .lowie .bg{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: #ccc url('/image/tips/lowie_bg.png') repeat center center;
+        }
+        .lowie .con{
+            position: absolute;
+            width: 500px;
+            height: 300px;
+            top: 50%;
+            left: 50%;
+            margin-left: -265px;
+            margin-top: -150px;
+            text-align: center;
+            background: #fff;
+            padding:20px;
+            z-index: 99999;
+        }
+        .lowie h1{
+            margin:10px 0 20px;
+        }
+        .lowie p{
+            font-size:14px;
+            text-align: center;
+            margin-bottom:30px;
+        }
+        .brower{}
+        .brower ul{
+            overflow: hidden;
+            list-style: none;
+            padding:0;
+        }
+        .brower ul li{
+            width:25%;
+            float: left;
+        }
+        .brower ul li a {
+            display: inline-block;
+            vertical-align: middle;
+            text-decoration: none;
+        }
+        .brower ul li span {
+            display: block;
+            font-size: 12px;
+            color:#888;
+        }
+        .old-website{
+            display: block;
+            margin: 30px auto;
+            color: #fff;
+            width: 188px;
+            height: 35px;
+            line-height: 35px;
+            padding: 0;
+            background-color: #00a4ff;
+            border:0;
+        }
+        .old-website:hover,.old-website:visited,.old-website:active{
+            color:#fff;
+            opacity:0.5;
+        }
+    </style>
+</head>
+<body>
+<div class="lowie">
+    <div class="bg"></div>
+    <div class="con">
+        <h1><img src="/image/tips/lowie_logo.png" alt="海迈科技"></h1>
+        <p>您的浏览器版本过低，为了更好的浏览体验，建议您升级浏览器！</p>
+        <div class="brower">
+            <ul>
+                <li>
+                    <a href="//dldir1.qq.com/invc/tt/QQBrowser_Setup_SEM13.exe" target="_blank">
+                        <img class="img-responsive" src="/image/tips/qq.png" alt="">
+                    </a>
+                    <span>QQ浏览器</span>
+                </li>
+                <li>
+                    <a href="//dl.360safe.com/360/inst.exe" target="_blank"><img class="img-responsive" src="/image/tips/360.png" alt="360"></a>
+                    <span>360</span>
+                </li>
+                <li>
+                    <a href="https://www.google.cn/chrome/" target="_blank" ><img class="img-responsive" src="/image/tips/google.png" alt="谷歌"></a>
+                    <span>谷歌</span>
+                </li>
+                <li>
+                    <a href="//download.firefox.com.cn/releases/webins3.0/official/zh-CN/Firefox-latest.exe" target="_blank"><img class="img-responsive" src="/image/tips/firefox.png" alt=""></a>
+                    <span>火狐</span>
+                </li>
+            </ul>
+        </div>
+        <!--<a class="old-website" href="//old.hymake.com/">访问旧网站</a>-->
+    </div>
+</div>
+</body>
+</html>

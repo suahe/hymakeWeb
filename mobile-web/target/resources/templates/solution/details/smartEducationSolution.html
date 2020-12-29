@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'智慧教育解决方案 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .main-content{
+
+        }
+        .detail-title{
+            padding-bottom: 0.4rem;
+        }
+        .detail-title h4 {
+            color: #0066cc;
+            text-align: center;
+            position: relative;
+            padding: 0;
+            padding-top: 0.55rem;
+            padding-bottom: 0.25rem;
+            display: inline-block;
+            margin: 0;
+            float: none !important;
+            left: 50%;
+            transform:translate(-50%,0);
+            font-size: 0.4rem;
+        }
+        .detail-title h4:after {
+            content: '';
+            width: 30%;
+            height: 2px;
+            background-color: #0066cc;
+            position: absolute;
+            left: 50%;
+            transform:translate(-50%,0);
+            bottom: 0;
+            min-width: 35px;
+        }
+        .detail-text{
+            font-size: 0.28rem;
+            color: #666666;
+            text-indent: 2em;
+            text-align: justify;
+        }
+        .detail-text p{
+            margin-bottom: 0.12rem;
+        }
+        .detail-pad{
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+
+    </style>
+</head>
+<body>
+<!--引入详情页头部-->
+<th:block th:replace="common/layout::detail-header"/>
+<main class="main-content">
+    <div class="detail-pad">
+        <div class="detail-text" style="padding-top: 0.61rem;padding-bottom: 0.49rem;">
+            <p>
+                海迈科技智慧教育解决方案，是将线上与线下结合，并融合内容提供和项目建设为一体的综合解决方案。作为业内知名的培训机构，海迈科技立足于建设行业的人才培养与继续教育，致力于培养建设领域优秀技能人才，开设包含课题研讨、工程项目管理、工程造价、执业资格考试培训、BIM等系列课程。海迈科技长期举办高质量的全国注册造价工程师、监理工程师、建造工程师等建设行业执行资格考试培训，服务数百家企业，参训人员已超过四十万人次。同时，海迈科技以高等院校为主要服务对象，通过共建实训室、派遣兼职教师、辅助教学评估等提供软硬件综合服务(包含计价算量、工程管理、建模、仿真等软件以及计算机、实验设备等硬件，并提供培训指导等专业服务)，与高等院校深入开展产学研合作。
+            </p>
+            <p>
+                海迈科技智慧教育解决方案，在智慧校园的基础上，构建智能化教育云平台，促进优质教育资源共建共享应用，将智慧化手段融入到教学、学习、管理等领域，为学校、教育管理部门提供决策支持，促进教育资源合理分配和均衡发展，建设教育资源服务平台、数字校园平台，构建“人人通、班班通”应用服务，实现“教师与教师”、“教师与学生”以及“学生与学生”之间随时随地的协作教研、互动教学和协同学习。
+            </p>
+        </div>
+        <img class="w-100" style="padding-bottom: 0.75rem;" src="/image/solution/details/smartEducationSolution/img1.png" alt="">
+    </div>
+
+</main>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

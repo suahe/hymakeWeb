@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>投资者关系管理</title>
+		<th:block th:replace="fragments/include::common_header" />
+	</head>
+	<style type="text/css">
+		
+	</style>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h4>投资者关系管理</h4>
+				</div>
+				<div class="ibox-content">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="tabs-container">
+		                        <ul class="nav nav-tabs" role="tablist">
+		                            <li class="active"><a id="_tabs_item_investor_gsgg" class="nav-link" data-toggle="tab" href="#_tab_item_investor_gsgg">公司公告</a></li>
+		                            <li><a id="_tabs_item_investor_dqgg" class="nav-link" data-toggle="tab" href="#_tab_item_investor_dqgg">定期公告</a></li>
+		                            <li><a id="_tabs_item_investor_gszl" class="nav-link" data-toggle="tab" href="#_tab_item_investor_gszl">公司治理</a></li>
+		                        </ul>
+		                        <div class="tab-content">
+		                            <div role="tabpanel" id="_tab_item_investor_gsgg" class="tab-pane active">
+		                                <div class="panel-body">
+		                                	<div class="pull-left" style="padding-bottom: 10px;" >
+		                                		<button type="button" class="_add_button btn btn-outline btn-primary">增加</button>
+											</div>
+											<div class="pull-right" style="padding-bottom: 10px;">
+												<form id="_search_gsgg_form" class="form-inline">
+													<input type="text" name="pushTimeStart" class="form-control _datatime" style="width: 100px;" placeholder="开始时间" >
+														-
+													<input type="text" name="pushTimeEnd" class="form-control _datatime" style="width: 100px;" placeholder="结束时间" >
+													<div class="input-group pull-right"  style="padding-left: 10px;">
+														<span class="input-group-btn">
+															<input name="title" type="text" class="form-control" style="width: 300px;" placeholder="请输入查询标题">
+															<button id="_search_gsgg" type="button" class="btn btn-default">搜索</button>
+															<button id="_search_gsgg_reset" type="button" class="btn btn-default">重置</button>
+														</span>
+													</div>
+												</form>
+											</div>
+		                                	<table id="_t_investor"></table>
+		                                </div>
+		                            </div>
+		                            <div role="tabpanel" id="_tab_item_investor_dqgg" class="tab-pane">
+		                                <div class="panel-body">
+		                                	<div class="pull-left" style="padding-bottom: 10px;" >
+		                                		<button type="button" class="_add_button btn btn-outline btn-primary">增加</button>
+											</div>
+											<div class="pull-right" style="padding-bottom: 10px;">
+												<form id="_search_dqgg_form" class="form-inline">
+													<input type="text" name="pushTimeStart" class="form-control _datatime" style="width: 100px;" placeholder="开始时间" >
+														-
+													<input type="text" name="pushTimeEnd" class="form-control _datatime" style="width: 100px;" placeholder="结束时间" >
+													<div class="input-group pull-right"  style="padding-left: 10px;">
+														<span class="input-group-btn">
+															<input name="title" type="text" class="form-control" style="width: 300px;" placeholder="请输入查询标题">
+															<button id="_search_dqgg" type="button" class="btn btn-default">搜索</button>
+															<button id="_search_dqgg_reset" type="button" class="btn btn-default">重置</button>
+														</span>
+													</div>
+												</form>
+											</div>
+		                                	<table id="_t_investor_dqgg"></table>
+		                                </div>
+		                            </div>
+		                            <div role="tabpanel" id="_tab_item_investor_gszl" class="tab-pane">
+		                                <div class="panel-body">
+		                                	<div class="pull-left" style="padding-bottom: 10px;" >
+		                                		<button type="button" class="_add_button btn btn-outline btn-primary">增加</button>
+											</div>
+											<div class="pull-right" style="padding-bottom: 10px;">
+												<form id="_search_gszl_form" class="form-inline">
+													<input type="text" name="pushTimeStart" class="form-control _datatime" style="width: 100px;" placeholder="开始时间" >
+														-
+													<input type="text" name="pushTimeEnd" class="form-control _datatime" style="width: 100px;" placeholder="结束时间" >
+													<div class="input-group pull-right"  style="padding-left: 10px;">
+														<span class="input-group-btn">
+															<input name="title" type="text" class="form-control" style="width: 300px;" placeholder="请输入查询标题">
+															<button id="_search_gszl" type="button" class="btn btn-default">搜索</button>
+															<button id="_search_gszl_reset" type="button" class="btn btn-default">重置</button>
+														</span>
+													</div>
+												</form>
+											</div>
+		                                	<table id="_t_investor_gszl"></table>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+       	<!-- 新增信息模态窗口 -->
+       	<div class="modal fade" id="_t_investor_add_window" tabindex="-1" role="dialog" aria-labelledby="#_t_investor_add_window">
+			<div class="modal-dialog" role="document" style="width: 750px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">投资者关系信息 - 新增</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_t_investor_add_form" class="form-horizontal">
+							<input type="hidden" id="_type_add" name="type">
+							<div class="form-group">
+								<label for="title" class="col-xs-2 control-label">标题</label>
+								<div class="col-xs-10">
+									<input type="text" id="_title_add" name="title" class="form-control" placeholder="请输入标题" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="path" class="col-xs-2 control-label">文档链接</label>
+								<div class="col-xs-10">
+									<input type="text" id="_path_add" name="path" class="form-control" placeholder="请输入文档链接" >
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="_t_investor_add_close_button" type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+						<button id="_t_investor_add_button" type="button" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 编辑信息模态窗口 -->
+		<div class="modal fade" id="_t_investor_edit_window" tabindex="-1" role="dialog" aria-labelledby="#_t_investor_edit_window">
+			<div class="modal-dialog" role="document" style="width: 750px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">投资者关系信息 - 编辑</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_t_investor_edit_form" class="form-horizontal">
+							<input type="hidden" id="_investorId_edit" name="investorId">
+							<input type="hidden" id="_type_edit" name="type">
+							<div class="form-group">
+								<label for="title" class="col-xs-2 control-label">标题</label>
+								<div class="col-xs-10">
+									<input type="text" id="_title_edit" name="title" class="form-control" placeholder="请输入标题" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="path" class="col-xs-2 control-label">文档链接</label>
+								<div class="col-xs-10">
+									<input type="text" id="_path_edit" name="path" class="form-control" placeholder="请输入文档链接" >
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="_t_investor_edit_close_button" type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+						<button id="_t_investor_edit_button" type="button" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 发布模态窗口 -->
+		<div class="modal fade" id="_push_investor_window" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document" style="width: 350px;">
+				<div class="modal-content">
+					<div class="modal-header">
+		        		<h4 class="modal-title">发布公告</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_push_investor_form" class="form-horizontal">
+							<input type="hidden" id="_push_investorId" name="investorId" >
+							<div class="form-group">
+								<label for="_push_investor_pushTime" class="col-xs-4 control-label" >发布时间</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control _datatime" id="_push_investor_pushTime" name="pushTime" placeholder="请输入发布时间" style="width: 130px;">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" data-dismiss="modal"  class="btn btn-default">取消</button>
+						<button id="_push_investor_save_button" type="button" class="btn btn-primary">发布公告</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	    <script type="text/javascript">
+	    
+			$(document).ready(function(){
+
+		        /* 初始化Token */
+		        secjs.init();
+		        
+		        var _type = "1";
+		        
+		        $('#_tabs_item_investor_gsgg').click(function(){
+		        	_type = "1";
+		        	$('#_t_investor').bootstrapTable('refresh',{url: '../ic/list'});
+		        });
+		        
+		        $('#_tabs_item_investor_dqgg').click(function(){
+		        	_type = "2";
+		        	$('#_t_investor_dqgg').bootstrapTable('refresh',{url: '../ic/list'});
+		        });
+		        
+		        $('#_tabs_item_investor_gszl').click(function(){
+		        	_type = "3";
+		        	$('#_t_investor_gszl').bootstrapTable('refresh',{url: '../ic/list'});
+		        });
+		        
+		        /* 初始化时间控件 */
+		        $('._datatime').datetimepicker({
+		        	language: 'zh-CN'
+		        	,minView: 'month'
+		        	,autoclose: true
+		            ,todayBtn: true
+		            ,format: 'yyyy-mm-dd'
+		        });
+		        
+		        /* 防止select2.js的搜索框失去焦点， 没有搜索框可以不要设置
+				$.fn.modal.Constructor.prototype.enforceFocus = function(){};
+				*/
+	        
+	        	/* - t_investor 列表 - */
+		        $("#_t_investor").bootstrapTable({
+					url: '../ic/list'
+					,method: 'GET'
+					,totalField: 'total'
+					,dataField: 'list'
+					,pagination: true
+					,pageSize: 10
+					,pageList: [10,20,100]
+					,sidePagination: "server"
+					,singleSelect: true
+					,clickToSelect: true
+					,columns: [
+						{checkbox: true,valign: 'middle'}
+						,{field: 'investorId',title: '投资者关系信息编号',halign: 'center',align: 'left',valign: 'middle',visible: false}
+						,{field: 'title',title: '标题',halign: 'center',align: 'left',valign: 'middle',visible: true
+							,formatter:function(value, row, index){
+								return '<a class="edit" data-id="'+row.investorId+'" href="javascript:void(0);">'+ value +'</a>';
+							}
+						}
+						,{field: 'path',title: '预览',halign: 'center',align: 'center',valign: 'middle',visible: true
+							,formatter:function(value, row, index){
+								return '<a href="'+ value +'" target="_blank"">打开</a>';
+							}
+						}
+						,{field: 'pushTime',title: '设置',halign: 'center',align: 'center',valign: 'middle',visible: true
+							,formatter:function(value,row,index){
+								if(null == value){
+									return '<a class="del" style="padding: 0px 10px;" data-id="'+row.investorId+'" href="javascript:void(0);">删除</a><a class="stat-push" data-id="'+row.investorId+'" href="javascript:void(0);">发布</a>'
+								}else{
+									return '<span>已发布（'+value+'）</span><a class="stat-pull" data-id="'+row.investorId+'" href="javascript:void(0);">下架</a>'
+								}
+							}
+						}
+					]
+					,queryParams: function (params) {	//设置查询条件
+						 return {
+							"offset": params.offset
+							,"limit": params.limit
+							,"type": "1"
+							,"pushTimeStart": $('#_search_gsgg_form').getValue('pushTimeStart')
+							,"pushTimeEnd": $('#_search_gsgg_form').getValue('pushTimeEnd')
+							,"title": $('#_search_gsgg_form').getValue('title')
+						};
+					}
+		        });
+				
+				/* 查询 */
+				$("#_search_gsgg").click(function(){
+					$("#_t_investor").bootstrapTable('refresh');
+				});
+				
+				/* 查询重置 */
+				$("#_search_gsgg_reset").click(function(){
+					$('#_search_gsgg_form')[0].reset();
+					$("#_t_investor").bootstrapTable('refresh');
+				});
+				
+				/* - _t_investor_dqgg 列表 - */
+		        $("#_t_investor_dqgg").bootstrapTable({
+					method: 'GET'
+					,totalField: 'total'
+					,dataField: 'list'
+					,pagination: true
+					,pageSize: 10
+					,pageList: [10,20,100]
+					,sidePagination: "server"
+					,singleSelect: true
+					,clickToSelect: true
+					,columns: [
+						{checkbox: true,valign: 'middle'}
+						,{field: 'investorId',title: '投资者关系信息编号',halign: 'center',align: 'left',valign: 'middle',visible: false}
+						,{field: 'title',title: '标题',halign: 'center',align: 'left',valign: 'middle',visible: true
+							,formatter:function(value, row, index){
+								return '<a class="edit" data-id="'+row.investorId+'" href="javascript:void(0);">'+ value +'</a>';
+							}
+						}
+						,{field: 'path',title: '预览',halign: 'center',align: 'center',valign: 'middle',visible: true
+							,formatter:function(value, row, index){
+								return '<a href="'+ value +'" target="_blank"">打开</a>';
+							}
+						}
+						,{field: 'pushTime',title: '设置',halign: 'center',align: 'center',valign: 'middle',visible: true
+							,formatter:function(value,row,index){
+								if(null == value){
+									return '<a class="del" style="padding: 0px 10px;" data-id="'+row.investorId+'" href="javascript:void(0);">删除</a><a class="stat-push" data-id="'+row.investorId+'" href="javascript:void(0);">发布</a>'
+								}else{
+									return '<span>已发布（'+value+'）</span><a class="stat-pull" data-id="'+row.investorId+'" href="javascript:void(0);">下架</a>'
+								}
+							}
+						}
+					]
+					,queryParams: function (params) {	//设置查询条件
+						 return {
+							"offset": params.offset
+							,"limit": params.limit
+							,"type": "2"
+							,"pushTimeStart": $('#_search_dqgg_form').getValue('pushTimeStart')
+							,"pushTimeEnd": $('#_search_dqgg_form').getValue('pushTimeEnd')
+							,"title": $('#_search_dqgg_form').getValue('title')
+						};
+					}
+		        });
+				
+				/* 查询 */
+				$("#_search_dqgg").click(function(){
+					$("#_t_investor_dqgg").bootstrapTable('refresh');
+				});
+				
+				/* 查询重置 */
+				$("#_search_dqgg_reset").click(function(){
+					$('#_search_dqgg_form')[0].reset();
+					$("#_t_investor_dqgg").bootstrapTable('refresh');
+				});
+				
+				/* - _t_investor_gszl 列表 - */
+		        $("#_t_investor_gszl").bootstrapTable({
+					method: 'GET'
+					,totalField: 'total'
+					,dataField: 'list'
+					,pagination: true
+					,pageSize: 10
+					,pageList: [10,20,100]
+					,sidePagination: "server"
+					,singleSelect: true
+					,clickToSelect: true
+					,columns: [
+						{checkbox: true,valign: 'middle'}
+						,{field: 'investorId',title: '投资者关系信息编号',halign: 'center',align: 'left',valign: 'middle',visible: false}
+						,{field: 'title',title: '标题',halign: 'center',align: 'left',valign: 'middle',visible: true
+							,formatter:function(value, row, index){
+								return '<a class="edit" data-id="'+row.investorId+'" href="javascript:void(0);">'+ value +'</a>';
+							}
+						}
+						,{field: 'path',title: '预览',halign: 'center',align: 'center',valign: 'middle',visible: true
+							,formatter:function(value, row, index){
+								return '<a href="'+ value +'" target="_blank"">打开</a>';
+							}
+						}
+						,{field: 'pushTime',title: '设置',halign: 'center',align: 'center',valign: 'middle',visible: true
+							,formatter:function(value,row,index){
+								if(null == value){
+									return '<a class="del" style="padding: 0px 10px;" data-id="'+row.investorId+'" href="javascript:void(0);">删除</a><a class="stat-push" data-id="'+row.investorId+'" href="javascript:void(0);">发布</a>'
+								}else{
+									return '<span>已发布（'+value+'）</span><a class="stat-pull" data-id="'+row.investorId+'" href="javascript:void(0);">下架</a>'
+								}
+							}
+						}
+					]
+					,queryParams: function (params) {	//设置查询条件
+						 return {
+							"offset": params.offset
+							,"limit": params.limit
+							,"type": "3"
+							,"pushTimeStart": $('#_search_gszl_form').getValue('pushTimeStart')
+							,"pushTimeEnd": $('#_search_gszl_form').getValue('pushTimeEnd')
+							,"title": $('#_search_gszl_form').getValue('title')
+						};
+					}
+		        });
+				
+				/* 查询 */
+				$("#_search_gszl").click(function(){
+					$("#_t_investor_gszl").bootstrapTable('refresh');
+				});
+				
+				/* 查询重置 */
+				$("#_search_gszl_reset").click(function(){
+					$('#_search_gszl_form')[0].reset();
+					$("#_t_investor_gszl").bootstrapTable('refresh');
+				});
+		        
+		        /* - 新增操作 - */
+		        /* 弹出窗口完成弹出后的事件 可以用来初始化下拉框、表单验证等控件 */
+				$('#_t_investor_add_window').on('shown.bs.modal', function(){
+					
+					var f = $('#_t_investor_add_form');
+					f.data('bootstrapValidator').resetForm();
+		 		});
+		        
+		        /* 新增 按钮点击事件 */
+		        $("._add_button").click(function(){
+
+		        	var f = $('#_t_investor_add_form');
+					f.reset();
+		        	$('#_type_add').val(_type);
+					$('#_t_investor_add_window').modal('show');
+		        });
+		        
+		        /* 验证新增表单 */
+				$('#_t_investor_add_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						title:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 100,
+									message: '长度应小于100个字'
+								}
+							}
+						}
+						,path:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 200,
+									message: '长度应小于200个字'
+								}
+							}
+						}
+					}
+				});
+	        
+				/* 保存新增 */
+				$('#_t_investor_add_button').click(function(){
+				
+					var f = $('#_t_investor_add_form');
+					f.bootstrapValidator('validate');
+					var flag = f.data('bootstrapValidator').isValid();
+					if(flag){
+						$.post('../ic/add', f.serialize(), function(r){
+							if(r > 0){
+								$("#_t_investor,#_t_investor_dqgg,#_t_investor_gszl").bootstrapTable('refresh');
+								$('#_t_investor_add_window').modal('hide');
+							}else{
+								message.saveFall();
+							}
+						});
+					}
+				});
+		        
+				
+				/* - 编辑操作 - */
+				/* 弹出窗口完成弹出后的事件 可以用来初始化下拉框、表单验证等控件 */
+				$('#_t_investor_edit_window').on('shown.bs.modal', function(){
+					
+					$('#_t_investor_edit_form').data('bootstrapValidator').resetForm();
+		 		});
+				
+				/* 编辑 链接点击事件 */
+				$("#_t_investor,#_t_investor_dqgg,#_t_investor_gszl").on("click",".edit",function(event){
+					var investorId = $(this).data('id');
+					var f = $('#_t_investor_edit_form');
+					f.reset();
+					$.get('../ic/view', {'investorId': investorId},function(r){
+						$('#_t_investor_edit_form').initjson(r);
+						$('#_t_investor_edit_window').modal('show');
+					});
+				});
+				
+				/* 验证编辑表单 */
+				$('#_t_investor_edit_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						title:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 100,
+									message: '长度应小于100个字'
+								}
+							}
+						}
+						,path:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 200,
+									message: '长度应小于200个字'
+								}
+							}
+						}
+					}
+				});
+	        
+				/* 保存编辑 */
+				$('#_t_investor_edit_button').click(function(){
+				
+					var f = $('#_t_investor_edit_form');
+					f.bootstrapValidator('validate');
+					var flag = f.data('bootstrapValidator').isValid();
+					if(flag){
+						$.post('../ic/edit', f.serialize(), function(r){
+							if(r > 0){
+								$("#_t_investor,#_t_investor_dqgg,#_t_investor_gszl").bootstrapTable('refresh');
+								$('#_t_investor_edit_window').modal('hide');
+							}else{
+								message.saveFall();
+							}
+						});
+					}
+				});
+				
+				/** 点击 发布 按钮 弹出发布新闻资讯窗口*/
+				$("#_t_investor,#_t_investor_dqgg,#_t_investor_gszl").on("click",".stat-push",function(event){
+					
+					$('#_push_investorId').val($(this).data('id'));
+					$('#_push_investor_window').modal('show');
+				});
+				
+				/* 验证编辑表单 */
+				$('#_push_investor_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						pushTime:{
+							trigger: 'changeDate'
+							,validators:{
+								notEmpty:{
+									message: '必填'
+								}
+								,date:{
+									format: 'YYYY-MM-DD'
+									,message: '日期格式不正确'
+								}
+							}
+						}
+					}
+				});
+				
+				$('#_push_investor_window').on('shown.bs.modal', function(){
+					
+					var _form = $('#_push_investor_form');
+					_form.data('bootstrapValidator').resetForm();
+		 		});
+				
+				/* 保存发布新闻资讯 */
+				$('#_push_investor_save_button').click(function(){
+					
+					var _form = $('#_push_investor_form');
+					_form.bootstrapValidator('validate');
+					var flag = _form.data('bootstrapValidator').isValid();
+					if(flag){
+						$.post('../ic/push', _form.serialize(),function(r){
+							if(r > 0){
+								$("#_t_investor,#_t_investor_dqgg,#_t_investor_gszl").bootstrapTable('refresh');
+								_form.reset();
+								$('#_push_investor_window').modal('hide');
+								message.success("发布公告成功");
+							}else{
+								message.warning("发布公告失败");
+							}
+						});
+					}
+				});
+				
+				/** 点击 下架  按钮 弹出发布新闻资讯窗口*/
+				$("#_t_investor,#_t_investor_dqgg,#_t_investor_gszl").on("click",".stat-pull",function(event){
+					
+					$.post('../ic/pull', {'investorId':$(this).data('id')},function(r){
+						if(r > 0){
+							message.success("下架公告成功");
+							$("#_t_investor,#_t_investor_dqgg,#_t_investor_gszl").bootstrapTable('refresh');
+						}else{
+							message.warning("下架公告失败");
+						}
+					})
+				});
+				
+				/* - 删除操作 - */
+				/* 列表 删除 链接点击事件 */
+				$("#_t_investor,#_t_investor_dqgg,#_t_investor_gszl").on("click",".del",function(event){
+				
+					var investorId = $(this).data('id');
+					swal({
+						type: "warning",
+						title: "确认要删除？",
+						text: "你的操作会删除选择的记录",
+						showCancelButton: true,
+						cancelButtonText: "取消",
+						confirmButtonColor: "#1AB394",
+						confirmButtonText: "确定删除？",
+						closeOnConfirm: false
+					}, function () {
+						$.get('../ic/del', {'investorId': investorId},function(r){
+							if(r > 0){
+								message.delSuccess();
+								$("#_t_investor").bootstrapTable('refresh');
+							}else{
+								message.delFall();
+							}
+						})
+					});
+				});
+
+			})
+	    </script>
+	</body>
+</html>

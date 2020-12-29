@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans" >
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta" />
+    <meta name="keywords" th:content="${keywords}" />
+    <title th:text="'房屋大数据解决方案详情页 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static" />
+    <th:block th:replace="common/analytics::baidu" />
+</head>
+<body>
+<!-- 头部分-->
+<th:block th:replace="common/layout::header" />
+
+<div class="d-flex justify-content-center detail-bg">
+    <div style="margin-top: 60px">
+        <img class="detail-title-l"  src="/image/common/title_icon_L.png" alt="">
+        <b class="detail-title">房屋大数据解决方案</b>
+        <img class="detail-title-r" src="/image/common/title_icon_R.png" alt="">
+    </div>
+</div>
+
+<div class="container detail-body">
+    <div class="detail-text text-indent-2">
+        <p>
+            以“立足住房管理、面向政府部门、服务社会大众”为指导思想，在房屋管理业务基础上，制定房屋数据库标准，指导整合房屋事务管理相关数据，结合不动产登记中的权属登记数据、不动产单元管理数据和测绘部门房产测绘数据，建立以房屋自然属性为核心的房屋公共基础数据库。
+        </p>
+        <p>
+            在此基础上，为住房保障、房屋交易、房屋租赁、公积金服务、房屋安全等业务提供基础数据服务；构建“房屋一张图”数据服务系列，为相关政策制定提供决策数据支撑；为规划、住建、应急、民政、工商、税务、公安、社保、财政等部门提供数据共享服务；为打通房屋规划、建设、管理、不动产登记各环节创造基础条件；以房屋公共基础数据为核心，整合市政府各职能部门的业务成果数据；构建“1个房屋公共基础数据库+N个房屋业务专题数据库”，建设具有弹性扩展能力的房屋业务数据中心。
+        </p>
+    </div>
+    <div class="text-center" style="margin-top: 72px">
+        <img src="/image/solution/details/housingBigDataSolution/img1.png" alt="">
+    </div>
+</div>
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'500错误页面 - ' + ${title}"></title>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .error-bg{
+            background: #ccc url('/image/error/error-bg.png') repeat center center;
+        }
+        .error-con{
+            position:absolute;
+            left:50%;
+            top:50%;
+            transform: translate(-50%,-50%);
+        }
+        .error-text {
+            text-align: center;
+        }
+        .error-text h3 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            margin-top: 0;
+            padding-top: 30px;
+            color: #666666;
+            font-weight: bold;
+        }
+        .error-btn {
+            padding: 0;
+            color: #fff;
+            text-align: center;
+        }
+        .error-btn-prev {
+            display: inline-block;
+            width: 120px;
+            height: 40px;
+            line-height: 40px;
+            color: #fff;
+            background-color: #fdbc28;
+            box-shadow: 0px 5px 9px 0px rgba(113, 83, 13, .2);
+            border-radius: 20px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+        .error-btn-index {
+            display: inline-block;
+            width: 120px;
+            height: 40px;
+            line-height: 40px;
+            color: #fff;
+            background-color: #00a4ff;
+            -webkit-box-shadow: 0px 5px 9px 0px rgba(7, 58, 102, .2);
+            box-shadow: 0px 5px 9px 0px rgba(7, 58, 102, .2);
+            border-radius: 20px;
+        }
+        .error-btn a{
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body class="error-bg">
+<div class="error-con">
+    <img style="width: 20rem;height: 20rem;" src="/image/error/404-img.png" alt="">
+    <div class="error-text"><h3>抱歉，服务器崩溃了...</h3>
+        <div class="error-btn">
+            <a href="javascript:history.go(-1);" class="error-btn-prev">返回上一页</a>
+            <a href="/" class="error-btn-index nuxt-link-active">返回首页</a>
+        </div>
+    </div>
+</div>
+</body>
+</body>
+</html>

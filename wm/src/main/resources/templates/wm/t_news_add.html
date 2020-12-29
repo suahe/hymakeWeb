@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>新闻资讯管理--新增</title>
+    	<th:block th:replace="fragments/include::common_header" />
+	</head>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h4>新闻资讯管理--新增</h4>
+				</div>
+				<div class="ibox-content">
+					<div class="row">
+						<div class="col-xs-12">
+							<div style="padding-bottom: 10px; float: right;" >
+								
+							</div>
+						</div>
+					</div>
+					<form id="_t_news_add_form" class="form-horizontal">
+						<div class="row">
+							<div class="col-xs-7">
+								<div class="form-group">
+									<label for="title" class="col-xs-2 control-label">标题</label>
+									<div class="col-xs-10">
+										<input type="text" id="_title_add" name="title" class="form-control" placeholder="请输入标题" >
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="keywords" class="col-xs-2 control-label">关键词</label>
+									<div class="col-xs-10">
+										<input type="text" id="_keywords_add" name="keywords" class="form-control" placeholder="请输入关键词（注意：用英文半角逗号分隔）" >
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="title" class="col-xs-2 control-label">摘要</label>
+									<div class="col-xs-10">
+										<textarea id="_overview_add" name="overview" rows="" cols="" class="form-control" placeholder="请输入摘要"></textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="title" class="col-xs-2 control-label">外部链接</label>
+									<div class="col-xs-10">
+										<input type="text" id="_url_add" name="url" class="form-control" placeholder="请输入外部链接（此项和新闻资讯正文只能二选一）" >
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="newType" class="col-xs-2 control-label">资讯类型</label>
+									<div class="col-xs-4">
+										<select id="_newType_add" name="newType" class="form-control" ></select>
+									</div>
+									<label for="author" class="col-xs-2 control-label">发布者</label>
+									<div class="col-xs-4">
+										<select id="_author_add" name="author" class="form-control" ></select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-5">
+								<input type="text" id="_media" name="image" style="display: none;" >
+								<div id="_browse_bar" style="width: 386px; height: 330px; margin: 0 auto;">
+									<div id="_browse" style="width: 386px; height: 280px; text-align: center; border: 2px solid #E5E6E7; cursor: pointer;">
+										<img id="_showImage" src="" alt="点击上传图片（尺寸:422x320 大小:2mb以内）" width="386px" height="280px">
+									</div>
+									<div style="height: 5px;"></div>
+									<button id="_del_browse" type="button" class="btn btn-block btn-outline btn-danger" style="display:none;">删除图片</button>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<textarea id="content" name="content"></textarea>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12" style="padding-top: 8px; text-align: center;">
+								<button id="_back_button" type="button" class="btn btn-default">返回</button>
+								<button id="_t_news_add_button" type="button" class="btn btn-primary">保存</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<style type="text/css">
+			.note-editor.note-frame .note-editing-area .note-editable {
+				font-size: 14px !important;
+			}
+		</style>
+	    <script type="text/javascript">
+		    
+		    /* 上传控件 参数设置 */
+		    var uploader = new plupload.Uploader({
+	           browse_button: '_browse'
+	           ,drop_element: '_browse'
+	           ,multi_selection: false
+	           ,filters: {
+					mime_types: [
+						{title: "图片类型", extensions: "jpg,jpeg,png"}
+					]
+		    		,max_file_size: '2mb'
+		    		,prevent_duplicates: false
+	           }
+	       });
+	    
+			$(document).ready(function(){
+				
+		        /* 初始化Token */
+		        secjs.init();
+		        
+ 		        $('#_newType_add').btSelect({
+		        	code: 'XWLX'
+		        	,width: 150
+		        });
+		        
+ 		        $('#_author_add').btSelect({
+		        	code: 'FBZ'
+		        	,width: 150
+		        });
+ 		        
+ 		       /* 上传控件初始化 */
+		        uploader.init();
+		        
+		        /* 上传控件 添加文件 */
+		        uploader.bind('FilesAdded',function(uploader,files){
+		            var file = files[0];
+		            var preloader = new moxie.image.Image();
+		            preloader.onload = function() {
+		                $('#_showImage').attr("src", preloader.getAsDataURL());
+		                $('#_media').val(preloader.getAsDataURL());
+		                $('#_del_browse').css("display","inline");
+		                preloader.destroy();
+		                preloader = null;
+		             };
+		             preloader.onerror = function(error){
+		            	 message.warning("添加文件失败");
+		             }
+		             preloader.load(file.getSource());
+		        });
+		        
+		        /* 上传控件 错误监听 */
+		        uploader.bind('Error',function(uploader,errObject){
+		        	message.warning(errObject.message);
+		        });
+		        
+		        /*  删除图片 按钮点击事件 */
+		        $('#_browse_bar').on('click', '#_del_browse', function(event){
+		        	$('#_showImage').attr("src", "");
+	                $('#_media').val();
+	                $(this).css("display","none");
+		        });
+		        
+				var textIndentButton = function (context) {
+					var ui = $.summernote.ui;
+					var button = ui.button({
+						contents: '缩进',
+						tooltip: '缩进',
+						click: function () {
+							var node = document.createElement('span'); 
+						    node.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; 
+						    context.invoke('editor.insertNode', node); 
+						}
+					});
+					return button.render();
+				}
+		        
+		        $('#content').summernote({
+		        	lang: 'zh-CN'
+		        	,height: 400
+		        	,placeholder: '请输入新闻资讯正文'
+		        	,toolbar: [
+						['style', ['style']],
+						['formatPara', ['formatPara']],
+						['font', ['bold', 'underline', 'clear']],
+						['fontface', ['color','fontsize']],
+						['para', ['ul', 'ol', 'paragraph','textIndent']],
+						['height', ['height']], //行高
+						['table', ['table']],
+						['insert', ['link', 'picture']],
+						['undo',['undo']], //撤销
+		                ['redo',['redo']], //取消撤销
+						['view', ['codeview', 'help']]
+					]
+		        	,fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '24', '36', '48']
+					,buttons: {
+						textIndent: textIndentButton
+					}
+//		        	,fontNames:['微软雅黑']
+		        });
+		        
+		        
+		        $('#_back_button').click(function(){
+		        	//main.loadHTML("../nc/load",'main');
+		        	//$('#content').summernote('formatPara');
+		        	//$('#content').summernote('indent');
+		        	
+		        	$('#content').summernote('insertText', 'Hello, world');
+		        	
+		        });
+		        
+		        /* 验证表单 */
+				$('#_t_news_add_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						title:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 100,
+									message: '长度应小于100个字'
+								}
+							}
+						}
+						,keywords:{
+							validators:{
+								stringLength:{
+									max: 100,
+									message: '长度应小于50个字'
+								}
+							}
+						}
+						,overview:{
+							validators:{
+								stringLength:{
+									max: 100,
+									message: '长度应小于100个字'
+								}
+							}
+						}
+						,type:{
+							validators:{
+								callback:{
+									message: '资讯类型必选'
+									,callback: function(value, validator) {
+										if (value == null) {
+											return false;
+										} else {
+											return true;
+										}
+									}
+								}
+							}
+						}
+						,author:{
+							validators:{
+								callback:{
+									message: '发布者必选'
+									,callback: function(value, validator) {
+										if (value == null) {
+											return false;
+										} else {
+											return true;
+										}
+									}
+								}
+							}
+						}
+						,url:{
+							validators:{
+								uri: {
+									message: '请输入合法的链接地址'
+								}
+								,stringLength:{
+									max: 100,
+									message: '长度应小于100个字'
+								}
+							}
+						}
+					}
+				});
+		        
+		        /* 保存新增信息 */
+				$('#_t_news_add_button').click(function(){
+				
+					$('#_t_news_add_form').bootstrapValidator('validate');
+					var flag = $('#_t_news_add_form').data('bootstrapValidator').isValid();
+					if(flag){
+						var _newType_add = $('#_newType_add').val();
+						var _overview_add = $('#_overview_add').val();
+						if(_newType_add == 1){
+							if('' == _overview_add || null == _overview_add){
+								message.warning("公司新闻必须填写摘要信息");
+								return;
+							}
+						}
+						$.post('../nc/add', $('#_t_news_add_form').serialize(),function(r){
+							if(r > 0){
+								main.loadHTML("../nc/load",'main');
+							}else{
+								message.saveFall();
+							}
+						});
+					}
+				});
+	        
+			})
+	    </script>
+	</body>
+</html>

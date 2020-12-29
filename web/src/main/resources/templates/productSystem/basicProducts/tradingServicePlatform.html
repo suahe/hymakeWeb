@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'交易服务平台详情页 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+</head>
+<body>
+<!-- 头部分-->
+<th:block th:replace="common/layout::header"/>
+
+<div class="d-flex justify-content-center detail-bg">
+    <div style="margin-top: 60px">
+        <img class="detail-title-l"  src="/image/common/title_icon_L.png" alt="">
+        <b class="detail-title">交易服务平台</b>
+        <img class="detail-title-r" src="/image/common/title_icon_R.png" alt="">
+    </div>
+</div>
+
+<div class="container detail-body">
+    <div class="detail-text text-indent-2">
+        <p>
+            基础产品交易服务平台，是满足公共资源交易技术规范的要求，为公共资源交易中心打造集信息化、电子化、智慧化服务能力于一身的服务平台。平台提供公共资源交易门户网站，建立标准接口与电子交易平台、各级服务或监督平台进行对接，可实现招标采购公告、答疑补遗、中标公告等交易信息的多网发布。平台提供企业信息、场地资源、专家资源的共享和专家抽取、场地预约、工作流业务办理等专业交易服务。
+        </p>
+        <p>
+            交易服务平台实时对接电子交易平台，依照技术规范汇聚全过程的交易数据和文件资料，实现交易大数据的形成，平台对交易主体信息、交易数据可进行全方位、多角度的分析，为用户提供决策支持。
+        </p>
+        <p>
+            交易服务平台通过集成人脸识别、视频直播、变声电话、电子签章等智能化技术，为公共资源交易中心打造评标场所人脸门禁系统、远程变声澄清系统、专家电签系统等智慧化能力。此外，平台还提供电子鉴证、远程监督、消息通讯、标准化人机交互等通用服务。
+        </p>
+    </div>
+
+    <div class="text-center" style="margin-top: 72px">
+        <img src="/image/productSystem/details/tradingServicePlatform/img1.png" alt="">
+    </div>
+</div>
+
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+</body>
+</html>

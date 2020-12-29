@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'勘察设计管理平台 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .main-content{
+
+        }
+        .detail-title{
+            padding-bottom: 0.4rem;
+        }
+        .detail-title h4 {
+            color: #0066cc;
+            text-align: center;
+            position: relative;
+            padding: 0;
+            padding-top: 0.55rem;
+            padding-bottom: 0.25rem;
+            display: inline-block;
+            margin: 0;
+            float: none !important;
+            left: 50%;
+            transform:translate(-50%,0);
+            font-size: 0.4rem;
+        }
+        .detail-title h4:after {
+            content: '';
+            width: 30%;
+            height: 2px;
+            background-color: #0066cc;
+            position: absolute;
+            left: 50%;
+            transform:translate(-50%,0);
+            bottom: 0;
+            min-width: 35px;
+        }
+        .detail-text{
+            font-size: 0.28rem;
+            color: #666666;
+            text-indent: 2em;
+            text-align: justify;
+        }
+        .detail-text p{
+            margin-bottom: 0.12rem;
+        }
+        .detail-pad{
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+        .platform-pec-part{
+            padding-right: 0.5rem;
+            padding-left: 0.5rem;
+        }
+        .platform-pec-titele{
+            font-size: 0.34rem;
+            color: #333333;
+        }
+        .platform-pec-con{
+            font-size: 0.28rem;
+            color: #666666;
+            text-indent: 2em;
+            text-align: justify;
+            padding-bottom: 0.61rem;
+        }
+        .function-highlight-part{
+            background-color: #f4f4f5;
+            padding-right: 0.5rem;
+            padding-left: 0.5rem;
+            padding-bottom: 0.61rem;
+        }
+        .function-highlight-cls{
+            font-size: 0.28rem;
+            color: #666666;
+            display: flex;
+        }
+        .spot{
+            color: #2387f8;
+            margin-right: 0.2rem;
+            font-size: 0.2rem;
+            margin-top: 0.09rem;
+        }
+    </style>
+</head>
+<body>
+<!--引入详情页头部-->
+<th:block th:replace="common/layout::detail-header"/>
+<main class="main-content">
+    <div class="detail-pad">
+        <div class="detail-text" style="padding-top: 0.61rem;padding-bottom: 0.49rem;">
+            <p>
+                基础产品勘察设计管理平台，是以“互联网+政务服务”为理念、“多审合一”为基础的信息管理平台，结合管理部门办公业务的特点，围绕行业管理、施工图管理全流程而创建。落实“互联网+”行动计划，监管部门以政府购买服务的方式推行施工图联合审查，使监管部门得以从前期技术审查中脱身，大幅提升审批效率。
+            </p>
+              <p>
+                  针对行业内各类企业，勘察设计管理平台对勘察设计全过程进行在线管理，围绕行业管理、施工图管理，实现勘察登记、报告上传、设计提交、摇号送审、施工图审查、设计变更、信用评价的全流程电子化管理。同时，平台引入信用评价体系，实时动态地对图审机构进行信用排名。
+              </p>
+        </div>
+        <img class="w-100" style="margin-bottom: 0.75rem;" src="/image/productSystem/details/additionalProducts/surveyAndDesignManagementPlatform/kan-cha-she-ji-ping-tai.png" alt="">
+    </div>
+    <div class="platform-pec-part">
+        <div>
+            <div class="platform-pec-titele">现场勘察过程管理</div>
+            <div class="platform-pec-con">
+                勘察人员使用手机进行现场勘察信息采集和录入，数据自动同步到系统，监管部门可实时对数据进行查看。
+            </div>
+        </div>
+        <div>
+            <div class="platform-pec-titele">勘察设计全过程管理</div>
+            <div class="platform-pec-con">
+                按照勘察记录过程、勘察报告提交、项目设计委托、设计原始资料载入、设计文件提交、施工图审查、设计变更等流程进行勘察设计全过程在线管理，同时实现意见书下载、图纸签章归档等管理。
+            </div>
+        </div>
+        <div>
+            <div class="platform-pec-titele">信用评价</div>
+            <div class="platform-pec-con">
+                对企业的良好行为、不良行为进行管理，根据信用标准对其进行分值管理及信用排名。
+            </div>
+        </div>
+    </div>
+
+    <div class="function-highlight-part">
+        <div class="detail-title">
+            <h4>功能亮点</h4>
+        </div>
+        <div class="function-highlight">
+            <div class="function-highlight-cls"><div class="spot">●</div><div>多审合一，联合审查</div></div>
+            <div class="function-highlight-cls"><div class="spot">●</div><div>施工图审查全过程记录线上留痕</div></div>
+            <div class="function-highlight-cls"><div class="spot">●</div><div>施工图审查技术争议协调</div></div>
+            <div class="function-highlight-cls"><div class="spot">●</div><div>建立施工图审查机构名录库</div></div>
+            <div class="function-highlight-cls"><div class="spot">●</div><div>施工图审查机构随机遴选</div></div>
+            <div class="function-highlight-cls"><div class="spot">●</div><div>承载施工图审查机构综合考评办法</div></div>
+        </div>
+    </div>
+</main>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

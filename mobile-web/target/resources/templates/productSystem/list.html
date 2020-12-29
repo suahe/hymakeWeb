@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'产品体系 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <script type="text/javascript" src="/js/dropload/dropload.min.js" charset="utf-8"></script>
+    <style scoped="scoped">
+        .bgFFF {
+            background: #fff;
+        }
+
+        .pad50 {
+            padding: 0 0.5rem;
+        }
+
+        .proTop {
+            padding-top: 0.35rem;
+            padding-bottom: 0.3rem;
+        }
+
+        .proTop h2 {
+            font-size: 0.6rem;
+            color: #1D1D1D;
+            line-height: 0.84rem;
+        }
+
+        .proTop h3 {
+            margin-top: 0.16rem;
+            margin-bottom: 0.25rem;
+            font-size: 0.36rem;
+            font-weight: 600;
+            color: #1D1D1D;
+            line-height: 0.5rem;
+        }
+
+        .proTopDown {
+            height: 0.76rem;
+            margin-bottom: 0.3rem;
+            border: 1px solid #449ef9;
+        }
+
+        .selectW {
+            height: 100%;
+            padding: 0 0.72rem 0 0.3rem;
+            position: relative;
+        }
+
+        .selectW input {
+            width: 100%;
+            height: 100%;
+            font-size: 0.28rem;
+            color: #005bac;
+            box-sizing: border-box;
+            border: medium none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .selectW .selBtn {
+            display: inline-block;
+            width: 0.72rem;
+            height: 100%;
+            background: url(/image/productSystem/down-icon.png) no-repeat center;
+            background-size: 0.14rem 0.11rem;
+            position: absolute;
+            top: 0;
+            right: 0.1rem;
+            *display: inherit;
+            *zoom: 1;
+            float: none;
+        }
+
+        .selectW .selBtn.active {
+            -ms-transform: rotate(-180deg);
+            -webkit-transform: rotate(-180deg);
+            transform: rotate(-180deg);
+        }
+
+        .selectDown {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: auto;
+            max-height: 4.2rem;
+            overflow: auto;
+            background: #fff;
+            top: 0.72rem;
+            left: 0;
+            z-index: 88;
+        }
+
+        .selectDown::-webkit-scrollbar-track-piece {
+            background-color: rgba(0, 0, 0, 0);
+            border-left: 1px solid rgba(0, 0, 0, 0);
+        }
+
+        .selectDown::-webkit-scrollbar {
+            width: 2px;
+            height: 2px;
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            border-radius: 0;
+        }
+
+        .selectDown::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.5);
+            background-clip: padding-box;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            min-height: 2px;
+        }
+
+        .selectDown::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(0, 0, 0, 0.6);
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            border-radius: 0;
+        }
+
+        .selectDown ul {
+            list-style: none;
+            margin-bottom: 0;
+            padding-inline-start: 0;
+        }
+
+        .selectDown ul li {
+            height: 0.6rem;
+            padding: 0 0.1rem 0 0.36rem;
+            line-height: 0.6rem;
+            font-size: 0.26rem;
+            color: #005bac;
+        }
+
+        .selectDown ul li:hover {
+            background: #f5f5f5;
+        }
+        .selectDown ul a:hover{
+            text-decoration: none;
+        }
+
+        .proTopLabel {
+            height: 1.6rem;
+            font-size: 0;
+            overflow: hidden;
+        }
+
+        .proTopLabel a {
+            display: inline-block;
+            width: 1.5rem;
+            height: 0.68rem;
+            margin-bottom: 0.15rem;
+            margin-right: 0.16rem;
+            text-align: center;
+            line-height: 0.68rem;
+            font-size: 0.26rem;
+            color: #6C6C6C;
+            border: 1px solid #DDDDDD;
+        }
+
+        .proTopLabel a:hover{
+            text-decoration: none;
+        }
+        .proTopLabel a:nth-child(4n) {
+            margin-right: 0;
+        }
+
+        .proTopLabel a.on {
+            color: #005bac;
+            text-decoration: none;
+            border-color: #449ef9;
+        }
+
+        .proTopB {
+            margin-top: 0.18rem;
+            text-align: center;
+        }
+
+        .proTopB a {
+            display: inline-block;
+            line-height: 0.46rem;
+            color: #007bff;
+            font-size: 0.28rem;
+            text-decoration: none;
+        }
+        em, i {
+            font-style: normal;
+        }
+
+        .proTopB a span {
+            display: inline-block;
+            width: 0.46rem;
+            height: 0.46rem;
+            margin-right: 0.2rem;
+            vertical-align: top;
+            /*background-color: #979797;*/
+            background-image: url(/image/productSystem/down-icon.png);
+            background-size: 0.14rem 0.11rem;
+            background-repeat: no-repeat;
+            background-position: center;
+            /*border-radius: 50%;*/
+        }
+
+        .proTopB a.on span {
+            /*background-color: #147AF1;*/
+            -ms-transform: rotate(-180deg);
+            -webkit-transform: rotate(-180deg);
+            transform: rotate(-180deg);
+        }
+
+        .dropload-up, .dropload-down {
+            position: relative;
+            height: 0;
+            overflow: hidden;
+            color: #999999;
+            font-size: 0.24rem;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+
+        .dropload-down {
+            /*height: 0.5rem;*/
+        }
+
+        .dropload-refresh, .dropload-update, .dropload-load, .dropload-noData {
+            height: 0.5rem;
+            line-height: 0.5rem;
+            text-align: center;
+        }
+
+        .dropload-load .loading {
+            display: inline-block;
+            height: 0.16rem;
+            width: 0.16rem;
+            border-radius: 100%;
+            margin: 0rem 0.1rem;
+            border: 1px solid #999;
+            border-bottom-color: transparent;
+            vertical-align: middle;
+            -webkit-animation: rotate 0.75s linear infinite;
+            animation: rotate 0.75s linear infinite;
+        }
+
+
+
+        .product{
+            padding: 0.01rem 0.5rem 0.4rem 0.5rem;
+            background-color: #f4f4f5;
+        }
+
+        .product-row{
+            margin-top: 0.4rem;
+            padding: 0.22rem 0.15rem 0.26rem 0.15rem;
+            background-color: #ffffff;
+        }
+        .product-icon{
+            width: 1rem;
+            height: 1rem;
+        }
+        .product-title-div{
+            display: flex;
+        }
+        .product-title{
+            font-size: 0.36rem;
+            color: #333333;
+            font-weight: 500;
+            text-align: justify;
+            margin-left: 0.4rem;
+            margin-top: 0.14rem;
+        }
+        .product-con{
+            display: -webkit-box;
+            overflow: hidden;
+            white-space: normal!important;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            text-align: justify;
+            font-size: 0.28rem;
+            color: #666666;
+            margin-top: 0.14rem;
+        }
+        /**解决ios多行省略号和text-align: justify;冲突问题**/
+        .product-con-ios{
+            display: -webkit-box;
+            overflow: hidden;
+            white-space: normal!important;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            font-size: 0.28rem;
+            color: #666666;
+            margin-top: 0.14rem;
+        }
+        .understand-detail{
+            display: flex;
+            justify-content:flex-end;
+        }
+        .understand-detail a{
+            font-size: 0.28rem;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .navFix{
+            background:#FFF;
+            position:sticky;
+            top:1.12rem;
+            z-index:2;
+        }
+        .no-data{
+            color: #999999;
+            font-size: 0.24rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<!--引入头部-->
+<th:block th:replace="common/layout::header"/>
+<main class="main-content">
+    <div>
+        <img class="w-100" src="/image/productSystem/product-system-banner.png" alt="">
+    </div>
+    <div id="productNav" class="proTop pad50 bgFFF">
+            <div class="proTopDown">
+                <div class="selectW">
+                    <input type="text" name="" id="type_data"  th:value="${dropDownBoxName}" readonly="readonly" unselectable="on"
+                           onfocus="this.blur()">
+                    <span class="selBtn"></span>
+                    <div class="selectDown">
+                        <ul>
+                            <a href="/productSystem?dropDownBoxId=-1">
+                                <li class="single-line">所有产品分类</li>
+                            </a>
+                            <a th:each="dropDownBox: ${dropDownBoxs}" th:href="'/productSystem?dropDownBoxId='+${dropDownBox.dropDownBoxId}">
+                                <li class="single-line" th:text="${dropDownBox.name}"></li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="proTopLabel">
+                <a th:data_index="-1" th:classappend="${labelId==-1} ? 'on'" th:href="'/productSystem?dropDownBoxId='+${dropDownBoxId}">全部</a>
+                <a th:each="label,labelStat: ${labels}" th:data_index="${labelStat.index}" th:classappend="${labelId==label.labelId} ? 'on'" th:href="'/productSystem?dropDownBoxId='+${dropDownBoxId}+'&labelId='+${label.labelId}" th:text="${label.name}"></a>
+            </div>
+            <div class="proTopB">
+                <a href="javascript:void(0)"><em>展开全部标签</em><span></span></a>
+            </div>
+    </div>
+
+    <div id="products" class="product">
+
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //当内容高度不够手机屏幕高度，增加高度
+            var mobileHeight=window.innerHeight;
+            var bodyHeight =  $('body').css('height').replace('px','');
+            if (mobileHeight>bodyHeight){
+                var contentHeight = mobileHeight - bodyHeight;
+                $('#products').css('minHeight',contentHeight+'px');
+            }
+
+            var headHeight=200;  //这个高度其实有更好的办法的。使用者根据自己的需要可以手工调整。
+            var label=$("#productNav");
+            $(window).scroll(function(){
+                if($(this).scrollTop()>headHeight){
+                    label.addClass("navFix");
+                }
+                else{
+                    label.removeClass("navFix");
+                }
+            })
+        })
+
+        var all_pages = "7";
+        var p = 0;
+        $(function () {
+            $(".proTopLabel a").each(function (i, item) {
+                var data_index = $(this).attr("data_index");
+                var data_class = $(this).attr("class");
+                if (data_index >= 8 && data_class != "undefined" && data_class == 'on') {
+                    $(".proTopLabel").css({"height": 'auto'});
+                    $(".proTopB a").find("em").text("收起全部标签")
+                    $(".proTopB a").stop().addClass("on");
+                    p_s_i = 0;
+                }
+            });
+            if ($(".proTopLabel a").length <= 8) {
+                $(".proTopLabel").css("height","auto")
+                $(".proTopLabel a").css("margin-bottom","0.07rem")
+                $(".proTopB").css("display", "none");
+            }
+
+            var dropDownBoxId = [[${dropDownBoxId}]];
+            var labelId = [[${labelId}]];
+
+            // dropload
+            if (all_pages > 0) {
+                $('.main-content').dropload({
+                    scrollArea: window,
+                    //上拉
+                    domDown: {
+                        domClass: 'dropload-down',
+                        domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+                        domLoad: '<div class="dropload-load">加载中<span class="loading"></span></div>',
+                        domNoData: '<div class="dropload-noData">已加载全部</div>'
+                    },
+                    //上拉在后面插入内容
+                    loadDownFn: function (me) {
+                        if (all_pages == 1) {
+                            me.lock();
+                            me.noData();
+                            me.resetload();
+                            return;
+                        }
+                        p++;
+                        var data = {"dropDownBoxId": dropDownBoxId, "labelId": labelId, "page": p};
+                        $.ajax({
+                            type: 'POST',
+                            url: "/productSystem/productsPage",
+                            dataType: 'json',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: data,
+                            success: function (data) {
+                                /*var r_data = JSON.parse(JSON.stringify(data));*/
+                                var r_data = data;
+                                if (r_data.list != "") {
+                                    var result = "";
+                                    $.each(r_data.list, function (i, item) {
+                                        /**解决ios多行省略号和text-align: justify;冲突问题**/
+                                        var u = navigator.userAgent;
+                                        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                                        if(isiOS){
+                                            result += ' <div class="product-row">' +
+                                                '            <div class="product-title-div">' +
+                                                '                <img class="product-icon" src="'+item.iconPath+'" alt="">' +
+                                                '                <div class="product-title">' +
+                                                item.title+
+                                                '                </div>' +
+                                                '            </div>' +
+                                                '            <div class="product-con-ios">' +
+                                                item.content+
+                                                '            </div>' +
+                                                '            <div class="understand-detail">' +
+                                                '                <a href="'+item.url+'">了解详情 ></a>' +
+                                                '            </div>' +
+                                                '        </div>';
+                                        }else {
+                                            result += ' <div class="product-row">' +
+                                                '            <div class="product-title-div">' +
+                                                '                <img class="product-icon" src="'+item.iconPath+'" alt="">' +
+                                                '                <div class="product-title">' +
+                                                item.title+
+                                                '                </div>' +
+                                                '            </div>' +
+                                                '            <div class="product-con">' +
+                                                item.content+
+                                                '            </div>' +
+                                                '            <div class="understand-detail">' +
+                                                '                <a href="'+item.url+'">了解详情 ></a>' +
+                                                '            </div>' +
+                                                '        </div>';
+                                        }
+                                    });
+                                    //$('.homeProList').append(result);
+                                    $("#products").append(result);
+                                    var p_num = r_data.pages;
+                                    if (p_num == 1) {
+                                        //$(".load.load1").css("display", "none");
+                                        me.lock();
+                                        me.noData();
+                                        me.resetload();
+                                        return;
+                                    }
+                                    if (r_data.pages == p) {
+                                        //$(".load.load1").css("display", "none");
+                                        me.lock();
+                                        me.noData();
+                                    }
+                                    // 每次数据加载完，必须重置
+                                    me.resetload();
+                                    //$(".soluWrap.pad35").attr("data_p", p);
+
+                                } else {
+                                    var result = ' <div class="no-data">' +
+                                        '            暂无数据' +
+                                        '        </div>'
+                                    $("#news").append(result);
+                                    //$(".load.load1").css("display", "none");
+                                    me.lock();
+                                    me.noData();
+                                    me.resetload();
+                                }
+                            },
+                            error: function (xhr, type) {
+                                // alert('请刷新重试');
+                                // 即使加载出错，也得重置
+                                me.resetload();
+                            }
+                        });
+                    },
+                    threshold: 400
+                });
+            }
+            $('#products').on('click', '.clearfloat', function (e) {
+                e.preventDefault();
+
+                var param = {
+                    page: p,
+                    top: $(window).scrollTop()
+                };
+                var list = $('#products').html();
+                var aList = JSON.stringify(list);
+                var aParam = JSON.stringify(param);
+                // alert('sess'+p);
+                // console.log(aList);
+                sessionStorage.setItem('productList', aList);
+                sessionStorage.setItem('productParam', aParam);
+                window.location.href = $(this).attr('href');
+            })
+        });
+    </script>
+
+</main>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'投资者关系 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <script type="text/javascript" src="/modules/bootstrap-pagination/page.min.js" charset="utf-8"></script>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+
+        /*投资者关系列表导航条*/
+        .bg-fa{
+          background-color: #fafafa;
+        }
+
+        .link {
+            margin-top: 10px;
+        }
+
+        .link li {
+            float: left;
+            display: inline;
+            margin-left: 80px;
+        }
+
+        .link li a {
+            color: #666666;
+            font-size: 16px;
+            font-weight: 500;
+            padding-bottom: 6px;
+            display: block;
+            text-decoration: none;
+            margin-top: 5px;
+        }
+
+        .link li.active {
+            border-bottom: 2px solid #0066cc;
+        }
+
+        .link li.active a {
+            color: #0066cc;
+            text-decoration: none;
+            margin-top: 5px;
+            margin-bottom: 4px;
+        }
+
+        .flex-row{
+            padding: 29px 0;
+        }
+
+        .date-td{
+            color: #666666;
+            font-size: 20px;
+            /*防止日期为空时不好看*/
+            width: 111.4px;
+        }
+
+        .grey-tiny-vertical-line {
+            height: 23px;
+            border: 0.5px solid #e6e6e6;
+            float: left;
+            margin-top: 9px;
+            margin-left: 25px;
+        }
+
+        .type-td{
+            color:#666666;
+            font-size: 20px;
+            margin-left: 25px;
+        }
+
+        .title-td{
+            margin-left: 12px;
+        }
+
+        .title-td>a{
+            font-size: 20px;
+            color: #000000;
+            text-decoration-line: none;
+        }
+
+        .title-td>a:hover{
+            color: #0066cc;
+        }
+
+        .banner-div{
+            height: 350px;
+            background: url('/image/investorRelations/investor_relations_banner_bg.jpg') no-repeat;
+            background-size: 100% 350px;
+        }
+        .text-div{
+            width: 100%;
+            padding-top: 90px;
+        }
+        .banner-title{
+            font-size: 44px;
+            color: #ffffff;
+        }
+        .banner-text{
+            font-size: 18px;
+            width: 670px;
+            color: #ffffff;
+            line-height: 2;
+            margin-top: 9px;
+            letter-spacing: 1px;
+        }
+        .banner-img-content{
+            /*padding-top: 25px;
+            padding-bottom: 25px;*/
+        }
+
+        .no-all-type-title{
+            margin-left: 25px;
+        }
+
+        .no-all-type-title>a{
+            font-size: 20px;
+            color: #000000;
+            text-decoration-line: none;
+        }
+
+        .no-all-type-title>a:hover{
+            color: #0066cc;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .position-icon{
+            width: 23px;
+            height: 24px;
+            margin-top: 3px;
+        }
+        .icon-m-l{
+            margin-right: 20px;
+        }
+
+        .line-1{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            line-clamp: 1;
+            -webkit-box-orient: vertical;
+            width: 58rem;
+        }
+    </style>
+</head>
+<body>
+<th:block th:replace="common/layout::header"/>
+
+<!--<div>
+    <img class="card-img-top h-400px" src="image/news/news_banner.png">
+</div>-->
+
+<div class="banner-div">
+    <div class="container d-flex">
+        <div class="text-div">
+            <div class="banner-title">投资者关系</div>
+            <div class="banner-text">
+                让我们携手并进，共筑美好，共赢未来
+            </div>
+        </div>
+        <img class="banner-img-content" src="/image/investorRelations/investor_relations_banner_content.png" alt="">
+    </div>
+</div>
+<div class="nav bg-fa" id="newsTab"  style="height: 60px">
+    <div class="container">
+        <ul class="link">
+            <li th:classappend="${type=='1'}?'active'" class="ml-0"><a href="/investorRelations?type=1"> 公司公告</a></li>
+            <li th:classappend="${type=='2'}?'active'"><a href="/investorRelations?type=2">定期公告</a></li>
+            <li th:classappend="${type=='3'}?'active'"><a href="/investorRelations?type=3">公司治理</a></li>
+            <li th:classappend="${type=='4'}?'active'"><a href="/investorRelations?type=4">联系方式</a></li>
+        </ul>
+    </div>
+
+</div>
+<div class="container" style="margin-bottom:60px">
+    <div th:classappend="${type=='4'}?hidden">
+        <div class="new_main" id='F1'>
+            <div th:each="item: ${investors}">
+                <div class="d-flex flex-row" style="border-bottom: 1px dashed #e6e6e6">
+                    <div class="date-td" th:text="${#dates.format(item?.pushTime, 'yyyy-MM-dd')}"></div>
+                    <div><div class="grey-tiny-vertical-line"></div></div>
+                    <div class="no-all-type-title line-1">
+                        <a style="text-decoration-line: none" th:href="${item?.path}" target="_blank" th:text="${item?.title}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center" style="margin-top: 45px">
+            <div id="page" class="paging pagmr"></div>
+        </div>
+    </div>
+    <div th:classappend="${type!='4'}?hidden">
+        <div style="padding: 46px 0 46px 30px;margin-top:40px;height: 220px;border: 1px solid #edf3f9;">
+            <div>
+                <p style="text-align: left;"> <img class="position-icon icon-m-l" style="margin-top: -2px;" src="/image/investorRelations/position.png" alt="">福建省厦门市软件园二期观日路20号之一栋</p>
+                <p style="text-align: left;"><img class="icon-m-l" src="/image/investorRelations/phone.png" alt="">0592-5399979</p>
+                <p style="text-align: left;"><img class="icon-m-l" src="/image/investorRelations/mail.png" alt="">zhangxh@hymake.com</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+
+</body>
+</html>
+
+<script src="/js/page/laypage.min.js"></script>
+<script src="/js/page/common.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        initLinkPage({cont:'page',sum:[[${total}]],type:[[${type}]],view:'F1'});
+    })
+
+</script>

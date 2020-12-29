@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <!--引入轮播图 begin-->
+    <link rel="stylesheet" type="text/css" href="/css/carousel/carousel.css">
+    <link rel="stylesheet" type="text/css" href="/css/carousel/slick.css">
+    <!--引入轮播图 end-->
+    <!--首页样式设置-->
+    <style scoped="scoped">
+        .container-body {
+            position: relative;
+            height: 730px;
+            min-width: 1200px;
+            line-height: 1.5;
+        }
+
+        .left-side {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 440px;
+            height: 100%;
+        }
+
+        .right-side {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            width: 680px;
+            height: 100%;
+        }
+
+        .news-content a {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            text-decoration-line: none;
+            font-size: 16px;
+            color: #666666;
+            text-align: justify;
+        }
+
+        .card-body .news-content a {
+            -webkit-line-clamp: 4;
+            line-clamp: 4;
+        }
+
+        .line-1{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            line-clamp: 1;
+            -webkit-box-orient: vertical;
+        }
+
+        .news-title > a {
+            text-decoration-line: none;
+            font-size: 20px;
+            color: #000000;
+            text-align: justify;
+        }
+
+        .news-title > a:hover {
+            color: #0066cc;
+        }
+
+        .headline-card {
+            width: 442px;
+            height: 730px;
+            background-color: #EDF3FA;
+            /*box-shadow: #eff0f2 3px 3px 5px 1px;*/
+        }
+
+        .headline-img {
+            width: 442px;
+            height: 320px;
+        }
+
+        .headline-card-body {
+            margin-top: 56px;
+            padding: 0px 50px;
+        }
+
+        .font-16px-66 {
+            font-size: 16px;
+            color: #666666;
+        }
+
+        .active-shadow {
+            box-shadow: 3px 3px 5px 1px rgba(0, 75, 141, 0.1);
+        }
+    </style>
+</head>
+<body>
+<!--引入头部-->
+<th:block th:replace="common/layout::header"/>
+<!--轮播图-->
+<!-- <div id="indexCarousel" class="carousel slide" data-ride="carousel">
+     <ol class="carousel-indicators">
+         <li th:each="posterItem, posterItemStat: ${posterItems}" data-target="#indexCarousel"
+             th:data-slide-to="${posterItemStat.index}" th:classappend="${posterItemStat.first} ? 'active'"></li>
+     </ol>
+     <div class="carousel-inner">
+         <div class="carousel-item" th:classappend="${posterItemStat.first} ? 'active'"
+              th:each="posterItem, posterItemStat: ${posterItems}">
+             <a th:href="${posterItem.url}" target="_blank" th:data="${posterItemStat.index}">
+                 <img th:src="${posterItem.path}" class="d-block w-100" th:alt="${posterItem.name}">
+             </a>
+             <div th:if="${posterItemStat.index}==0">
+                 <a class="carousel-caption d-none d-md-block" style="bottom: 25%;margin-left:-18px" href="javascript:void(0);">
+                     <img src="/image/carousel_learn_more_btn_icon.png" alt="">
+                 </a>
+             </div>
+         </div>
+     </div>
+ </div>-->
+<!--轮播图-->
+<div>
+    <div id="slides" class="owl-carousel">
+        <!--<div th:each="posterItem: ${posterItems}" style="height:555px;transition: transform 1400ms ease;-moz-transition: transform 1400ms ease;transition: transform 1400ms ease;">
+            <a th:href="${posterItem.url}" target="_blank"  th:data="${posterItemStat.index}" th:style="'background: url('+${posterItem.path}+') no-repeat center top;background-position:center'">
+            </a>
+        </div>-->
+        <div th:each="posterItem,posterItemStat: ${posterItems}" class="carousel-div">
+            <a th:href="${posterItem.url}" target="_blank"  th:data="${posterItemStat.index}">
+               <img th:id="carousel-+(${posterItemStat.index}+1)" class="w-100" th:src="${posterItem.path}" alt="">
+            </a>
+        </div>
+    </div>
+
+    <div class="carousel-dot">
+        <div th:each="posterItem, posterItemStat: ${posterItems}" class="circlediv" th:id="circles-+(${posterItemStat.index}+1)"></div>
+    </div>
+</div>
+
+
+
+<!--正文内容部分-->
+    <div class="container" style="padding-top: 66px;padding-bottom: 60px;">
+        <div class="container-body">
+            <!--左边头条-->
+            <div class="left-side">
+                <!--去除边线-->
+                <!--<div class="card headline-card">-->
+                <div class="headline-card">
+                    <img th:src="${headlineNew?.path}" class="card-img-top headline-img" alt="头条新闻头部图片">
+                    <div class="card-body headline-card-body">
+                        <div class="font-16px-66" style="margin-bottom: 24px;" th:text="${headlineNew?.newTypeName} + ' | ' + ${#dates.format(headlineNew?.pushTime, 'yyyy-MM-dd')}"></div>
+                        <div class="news-title" style="margin-bottom: 40px;">
+                            <a th:href="${headlineNew?.url!=null and headlineNew?.url!=''}?${headlineNew?.url}:'/news/details/' + ${headlineNew?.newsId}"  target="_blank" th:text="${headlineNew?.title}"></a>
+                        </div>
+                        <div class="news-content" style="line-height: 32px;">
+                            <a th:href="${headlineNew?.url!=null and headlineNew?.url!=''}?${headlineNew?.url}:'/news/details/' + ${headlineNew?.newsId}" target="_blank" th:text="${headlineNew?.overview}"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--右边新闻列表-->
+            <div class="right-side">
+                <div th:each="topNew, topNewStat: ${news}">
+                    <div class="font-16px-66" style=" padding-bottom: 10px;" th:text="${topNew?.newTypeName} + ' | ' + ${#dates.format(topNew?.pushTime, 'yyyy-MM-dd')}"></div>
+                    <div class="news-title line-1" style="margin-bottom: 14px;">
+                        <a th:href="${topNew?.url!=null and topNew?.url!=''}?${topNew?.url}:'/news/details/' + ${topNew?.newsId}" target="_blank" th:text="${topNew?.title}"></a>
+                    </div>
+                    <div class="news-content" style="margin-bottom: 25px; line-height: 32px;">
+                        <a th:href="${topNew?.url!=null and topNew?.url!=''}?${topNew?.url}:'/news/details/' + ${topNew?.newsId}" target="_blank" th:text="${topNew?.overview}"></a>
+                    </div>
+                    <hr th:if="!${topNewStat.last}" style="margin: 0px 0px 30px 0px;">
+                </div>
+            </div>
+        </div>
+        <div style="margin-left: 520px;margin-top: 60px;">
+            <a href="/news" class="btn btn-outline-primary btn-lg" style="font-size: 16px;padding: 0.5rem 1.2rem;">更多资讯</a>
+        </div>
+    </div>
+    <th:block th:replace="common/layout::rightTools"/>
+    <th:block th:replace="common/layout::footer"/>
+
+
+<script type="text/javascript">
+    (function () {
+        'use strict'
+
+        var googleAnalitics = {
+
+            init: function () {
+                (function (i, s, o, g, r, a, m) {
+                    i['GoogleAnalyticsObject'] = r
+                    i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date()
+                    a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0]
+                    a.async = 1
+                    a.src = g
+                    m.parentNode.insertBefore(a, m)
+                })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga')
+                ga('create', 'UA-50017198-1', 'glodon.com')
+                ga('send', 'pageview')
+            }
+        }
+
+        googleAnalitics.init()
+
+    })();
+
+</script>
+
+<script type="text/javascript" src="/js/carousel/slick.min.js"></script>
+<script src="/js/carousel/radialIndicator.min.js"></script>
+
+<script type="text/javascript">
+    var deal_owl_flag = true;
+
+    function show_voice_btn() {
+        var voice_btn = document.getElementById("voice_btn");
+        voice_btn.style.display = "block";
+    }
+
+    function hide_voice_btn() {
+        var voice_btn = document.getElementById("voice_btn");
+        voice_btn.style.display = "none";
+    }
+
+    var videoElement = document.getElementById("bgvideo");
+    if (videoElement != undefined) {
+        deal_owl_flag = false;
+    }
+
+    function voice_open() {
+        //var areawidth = vodPlayVideoWH['areawidth'];
+        //var areahight = vodPlayVideoWH['areahight'];
+        var voice_btn = document.getElementById("voice_btn");
+        if (videoElement.muted) {
+            videoElement.muted = false;
+           /* voice_btn.src = "http://glodon-portal.oss-cn-beijing.aliyuncs.com/banner/play_voice1.png";*/
+        } else {
+            videoElement.muted = true;
+           /* voice_btn.src = "http://glodon-portal.oss-cn-beijing.aliyuncs.com/banner/play_voice2.png";*/
+        }
+    }
+
+    // 切换
+    var autoplay;
+    if ((/msie [6|7|8]/i.test(navigator.userAgent))) {
+        autoplay = 1;
+    } else {
+        autoplay = 0;
+    }
+    autoplay = false;
+    if (deal_owl_flag) {
+        $('.owl-carousel').slick({
+            lazyLoad: "ondemand",
+            dots: 0,
+            arrows: 0,
+            infinite: !0,
+            cssEase: "ease",
+            initialSlide: 0,
+            speed: 1500,
+            useCSS: 0,
+            fade: !0,
+            autoplay: autoplay,
+        });
+    }
+    var obj = new Array();
+    var size = [[${posterItems.size()}]];
+    var count = parseInt(size+"");
+    if (count > 0) {
+        for (var i = 0; i < count; i++) {
+            obj[i + 1] = createCircle(i + 1);
+        }
+    }
+
+    function createCircle(ele) {
+        var obj = radialIndicator($('#circles-' + ele), {
+            displayNumber: false,
+            radius: 6,
+            barWidth: 1.8,
+            initValue: 0,
+            maxValue: 13000,
+            barBgColor: 'rgba(255,255,255,0.75)',
+            barColor: '#207be6',
+        });
+        return obj;
+    }
+
+    var value = 0
+    var intervalIndex;
+    current = 10000;
+    if (count > 0) {
+        interval(1, false);
+    }
+
+    function interval(index, click) {
+        if (current != 10000) {
+            var speed = 1500;
+            var tmp = current;
+            if (click) {
+                speed = 1000;
+            }
+            $('.slick-track div').eq(current).stop().css('z-index', 0).animate({'opacity': 0}, 1500, function () {
+                $('.slick-track div').eq(tmp).removeClass('slick-active');
+            });
+            $('.slick-track div').eq(index - 1).addClass('slick-active').css('z-index', 1000).stop().animate({'opacity': 1}, 1500);
+        }
+        current = index - 1;
+        intervalIndex = setInterval(function () {
+            value += 100;
+            obj[index].value(value)
+            if (value == 13000) {
+                obj[index].value(0);
+                value = 0;
+                window.clearInterval(intervalIndex);
+                if (index == count) {
+                    intervalIndex = interval(1)
+                } else {
+                    intervalIndex = interval(index + 1)
+                }
+            }
+        }, 50);
+        return intervalIndex;
+    }
+
+    $(document).on('click', '.circlediv', function () {
+        window.clearInterval(intervalIndex);
+        for (var i in obj) {
+            obj[i].value(0);
+        }
+        value = 0;
+        var id = $(this).attr('id').substring(8);
+        ga('send', 'event', '广告位', '点击', 'banner-' + id);
+        if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
+            $('.slick-track div').removeClass('slick-active');
+        }
+        ;
+        interval(parseInt(id), true)
+    })
+</script>
+
+<script type="text/javascript">
+    //首页头条移动上去有 阴影效果
+    $('.headline-card').mouseenter(function () {
+        var that = $(this);
+        that.addClass('active-shadow');
+    })
+    $('.headline-card').mouseleave(function () {
+        var that = $(this);
+        that.removeClass('active-shadow');
+    })
+
+</script>
+
+<!--<script>
+    $(document).ready(function () {
+      let screenWidth = screen.width;
+      let firstCarousel = '[[${posterItems.get(0).name}]]';
+      if(screenWidth&&screenWidth<=1440&&firstCarousel&&firstCarousel.indexOf('海迈大楼')!=-1){
+          $('#carousel-1').attr('src','/image/1291557275739230208-1.png');
+       }else {
+          $('#carousel-1').attr('src','/image/1291557275739230208.png');
+      }
+   })
+</script>-->
+
+<!--boostrap导航栏样式-->
+<!--<script type="text/javascript">
+    $(document).ready(function () {
+        //设置轮播时间
+        $('.carousel').carousel({
+            interval: [[${interval}]] * 5000
+        })
+        //首页头条移动上去有 阴影效果
+        $('.headline-card').mouseenter(function () {
+            var that = $(this);
+            that.addClass('active-shadow');
+        })
+        $('.headline-card').mouseleave(function () {
+            var that = $(this);
+            that.removeClass('active-shadow');
+        })
+    });
+</script>-->
+
+</body>
+</html>

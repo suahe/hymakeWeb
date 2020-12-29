@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'电子交易平台详情页 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+</head>
+<body>
+<!-- 头部分-->
+<th:block th:replace="common/layout::header"/>
+
+<div class="d-flex justify-content-center detail-bg">
+    <div style="margin-top: 60px">
+        <img class="detail-title-l"  src="/image/common/title_icon_L.png" alt="">
+        <b class="detail-title">电子交易平台</b>
+        <img class="detail-title-r" src="/image/common/title_icon_R.png" alt="">
+    </div>
+</div>
+
+<div class="container detail-body">
+    <p  class="detail-text text-indent-2">
+        基础产品海易招电子交易平台，是为第三方主体打造的专有电子交易平台，通过云服务、移动交易，提供更安全、更简易、更快捷的交易服务。平台具备满足“多交易模式、低成本搭建、多终端支持”的特点，适用于建设工程招标投标、政企采购、产权交易等业务领域，支持公开招标、邀请招标、竞争性谈判、竞争性磋商、单一来源采购、询价、挂牌交易、竞价交易、拍卖等类别的交易方式。同时，该平台可为运营方进行量身定制化服务。
+    </p>
+    <p class="text-center" style="margin-top: 16px;">
+        <img src="/image/productSystem/details/electronicTradingPlatform/img1.png" alt="">
+    </p>
+    <div class="detail-text text-indent-2" style="margin-top: -10px">
+        <p>
+            海迈科技公共资源交易平台是面向公共资源交易中心打造的交易平台，为建设工程招标投标、政府釆购、土地和矿权出让、国有和集体产权交易等公共资源交易提供合规、安全、高效的服务。平台符合国家公共资源交易技术规范的要求，提供交易过程中必需的软件工具，如电子标书制作软件、电子开标大厅、电子评标室、电子谈判室、电子竞价大厅、电子挂牌交易厅、辅助评标软件、在线澄清软件、专家抽取语音通知系统、保证金管理系统、企业协同办公平台等。
+        </p>
+        <p>
+            电子交易平台含以下子系统可以单独选用：建设工程电子招标投标交易平台、政府采购系统、国有产权出让交易系统、土地使用权和矿业权出让交易系统、远程异地评标系统、音视频监控系统、网上开标评标系统、评标专家管理系统、电子合同管理系统、投标保证金管理系统、公共资源交易电子保函管理系统、公共资源交易中介机构管理系统、公共资源交易大数据平台、公共资源交易电子档案管理系统、公共资源交易APP/公众号。
+        </p>
+    </div>
+    <div class="text-center" style="margin-top: 72px;">
+        <img src="/image/productSystem/details/electronicTradingPlatform/img2.png" alt="">
+    </div>
+</div>
+
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+</body>
+</html>

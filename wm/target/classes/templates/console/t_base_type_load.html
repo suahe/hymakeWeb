@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>数据字典管理（列表）</title>
+    <th:block th:replace="fragments/include::common_header" />
+	</head>
+	<style type="text/css">
+		
+	</style>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content">
+	        <div class="ibox">
+	            <div class="ibox-title">
+	                <h4 style="float: left;">数据字典管理（列表）</h4>
+	                <div style="float: right;">
+	                </div>
+	            </div>
+	            <div class="ibox-content">
+                	<div class="row">
+                        <div class="col-sm-5">
+                        	<div style="float: left; padding-bottom: 10px;" >
+								<button id="_add_button" type="button" class="btn btn-outline btn-primary">增加</button>
+								<button id="_edit_button" type="button" class="btn btn-outline btn-primary">编辑</button>
+								<button id="_del_button" type="button" class="btn btn-outline btn-danger">删除</button>
+								<button id="_cache_button" type="button" class="btn btn-outline btn-primary">统计信息</button>
+								<button id="_cache_invalidate_code_button" type="button" class="btn btn-outline btn-primary">刷新缓存</button>
+	                        </div>
+	                        <div style="float: right;">
+	                        	<button id="_link_tree_button" type="button" class="btn btn-primary">前往树型</button>
+	                        	<!-- <button id="_excel_button" type="button" class="btn btn-primary">导出</button> -->
+	                        </div>
+                        	<table id="_t_base_type"></table>
+            			</div>
+            			<div class="col-sm-7">
+            				<div style="float: left; padding-bottom: 10px;" >
+								<button id="_add_list_button" type="button" class="btn btn-outline btn-primary">增加</button>
+								<button id="_edit_list_button" type="button" class="btn btn-outline btn-primary">编辑</button>
+								<button id="_del_list_button" type="button" class="btn btn-outline btn-danger">删除</button>
+								<button id="_up_list_button" type="button" class="btn btn-outline btn-primary"><i class="fa fa-arrow-up"></i></button>
+								<button id="_down_list_button" type="button" class="btn btn-outline btn-primary"><i class="fa fa-arrow-down"></i></button>
+	                        </div>
+	                        <div style="float: right;">
+	                        	<!-- <button id="_add_button" type="button" class="btn btn-primary">导入模板下载</button>
+	                        	<button id="_add_button" type="button" class="btn btn-primary">导入</button> -->
+	                        </div>
+            				<table id="_t_base_type_list"></table>
+            			</div>
+           			</div>
+	            </div>
+           	</div>
+        </div>
+	            
+       	<!-- 新增信息模态窗口 -->
+        <div class="modal fade" id="_t_base_type_add_window" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">字典信息--新增</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_t_base_type_add_form" class="form-horizontal">
+							<input type="hidden" id="_type_add" name="type" class="form-control" value="1" >
+							<div class="form-group">
+								<label for="name" class="col-sm-2 control-label">名称</label>
+								<div class="col-sm-10">
+									<input type="text" id="_name_add" name="name" class="form-control" placeholder="请输入名称" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="code" class="col-sm-2 control-label">代码</label>
+								<div class="col-sm-10">
+									<input type="text" id="_code_add" name="code" class="form-control" placeholder="请输入代码" >
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="_t_base_type_add_close_button" type="button" class="btn btn-default">取消</button>
+						<button id="_t_base_type_add_button" type="button" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 编辑信息模态窗口 -->
+        <div class="modal fade" id="_t_base_type_edit_window" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">字典信息--编辑</h4>
+					</div>
+					<div class="ibox-content">
+						<form id="_t_base_type_edit_form" class="form-horizontal">
+							<input type="hidden" id="_baseTypeId_edit" name="baseTypeId" >
+							<input type="hidden" id="_type_edit" name="type">
+							<input type="hidden" id="_ver_edit" name="ver">
+							<div class="form-group">
+								<label for="name" class="col-sm-2 control-label">名称</label>
+								<div class="col-sm-10">
+									<input type="text" id="_name_edit" name="name" class="form-control" placeholder="请输入名称" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="code" class="col-sm-2 control-label">代码</label>
+								<div class="col-sm-10">
+									<input type="text" id="_code_edit" name="code" class="form-control" placeholder="请输入代码" >
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="_t_base_type_edit_close_button" type="button" class="btn btn-default">取消</button>
+						<button id="_t_base_type_edit_button" type="button" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 新增列表项模态窗口 -->
+		<div class="modal fade" id="_add_list_window" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document" style="width: 400px;">
+				<div class="modal-content">
+					<div class="modal-header">
+		        		<h4 class="modal-title">列表项--新增</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_add_list_form" class="form-horizontal">
+							<input type="hidden" id="_baseTypeId_add_list" name="baseTypeId" >
+							<div class="form-group">
+								<label for="_add_list_name" class="col-xs-3 control-label" >名称</label>
+								<div class="col-xs-9">
+									<input type="text" class="form-control" id="_add_list_name" name="name" placeholder="请输入名称">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="_add_list_value" class="col-xs-3 control-label" >代码</label>
+								<div class="col-xs-9">
+									<input type="text" class="form-control" id="_add_list_value" name="value" placeholder="请输入代码">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="_add_list_close_button" type="button" class="btn btn-default">取消</button>
+						<button id="_add_list_save_button" type="button" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 编辑列表项模态窗口 -->
+		<div class="modal fade" id="_edit_list_window" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document" style="width: 400px;">
+				<div class="modal-content">
+					<div class="modal-header">
+		        		<h4 class="modal-title">列表项--编辑</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_edit_list_form" class="form-horizontal">
+							<input type="hidden" id="_baseTypeListId_edit_list" name="baseTypeListId" >
+							<div class="form-group">
+								<label for="_edit_list_name" class="col-xs-3 control-label" >名称</label>
+								<div class="col-xs-9">
+									<input type="text" class="form-control" id="_edit_list_name" name="name" placeholder="请输入名称">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="_edit_list_value" class="col-xs-3 control-label" >代码</label>
+								<div class="col-xs-9">
+									<input type="text" class="form-control" id="_edit_list_value" name="value" placeholder="请输入代码">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="_edit_list_close_button" type="button" class="btn btn-default">取消</button>
+						<button id="_edit_list_save_button" type="button" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 缓存统计模态窗口 -->
+       	<div class="modal fade" id="_t_base_type_list_cache_window" tabindex="-1" role="dialog" aria-labelledby="#_t_base_type_list_cache_window">
+			<div class="modal-dialog" role="document" style="width: 450px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">缓存统计信息</h4>
+					</div>
+					<div class="modal-body">
+						<table class="table">
+                            <thead>
+	                            <tr>
+	                                <th>项</th>
+	                                <th>值</th>
+	                            </tr>
+                            </thead>
+                            <tbody id="_cache_list">
+	                           
+                            </tbody>
+                        </table>
+					</div>
+					<div class="modal-footer">
+						<button id="_cache_close_button" type="button" class="btn btn-default">取消</button>
+						<button id="_cache_invalidate_button" type="button" class="btn btn-primary">清空所有缓存</button>
+						<button id="_cache_refresh_button" type="button" class="btn btn-primary">刷新统计数据</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				/*初始化Token*/
+				secjs.init();
+				var _baseTypeId = "-";
+			       
+				/* t_base_type表列表信息*/
+				$("#_t_base_type").bootstrapTable({
+					url: '../btc/list'	//URL
+					,method: 'GET'		//请求模式"GET","POST"
+					,totalField: 'total'
+					,dataField: 'list'
+					,pagination: true	//显示分页控件
+					,pageSize: 20		//每页默认条数
+					,pageList: [20,50,100]		//可选择分页条数
+					,sidePagination: "server"	//设置分页模式"server","client"
+					,singleSelect: true		//设置是否单选
+					,clickToSelect: true
+					,columns: [
+						{checkbox: true,valign: 'middle'}
+						,{field: 'baseTypeId',title: '编号',halign: 'center',align: 'left',valign: 'middle',visible: false}
+						,{field: 'name',title: '名称',halign: 'center',align: 'left',valign: 'middle',visible: true}
+						,{field: 'code',title: '代码',halign: 'center',align: 'left',valign: 'middle',visible: true}
+					]
+					,onLoadSuccess: function() {
+			        	$("#_t_base_type").bootstrapTable("checkBy", {field:"baseTypeId", values:[_baseTypeId]});
+			        }
+					,onCheck: function(row, $element) {
+						_baseTypeId = row.baseTypeId;
+						$("#_t_base_type_list").bootstrapTable('refresh');
+					}
+					,queryParams: function (params) {	//设置查询条件
+						return {
+							"offset": params.offset		//分页起点
+							,"limit": params.limit		//分页度量
+							,"type": 1	//获取类型是树型的数据
+						};
+					}
+				});
+				
+				var _baseTypeListId = "";
+			      
+				/* t_base_type_list表列表信息*/
+				$("#_t_base_type_list").bootstrapTable({
+					url: '../btlc/list'	//URL
+					,method: 'GET'		//请求模式"GET","POST"
+					,totalField: 'total'
+					,dataField: 'list'
+					,pagination: true	//显示分页控件
+					,pageSize: 10		//每页默认条数
+					,pageList: [10,20,100]		//可选择分页条数
+					,sidePagination: "server"	//设置分页模式"server","client"
+					,singleSelect: true		//设置是否单选
+					,clickToSelect: true
+					,columns: [
+						{checkbox: true,valign: 'middle'}
+						,{field: 'baseTypeListId',title: '列表编号',halign: 'center',align: 'left',valign: 'middle',visible: false}
+						,{field: 'baseTypeId',title: '数据字典编号',halign: 'center',align: 'left',valign: 'middle',visible: false}
+						,{field: 'name',title: '名称',halign: 'center',align: 'left',valign: 'middle',visible: true}
+						,{field: 'value',title: '代码',halign: 'center',align: 'left',valign: 'middle',visible: true}
+					]
+					,onLoadSuccess: function() {
+			        	$("#_t_base_type_list").bootstrapTable("checkBy", {field:"baseTypeListId", values:[_baseTypeListId]});
+			        }
+					,queryParams: function (params) {	//设置查询条件
+						return {
+							"offset": params.offset		//分页起点
+							,"limit": params.limit		//分页度量
+							,"baseTypeId": _baseTypeId
+						};
+					}
+				});
+			      
+				/* 弹出新增信息窗口 */
+				$("#_add_button").click(function(){
+					$('#_t_base_type_add_form')[0].reset();
+					$('#_t_base_type_add_window').modal('show');
+				});
+			      
+				/* 保存新增信息 */
+				$('#_t_base_type_add_button').click(function(){
+					var _form = $('#_t_base_type_add_form');
+					_form.bootstrapValidator('validate');
+					var flag = _form.data('bootstrapValidator').isValid();
+					if(flag){
+						$.ajax({
+							type: "POST",
+							url: '../btc/add',
+							data: _form.serialize(),
+							success: function(r){
+								if(r > 0){
+									$("#_t_base_type").bootstrapTable('refresh');
+									$('#_t_base_type_add_window').modal('hide');
+								}else{
+									message.saveFall();
+								}
+							}
+						});
+					}
+				});
+			      
+				/* 关闭新增信息窗口 */
+				$('#_t_base_type_add_close_button').click(function(){
+					$('#_t_base_type_add_window').modal('hide');
+				});
+			      
+				/* 弹出编辑信息窗口 */
+				$("#_edit_button").click(function(){
+					$('#_t_base_type_edit_form')[0].reset();
+					var row = $('#_t_base_type').bootstrapTable('getSelections');
+					if (typeof(row) != 'undefined' && row.length != 0){
+						$.ajax({
+							type: "GET",
+							url: '../btc/loadEdit',
+							data: {'baseTypeId':row[0].baseTypeId},
+							success: function(r){
+								$.setForm('#_t_base_type_edit_form',r);
+								$('#_t_base_type_edit_window').modal('show');
+							}
+						});
+					}else{
+						message.selectOne();
+					}
+				});
+				      
+				/* 保存编辑信息 */
+				$('#_t_base_type_edit_button').click(function(){
+					var _form = $('#_t_base_type_edit_form');
+					_form.bootstrapValidator('validate');
+					var flag = _form.data('bootstrapValidator').isValid();
+					if(flag){
+						$.ajax({
+							type: "POST",
+							url: '../btc/edit',
+							data: _form.serialize(),
+							success: function(r){
+								if(r > 0){
+									$("#_t_base_type").bootstrapTable('refresh');
+									$('#_t_base_type_edit_window').modal('hide');
+								}else{
+									message.saveFall();
+								}
+							}
+						});
+					}
+				});
+			      
+				/* 关闭编辑信息窗口 */
+				$('#_t_base_type_edit_close_button').click(function(){
+					$('#_t_base_type_edit_window').modal('hide');
+				});
+			
+				/* 删除信息 */
+				$('#_del_button').click(function () {
+					var row = $('#_t_base_type').bootstrapTable('getSelections');
+					if (typeof(row) != undefined && row.length != 0){
+						swal({
+							title: "确认要删除？",
+							text: "你的操作会删除选择的记录",
+							type: "warning",
+							showCancelButton: true,
+							cancelButtonText: "取消",
+							confirmButtonColor: "#1AB394",
+							confirmButtonText: "确定删除？",
+							closeOnConfirm: false
+						}, function () {
+							$.ajax({
+								type: "GET",
+								url: '../btc/del',
+								data: {'baseTypeId':row[0].baseTypeId},
+								success: function(r){
+									if(r > 0){
+										swal({
+											title: "删除成功!",
+											text: "您所选中的记录删除成功。",
+											type: "success",
+											confirmButtonColor: "#1AB394",
+											confirmButtonText: "确定"
+										});
+										$("#_t_base_type").bootstrapTable('refresh');
+									}else{
+										swal({
+											title: "删除失败!",
+											text: "您所选中的记录删除失败，请联系管理员。",
+											type: "error",
+											confirmButtonColor: "#1AB394",
+											confirmButtonText: "确定"
+										});
+									}
+								}
+							})
+						});
+					}else{
+						message.warning("选择需要删除的记录。");
+					}
+					
+				});
+				
+				/* 跳转到树形数据字典管理页面 */
+				$('#_link_tree_button').click(function(){
+					main.loadHTML("../btc/loadTree",'main');
+				});
+				
+				
+				/* 弹出新增列表项模态窗口 */
+				$('#_add_list_button').click(function(){
+					
+					var row = $('#_t_base_type').bootstrapTable('getSelections');
+					if (typeof(row) != 'undefined' && row.length != 0){
+						
+						$('#_add_list_form')[0].reset();
+						$('#_baseTypeId_add_list').val(row[0].baseTypeId);
+						$('#_add_list_window').modal('show');
+					}else{
+						message.selectOne();
+					}
+				});
+				
+				/* 验证表单 */
+				$('#_add_list_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						value:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 100,
+									message: '长度应小于100个字'
+								},
+								regexp:{
+									regexp: /^[A-Z\d]+$/,
+									message: '必须为大写字母或数字'
+								}
+							}
+						}
+						,name:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 100,
+									message: '长度应小于100个字'
+								}
+							}
+						}
+					}
+				});
+				
+				/* 保存新增列表项 */
+				$('#_add_list_save_button').click(function(){
+					/* 业务逻辑 */
+					$('#_add_list_form').bootstrapValidator('validate');
+					var flag = $('#_add_list_form').data('bootstrapValidator').isValid();
+					if(flag){
+						$.post('../btlc/add', $('#_add_list_form').serialize(), function(data) {
+							if(data > 0){
+								$("#_t_base_type_list").bootstrapTable('refresh');
+								$('#_add_list_form')[0].reset();
+								$('#_add_list_window').modal('hide');
+							}else{
+								message.saveFall();
+							}
+						});
+					}
+				});
+				
+				/* 关闭新增列表项模态窗口 */
+				$('#_add_list_close_button').click(function(){
+					$('#_add_list_form')[0].reset();
+					$('#_add_list_window').modal('hide');
+				});
+				
+				/* 弹出保存列表项模态窗口 */
+				$('#_edit_list_button').click(function(){
+					
+					var row = $('#_t_base_type_list').bootstrapTable('getSelections');
+					if (typeof(row) != 'undefined' && row.length != 0){
+						
+						$.getJSON('../btlc/loadEdit', {'baseTypeListId':row[0].baseTypeListId}, function(data) {
+							$.setForm('#_edit_list_form',data);
+							$('#_edit_list_window').modal('show');
+						});
+					}else{
+						message.selectOne();
+					}
+					
+				});
+				
+				/* 验证表单 */
+				$('#_edit_list_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						value:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 100,
+									message: '长度应小于100个字'
+								},
+								regexp:{
+									regexp: /^[A-Z\d]+$/,
+									message: '必须为大写字母或数字'
+								}
+							}
+						}
+						,name:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 100,
+									message: '长度应小于100个字'
+								}
+							}
+						}
+					}
+				});
+				
+				/* 保存列表项 */
+				$('#_edit_list_save_button').click(function(){
+					
+					$('#_edit_list_form').bootstrapValidator('validate');
+					var flag = $('#_edit_list_form').data('bootstrapValidator').isValid();
+					if(flag){
+						$.post('../btlc/edit', $('#_edit_list_form').serialize(), function(data) {
+							if(data > 0){
+								$("#_t_base_type_list").bootstrapTable('refresh');
+								$('#_edit_list_form')[0].reset();
+								$('#_edit_list_window').modal('hide');
+							}else{
+								message.saveFall();
+							}
+						});
+					}
+					
+				});
+				
+				/* 关闭保存列表项模态窗口 */
+				$('#_edit_list_close_button').click(function(){
+					$('#_edit_list_form')[0].reset();
+					$('#_edit_list_window').modal('hide');
+				});
+				
+				/* 关删除列表项 */
+				$('#_del_list_button').click(function(){
+					
+					var row = $('#_t_base_type_list').bootstrapTable('getSelections');
+					if (typeof(row) != 'undefined' && row.length != 0){
+						swal({
+							title: "确认要删除？",
+							text: "你的操作会删除选择的记录",
+							type: "warning",
+							showCancelButton: true,
+							cancelButtonText: "取消",
+							confirmButtonColor: "#1AB394",
+							confirmButtonText: "确定删除？",
+							closeOnConfirm: false
+						}, function () {
+							$.ajax({
+								type: "GET",
+								url: '../btlc/del',
+								data: {'baseTypeListId':row[0].baseTypeListId},
+								success: function(r){
+									if(r > 0){
+										swal({
+											title: "删除成功!",
+											text: "您所选中的记录删除成功。",
+											type: "success",
+											confirmButtonColor: "#1AB394",
+											confirmButtonText: "确定"
+										});
+										$("#_t_base_type_list").bootstrapTable('refresh');
+									}else{
+										swal({
+											title: "删除失败!",
+											text: "您所选中的记录删除失败，请联系管理员。",
+											type: "error",
+											confirmButtonColor: "#1AB394",
+											confirmButtonText: "确定"
+										});
+									}
+								}
+							})
+						});
+					}else{
+						message.selectOne();
+					}
+				});
+				
+				/* 排序下降一位 */
+				$('#_down_list_button').click(function(){
+					
+					var row = $('#_t_base_type_list').bootstrapTable('getSelections');
+					if (typeof(row) != undefined && row.length != 0){
+						var baseTypeListId = row[0].baseTypeListId;
+						$.getJSON('../btlc/down', {'baseTypeListId': baseTypeListId}, function(data) {
+							if(data > 0){
+								_baseTypeListId = baseTypeListId;
+								$("#_t_base_type_list").bootstrapTable('refresh');
+							}else{
+								message.info('该节点已经不能移动');
+							}
+						});
+					}else{
+						message.selectOne();
+					}
+				});
+				
+				/* 排序上升一位 */
+				$('#_up_list_button').click(function(){
+					
+					var row = $('#_t_base_type_list').bootstrapTable('getSelections');
+					if (typeof(row) != undefined && row.length != 0){
+						var baseTypeListId = row[0].baseTypeListId;
+						$.getJSON('../btlc/up', {'baseTypeListId': baseTypeListId}, function(data) {
+							if(data > 0){
+								_baseTypeListId = baseTypeListId;
+								$("#_t_base_type_list").bootstrapTable('refresh');
+							}else{
+								message.info('该节点已经不能移动');
+							}
+						});
+					}else{
+						message.selectOne();
+					}
+				});
+				
+				/* 弹出缓存统计信息窗口 */
+		        $("#_cache_button").click(function(){
+					
+					$.getJSON('../btc/stats', {},function(r){
+						$('#_cache_list').empty();
+						for(var key in r){
+							$('#_cache_list').append("<tr><td>"+key+"</td><td>"+r[key]+"</td></tr>")
+						}
+					});
+					$('#_t_base_type_list_cache_window').modal('show');
+		        });
+				
+		        /* 弹出缓存统计信息窗口 */
+		        $("#_cache_refresh_button").click(function(){
+					
+					$.getJSON('../btc/stats', {},function(r){
+						$('#_cache_list').empty();
+						for(var key in r){
+							$('#_cache_list').append("<tr><td>"+key+"</td><td>"+r[key]+"</td></tr>")
+						}
+					});
+		        });
+		        
+		        /* 弹出缓存统计信息窗口 */
+		        $("#_cache_close_button").click(function(){
+		        	$('#_t_base_type_list_cache_window').modal('hide');
+		        });
+		        
+		        /* 清空缓存 */
+		        $("#_cache_invalidate_button").click(function(){
+		        	swal({
+						title: "确认要清空缓存？",
+						text: "你的操作会清空数据字典缓存",
+						type: "warning",
+						showCancelButton: true,
+						cancelButtonText: "取消",
+						confirmButtonColor: "#1AB394",
+						confirmButtonText: "确定清空？",
+						closeOnConfirm: false
+					}, function () {
+						$.getJSON('../btc/invalidate', {},function(r){
+							message.info('数据缓存已清空');
+						});
+					});
+		        });
+		        
+		        
+		        /* 清空缓存指定缓存 */
+				$('#_cache_invalidate_code_button').click(function(){
+					
+					var row = $('#_t_base_type').bootstrapTable('getSelections');
+					if (typeof(row) != undefined && row.length != 0){
+						$.getJSON('../btc/invalidateByCode', {'code': row[0].code}, function(data) {
+							message.info('数据缓存已清空');
+							_baseTypeId = row[0].baseTypeId;
+							$("#_t_base_type").bootstrapTable('refresh');
+						});
+					}else{
+						message.selectOne();
+					}
+				});
+				
+			})
+		</script>
+	</body>
+</html>

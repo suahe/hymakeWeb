@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans" >
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta" />
+    <meta name="keywords" th:content="${keywords}" />
+    <title th:text="'解决方案 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static" />
+    <th:block th:replace="common/analytics::baidu" />
+</head>
+<body>
+<!-- 头部分-->
+<th:block th:replace="common/layout::header" />
+
+<style scoped="scoped">
+    .icon_img{
+        width: 32px;
+        height: 32px;
+        margin-top: 6px;
+    }
+    .solution-card{
+        background: url('/image/solution/solution_bg.png');
+        width: 386px;
+        height: 320px;
+    }
+
+    .solution-card-body{
+        padding: 40px 40px;
+    }
+
+    .solution-card-title{
+        font-size: 22px;
+        color: #333333;
+        font-weight: bold;
+        margin-left: 12px;
+    }
+
+    .solution-card-text{
+        font-size: 16px;
+        color: #666666;
+        margin-top: -4px;
+        text-align: justify;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        line-clamp: 4;
+        -webkit-box-orient: vertical;
+    }
+
+    .btn-div{
+        margin-top: 26px;
+    }
+
+    .btn-a{
+        font-size: 16px;
+        padding: 0.25rem 0.8rem;
+    }
+
+    .banner-div{
+        height: 350px;
+        /*background: url('/image/produceSystem/product_system_banner.png') no-repeat;*/
+        background: url('/image/solution/solution_banner_bg.png') no-repeat;
+        background-size: 100% 350px;
+    }
+    .text-div{
+        width: 100%;
+        padding-top: 90px;
+    }
+    .banner-title{
+        font-size: 44px;
+        color: #ffffff;
+    }
+    .banner-text{
+        font-size: 18px;
+        width: 670px;
+        color: #ffffff;
+        line-height: 36px;
+        margin-top: 9px
+    }
+    .banner-img-content{
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+</style>
+<div class="banner-div">
+    <!--<img class="card-img-top h-400px" src="/image/solution/solution_banner.png">-->
+    <div class="container d-flex">
+        <div class="text-div">
+            <div class="banner-title">解决方案</div>
+            <div class="banner-text">
+                以“安全、绿色、智慧”的理念，为融合城市空间和建筑空间，提供“人文、生态、宜居、宜业”的智慧城市综合解决方案。
+            </div>
+        </div>
+        <img class="banner-img-content" src="/image/solution/solution_banner_content.png" alt="">
+    </div>
+</div>
+
+<div class="container" style="margin-top: 40px;margin-bottom: 80px;">
+    <div class="row" >
+        <div class="col-4">
+            <div class="card solution-card">
+                <div class="card-body solution-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/solution/bim_whole_process_consulting_solution_icon.png" alt="">
+                        <div class="card-title solution-card-title">BIM全过程咨询解决方案</div>
+                    </div>
+                    <p class="card-text solution-card-text">
+                        BIM全过程咨询，通过BIM项目协同及运维管理平台，集成建筑、结构、机电、绿色建筑分析及装饰等BIM模型，为决策、设计、施工和运营各阶段工程咨询提供数据平台支持。
+                    </p>
+                    <div class="btn-div">
+                        <a href="/solution/BIMWholeProcessConsultingSolution" class="btn btn-outline-primary btn-lg btn-a">了解方案</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card solution-card" style="margin-left: -5px">
+                <div class="card-body solution-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/solution/bim_volume_and_price_integration_solution_icon.png" alt="">
+                        <div class="card-title solution-card-title">BIM量价一体化解决方案</div>
+                    </div>
+                    <p class="card-text solution-card-text">
+                        海迈科技创新“互联网+BIM+大数据”的模式，将BIM技术和工程造价管理相结合，提供BIM量价一体化解决方案，为建设项目各参与方提供基于BIM模型的算量、计价、审核、变更、进度管理、支付、结算等工程造价管理应用。
+                    </p>
+                    <div class="btn-div">
+                        <a href="/solution/BIMVolumeAndPriceIntegrationSolution" class="btn btn-outline-primary btn-lg btn-a">了解方案</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card solution-card" style="margin-left: -10px">
+                <div class="card-body solution-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/solution/construction_cost_control_solution_icon.png" alt="">
+                        <div class="card-title solution-card-title">建设成本管控解决方案</div>
+                    </div>
+                    <p class="card-text solution-card-text">
+                        海迈科技以全过程建设成本管理与控制为目标，以项目为主线，打造全过程建设成本管控平台，贯穿项目决策、设计、招投标、施工和竣工结算的全过程，实现多方责任主体的协同。
+                    </p>
+                    <div class="btn-div">
+                        <a href="/solution/constructionCostControlSolution" class="btn btn-outline-primary btn-lg btn-a">了解方案</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 20px">
+        <div class="col-4">
+            <div class="card solution-card">
+                <div class="card-body solution-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/solution/electronic_trading_solution_icon.png" alt="">
+                        <div class="card-title solution-card-title">电子交易解决方案</div>
+                    </div>
+                    <p class="card-text solution-card-text">
+                        通过电子招标投标交易平台、政企采购平台、电子保函平台、3D电子摇球软件、远程智慧评标平台、场地预约系统、投标保证金系统、专家抽取通知系统、评标变声澄清系统等系列产品，为各行业的招标采购提供“专业、全面、可靠、合规”的全过程电子化交易解决方案，以及完善的平台级服务。
+                    </p>
+                    <div class="btn-div">
+                        <a href="/solution/electronicTradingSolution" class="btn btn-outline-primary btn-lg btn-a">了解方案</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card solution-card" style="margin-left: -5px">
+                <div class="card-body solution-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/solution/public_resource_trading_solution_icon.png" alt="">
+                        <div class="card-title solution-card-title">公共资源交易解决方案</div>
+                    </div>
+                    <p class="card-text solution-card-text">
+                        通过集成视频直播、变声对话、智能门禁等技术，以及可配置的交易业务办理流程，可快速适应公共资源交易中心、主管部门快速变化的业务管理需求。
+                    </p>
+                    <div class="btn-div">
+                        <a href="/solution/publicResourceTradingSolution" class="btn btn-outline-primary btn-lg btn-a">了解方案</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card solution-card" style="margin-left: -10px">
+                <div class="card-body solution-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/solution/smart_construction_site_solution_icon.png" alt="">
+                        <div class="card-title solution-card-title">智慧工地解决方案</div>
+                    </div>
+                    <p class="card-text solution-card-text">
+                        海迈科技智慧工地整体解决方案，结合施工现场的实际情况，依托BIM、GIS、物联网、云计算等新型技术手段，聚焦于施工现场，紧紧围绕人、机、料、法、环等关键要素，综合运用相关软硬件信息化系统，对施工生产、技术、管理等过程加以改造，提高工地现场的生产效率、管理效率、决策水平，实现工地的数字化、精细化、智慧化。
+                    </p>
+                    <div class="btn-div">
+                        <a href="/solution/smartConstructionSiteSolution" class="btn btn-outline-primary btn-lg btn-a">了解方案</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 20px">
+        <div class="col-4">
+            <div class="card solution-card">
+                <div class="card-body solution-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/solution/commercial_housing_supervision_solution_icon.png" alt="">
+                        <b class="card-title solution-card-title">商品房监管解决方案</b>
+                    </div>
+                    <p class="card-text solution-card-text">
+                        海迈科技商品房市场监管解决方案，通过形成宏微观统一、“地、楼、房”一体的楼盘表基础数据，全面涵盖商品房规划、建设投资、销售管理、公积金管理、二手房租售交易和物业管理的业务监管过程，监管范畴包括房屋、从业主体、交易资金和购房群体四大方面，形成综合大数据中心。
+                    </p>
+                    <div class="btn-div">
+                        <a href="/solution/commercialHousingSupervisionSolution" class="btn btn-outline-primary btn-lg btn-a">了解方案</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card solution-card" style="margin-left: -5px">
+                <div class="card-body solution-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/solution/smart_settlement_solution_icon.png" alt="">
+                        <div class="card-title solution-card-title">智慧安居解决方案</div>
+                    </div>
+                    <p class="card-text solution-card-text">
+                        随着中国新型城市化进程的加快，一方面城市发展需要引进人才，另一方面农村转移人口导致城市新增人口规模庞大，由此增加了政府住房保障责任的压力。
+                    </p>
+                    <div class="btn-div">
+                        <a href="/solution/smartSettlementSolution" class="btn btn-outline-primary btn-lg btn-a">了解方案</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card solution-card" style="margin-left: -10px">
+                <div class="card-body solution-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/solution/house_big_data_solution_icon.png" alt="">
+                        <div class="card-title solution-card-title">房屋大数据解决方案</div>
+                    </div>
+                    <p class="card-text solution-card-text">
+                        以“立足住房管理、面向政府部门、服务社会大众”为指导思想，在房屋管理业务基础上，制定房屋数据库标准，指导整合房屋事务管理相关数据，结合不动产登记中的权属登记数据、不动产单元管理数据和测绘部门房产测绘数据，建立以房屋自然属性为核心的房屋公共基础数据库。
+                    </p>
+                    <div class="btn-div">
+                        <a href="/solution/housingBigDataSolution" class="btn btn-outline-primary btn-lg btn-a">了解方案</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 20px">
+        <div class="col-4">
+            <div class="card solution-card">
+                <div class="card-body solution-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/solution/wisdom_education_icon.png" alt="">
+                        <div class="card-title solution-card-title">智慧教育解决方案</div>
+                    </div>
+                    <p class="card-text solution-card-text">
+                        海迈科技智慧教育解决方案，是将线上与线下结合，并融合内容提供和项目建设为一体的综合解决方案。作为业内知名的培训机构，海迈科技立足于建设行业的人才培养与继续教育，致力于培养建设领域优秀技能人才，开设包含课题研讨、工程项目管理、工程造价、执业资格考试培训、BIM等系列课程。
+                    </p>
+                    <div class="btn-div">
+                        <a href="/solution/smartEducationSolution" class="btn btn-outline-primary btn-lg btn-a">了解方案</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card solution-card" style="margin-left: -5px">
+                <div class="card-body solution-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/solution/wisdom_construction_icon.png" alt="">
+                        <div class="card-title solution-card-title">智慧建设解决方案</div>
+                    </div>
+                    <p class="card-text solution-card-text">
+                        海迈科技智慧建设解决方案，是以智慧城市为载体，围绕建筑全生命期，采用全方位设计理念，贯穿于工程咨询、规划、勘察、设计、招标、施工、运营维护全过程，提供智慧工地、智慧建筑、智慧小区、智慧园区以及智慧城市的综合解决方案。
+                    </p>
+                    <div class="btn-div">
+                        <a href="/solution/smartConstructionSolution" class="btn btn-outline-primary btn-lg btn-a">了解方案</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card solution-card" style="margin-left: -10px">
+                <div class="card-body solution-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/solution/smart_community_solution_icon.png" alt="">
+                        <div class="card-title solution-card-title">智慧小区解决方案</div>
+                    </div>
+                    <p class="card-text solution-card-text">
+                        小区和社区是居民生活最重要的载体之一，但传统的业主委员会、物业委员会和居委会自治性治理架构，公共问题凸显，纠纷不断，既难以完整体现政府的城市治理理念，也难以真正反映广大业主的诉求。因此，多元共治已成为各方的共同需求。
+                    </p>
+                    <div class="btn-div">
+                        <a href="/solution/smartCommunitySolution" class="btn btn-outline-primary btn-lg btn-a">了解方案</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 20px">
+        <div class="col-4">
+            <div class="card solution-card">
+                <div class="card-body solution-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/solution/smart_park_solution_icon.png" alt="">
+                        <div class="card-title solution-card-title">智慧园区解决方案</div>
+                    </div>
+                    <p class="card-text solution-card-text">
+                        海迈科技智慧园区解决方案，以高清影像图为基础，定位建筑，分析园区地理空间，通过叠加地籍、房籍、关键基础设施等数据，分层展示园区不同的空间数据。在BIM+GIS空间管理的基础上，实现园区建筑资产、设备设施资产的数字化运维，对建筑总能耗、各子系统能耗、设备能耗进行多维度数据统计、对比;整合天网工程、园区单位、物业小区的监控设施，实现园区的出入安全监控与异常状态监控，保障园区安全。
+                    </p>
+                    <div class="btn-div">
+                        <a href="/solution/smartParkSolution" class="btn btn-outline-primary btn-lg btn-a">了解方案</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card solution-card" style="margin-left: -5px">
+                <div class="card-body solution-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/solution/smart_city_consulting_solution_icon.png" alt="">
+                        <div class="card-title solution-card-title">智慧城市咨询解决方案</div>
+                    </div>
+                    <p class="card-text solution-card-text">
+                        海迈科技的智慧城市专家咨询团队，提供智慧城市顶层设计和标准体系、数据治理等咨询服务，以智慧建筑为基础，将城市宏观时空与建筑微观时空相结合，围绕“互联互通、协同共享、资源融合、机制创新”的智慧城市基础支撑设计,建设“智能基础设施、精准社会治理、生态宜居城市、产业发展升级”相互协调的新型智慧城市应用体系框架，以解决方案的实施，提升城市的和谐、协同与可持续发展。
+                    </p>
+                    <div class="btn-div">
+                        <a href="/solution/smartCityConsultingSolution" class="btn btn-outline-primary btn-lg btn-a">了解方案</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+</body>
+</html>
+
+<script>
+    $('.card').mouseenter(function () {
+        var that = $(this);
+        that.addClass("aceive-shadow");
+    })
+
+    $('.card').mouseleave(function () {
+        //获取所有的.card元素
+        var cards = $('.card');
+        cards.removeClass("aceive-shadow");
+    })
+</script>

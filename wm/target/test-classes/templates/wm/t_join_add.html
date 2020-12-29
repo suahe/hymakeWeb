@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>招聘信息管理--新增</title>
+		<th:block th:replace="fragments/include::common_header" />
+	</head>
+	<style type="text/css">
+		
+	</style>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h4>招聘信息管理--新增</h4>
+				</div>
+				<div class="ibox-content">
+					<form id="_t_join_add_form" class="form-horizontal">
+						<input type="text" id="_joinId_add" name="joinId" style="display: none;" >
+						<div class="row">
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label for="joinType" class="col-xs-4 control-label">招聘类型</label>
+									<div class="col-xs-8">
+										<select id="_joinType_add" name="joinType"></select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="workplace" class="col-xs-4 control-label">工作地点</label>
+									<div class="col-xs-8">
+										<select id="_workplace_add" name="workplace"></select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="postName" class="col-xs-4 control-label">岗位名称</label>
+									<div class="col-xs-8">
+										<input type="text" id="_postName_add" name="postName" class="form-control" placeholder="请输入岗位名称" >
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="recruitmentNumber" class="col-xs-4 control-label">招聘人数</label>
+									<div class="col-xs-8">
+										<input type="text" id="_recruitmentNumber_add" name="recruitmentNumber" value="1" class="form-control" placeholder="请输入招聘人数" >
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="expirationDate" class="col-xs-4 control-label">截止日期</label>
+									<div class="col-xs-8">
+										<input type="text" id="_expirationDate_add" name="expirationDate" class="form-control" placeholder="请输入截止日期" >
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="joinWay" class="col-xs-4 control-label">申请方式</label>
+									<div class="col-xs-8">
+										<input type="text" id="_joinWay_add" name="joinWay" value="hr@hymake.com" class="form-control" placeholder="请输入申请方式" >
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-8">
+								<div class="form-group">
+									<label for="jobRequirements" class="col-xs-2 control-label">岗位要求</label>
+									<div class="col-xs-10">
+										<textarea id="_jobRequirements_add" name="jobRequirements"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12" style="text-align: center;">
+								<button id="_t_join_add_close_button" type="button" class="btn btn-default">取消</button>
+								<button id="_t_join_add_button" type="button" class="btn btn-primary">保存信息</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function(){
+	
+		        secjs.init();
+
+				$('#_joinType_add').btSelect({
+					code: 'ZPLX'
+					,width: 150
+				});
+				
+				$('#_workplace_add').btSelect({
+					code: 'GZDD'
+					,width: 150
+				});
+				
+				$('#_expirationDate_add').datetimepicker({
+		        	language: 'zh-CN'
+		        	,minView: 'month'
+		        	,autoclose: true
+		            ,format: 'yyyy-mm-dd'
+		            ,clearBtn: true
+		        });
+				
+				$('#_jobRequirements_add').summernote({
+		        	lang: 'zh-CN'
+		        	,height: 250
+		        	,placeholder: '请输入岗位要求描述'
+		        	,toolbar: [
+						['font', ['bold', 'underline', 'clear']],
+						['fontface', ['fontname','color','fontsize']],
+						['para', ['ul', 'ol', 'paragraph']],
+						['height', ['height']], //行高
+						['undo',['undo']], //撤销
+		                ['redo',['redo']], //取消撤销
+						['view', ['codeview']]
+					]
+		        	,fontNames:['宋体', '仿宋']
+		        });
+				
+				/* 验证新增信息表单 */
+				$('#_t_join_add_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						joinType:{
+							validators:{
+								callback:{
+									message: '必选'
+									,callback: function(value, validator) {
+										if (value == null) {
+											return false;
+										} else {
+											return true;
+										}
+									}
+								}
+							}
+						}
+						,workplace:{
+							validators:{
+								callback:{
+									message: '必选'
+									,callback: function(value, validator) {
+										if (value == null) {
+											return false;
+										} else {
+											return true;
+										}
+									}
+								}
+							}
+						}
+						,postName:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 100,
+									message: '长度应小于100个字'
+								}
+							}
+						}
+						,recruitmentNumber:{
+							validators:{
+								notEmpty: {
+								     message: '必填'
+								},
+								between:{
+									min: 1
+									,max: 99
+									,message: '数值必须在1和99之间'
+								}
+							}
+						}
+						,expirationDate: {
+							validators:{
+								date: {
+									format: 'YYYY-MM-DD',
+									message: '日期格式不正确'
+								}
+							}
+						}
+						,joinWay: {
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 50,
+									message: '长度应小于50个字'
+								}
+							}
+						}
+					}
+				});
+				
+				/* 保存新增信息 */
+				$('#_t_join_add_button').click(function(){
+				
+					var _form = $('#_t_join_add_form');
+					_form.bootstrapValidator('validate');
+					var flag = _form.data('bootstrapValidator').isValid();
+					if(flag){
+						$.post('../jc/add', _form.serialize(),function(r){
+							if(r > 0){
+                				_form.data('bootstrapValidator').resetForm();
+                				main.loadHTML("../jc/load",'main');
+							}else{
+								message.saveFall();
+							}
+						});
+					}
+				});
+	        
+				/* 关闭新增信息窗口 */
+				$('#_t_join_add_close_button').click(function(){
+					main.loadHTML("../jc/load",'main');
+				});
+		        
+			});
+		</script>
+	</body>
+</html>

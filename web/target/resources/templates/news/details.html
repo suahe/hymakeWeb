@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${news?.keywords}"/>
+    <title th:text="${news?.title} + ' - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <script type="text/javascript" src="/modules/to-top/jquery.toTop.min.js" charset="utf-8"></script>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .news-detail-title{
+            font-size: 30px;
+            color: #000000;
+            font-weight: bold;
+        }
+
+        .news-detail-div{
+            margin-top: 15px;
+            border-bottom: 1px dashed #e6e6e6;
+        }
+
+        .news-detail-remark{
+            font-size:14px;
+            color:#999999;
+            margin-right: 15px;
+            margin-bottom: 28px
+        }
+
+        .news-content{
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+<th:block th:replace="common/layout::header"/>
+
+<div class="container" style="margin-top: 80px;margin-bottom: 65px">
+    <div class="text-center">
+        <div class="news-detail-title"  th:text="${news?.title}"></div>
+        <div class="d-flex justify-content-center news-detail-div">
+            <div class="news-detail-remark" th:text="'发布时间：'+${news?.pushTime!=null and news?.pushTime!=''?#dates.format(news?.pushTime, 'yyyy-MM-dd'):''}"></div>
+            <div class="news-detail-remark" th:text="'发布者：'+${news?.authorName!=null and news?.authorName!=''?news?.authorName:''}"></div>
+        </div>
+    </div>
+   <div class="news-content">
+       <div class="text-font" th:utext="${news?.content}">新闻资讯内容</div>
+       <!--<div class="text-font" style="margin-top: 100px">
+           声明：本网站部分消息、图片来源网络或相关政府网站，版权归原作者所有。因条件限制，若无法找到来源或对作者未进行标注的，如侵犯到您的权益，请联系删除。
+       </div>-->
+   </div>
+</div>
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>文件管理</title>
+		<th:block th:replace="fragments/include::common_header" />
+	</head>
+	<style type="text/css">
+		
+	</style>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content">
+	        <div class="ibox">
+	            <div class="ibox-title">
+	                <h4>文件管理</h4>
+	            </div>
+	            <div class="ibox-content">
+	            	<div class="row">
+	            		<div class="col-sm-12">
+	            			<div class="pull-left" style="padding: 0px 0px 15px 0px;">
+	            				
+	            			</div>
+							<table id="_document_list"></table>
+	            		</div>
+	            	</div>
+	            </div>
+	        </div>
+        </div>
+        
+        <!-- 编辑信息模态窗口 -->
+        <div class="modal fade" id="_t_base_document_view_window" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="ibox ">
+						<div class="ibox-title">
+							<h5>文件详细信息</h5>
+						</div>
+						<div class="ibox-content">
+							<form id="_t_base_document_view_form" class="form-horizontal">
+								<div class="form-group">
+									<label for="documentId" class="col-sm-2 control-label">文档编号</label>
+									<div class="col-sm-10">
+										<input type="text" id="_documentId_edit" name="documentId" class="form-control" placeholder="请输入文档编号" >
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="name" class="col-sm-2 control-label">文件名</label>
+									<div class="col-sm-10">
+										<input type="text" id="_name_edit" name="name" class="form-control" placeholder="请输入文件名" >
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="ext" class="col-sm-2 control-label">扩展名</label>
+									<div class="col-sm-10">
+										<input type="text" id="_ext_edit" name="ext" class="form-control" placeholder="请输入扩展名" >
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="path" class="col-sm-2 control-label">文件路径</label>
+									<div class="col-sm-10">
+										<input type="text" id="_path_edit" name="path" class="form-control" placeholder="请输入文件路径" >
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="md5key" class="col-sm-2 control-label">MD5标识</label>
+									<div class="col-sm-10">
+										<input type="text" id="_md5key_edit" name="md5key" class="form-control" placeholder="请输入MD5标识" >
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="size" class="col-sm-2 control-label">大小（B）</label>
+									<div class="col-sm-10">
+										<input type="text" id="_size_edit" name="size" class="form-control" placeholder="请输入文件大小" >
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="isDel" class="col-sm-2 control-label">有效状态</label>
+									<div class="col-sm-10">
+										<input type="text" id="_isDel_edit" name="isDel" class="form-control" placeholder="请输入有效状态" >
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="createUserid" class="col-sm-2 control-label">创建人</label>
+									<div class="col-sm-10">
+										<input type="text" id="_createUserid_edit" name="createUserid" class="form-control" placeholder="请输入创建人" >
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="createTime" class="col-sm-2 control-label">创建时间</label>
+									<div class="col-sm-10">
+										<input type="text" id="_createTime_edit" name="createTime" class="form-control" placeholder="请输入创建时间" >
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="updateUserid" class="col-sm-2 control-label">更新人</label>
+									<div class="col-sm-10">
+										<input type="text" id="_updateUserid_edit" name="updateUserid" class="form-control" placeholder="请输入更新人" >
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="updateTime" class="col-sm-2 control-label">更新时间</label>
+									<div class="col-sm-10">
+										<input type="text" id="_updateTime_edit" name="updateTime" class="form-control" placeholder="请输入更新时间" >
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-12" style="text-align: center;">
+										<button id="_t_base_document_view_close_button" type="button" class="btn btn-default">关闭</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        
+		<script type="text/javascript">
+			$(document).ready(function(){
+				
+				/* 汉化弹出提示框*/
+				bootbox.setDefaults("locale","zh_CN");
+				/*初始化Token*/
+				secjs.init();
+				
+				/* 初始化项目信息列表 */
+				$("#_document_list").bootstrapTable({
+					url: '../bdmc/list',
+					method: 'GET',
+					pagination: true,
+					pageSize:10,
+					pageList:[10,20,30,40],//分页步进值
+					totalField: 'total',
+			        dataField: 'list',
+					sidePagination: "server",
+					singleSelect:true,
+					columns: [
+						{checkbox: true,valign: 'middle',width : '5%',visible: false}
+						,{field: 'documentId',title: '文档编号',visible: false}
+						,{field: 'name',title: '文件名',halign:'center',align: 'left',valign: 'middle',width : '25%',
+							formatter:function(value,row,index){
+								return '<a href="/bdmc/download?documentId='+ row.documentId +'">'+ value +'</a>';
+							}
+						}
+						,{field: 'ext',title: '扩展名',visible: false}
+						,{field: 'path',title: '文件路径',halign:'center',align: 'left',valign: 'middle',width : '30%'}
+						,{field: 'md5key',title: 'MD5标识',visible: false}
+						,{field: 'size',title: '大小（KB）',halign:'center',align: 'right',valign: 'middle',width : '10%',
+							formatter:function(value,row,index){
+								return (value/1024).toFixed(2);
+							}
+						}
+						,{field: 'isDel',title: '标识',halign:'center',align: 'center',valign: 'middle',width : '5%',
+							formatter:function(value,row,index){
+								if(0 == value){
+									return "有效";
+								}else{
+									return "<span style='color: #EC4758;'>无效</span>";
+								}
+							}
+						}
+						,{field: 'createUserid',title: '创建人',halign:'center',align: 'left',valign: 'middle',width : '60%',visible: false}
+						,{field: 'createTime',title: '创建时间',halign:'center',align: 'left',valign: 'middle',width : '60%',visible: false}
+						,{field: 'updateUserid',title: '更新人',halign:'center',align: 'left',valign: 'middle',width : '60%',visible: false}
+						,{field: 'updateTime',title: '更新时间',halign:'center',align: 'center',valign: 'middle',width : '15%'}
+						,{title: '-',halign:'center',align: 'center',valign: 'middle',width : '10%',
+							formatter:function(value,row,index){
+								var str = "";
+								str += '<a id="more" documentId="'+row.documentId+'" href="javascript:void(0);">详情</a>';
+								str += '<a style="padding: 0px 10px;" href="/bdmc/download?documentId='+ row.documentId +'">下载</a>';
+								str += '<a id="del" documentId="'+row.documentId+'" href="javascript:void(0);">删除</a>';
+								return str;
+							}
+						}
+					],
+	                queryParams: function (params) {
+	                    return {
+							"offset": params.offset,
+				            "limit": params.limit
+						};
+	                }
+				});
+				
+				/* 查询详细信息 */
+				$("body").on("click", "#more", function(event){
+					var _documentId = $(this).attr('documentId');
+					$.ajax({
+						type: "GET",
+						url: '../bdmc/loadView',
+						data: {'documentId':_documentId},
+						success: function(r){
+							$.setForm('#_t_base_document_view_form',r);
+							$('#_t_base_document_view_window').modal('show');
+						}
+					});
+				});
+				
+				/* 关闭查询详细信息窗口 */
+		        $('#_t_base_document_view_close_button').click(function(){
+		        
+		        	$('#_t_base_document_view_window').modal('hide');
+		        });
+				
+		        /* 删除文件 */
+				$("body").on("click", "#del", function(event){
+					var _documentId = $(this).attr('documentId');
+					swal({
+		                  title: "确认要删除？",
+		                  text: "本操作会导致文件被删除，产生不可逆转的结果。",
+		                  type: "warning",
+		                  showCancelButton: true,
+		                  cancelButtonText: "取消",
+		                  confirmButtonColor: "#1AB394",
+		                  confirmButtonText: "确定删除？",
+		                  closeOnConfirm: false
+		              }, function () {
+		            	  $.ajax({
+		                      type: "GET",
+		                      url: '../bdmc/del',
+		                      data: {'documentId':_documentId},
+		                      success: function(r){
+		                    	  if(r > 0){
+		                    		  swal.close();
+		                    		  $("#_document_list").bootstrapTable('refresh');
+		                    	  }else {
+		                    		  swal({
+		                                  title: "删除失败!",
+		                                  text: "您所选中的记录删除失败，请联系管理员。",
+		                                  type: "error",
+		                                  confirmButtonColor: "#1AB394",
+		                                    confirmButtonText: "确定"
+		                                });
+		                    	  }
+		                      }
+		            	  })
+		              });
+				});
+			});
+		</script>
+	</body>
+</html>

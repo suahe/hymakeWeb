@@ -1,0 +1,278 @@
+.head-bg {
+    background: #EBEBEC;
+
+    position: sticky;
+    z-index: 5;
+    top: 0;
+}
+
+.bgFFF {
+    background: #fff;
+}
+
+.bgF2F {
+    background: #F2F2F2;
+}
+
+.bgEEE {
+    background: #eee;
+}
+
+.pad35 {
+    padding: 0 0.35rem;
+}
+
+
+#top {
+    width: 100%;
+    height: 1.12rem;
+    line-height: 1.12rem;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    /*position: fixed;*/
+    top: 0;
+    left: 0;
+    z-index: 222;
+}
+
+#top .left {
+    float: left;
+    width: 4.9rem;
+    height: 100%;
+    margin-left: 0.5rem;
+    position: relative;
+}
+
+#top .logo {
+    position: absolute;
+   /* width: 3.38rem;*/
+    height: 100%;
+    left: 0;
+}
+
+#top .logo img {
+    width: 1.47rem;
+    height: 0.46rem;
+    vertical-align: middle;
+    margin-top: -0.1rem;
+}
+
+#top .topSearch {
+    display: none;
+    position: absolute;
+    height: 100%;
+}
+
+#top .topSearchClose {
+    float: left;
+    width: 0.4rem;
+    height: 0.38rem;
+    margin-top: 0.38rem;
+    background: url(/image/navbar/close.png) no-repeat center;
+    background-size: 0.36rem 0.38rem;
+}
+
+#top .topSearchW {
+    float: left;
+    width: 0;
+    height: 100%;
+    margin-left: 0.2rem;
+    font-size: 0;
+    box-sizing: border-box;
+}
+
+#top .topSearchW input {
+    width: 5.3rem;
+    font-size: 0.3rem;
+    color: #999999;
+    vertical-align: middle;
+    border: 1px solid #d4d4d4;
+    padding-left: 0.2rem;
+    line-height: 0.6rem;
+}
+#top .topSearchW input:focus {
+    outline:none;
+}
+
+#top .right {
+    float: right;
+    margin-right: 0.5rem;
+    height: 100%;
+    font-size: 0;
+}
+
+#top .right span {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+#top .right span.searchBtn {
+    width: 0.4rem;
+    margin-right: 0.2rem;
+    background: url(/image/navbar/search.png) no-repeat center;
+    background-size: 0.36rem 0.38rem;
+}
+
+#top .right span.muen {
+    width: 0.4rem;
+    margin-left: 0.15rem;
+    background: url(/image/navbar/muen_btn.png) no-repeat center;
+    background-size: 0.36rem 0.38rem;
+}
+
+#top .topSearchBtn {
+    display: none;
+    position: absolute;
+    width: 0.4rem;
+    height: 100%;
+    background: url(/image/navbar/search.png) no-repeat center;
+    background-size: 0.36rem 0.38rem;
+    right: 0.5rem;
+    top: 0;
+}
+#top .topSearchBtn :focus{
+    outline: none;
+}
+button:focus{
+    outline: none;
+}
+
+#top input, button, img {
+    border: none;
+    background: none;
+    border-radius: 0;
+}
+
+#nav {
+    display: none;
+    /*position: fixed;*/
+    position: absolute;
+    width: 80%;
+    height: 15rem;
+    background: #fff;
+    right: 0;
+    top: 1.12rem;
+    z-index: 5;
+    overflow: auto;
+}
+
+#nav ul {
+    /*margin-top: 1rem;*/
+    padding-bottom: 0.4rem;
+    padding-left: 0.338rem;
+    border-top: 1px solid #ebebeb;
+}
+
+#nav ul li {
+}
+
+#nav ul li h2 {
+    height: 1.16rem;
+    line-height: 1.16rem;
+    font-size: 0.28rem;
+    border-bottom: 1px solid #EBEBEB;
+    position: relative;
+    margin-bottom: 0;
+}
+
+#nav ul li:last-child h2 {
+    /*border: none;*/
+}
+
+#nav ul li h2 a {
+    display: block;
+    height: 100%;
+}
+#nav ul li h2.on {
+    border: none;
+}
+#nav ul li h2.on a {
+    font-weight: 600;
+}
+
+#nav ul li h2 span {
+    position: absolute;
+    width: 1.16rem;
+    height: 1.16rem;
+    top: 0;
+    right: 0;
+    background: url(/image/navbar/nav-jia.png) no-repeat center;
+    background-size: 0.24rem;
+    -moz-transition: all 0.3s ease-in;
+    -webkit-transition: all 0.3s ease-in;
+    -o-transition: all 0.3s ease-in;
+    transition: all 0.3s ease-in;
+}
+
+#nav ul li h2 span.on {
+    background: url(/image/navbar/nav-jian.png) no-repeat center;
+    background-size: 0.24rem;
+}
+
+#nav ul li .navDown {
+    display: none;
+    padding-left: 0.4rem;
+    font-size: 0.28rem;
+}
+
+#nav ul li .navDown a {
+    display: block;
+    line-height: 0.8rem;
+}
+
+#nav ul, ol {
+    list-style: none;
+}
+
+#nav a {
+    text-decoration: none;
+    color: #333;
+    tap-highlight-color: rgba(0, 0, 0, .1);
+    focus-ring-color: rgba(0, 0, 0, .1);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, .1);
+    -webkit-focus-ring-color: rgba(0, 0, 0, 0);
+    -moz-tap-highlight-color: rgba(0, 0, 0, 0);
+    -moz-focus-ring-color: rgba(0, 0, 0, 0);
+}
+
+.navClose {
+    position: absolute;
+    width: 0.8rem;
+    height: 0.8rem;
+    background: url(/image/navbar/close.png) no-repeat center;
+    background-size: 0.29rem;
+    top: 0.1rem;
+    right: 0.2rem;
+}
+/*设置navbar高度*/
+.navbar-height{
+    height: 1.12rem;
+}
+/*遮罩层*/
+.shadow {
+    /*width: 100%;*/
+    width: 7.5rem;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 3;
+    background-color: #000;
+    opacity: 0.6;
+    display: none;
+    left: 50%;
+    transform: translate(-50%,0);
+    overflow: hidden;
+}
+
+.stock {
+    color: #333333;
+    font-size: 0.28rem;
+    position: absolute;
+    margin-left: 1.59rem;
+}
+
+.stock > .split {
+    border-right: 0.02rem solid #cccccc;
+    margin-right: 0.12rem;
+}

@@ -1,0 +1,150 @@
+/*! laypage默认样式*/
+.laypage_main a,.laypage_main input,.laypage_main span
+{
+	height:26px;
+	line-height:32px;
+}
+
+.laypage_main button,.laypage_main input,.laypageskin_default a
+{
+	border:1px solid #ccc;
+	background-color:#fff;
+}
+
+.laypage_main
+{
+	font-size:0;
+	clear:both;
+	color:#666;
+}
+
+.laypage_main *
+{
+	display:inline-block;
+	vertical-align:top;
+	font-size:14px;
+}
+
+.laypage_main a
+{
+	text-decoration:none;
+	color:#666;
+	text-align: center;
+}
+
+.laypage_main input
+{
+	width:40px;
+	margin:0 5px;
+	padding:0 5px;
+}
+
+.laypage_main button
+{
+	height:28px;
+	line-height:28px;
+	margin-left:5px;
+	color:#666;
+	cursor:pointer;
+	padding:0 10px;
+}
+
+.laypageskin_default span
+{
+	height:28px;
+	line-height:28px;
+	color:#999;
+}
+
+.laypageskin_default .laypage_curr
+{
+	font-weight:700;
+	color:#666;
+}
+
+.laypageskin_molv a
+{
+	border:1px solid #ddd;
+	width:32px;
+	height:32px;
+	margin-left:3px;
+}
+
+.laypageskin_molv a:hover
+{
+	border:1px solid #207be6;
+	color:#207be6;
+}
+
+.laypageskin_molv .laypage_curr
+{
+	background-color:#00AA91;
+	color:#fff;
+	width:32px;
+	border:1px solid #207be6;
+	height:32px;
+	margin-left:3px;
+	text-align: center;
+}
+
+.laypageskin_molv input
+{
+	height:24px;
+	line-height:24px;
+}
+
+.laypageskin_molv button
+{
+	height:26px;
+	line-height:26px;
+}
+
+.laypageskin_yahei
+{
+	color:#333;
+}
+
+.laypageskin_yahei a,.laypageskin_yahei span
+{
+	border-radius:2px;
+	color:#333;
+	padding:0 13px;
+}
+
+.laypageskin_yahei .laypage_curr
+{
+	background-color:#333;
+	color:#fff;
+}
+
+.laypageskin_flow
+{
+	text-align:center;
+}
+
+.laypageskin_flow .page_nomore
+{
+	color:#999;
+}
+
+.laypage_next
+{
+	margin-left:10px!important;
+	width:68px!important;
+}
+
+.laypage_next:after
+{
+	content:'>';
+}
+
+.laypage_prev
+{
+	margin-right:7px;
+	width:68px!important;
+}
+
+.laypage_prev:before
+{
+	content:'<';
+}

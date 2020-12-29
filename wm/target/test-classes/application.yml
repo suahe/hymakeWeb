@@ -1,0 +1,147 @@
+﻿server: 
+  servlet: 
+    context-path: /
+    session:
+
+      timeout: 28800
+  port: 98
+  tomcat: 
+    max-http-form-post-size: -1
+    threads:
+
+      max: 100
+spring: 
+  thymeleaf: 
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    cache: false
+    servlet:
+      content-type: text/html
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/wm?characterEncoding=UTF-8&useSSL=false
+#    username: hymake
+#    password: RSj0TBKQp3d2aZvo
+    username: hymake
+    password: RSj0TBKQp3d2aZvo
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: "SELECT 1 FROM DUAL"
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: "stat,wall"
+      use-global-data-source-stat: true
+      connection-properties: "druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000"
+      stat-view-servlet:
+        enabled: true
+        login-username: cyy
+        login-password: 1
+        reset-enable: false
+        url-pattern: "/druid/*"
+      web-stat-filter: 
+        url-pattern: "/*"
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+  mail: 
+    host: 
+    username: 
+    password: 
+    default-encoding: UTF-8
+    properties: 
+      mail:
+        smtp: 
+          auth: true
+          starttls:
+            enable: true
+            required: true
+      
+mybatis: 
+  type-aliases-package: com.dzb.console.entity,com.dzb.wm.entity
+  mapper-locations: classpath:com/dzb/console/mapper/*.xml,com/dzb/wm/mapper/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+    jdbc-type-for-null: null
+    default-statement-timeout: 60
+
+pagehelper: 
+  helperDialect: MYSQL
+  supportMethodsArguments: true
+  reasonable: true
+  params: count=countSql
+  
+kaptcha:
+  border: "yes" #是否有边框，默认为yes，可选yes、no
+  border.color: 26,179,148    #边框颜色
+  textproducer:
+    font:
+      color: blue     #  验证码字体颜色
+      size: 36        # 文本字符大小
+      names: 宋体,楷体,微软雅黑     #文本字体样式
+    char:
+      length: 4     #验证码文本字符长度
+  image:
+    width: 100      # 图片宽度
+    height: 44     # 图片高度
+  session:
+    key: SESSION_IMAGE_CODE     # 存储session key
+  
+marvel: 
+  rememberDays: 7
+  cache: 
+    constant: 
+      duration: 60 #设置常量缓存的时间（分钟）
+    basetype: 
+      duration: 10 #设置常量缓存的时间（分钟）
+  validateCode: 
+    maxAttempt: 6 #配置出现验证码的权重值，0表示不会出现验证码，6表示当前ip在6次登录失败后，会出现验证码
+  loginAttempt:
+    maxAttempt: 6 #设置用户尝试访问错误次数的值,0表示不会记录，6表示当前用户在6次登录失败后，会出现锁定，锁定时间如expireTime设置
+    expireTime: 10  #设置用户尝试访问错误的过期时间（分钟）
+  portrait:
+    path: static\portrait
+  document:
+    model: local  #local ftp
+    loaclPath: D:/ow/web/resources/static
+    mobileLoaclPath: D:/ow/mobile-web/resources/static
+    ftp: 
+      username: dzb
+      password: 29003Z
+      host: 192.168.199.6
+      port: 21
+      serverPath: /Dzb/html
+    
+website:
+  global:
+    name: 厦门海迈科技股份有限公司
+    keyword: 造价、建设工程、招投标、房地产、智慧运维
+    slogan: 建筑数据服务提供商
+  url: http://www.hymake.com
+  path:
+    image: /image
+    video: /video
+    index: /
+    news:
+      list: /news
+      view: /news/view
+      image: /news
+  
+logging:
+  file:
+    name: logs/wm.log
+    max-size: 5MB
+    clean-history-on-start: true
+    max-history: 90
+    total-size-cap: 1GB
+  level: 
+    root: warn
+    com.dzb.console.mapper: warn
+    com.dzb.wm.mapper: warn

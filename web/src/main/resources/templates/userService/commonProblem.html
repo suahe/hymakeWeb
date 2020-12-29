@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'常见问题 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .bg-fa{
+            background-color: #fafafa;
+        }
+
+        .link {
+            margin-top: 10px;
+        }
+
+        .link li {
+            float: left;
+            display: inline;
+            margin-left: 80px;
+        }
+
+        .link li a {
+            color: #666666;
+            font-size: 16px;
+            font-weight: 500;
+            padding-bottom: 6px;
+            display: block;
+            text-decoration: none;
+            margin-top: 5px;
+        }
+
+        .link li.active {
+            border-bottom: 2px solid #0066cc;
+        }
+
+        .link li.active a {
+            color: #0066cc;
+            text-decoration: none;
+            margin-top: 5px;
+            margin-bottom: 4px;
+        }
+
+        .Q_icon_img{
+            height: 25px;
+            margin-top: 10px;
+        }
+        .A_icon_img{
+            height: 25px;
+            margin-top: 3px;
+        }
+        .dispaly_none {
+            display:none;
+        }
+
+        .common-problem-card-body{
+            padding:0px;
+        }
+
+        .common-problem-card-title{
+            font-size: 20px;
+            color: #000000;
+            font-weight:bold;
+            margin-left: 20px;
+        }
+
+        .common-problem-card-title{
+            font-size: 20px;
+            color: #000000;
+            font-weight:bold;
+            margin-left: 20px;
+            text-align: justify;
+        }
+
+        .common-problem-text-div{
+            /*margin-top: 5px;*/
+            border-bottom: 1px dashed #e6e6e6;
+        }
+
+        .common-problem-text{
+            font-size: 16px;
+            color: #666666;
+            margin-left: 20px;
+            margin-bottom: 42px;
+            text-align: justify;
+        }
+
+        .equinox-text{
+            font-size: 16px;
+            color: #666666;
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+<!-- 头部分-->
+<th:block th:replace="common/layout::header"/>
+<div>
+    <img class="card-img-top" src="/image/commonProblem/common_problem_banner.png">
+</div>
+<div class="nav bg-fa" style="height: 60px" id="newsTab">
+    <div class="container">
+        <ul class="link">
+            <li id="cost" class="active ml-0"><a href="javascript:void(0)">造价产品</a></li>
+            <li id="build"><a href="javascript:void(0)">建设工程</a></li>
+            <li id="resource"><a href="javascript:void(0)">公共资源</a></li>
+            <!--<li id="train"><a href="javascript:void(0)">培训中心</a></li>-->
+        </ul>
+    </div>
+</div>
+<div class="container" style="margin-top: 40px;margin-bottom: 80px;">
+    <!--造价产品-->
+    <div id="cost_div">
+        <div class="card-body common-problem-card-body">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">海迈造价会员制介绍</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    海迈造价会员制是面向所有造价人员推出的一套服务体系，量价一体，体系旨在为造价从业人员提供全方位的服务支持，让造价从业人员，便捷，高效获得更多的价值帮助。海迈造价会员分为免费会员和付费会员。可通过海迈造价家园网(http://zaojia.hymake.cn)注册免费会员，也可以直接通过海迈商城（http://mall.hymake.cn）和海迈微信商城（关注“海迈BDM360”微信服务号）线上购买付费会员。
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">海迈单位会员介绍</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    单位会员是指以单位团购形式购买海迈付费会员的会员，单位会员账号有产品授权管理功能，可对购买的付费会员进行使用授权管理；单位会员账号在相应订单开通后才可使用，并且不能直接登录会员制软件。
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">如何注册成为海迈造价家园会员？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    会员账号注册。
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">如何设置修改清单工程量定额同比例调整？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    点工具栏-参数与精度设置-全局参数-同比调整工程量选项打勾即可。
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">如何将一条定额的换算应用到相同的定额？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    右键已经换算好的定额选择“批量换算”-应用换算到相同定额即可。
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">如何对某一条清单进行标记?</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    选择清单然后点工具栏-标记选择相应的标记即可。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--建设工程-->
+    <div id="build_div" class="dispaly_none">
+        <div class="card-body common-problem-card-body">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">什么是建设工程电子文件？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    在工程建设过程中通过数字设备及环境生成，以数码形式存储于磁带、磁盘或光盘等载体，依赖计算机等数字设备阅读、处理，并可在通信网络上传送的文件，称为建设工程电子文件。
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">工程电子文件是否合法有效？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    《中华人民共和国电子签章条例》确立了电子文件和电子签章的法律效力。因此，加盖责任者电子签章的工程电子文件具有与纸质文件同等的法律效力。
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">如何申请电子签章？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    电子签章包括个人章、项目章、公司章。登录“电子印章及数字证书办理服务平台”（http://www.fjdzyz.com/project/main/index.jsp）申请办理电子签章。
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">配合监督机构检查时，是否还需将文件资料打印出来？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    根据《关于开展建设工程资料电子化试点的通知》（闽建办综函[2017]15号）、福建省建设工程质量安全监督总站发布的《关于公布建设工程资料电子化试点项目的通知》文件：建设主管部门在线对建设工程资料进行监督抽查，不再要求其制成纸质工程文件资料。
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">实行建设工程资料电子化的项目如何归档？是否还需要将资料打印后归档？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    <div>
+                        根据《关于开展建设工程资料电子化试点的通知》（闽建办综函[2017]15号）：在工程竣工验收后3个月内向项目所在地城建档案管理机构推送列入移交范围的全套工程电子档案（部分不能提供电子文件的，应将纸质或其他载体形式文件加工成电子文件一并入档，同时保证二者一致性）。
+                    </div>
+                    <div class="equinox-text">
+                        建设单位在移交工程档案时，对于试点项目在线直接形成的电子文件部分，城建档案管理机构可只收集电子档案，不再要求将其制成纸质文件或缩微品等归档；其他部分仍然要执行纸质档案和电子档案接收双套制。
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">申报建设工程资料电子化试点后，什么时候可以加信用分？可以加多少分？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    <div>
+                        根据《企业通常行为评价标准（2018年版第二次征求意见稿）》：工程电子档案被城建档案管理机构接收，且收到城建档案部门出具的工程电子档案接受认可电子签章文件，由施工企业自行书面申报。
+                    </div>
+                    <div class="equinox-text">
+                        加分情况：房屋建筑面积＜30000㎡或市政工程项目造价＜1亿元，得0.1分。房屋建筑面积≥30000㎡或市政工程项目造价≥1亿元，得0.2分。按照工程类别（房建总承包、市政总承包），分别在房建总承包、市政总承包两类序列中加分。（满分1分）。
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">如何购买电子档案平台？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    具体询价购买事宜，请联系18205907565（罗工）或13860626663（姜工）。
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">企业信用管理平台管理什么？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    主要管理福建省建筑施工企业综合信用分中的：通常行为分值，合同履约分值（2019年01月01日起取消），质量安全文明分值。可对丢分风险项进行事前预警、模拟预测，有效降低信用分丢分风险，提高企业综合信用分分值。
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">项目双随机检查记分模拟预测有什么作用？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    根据监督机构发出的项目本次双随机检查清单，动态模拟项目本次双随机检查记分值和项目平均记分值，由此模拟出企业因项目本次双随机检查被记分值有可能产生的企业质量安全信用分增减，有助于企业了解该项目本次双随机检查记分对企业整体质量安全信用分的影响程度。
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">企业双随机条款扣分统计有什么作用？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    双随机各条款的扣分次数和总扣分值分析，可发现企业所有双随机检查条款中被记分最高的条款、记分次数最多的条款以及评价分最高的条款，通过该条款的分析可紧抓企业和项目被记分点弱点，加强企业自我监管力度。
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">项目经理的记分分析有什么作用？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    对在建项目经理的记分情况，项目历任项目经理记分情况，项目经理带分情况，项目经理安全记分情况等进行分析。强化对优良项目考评和项目经理黑名单的监管，及时发现项目经理记分的预警线，防止项目因项目经理扣分值过高导致被扣MI分。
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">信用管理平台可以进行哪些内容的预警？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class=" common-problem-text">
+                    <div>
+                        目前信用管理平台已提供的风险预警内容包括：
+                    </div>
+                    <div class="equinox-text">
+                        1）工程项目质量安全监管安全月考评、季度考评、竣工考评、企业考评逾期风险预警；
+                    </div>
+                    <div class="equinox-text">
+                        2）工程项目质量安全监管中自查自纠、责令改正通知单整改反馈逾期风险预警；
+                    </div>
+                    <div class="equinox-text">
+                        3）合同履约监管中竣工结算、合同备案、合同履约逾期风险预警。
+                    </div>
+                    <div class="equinox-text">
+                        4）项目双随机检查预警，企业根据项目双随机检查清单提醒，组织企业和项目部进行项目双随机模拟预检，及时解决存在的记分风险问题，避免项目被记分。
+                    </div>
+                    <div class="equinox-text">
+                        5）优良行为和不良行为到期提醒。
+                    </div>
+                    <div class="equinox-text">
+                        针对上述预警内容，企业可及时跟踪监管，确保有效管理企业综合信用分。
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">预警期限是如何界定的？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    信用管理平台对不同事项的预警期限分为：5天内，10天内，15天内三种。
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">是否提供使用培训？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    提供对用户的单位人员（包含项目经理）组织集中培训服务。
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">那么在哪里可以买得到呢？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    请联系海迈信用分顾问：吴老师18750767216。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--公共资源-->
+    <div id="resource_div" class="dispaly_none">
+        <div class="card-body common-problem-card-body">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">海易招是什么平台？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    跟各地交易中心的交易平台是不同的平台，海易招是第三方自主招投标的；无需进场的项目。
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">关于海易招平台是否支持ca互认？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    海易招平台支持ca互认，除CFCA。福州/泉州办理的福建ca外的其他ca直接选择互认ca。
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">海易招是否需要关联保证金及绑定ca？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    <div>
+                        海易招无需关联保证金，不用绑定ca，只需在网站上注册下企业账号并完善企业信息即可，且网站不需要在IE浏览器中添加兼容，建议使用360浏览器。
+                    </div>
+                    <div class="equinox-text">
+                        Ca在第一次盖章时会自动弹出注册框让企业填写相应信息，信息准确会自动关联到该企业账号中，无需去手动绑定。
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">如何找回投标码/找回投标码密码？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    <div>
+                        网站首页右侧，点击【投标码查询】
+                    </div>
+                    <div class="equinox-text">
+                        选择【投标码查询】输入商家订单号、报名的联系电话、短信验证码即可查询。
+                    </div>
+                    <div class="equinox-text">
+                        选择【找回投标码密码】输入投标码、报名的联系电话、短信验证码即可找回。
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">如何缴交网络服务费？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    网投前需要【缴交网络服务费】，投标企业用投标码登录网站，点击【项目管理】，点击展开【开标唱标】位置，选择【缴交网络服务费】进行缴交即可。
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">海易招如何签到解密？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    <div>
+                        （1）时间：网投后到解密截止时间前都可以签到，解密在开标时间开始至解密截止时间之前解密。
+                    </div>
+                    <div class="equinox-text">
+                        （2）入口：在软件或网页都可以进行签到和解密的操作，“进入开标大厅”需在网页端进入。进行签到和解密，签到在解密截止之前都可以签到。
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">如何取消签到？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    投标人已经签到成功的，重新进入招标公告左上角的“进入开标大厅”，插入CA→输入报名号和密码→点击获取投标企业信息→点击“取消签到”。
+                </div>
+            </div>
+        </div>
+        <div class="card-body common-problem-card-body" style="margin-top: 40px">
+            <div class="d-flex">
+                <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                <div class="card-title common-problem-card-title">如何撤回投标文件？</div>
+            </div>
+            <div class="d-flex common-problem-text-div">
+                <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                <div class="common-problem-text">
+                    使用报名号登入海易招软件，点击“投递投标文件”→“撤消网投”，就可以对已网投的投标文件进行撤回。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--培训中心-->
+    <!-- <div id="train_div" class="dispaly_none">
+         <div class="card-body common-problem-card-body">
+             <div class="d-flex">
+                 <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                 <div class="card-title common-problem-card-title">海迈造价会员制介绍</div>
+             </div>
+             <div class="d-flex common-problem-text-div">
+                 <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                 <div class="common-problem-text">
+                 海迈造价会员制是面向所有造价人员推出的一套服务体系，量价一体，
+                 体系旨在为造价从业人员提供全方位的服务支持，
+                 让造价从业人员，便捷，高效获得更多的价值帮助。海迈造价会员分为免费会员和付费会员。
+             </div>
+             </div>
+         </div>
+         <div class="card-body common-problem-card-body" style="margin-top: 40px">
+             <div class="d-flex">
+                 <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                 <div class="card-title common-problem-card-title">海迈造价会员制介绍</div>
+             </div>
+             <div class="d-flex common-problem-text-div">
+                 <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                 <div class="common-problem-text">
+                 海迈造价会员制是面向所有造价人员推出的一套服务体系，量价一体，
+                 体系旨在为造价从业人员提供全方位的服务支持，
+                 让造价从业人员，便捷，高效获得更多的价值帮助。海迈造价会员分为免费会员和付费会员。
+             </div>
+             </div>
+         </div>
+         <div class="card-body common-problem-card-body" style="margin-top: 40px">
+             <div class="d-flex">
+                 <img class="Q_icon_img" src="/image/commonProblem/common_problem_icon1.png" alt="">
+                 <div class="card-title common-problem-card-title">海迈造价会员制介绍</div>
+             </div>
+             <div class="d-flex common-problem-text-div">
+                 <img class="A_icon_img" src="/image/commonProblem/common_problem_icon2.png" alt="">
+                 <div class="common-problem-text">
+                 海迈造价会员制是面向所有造价人员推出的一套服务体系，量价一体，
+                 体系旨在为造价从业人员提供全方位的服务支持，
+                 让造价从业人员，便捷，高效获得更多的价值帮助。海迈造价会员分为免费会员和付费会员。
+             </div>
+             </div>
+         </div>
+    </div>-->
+</div>
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+</body>
+</html>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#newsTab a').click(function () {
+            let that = $(this);
+            //设置导航actice状态 改变内容
+            setDisplay(that.text())
+        })
+    })
+    /*设置导航actice状态 改变内容*/
+    function setDisplay(active) {
+        var cost_div = $('#cost_div');
+        var cost = $('#cost');
+        var build_div = $('#build_div');
+        var build = $('#build');
+        var resource_div = $('#resource_div');
+        var resource = $('#resource');
+        var train_div = $('#train_div');
+        var train = $('#train');
+        if(active.indexOf('造价产品')!=-1){
+            cost.siblings().removeClass("active");
+            cost.addClass("active");
+            cost_div.removeClass('dispaly_none')
+            cost_div.siblings().addClass("dispaly_none");
+        }else if(active.indexOf('建设工程')!=-1){
+            build.siblings().removeClass("active");
+            build.addClass("active");
+            build_div.removeClass('dispaly_none')
+            build_div.siblings().addClass("dispaly_none");
+        } else if(active.indexOf('公共资源')!=-1){
+            resource.addClass("active");
+            resource.siblings().removeClass("active");
+            resource_div.removeClass('dispaly_none')
+            resource_div.siblings().addClass("dispaly_none");
+        }else if(active.indexOf('培训中心')!=-1){
+            train.siblings().removeClass("active");
+            train.addClass("active");
+            train_div.removeClass('dispaly_none')
+            train_div.siblings().addClass("dispaly_none");
+        }
+    }
+</script>

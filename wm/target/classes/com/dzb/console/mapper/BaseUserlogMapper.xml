@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	@Description t_base_userlog 表数据库操作SQL语句
+	@author 38840472@qq.com
+	@date 2019-01-03 10:48:20
+	@version 1.0
+	@remark create by ca
+-->
+
+<mapper namespace="com.dzb.console.mapper.BaseUserlogMapper">
+
+	<!-- 
+		USERLOG_ID				varchar			#{userlogId}			日志信息编号
+		LOG_TIME				datetime			#{logTime}			日志时间
+		USER_ID				varchar			#{userId}			用户编号
+		REMOTE_ADDRESS				varchar			#{remoteAddress}			网络地址
+		LOG_TYPE				int			#{logType}			日志类型
+		SESSIONID				varchar			#{sessionid}			回话编号
+		ERROR_MESSAGE			varchar			#{errorMessage}			错误消息
+	-->
+
+	<sql id="all">
+			USERLOG_ID
+			,LOG_TIME
+			,USER_ID
+			,REMOTE_ADDRESS
+			,LOG_TYPE
+			,SESSIONID
+			,ERROR_MESSAGE
+	</sql>
+	
+	<select id="selectPagination" resultType="baseUserlogEntity" parameterType="baseUserlogEntity">
+		SELECT
+			t_base_userlog.USERLOG_ID,
+			t_base_userlog.REMOTE_ADDRESS,
+			t_base_userlog.USER_ID,
+			t_base_userlog.LOG_TIME,
+			t_base_userlog.LOG_TYPE,
+			t_base_userlog.SESSIONID,
+			t_base_userlog.ERROR_MESSAGE,
+			t_base_user.NAME,
+			t_base_user.USERNAME
+		FROM
+			t_base_userlog
+		LEFT JOIN t_base_user ON t_base_user.USER_ID = t_base_userlog.USER_ID
+		<where>
+			<if test="name != '' and name != null and username != '' and username != null">
+				t_base_user.NAME like concat('%',#{name},'%')
+				or t_base_user.USERNAME like concat('%',#{username},'%')
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert" parameterType="baseUserlogEntity">
+		insert into t_base_userlog (
+			USERLOG_ID
+			,LOG_TIME
+			,USER_ID
+			,REMOTE_ADDRESS
+			,LOG_TYPE
+			,SESSIONID
+			,ERROR_MESSAGE
+		) values (
+			#{userlogId}
+			,#{logTime}
+			,#{userId}
+			,#{remoteAddress}
+			,#{logType}
+			,#{sessionid}
+			,#{errorMessage}
+		)
+	</insert>
+	
+</mapper>

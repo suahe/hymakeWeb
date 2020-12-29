@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>t_base_department 表列表信息</title>
+    <th:block th:replace="fragments/include::common_header" />
+	</head>
+	<style type="text/css">
+		
+	</style>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h4>部门信息管理</h4>
+				</div>
+				<div class="ibox-content">
+					<div class="row">
+	            		<div class="col-xs-6">
+	            			<div class="ibox">
+					            <div class="ibox-title">
+					            	<h4 class="pull-left">部门信息</h4>
+					            	<div class="pull-right" style="padding-bottom: 5px;">
+					            		<button id="_add_button" type="button" class="btn btn-outline btn-primary">增加</button>
+										<button id="_edit_button" type="button" class="btn btn-outline btn-primary">编辑</button>
+										<button id="_del_button" type="button" class="btn btn-outline btn-danger">删除</button>
+					            	</div>
+					            </div>
+					            <div class="ibox-content">
+					            	<div id="_t_base_department_tree"></div>
+					            </div>
+				           	</div>
+	            		</div>
+	            		<div class="col-xs-6">
+							<div class="ibox">
+					            <div class="ibox-title">
+					            	<h4 class="pull-left" style="padding-bottom: 8px;">人员信息</h4>
+					            	<div class="pull-right" style="padding-bottom: 5px;">
+					            		<a id="_user_select_botton" class="btn btn-outline btn-primary" role="button">添加</a>
+										<a id="_user_del_botton" class="btn btn-outline btn-danger" role="button">移除</a>
+					            	</div>
+					            </div>
+					            <div class="ibox-content">
+					            	<table id="_base_user_checked_list"></table>
+					            </div>
+				           	</div>
+	            		</div>
+					</div>
+				</div>
+			</div>
+		</div>
+       	<!-- 新增信息模态窗口 -->
+		<div class="modal fade" id="_t_base_department_add_window" tabindex="-1" role="dialog" aria-labelledby="#_t_base_department_add_window">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">新增部门信息</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_t_base_department_add_form" class="form-horizontal">
+							<input type="hidden" id="_departmentPid_add" name="departmentPid" >
+							<div class="form-group">
+								<label for="departmentName" class="col-xs-2 control-label">部门名称</label>
+								<div class="col-xs-10">
+									<input type="text" id="_departmentName_add" name="departmentName" class="form-control" placeholder="请输入部门名称" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="remark" class="col-xs-2 control-label">备注</label>
+								<div class="col-xs-10">
+									<textarea rows="3" id="_remark_add" name="remark" class="form-control" placeholder="请输入备注"></textarea>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="_t_base_department_add_close_button" type="button" class="btn btn-default">取消</button>
+						<button id="_t_base_department_add_button" type="button" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 编辑信息模态窗口 -->
+		<div class="modal fade" id="_t_base_department_edit_window" tabindex="-1" role="dialog" aria-labelledby="#_t_base_department_edit_window">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">编辑部门信息</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_t_base_department_edit_form" class="form-horizontal">
+							<input type="hidden" id="_departmentId_edit" name="departmentId" >
+							<div class="form-group">
+								<label for="departmentName" class="col-xs-2 control-label">部门名称</label>
+								<div class="col-xs-10">
+									<input type="text" id="_departmentName_edit" name="departmentName" class="form-control" placeholder="请输入部门名称" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="remark" class="col-xs-2 control-label">备注</label>
+								<div class="col-xs-10">
+									<textarea rows="3" id="_remark_edit" name="remark" class="form-control" placeholder="请输入备注"></textarea>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="_t_base_department_edit_close_button" type="button" class="btn btn-default">取消</button>
+						<button id="_t_base_department_edit_button" type="button" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 人员信息选择 -->
+		<div class="modal fade" id="_user_select_window" tabindex="-1" role="dialog" aria-labelledby="#_user_select_window">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">选择人员信息</h4>
+					</div>
+					<div class="panel-body" style="padding: 5px 0px 0px 5px;">
+						<form action="" class="navbar-form navbar-left">
+							<div class="input-group">
+								<input id="_searchText" type="text" class="form-control" placeholder="输入搜素信息……" style="width: 250px;">
+								<span class="input-group-btn">
+									<button id="_search" type="button" class="btn btn-default">搜索</button>
+									<button id="_reset" type="button" class="btn btn-default">重置</button>
+								</span>
+							</div>
+						</form>
+					</div>
+					<div class="modal-body">
+						<table id="_base_user_list"></table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" id="_user_select_submit" class="btn btn-primary">选择用户信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	    <script type="text/javascript">
+			$(document).ready(function(){
+		        /* 初始化Token */
+		        secjs.init();
+		        /* 初始化部门树 */
+		        departmentTree();
+	        
+		        /* 弹出新增信息窗口 */
+		        $("#_add_button").click(function(){
+					$('#_t_base_department_add_form')[0].reset();
+					var treeData = $('#_t_base_department_tree').treeview('getSelected');
+					var _departmentPid = (typeof(treeData) == "undefined" || treeData.length == 0) ? "-" : treeData[0].id
+					$('#_departmentPid_add').val(_departmentPid);
+					$('#_t_base_department_add_window').modal('show');
+		        });
+		        
+		        /* 验证新增信息表单 */
+				$('#_t_base_department_add_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						departmentName:{
+							trigger:"change",
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength: {
+									max: 50,
+									message: '值须小于50字符'
+								}
+							}
+						}
+					}
+				});
+	        
+				/* 保存新增信息 */
+				$('#_t_base_department_add_button').click(function(){
+				
+					var _form = $('#_t_base_department_add_form');
+					_form.bootstrapValidator('validate');
+					var flag = _form.data('bootstrapValidator').isValid();
+					if(flag){
+						$.post('../bdc/add', _form.serialize(),function(r){
+							if(r > 0){
+								departmentTree();
+								$('#_t_base_department_add_window').modal('hide');
+							}else{
+								message.saveFall();
+							}
+						});
+					}
+				});
+	        
+				/* 关闭新增信息窗口 */
+				$('#_t_base_department_add_close_button').click(function(){
+					$('#_t_base_department_add_window').modal('hide');
+				});
+	        
+				/* 弹出编辑信息窗口 */
+				$("#_edit_button").click(function(){
+				  
+					$('#_t_base_department_edit_form')[0].reset();
+					var treeData = $('#_t_base_department_tree').treeview('getSelected');
+					if (typeof(treeData) == "undefined" || treeData.length == 0){
+						message.selectOne();
+					}else{
+						var _departmentId = treeData[0].id;
+						$.get('../bdc/view', {'departmentId':_departmentId},function(r){
+							$.setForm('#_t_base_department_edit_form',r);
+							$('#_t_base_department_edit_window').modal('show');
+						});
+					}
+				});
+				
+				/* 验证编辑信息表单 */
+				$('#_t_base_department_edit_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						/* 参考bootstrapValidator说明文档 */
+					}
+				});
+	        
+				/* 保存编辑信息 */
+				$('#_t_base_department_edit_button').click(function(){
+				
+					var _form = $('#_t_base_department_edit_form');
+					_form.bootstrapValidator('validate');
+					var flag = _form.data('bootstrapValidator').isValid();
+					if(flag){
+						$.post('../bdc/edit', _form.serialize(),function(r){
+							if(r > 0){
+								departmentTree();
+								$('#_t_base_department_edit_window').modal('hide');
+							}else{
+								message.saveFall();
+							}
+						});
+					}
+				});
+	        
+				/* 关闭编辑信息窗口 */
+				$('#_t_base_department_edit_close_button').click(function(){
+					$('#_t_base_department_edit_window').modal('hide');
+				});
+
+				/* 删除信息 */
+				$('#_del_button').click(function () {
+					
+					var treeData = $('#_t_base_department_tree').treeview('getSelected');
+					if (typeof(treeData) == "undefined" || treeData.length == 0){
+						message.selectOne();
+					}else{
+						if(typeof(treeData[0].nodes) != "undefined"){
+							message.info("请先删除叶子节点。");
+						}else{
+							swal({
+								type: "warning",
+								title: "确认要删除？",
+								text: "你的操作会删除选择的记录",
+								showCancelButton: true,
+								cancelButtonText: "取消",
+								confirmButtonColor: "#1AB394",
+								confirmButtonText: "确定删除？",
+								closeOnConfirm: false
+							}, function () {
+								var _departmentId = treeData[0].id;
+								$.get('../bdc/del', {'departmentId':_departmentId},function(r){
+									if(r > 0){
+										message.delSuccess();
+										departmentTree();
+									}else{
+										message.delFall();
+									}
+								})
+							});
+						}
+					}
+				});
+				
+				/* 选择人员查询 */
+				$("#_search").click(function(){
+					$("#_base_user_list").bootstrapTable('refresh');
+				});
+	
+				/* 选择人员查询重置 */
+				$("#_reset").click(function(){
+					$('#_searchText').val('');
+					$("#_base_user_list").bootstrapTable('refresh');
+				});
+				
+				/* 打开选择人员窗口 */
+				$("#_user_select_botton").click(function(){
+					
+					var treeData = $('#_t_base_department_tree').treeview('getSelected');
+					if (typeof(treeData) == 'undefined' || treeData.length == 0){
+						message.selectOne();
+					}else{
+						$('#_searchText').val('');
+						userList();
+						$('#_user_select_window').modal('show');
+					}
+				});
+				
+				/* 选择人员列表  */
+				$("#_base_user_checked_list").bootstrapTable({
+					url: '../bdc/checkedList',
+					method: 'GET',
+					totalField: 'total',
+					dataField: 'list',
+					pagination: true,
+					clickToSelect: true,
+					pageSize:10,
+					pageList:[10,20,30,40],//分页步进值
+					sidePagination: "server",
+					columns: [{
+		                checkbox: true
+		            },{
+						field: 'username',
+						title: '账号',
+						halign:'center',
+						align: 'left',
+						valign: 'middle'
+					},{
+						field: 'name',
+						title: '用户名',
+						halign:'center',
+						align: 'left',
+						valign: 'middle'
+					}],
+	                queryParams: function (params) {
+	                	
+	                	var _departmentId = "-";
+	                	var treeData = $('#_t_base_department_tree').treeview('getSelected');
+	    				if (typeof(treeData) == 'undefined' || treeData.length == 0){
+	    					
+	    				}else{
+	    					_departmentId = treeData[0].id;
+	    				}
+	                    return {
+							"offset": params.offset,
+				            "limit": params.limit,
+							"departmentId":_departmentId
+						};
+	                },
+					onClickRow:function(row, $element){
+						
+					}
+				})
+				
+				/* 选择人员  */
+				$("#_user_select_submit").click(function(){
+					
+					var treeData = $('#_t_base_department_tree').treeview('getSelected');
+					if (typeof(treeData) == 'undefined' || treeData.length == 0){
+						message.selectOne();
+					}else{
+						var _departmentId = treeData[0].id;
+						var _checkbox = $("#_base_user_list").bootstrapTable('getSelections');
+						var userIds = new Array();
+						$.each(_checkbox,function(i, n){
+							userIds[i] =  n.userId;
+						})
+						if(userIds.length > 0){
+							$.ajax({
+								type: "POST",
+								url: "../bdc/au2r",
+								traditional:true,
+								data:{departmentId:_departmentId,userIds:userIds},
+								success: function(result){
+									if(result > 0){
+										$("#_base_user_checked_list").bootstrapTable('refresh');
+										$("#_base_user_list").bootstrapTable('refresh');
+										$('#_user_select_window').modal('hide');
+									}
+								}
+							});
+						}else{
+							message.selectOne();
+						}
+					}
+				});
+				
+				/* 移除人员信息 */
+				$("#_user_del_botton").click(function(){
+					
+					var treeData = $('#_t_base_department_tree').treeview('getSelected');
+					var checkboxData  = $("#_base_user_checked_list").bootstrapTable('getSelections');
+					if (typeof(checkboxData) == 'undefined' || checkboxData.length == 0){
+						message.selectOne();
+					}else{
+						var _departmentId = treeData[0].id;
+						var userIds = new Array();
+						$.each(checkboxData,function(i, n){
+							userIds[i] =  n.userId;
+						})
+						$.ajax({
+						    url:'../bdc/delByUD',
+						    type: "POST",
+						    traditional:true,
+							data:{departmentId:_departmentId,userIds:userIds},
+						    success:function(result){
+						    	if(result > 0){
+						    		$("#_base_user_checked_list").bootstrapTable('refresh');
+						        }else{
+						        	message.saveFall();
+						        }
+						    }
+						});
+					}
+				});
+				
+			});
+			
+			function departmentTree(){
+				
+				$.ajax({
+					type: "GET",
+					url: "../bdc/tree",
+					async: false,
+					success: function(resultData){
+						var data = JSON.stringify(resultData);
+						$('#_t_base_department_tree').treeview({
+							selectedBackColor: '#1ab394',
+							data:data,
+							enableLinks:true,
+							levels:4,
+							onNodeSelected:function(event, node){
+								$("#_base_user_checked_list").bootstrapTable('refresh');
+							}
+						});
+					}
+				});
+			}
+			
+			function userList(){
+				
+				$("#_base_user_list").bootstrapTable({
+					url: '../bdc/uncheckedList',
+					method: 'GET',
+					totalField: 'total',
+					dataField: 'list',
+					pagination: true,
+					pageSize:10,
+					pageList:[10,20,30,40],//分页步进值
+					sidePagination: "server",
+					columns: [
+						{checkbox: true}
+						,{field: 'username',title: '账号',halign:'center',align: 'left',valign: 'middle'}
+						,{field: 'name',title: '用户名',halign:'center',align: 'left',valign: 'middle'}
+					],
+	                queryParams: function (params) {
+	                	
+	                	var _departmentId = "-";
+	                	var searchText = $('#_searchText').val();
+	                	var treeData = $('#_t_base_department_tree').treeview('getSelected');
+	    				if (typeof(treeData) == 'undefined' || treeData.length == 0){
+	    					message.selectOne();
+	    				}else{
+	    					_departmentId = treeData[0].id;
+	    				}
+	                    return {
+							"offset": params.offset,
+				            "limit": params.limit,
+							"departmentId":_departmentId,
+							"searchText":searchText
+						};
+	                }
+				})
+			}
+	    </script>
+	</body>
+</html>

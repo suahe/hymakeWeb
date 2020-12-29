@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'BIM量价一体化解决方案 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .main-content{
+
+        }
+        .detail-title{
+            padding-bottom: 0.4rem;
+        }
+        .detail-title h4 {
+            color: #0066cc;
+            text-align: center;
+            position: relative;
+            padding: 0;
+            padding-top: 0.55rem;
+            padding-bottom: 0.25rem;
+            display: inline-block;
+            margin: 0;
+            float: none !important;
+            left: 50%;
+            transform:translate(-50%,0);
+            font-size: 0.4rem;
+        }
+        .detail-title h4:after {
+            content: '';
+            width: 30%;
+            height: 2px;
+            background-color: #0066cc;
+            position: absolute;
+            left: 50%;
+            transform:translate(-50%,0);
+            bottom: 0;
+            min-width: 35px;
+        }
+        .detail-text{
+            font-size: 0.28rem;
+            color: #666666;
+            text-indent: 2em;
+            text-align: justify;
+        }
+        .detail-text p{
+            margin-bottom: 0.12rem;
+        }
+        .detail-pad{
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .values-highlight-part{
+            background-color: #f4f4f5;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            padding-bottom: 0.75rem;
+        }
+        .values-highlight-img{
+            width: 0.93rem;
+            height: 0.93rem;
+            margin-top: 0.18rem;
+        }
+        .values-highlight-row-bg{
+            background-color: #ffffff;
+        }
+        .values-highlight-row{
+            display: flex;
+            padding: 0.22rem 0.2rem;
+        }
+        .values-highlight{
+            margin-left: 0.4rem;
+        }
+        .values-highlight-title{
+           font-size: 0.36rem;
+            color: #333333;
+        }
+        .values-highlight-content{
+            font-size: 0.28rem;
+            color: #666666;
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+<!--引入详情页头部-->
+<th:block th:replace="common/layout::detail-header"/>
+<main class="main-content">
+    <div class="detail-pad">
+        <div class="detail-text" style="padding-top: 0.61rem;padding-bottom: 0.61rem;">
+            海迈科技创新“互联网+BIM +大数据”的模式，将BIM技术和工程造价管理相结合，提供BIM量价一体化解决方案，为建设项目各参与方提供基于BIM模型的算量、计价、审核、变更、进度管理、支付、结算等工程造价管理应用。方案釆用 Autodesk Revit实现高效建模，基于BIM预算模型标准，结合海迈科技BIM预算模型检查和BIM深化软件，高效检查BIM模型；BIM算量软件实现高效提量，无损对接BIM模型，一键式自动套清单和定额，同时与计价软件无缝对接；结合Microsoft Project实现4D、5D功能，实现BIM施工进度成本可视化。
+        </div>
+        <img class="w-100" style="padding-bottom: 0.75rem;" src="/image/solution/details/BIMVolumeAndPriceIntegrationSolution/img1.png" alt="">
+    </div>
+    <div class="values-highlight-part">
+        <div class="detail-title">
+            <h4>价值亮点</h4>
+        </div>
+        <div class="values-highlight-row-bg">
+            <div class="values-highlight-row">
+                <img class="values-highlight-img" src="/image/solution/details/BIMVolumeAndPriceIntegrationSolution/ji-yu-Revit.png" alt="">
+                <div class="values-highlight">
+                    <div class="values-highlight-title">
+                        基于Revit，快速建模
+                    </div>
+                    <div class="values-highlight-content">
+                        一模翻摸，智能布置<br/>
+                        快速提高建模效率
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div  style="margin-top: 0.3rem;" class="values-highlight-row-bg">
+            <div class="values-highlight-row">
+                <img class="values-highlight-img" src="/image/solution/details/BIMVolumeAndPriceIntegrationSolution/yi-mo-duo-yong.png" alt="">
+                <div class="values-highlight">
+                    <div class="values-highlight-title">
+                        一模多用
+                    </div>
+                    <div class="values-highlight-content">
+                        基于Revit，无需重复建模<br/>
+                        支持常用的Revit软件版本
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 0.3rem;" class="values-highlight-row-bg">
+            <div class="values-highlight-row">
+                <img class="values-highlight-img" src="/image/solution/details/BIMVolumeAndPriceIntegrationSolution/shou-chuang-Revit.png" alt="">
+                <div class="values-highlight">
+                    <div class="values-highlight-title">
+                        首创Revit配筋法输入
+                    </div>
+                    <div class="values-highlight-content">
+                        通过便捷的配筋信息提取操作<br/>
+                        自动根据平法规则计算工程量
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 0.3rem;" class="values-highlight-row-bg">
+            <div class="values-highlight-row">
+                <img class="values-highlight-img" src="/image/solution/details/BIMVolumeAndPriceIntegrationSolution/an-xu-hui-zong.png" alt="">
+                <div class="values-highlight">
+                    <div class="values-highlight-title">
+                        按需汇总
+                    </div>
+                    <div class="values-highlight-content">
+                        根据所需类别提取工程量<br/>
+                        自动汇总计算
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

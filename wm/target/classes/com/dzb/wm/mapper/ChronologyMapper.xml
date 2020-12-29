@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	@Description t_chronology 表数据库操作SQL语句
+	@author daizb@hymake.com
+	@date 2020-07-03 13:48:53
+	@version 1.0
+	@remark create by ca
+-->
+
+<mapper namespace="com.dzb.wm.mapper.ChronologyMapper">
+
+	<!-- 
+		CHRONOLOGY_ID				bigint			#{chronologyId}			年表编号
+		OCCURRENCE_TIME				datetime			#{occurrenceTime}			时间
+		CONTENT				varchar			#{content}			内容
+		UPDATE_USERID				varchar			#{updateUserid}			更新人
+		UPDATE_TIME				datetime			#{updateTime}			更新时间
+	-->
+
+	<sql id="all">
+			CHRONOLOGY_ID
+			,OCCURRENCE_TIME
+			,CONTENT
+			,UPDATE_USERID
+			,UPDATE_TIME
+	</sql>
+	
+	<select id="selectPagination" resultType="chronologyEntity" parameterType="chronologyEntity">
+		select 
+			<include refid="all" /> 
+		from 
+			t_chronology
+		<where>
+			<if test="null != occurrenceTimeStart">
+				and DATE_FORMAT(OCCURRENCE_TIME, '%Y-%m-%d') &gt;= DATE_FORMAT(#{occurrenceTimeStart}, '%Y-%m-%d')
+			</if>
+			<if test="null != occurrenceTimeEnd">
+				and DATE_FORMAT(OCCURRENCE_TIME, '%Y-%m-%d') &lt;= DATE_FORMAT(#{occurrenceTimeEnd}, '%Y-%m-%d')
+			</if>
+			<if test="null != content and '' != content">
+				and CONTENT like concat('%',#{content},'%')
+			</if>
+		</where>
+		order by
+			OCCURRENCE_TIME DESC
+	</select>
+	
+	<select id="selectByPkey" resultType="chronologyEntity" parameterType="long">
+		select 
+			<include refid="all" />
+		from 
+			t_chronology
+		where 
+			CHRONOLOGY_ID = #{chronologyId}
+	</select>
+	
+	<insert id="insert" parameterType="chronologyEntity">
+		insert into t_chronology (
+			CHRONOLOGY_ID
+			,OCCURRENCE_TIME
+			,CONTENT
+			,UPDATE_USERID
+			,UPDATE_TIME
+		) values (
+			#{chronologyId}
+			,#{occurrenceTime}
+			,#{content}
+			,#{updateUserid}
+			,#{updateTime}
+		)
+	</insert>
+	
+	<update id="update" parameterType="chronologyEntity">
+		update t_chronology set 
+			OCCURRENCE_TIME = #{occurrenceTime}
+			,CONTENT = #{content}
+			,UPDATE_USERID = #{updateUserid}
+			,UPDATE_TIME = #{updateTime}
+		where
+			CHRONOLOGY_ID = #{chronologyId}
+	</update>
+	
+	<delete id="delete" parameterType="long">
+		delete from t_chronology where CHRONOLOGY_ID = #{chronologyId}
+	</delete>
+	
+</mapper>

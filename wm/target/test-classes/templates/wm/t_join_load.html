@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>招聘信息管理</title>
+		<th:block th:replace="fragments/include::common_header" />
+	</head>
+	<style type="text/css">
+		
+	</style>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h4>招聘信息管理</h4>
+				</div>
+				<div class="ibox-content">
+					<div class="row">
+						<div class="col-xs-12">
+							<div style="padding-bottom: 10px;" >
+								<button id="_add_button" type="button" class="btn btn-outline btn-primary">增加</button>
+								<button id="_del_button" type="button" class="btn btn-outline btn-danger">删除</button>
+							</div>
+							<table id="_t_join"></table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	    <script type="text/javascript">
+			$(document).ready(function(){
+
+		        /* 初始化Token */
+		        secjs.init();
+	        
+		        /* t_join表列表信息*/
+		        $("#_t_join").bootstrapTable({
+					url: '../jc/list'
+					,method: 'GET'
+					,totalField: 'total'
+					,dataField: 'list'
+					,pagination: true
+					,pageSize: 10
+					,pageList: [10,20,100]
+					,sidePagination: "server"
+					,singleSelect: true
+					,clickToSelect: true
+					,columns: [
+						{checkbox: true,valign: 'middle'}
+						,{field: 'joinId',title: '招聘编号',halign: 'center',align: 'left',valign: 'middle',visible: false}
+						,{field: 'joinTypeName',title: '招聘类型',halign: 'center',align: 'center',valign: 'middle',visible: true}
+						,{field: 'postName',title: '岗位名称',halign: 'center',align: 'left',valign: 'middle',visible: true
+							,formatter:function(value,row,index){
+								return '<a class="edit" data-id="'+row.joinId+'" href="javascript:void(0);">'+ value +'</a>'
+							}
+						}
+						,{field: 'recruitmentNumber',title: '招聘人数',halign: 'center',align: 'right',valign: 'middle',visible: true}
+						,{field: 'workplaceName',title: '工作地点',halign: 'center',align: 'center',valign: 'middle',visible: true}
+						,{field: 'expirationDate',title: '截止日期',halign: 'center',align: 'center',valign: 'middle',visible: true
+							,formatter:function(value,row,index){
+								if(value == null || value == ''){
+									return "长期有效";
+								}else{
+									return value;
+								}
+							}
+						}
+						,{field: 'joinWay',title: '加入方式',halign: 'center',align: 'left',valign: 'middle',visible: false}
+						,{field: 'pushTime',title: '设置发布状态',halign: 'center',align: 'center',valign: 'middle',visible: true
+							,formatter:function(value,row,index){
+								if(null == value){
+									return '<a class="stat-push" data-id="'+row.joinId+'" href="javascript:void(0);">发布</a>'
+								}else{
+									return '<span>已发布（'+value+'）</span><a class="stat-pull" data-id="'+row.joinId+'" href="javascript:void(0);">下架</a>'
+								}
+							}
+						}
+					]
+					,queryParams: function (params) {
+						 return {
+							"offset": params.offset
+							,"limit": params.limit
+						};
+					}
+		        });
+	        
+		        /* 弹出新增信息窗口 */
+		        $("#_add_button").click(function(){
+		        	main.loadHTML("../jc/loadAdd",'main');
+		        });
+		        
+		        /* 编辑  链接点击事件 */
+				$("#_t_join").on("click",".edit",function(event){
+					
+					var joinId = $(this).data('id');
+					main.loadHTML("../jc/loadEdit?joinId="+joinId,'main');
+				});
+		        
+				/** 点击 发布  按钮 弹出发布新闻资讯窗口*/
+				$("#_t_join").on("click",".stat-push",function(event){
+
+					$.post('../jc/push', {'joinId': $(this).data('id')},function(r){
+						if(r > 0){
+							message.success("发布招聘信息成功");
+							$("#_t_join").bootstrapTable('refresh');
+						}else{
+							message.warning("发布招聘信息失败");
+						}
+					})
+				});
+				
+				
+				/** 点击 下架  按钮 弹出发布新闻资讯窗口*/
+				$("#_t_join").on("click",".stat-pull",function(event){
+					
+					$.post('../jc/pull', {'joinId':$(this).data('id')},function(r){
+						if(r > 0){
+							message.success("下架招聘信息成功");
+							$("#_t_join").bootstrapTable('refresh');
+						}else{
+							message.warning("下架招聘信息失败");
+						}
+					})
+				});
+		        
+
+				/* 删除信息 */
+				$('#_del_button').click(function () {
+				  
+					var row = $('#_t_join').bootstrapTable('getSelections');
+					if (typeof(row) != 'undefined' && row.length != 0){
+						swal({
+							type: "warning",
+							title: "确认要删除？",
+							text: "你的操作会删除选择的记录",
+							showCancelButton: true,
+							cancelButtonText: "取消",
+							confirmButtonColor: "#1AB394",
+							confirmButtonText: "确定删除？",
+							closeOnConfirm: false
+						}, function () {
+							var _joinId = row[0].joinId;
+							$.get('../jc/del', {'joinId':_joinId},function(r){
+								if(r > 0){
+									message.delSuccess();
+									$("#_t_join").bootstrapTable('refresh');
+								}else{
+									message.delFall();
+								}
+							})
+						});
+					}else{
+						message.selectOne();
+					}
+				});
+			})
+	    </script>
+	</body>
+</html>

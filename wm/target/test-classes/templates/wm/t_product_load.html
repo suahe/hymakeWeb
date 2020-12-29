@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>产品管理</title>
+		<th:block th:replace="fragments/include::common_header" />
+	</head>
+	<style type="text/css">
+
+	</style>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h4>产品管理</h4>
+				</div>
+				<div class="ibox-content">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="pull-left" style="padding-bottom: 10px;" >
+								<button id="_add_button" type="button" class="btn btn-outline btn-primary">增加</button>
+								<button id="_del_button" type="button" class="btn btn-outline btn-danger">删除</button>
+							</div>
+							<div class="pull-right" style="padding-right: 0px;">
+								<form id="_search_form" class="form-inline">
+									<select id="_search_belong_page_type" name="belongPageType" class="form-control" ></select>
+									<div class="input-group pull-right" style="padding-left: 10px;">
+										<input id="_search_title" name="content" type="text" class="form-control" style="width: 300px;" placeholder="请输入查询标题">
+										<span class="input-group-btn">
+											<button id="_search" type="button" class="btn btn-default">搜索</button>
+											<button id="_search_reset" type="button" class="btn btn-default">重置</button>
+										</span>
+									</div>
+								</form>
+							</div>
+							<table id="_t_product"></table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+       	<!-- 新增信息模态窗口 -->
+       	<div class="modal fade" id="_t_product_add_window" tabindex="-1" role="dialog" aria-labelledby="#_t_product_add_window">
+			<div class="modal-dialog" role="document" style="width: 450px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">产品管理--新增</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_t_product_add_form" class="form-horizontal">
+							<div class="form-group">
+								<label for="_title_add" class="col-xs-3 control-label">标题</label>
+								<div class="col-xs-9">
+									<input type="text" id="_title_add" name="title" class="form-control" placeholder="请输入标题" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="_belong_page_type_add" class="col-xs-3 control-label">产品类型</label>
+								<div class="col-xs-9">
+									<select id="_belong_page_type_add" name="belongPageType" class="form-control" ></select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="_content_add" class="col-xs-3 control-label">内容</label>
+								<div class="col-xs-9">
+									<textarea rows="3" id="_content_add" name="content" class="form-control" placeholder="请输入内容"></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="_icon_path_add" class="col-xs-3 control-label">图标路径</label>
+								<div class="col-xs-9">
+									<input type="text" id="_icon_path_add" name="iconPath" class="form-control" placeholder="请输入图标路径" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="_url_add" class="col-xs-3 control-label">链接地址</label>
+								<div class="col-xs-9">
+									<input type="text" id="_url_add" name="url" class="form-control" placeholder="请输入链接地址" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="_sequ_add" class="col-xs-3 control-label">排序号</label>
+								<div class="col-xs-9">
+									<input type="text" id="_sequ_add" name="sequ" class="form-control" placeholder="请输入排序号" >
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="_t_product_add_close_button" type="button" class="btn btn-default">取消</button>
+						<button id="_t_product_add_button" type="button" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 编辑信息模态窗口 -->
+		<div class="modal fade" id="_t_product_edit_window" tabindex="-1" role="dialog" aria-labelledby="#_t_product_edit_window">
+			<div class="modal-dialog" role="document" style="width: 450px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">产品管理--编辑</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_t_product_edit_form" class="form-horizontal">
+							<input type="text" id="_productId_edit" name="productId" style="display: none;" >
+							<div class="form-group">
+								<label for="_title_edit" class="col-xs-3 control-label">标题</label>
+								<div class="col-xs-9">
+									<input type="text" id="_title_edit" name="title" class="form-control" placeholder="请输入标题" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="_belong_page_type_edit" class="col-xs-3 control-label">产品类型</label>
+								<div class="col-xs-9">
+									<select id="_belong_page_type_edit" name="belongPageType" class="form-control" ></select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="_content_edit" class="col-xs-3 control-label">内容</label>
+								<div class="col-xs-9">
+									<textarea rows="3" id="_content_edit" name="content" class="form-control" placeholder="请输入内容"></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="_icon_path_edit" class="col-xs-3 control-label">图标路径</label>
+								<div class="col-xs-9">
+									<input type="text" id="_icon_path_edit" name="iconPath" class="form-control" placeholder="请输入图标路径" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="_url_edit" class="col-xs-3 control-label">链接地址</label>
+								<div class="col-xs-9">
+									<input type="text" id="_url_edit" name="url" class="form-control" placeholder="请输入链接地址" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="_sequ_edit" class="col-xs-3 control-label">排序号</label>
+								<div class="col-xs-9">
+									<input type="text" id="_sequ_edit" name="sequ" class="form-control" placeholder="请输入排序号" >
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="_t_product_edit_close_button" type="button" class="btn btn-default">取消</button>
+						<button id="_t_product_edit_button" type="button" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	    <script type="text/javascript">
+			$(document).ready(function(){
+
+				$('#_search_belong_page_type').btSelect({
+					code: 'CPLX'
+					,width: 150
+				});
+				$('#_belong_page_type_add').btSelect({
+					code: 'CPLX'
+					,width: 283
+				});
+				$('#_belong_page_type_edit').btSelect({
+					code: 'CPLX'
+					,width: 283
+				});
+
+		        /* 初始化Token */
+		        secjs.init();
+	        
+		        /* t_chronology表列表信息*/
+		        $("#_t_product").bootstrapTable({
+					url: '../pc/list'
+					,method: 'GET'
+					,totalField: 'total'
+					,dataField: 'list'
+					,pagination: true
+					,pageSize: 10
+					,pageList: [10,20,100]
+					,sidePagination: "server"
+					,singleSelect: true
+					,clickToSelect: true
+					,columns: [
+						{checkbox: true,valign: 'middle'}
+						,{field: 'productId',title: '产品编号',halign: 'center',align: 'left',valign: 'middle',visible: false}
+						,{field: 'title',title: '标题',halign: 'center',align: 'left',valign: 'middle',visible: true
+							,formatter:function(value,row,index){
+								return '<a class="edit" data-id="'+row.productId+'" href="javascript:void(0);">'+ value +'</a>'
+							}
+						 }
+						,{field: 'belongPageTypeName',title: '类型',halign: 'center',align: 'left',valign: 'middle',visible: true}
+						,{field: 'iconPath',title: '图标路径',halign: 'center',align: 'left',valign: 'middle',visible: true}
+						,{field: 'url',title: '链接地址',halign: 'center',align: 'left',valign: 'middle',visible: true}
+						,{field: 'sequ',title: '排序号',halign: 'center',align: 'left',valign: 'middle',visible: true}
+						,{field: 'pushTime',title: '设置发布状态',halign: 'center',align: 'center',valign: 'middle',visible: true
+							,formatter:function(value,row,index){
+								if(null == value){
+									return '<a class="stat-push" data-id="'+row.productId+'" href="javascript:void(0);">发布</a>'
+								}else{
+									return '<span>已发布（'+value+'）</span><a class="stat-pull" data-id="'+row.productId+'" href="javascript:void(0);">下架</a>'
+								}
+							}
+						}
+					]
+					,queryParams: function (params) {	//设置查询条件
+						 return {
+							"offset": params.offset
+							,"limit": params.limit
+							,"title": $('#_search_title').val()
+							,"belongPageType": $('#_search_belong_page_type').val()
+						};
+					}
+		        });
+		        
+		        /* 查询 */
+				$("#_search").click(function(){
+					$("#_t_product").bootstrapTable('refresh');
+				});
+				
+				/* 查询重置 */
+				$("#_search_reset").click(function(){
+					$('#_search_belong_page_type').empty();
+					$('#_search_form')[0].reset();
+					$("#_t_product").bootstrapTable('refresh');
+				});
+	        
+		        /* 弹出新增信息窗口 */
+		        $("#_add_button").click(function(){
+		        	$('#_belong_page_type_add').empty();
+					$('#_t_product_add_form')[0].reset();
+					$('#_t_product_add_window').modal('show');
+		        });
+		        
+		        /* 验证新增信息表单 */
+				$('#_t_product_add_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						title: {
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 100,
+									message: '长度应小于100个字'
+								}
+							}
+						}
+						,type: {
+							validators:{
+								notEmpty:{
+									message: '必填'
+								}
+							}
+						}
+						,content: {
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 1000,
+									message: '长度应小于1000个字'
+								}
+							}
+						}
+						,iconPath: {
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 100,
+									message: '长度应小于1000个字'
+								}
+							}
+						}
+						,url: {
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 100,
+									message: '长度应小于1000个字'
+								}
+							}
+						}
+						,sequ: {
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 9,
+									message: '长度应小于9位数'
+								}
+							}
+						}
+					}
+				});
+	        
+				/* 保存新增信息 */
+				$('#_t_product_add_button').click(function(){
+					var _form = $('#_t_product_add_form');
+					_form.bootstrapValidator('validate');
+					var flag = _form.data('bootstrapValidator').isValid();
+					if(flag){
+						$.post('../pc/add', _form.serialize(),function(r){
+							if(r > 0){
+								$("#_t_product").bootstrapTable('refresh');
+								_form.data('bootstrapValidator').resetForm();
+								$('#_t_product_add_window').modal('hide');
+								message.saveSuccess();
+							}else{
+								message.saveFall();
+							}
+						});
+					}
+				});
+	        
+				/* 关闭新增信息窗口 */
+				$('#_t_product_add_close_button').click(function(){
+					$('#_t_product_add_window').modal('hide');
+				});
+				
+				/* 编辑  链接点击事件 */
+				$("#_t_product").on("click",".edit",function(event){
+					var _productId = $(this).data('id');
+					$.get('../pc/view', {'productId':_productId},function(r){
+						$('#_belong_page_type_edit').append("<option value='" + r.belongPageType + "'>" + r.belongPageTypeName + "</option>");
+						$.setForm('#_t_product_edit_form',r);
+						$('#_t_product_edit_window').modal('show');
+					});
+				});
+				
+				/* 验证编辑信息表单 */
+				$('#_t_product_edit_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						title: {
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 100,
+									message: '长度应小于100个字'
+								}
+							}
+						}
+						,type: {
+							validators:{
+								notEmpty:{
+									message: '必填'
+								}
+							}
+						}
+						,content: {
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 1000,
+									message: '长度应小于1000个字'
+								}
+							}
+						}
+						,iconPath: {
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 100,
+									message: '长度应小于1000个字'
+								}
+							}
+						}
+						,url: {
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 100,
+									message: '长度应小于1000个字'
+								}
+							}
+						}
+						,sequ: {
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 9,
+									message: '长度应小于9位数'
+								}
+							}
+						}
+					}
+				});
+	        
+				/* 保存编辑信息 */
+				$('#_t_product_edit_button').click(function(){
+				
+					var _form = $('#_t_product_edit_form');
+					_form.bootstrapValidator('validate');
+					var flag = _form.data('bootstrapValidator').isValid();
+					if(flag){
+						$.post('../pc/edit', _form.serialize(),function(r){
+							if(r > 0){
+								$("#_t_product").bootstrapTable('refresh');
+								_form.data('bootstrapValidator').resetForm();
+								$('#_t_product_edit_window').modal('hide');
+								message.saveSuccess();
+							}else{
+								message.saveFall();
+							}
+						});
+					}
+				});
+	        
+				/* 关闭编辑信息窗口 */
+				$('#_t_product_edit_close_button').click(function(){
+					$('#_t_product_edit_window').modal('hide');
+				});
+
+				/** 点击 下架 */
+				$("#_t_product").on("click",".stat-push",function(event){
+
+					$.post('../pc/updateStatus', {'productId':$(this).data('id'),'mark':1},function(r){
+						if(r > 0){
+							message.success("上架产品信息成功");
+							$("#_t_product").bootstrapTable('refresh');
+						}else{
+							message.warning("上架产品信息失败");
+						}
+					})
+				});
+				/** 点击 下架 */
+				$("#_t_product").on("click",".stat-pull",function(event){
+
+					$.post('../pc/updateStatus', {'productId':$(this).data('id'),'mark':0},function(r){
+						if(r > 0){
+							message.success("下架产品信息成功");
+							$("#_t_product").bootstrapTable('refresh');
+						}else{
+							message.warning("下架产品信息失败");
+						}
+					})
+				});
+
+				/* 删除信息 */
+				$('#_del_button').click(function () {
+				  
+					var row = $('#_t_product').bootstrapTable('getSelections');
+					if (typeof(row) != 'undefined' && row.length != 0){
+						swal({
+							type: "warning",
+							title: "确认要删除？",
+							text: "你的操作会删除选择的记录",
+							showCancelButton: true,
+							cancelButtonText: "取消",
+							confirmButtonColor: "#1AB394",
+							confirmButtonText: "确定删除？",
+							closeOnConfirm: false
+						}, function () {
+							var _productId = row[0].productId;
+							$.get('../pc/del', {'productId':_productId},function(r){
+								if(r > 0){
+									message.delSuccess();
+									$("#_t_product").bootstrapTable('refresh');
+								}else{
+									message.delFall();
+								}
+							})
+						});
+					}else{
+						message.selectOne();
+					}
+				});
+			})
+	    </script>
+	</body>
+</html>

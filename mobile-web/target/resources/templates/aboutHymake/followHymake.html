@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'关注海迈 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .main-content{
+
+        }
+        .tips-con{
+            padding-top: 0.21rem;
+            padding-bottom: 0.21rem;
+            font-size: 0.28rem;
+            color: #333333;
+            text-align: center;
+        }
+        .code-part{
+        }
+        .hymake-code-part{
+            text-align: center;
+            padding-bottom: 0.35rem;
+        }
+        .hymake-code-img{
+            width: 2.61rem;
+            height: 5.08rem;
+            -webkit-touch-callout : none;
+        }
+        .row-code{
+            display: flex;
+            /*padding-top: 0.24rem;*/
+        }
+        .left-code{
+            width: 50%;
+            text-align: center;
+        }
+        .right-code{
+            width: 50%;
+            text-align: center;
+        }
+        .code-img{
+            width: 2.96rem;
+            height: 3.43rem;
+        }
+    </style>
+</head>
+<body>
+<!--引入头部-->
+<th:block th:replace="common/layout::header"/>
+<main class="main-content">
+    <div>
+        <img class="w-100" src="/image/followHymake/follow-hymake-banner.png" alt="">
+    </div>
+    <div class="tips-con">
+        <span style="color: #005bac;">友情提示：</span>扫描以下二维码进行识别，获取更多资讯。
+    </div>
+    <div class="code-part">
+        <div class="hymake-code-part">
+            <img class="hymake-code-img" src="/image/followHymake/hymake-code.png" alt="">
+        </div>
+        <div class="row-code">
+            <div class="left-code">
+                <img class="code-img" src="/image/followHymake/cost-service-code.png" alt="">
+            </div>
+            <div class="right-code">
+                <img class="code-img" src="/image/followHymake/hai-yi-zhao-code.png" alt="">
+            </div>
+        </div>
+        <div class="row-code">
+            <div class="left-code">
+                <img class="code-img" src="/image/followHymake/construction-big-data-code.png" alt="">
+            </div>
+            <div class="right-code">
+                <img class="code-img" src="/image/followHymake/smart-community-code.png" alt="">
+            </div>
+        </div>
+        <div class="row-code">
+            <div class="left-code">
+                <img class="code-img" src="/image/followHymake/builde-school-code.png" alt="">
+            </div>
+            <div class="right-code">
+                <img class="code-img" src="/image/followHymake/hymake-education-code.png" alt="">
+            </div>
+        </div>
+    </div>
+</main>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>系统设置</title>
+		<th:block th:replace="fragments/include::common_header" />
+	</head>
+	<style type="text/css">
+
+	</style>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content">
+	        <div class="ibox">
+	            <div class="ibox-title">
+	                <h4>系统设置</h4>
+	            </div>
+	            <div class="ibox-content">
+	            	<div class="row">
+						<div class="col-xs-2">
+						</div>
+						<div class="col-xs-8">
+							<div class="row">
+								<div class="col-xs-12">
+									<input type="text" id="_images" name="images" style="display: none;" >
+									<div id="_browse_bar" style="width: 100%; text-align: center;">
+										<img id="_showImage" alt="用户头像" width="128px" height="128px" class="rounded-circle m-t-xs img-fluid" src="">
+									</div>
+									<div style="height: 34px; line-height: 34px; text-align:center; padding-top: 8px;">
+										<button id="_browse" type="button" class="btn btn-primary" >换个头像</button>
+									</div>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="row">
+			            		<div class="col-xs-12">
+			            			<form id="_user_ext_form" class="form-horizontal">
+										<input type="text" id="_user_ext_userExtId" name="userExtId" th:value="${baseUserExt?.userExtId}" style="display: none;">
+										<input type="text" id="_user_ext_userId" name="userId" th:value="${baseUser?.userId}" style="display: none;">
+										<div class="form-group">
+											<label for="_user_username" class="col-xs-4 control-label" >账号</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" id="_user_username" name="username" th:value="${baseUser?.username}" readonly="readonly" placeholder="请输入账号">
+											</div>
+											<div class="col-xs-4">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="_user_name" class="col-xs-4 control-label" >用户名</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" id="_user_name" name="name" th:value="${baseUser?.name}" readonly="readonly" placeholder="请输入用户名">
+											</div>
+											<div class="col-xs-4">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="_user_ext_sex" class="col-xs-4 control-label" >性别</label>
+											<div class="col-xs-4">
+												<select id="_user_ext_sex" name="sex">
+													<option th:value="${baseUserExt?.sex}" th:text="${baseUserExt?.sexName}"></option>
+												</select>
+											</div>
+											<div class="col-xs-4">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="_user_ext_birthday" class="col-xs-4 control-label" >生日</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" id="_user_ext_birthday" name="birthday" th:value="${#dates.format(baseUserExt?.birthday, 'yyyy-MM-dd')}" style="width: 150px;" placeholder="请输入生日">
+											</div>
+											<div class="col-xs-4">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="_user_ext_mobile" class="col-xs-4 control-label" >移动电话</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" id="_user_ext_mobile" name="mobile" th:value="${baseUserExt?.mobile}" placeholder="请输入移动电话">
+											</div>
+											<div class="col-xs-4">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="_user_ext_tel" class="col-xs-4 control-label" >固定电话</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" id="_user_ext_tel" name="tel" th:value="${baseUserExt?.tel}" placeholder="请输入固定电话">
+											</div>
+											<div class="col-xs-4">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="_user_ext_email" class="col-xs-4 control-label" >邮箱</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" id="_user_ext_email" name="email" th:value="${baseUserExt?.email}" placeholder="请输入邮箱">
+											</div>
+											<div class="col-xs-4">
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-sm-12" style="text-align: center;">
+												<button type="button" id="_user_ext_submit" class="btn btn-primary">保存设置</button>
+												<button type="reset" class="btn btn-default" data-dismiss="modal">取消</button>
+											</div>
+										</div>
+									</form>
+			            		</div>
+		            		</div>
+		            		<div class="hr-line-dashed"></div>
+		            		<div class="row">
+			            		<div class="col-xl-12">
+									<form id="_change_password_form" class="form-horizontal" method="post">
+										<div class="form-group">
+											<label for="op" class="col-sm-4 control-label">原始密码</label>
+											<div class="col-sm-4">
+												<input type="password" name="op" class="form-control" placeholder="请输入原始密码" >
+											</div>
+											<div class="col-sm-4">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="lp" class="col-sm-4 control-label">新密码</label>
+											<div class="col-sm-4">
+												<input type="password" name="lp" class="form-control" placeholder="请输入新密码" >
+											</div>
+											<div class="col-sm-4">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="lps" class="col-sm-4 control-label">确认密码</label>
+											<div class="col-sm-4">
+												<input type="password" name="lps" class="form-control" placeholder="请输入确认密码" >
+											</div>
+											<div class="col-sm-4">
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-sm-12" style="text-align: center;">
+												<button type="button" id="_change_password_submit" class="btn btn-primary">修改密码</button>
+												<button type="reset" class="btn btn-default" data-dismiss="modal">取消</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-2">
+						</div>
+					</div>
+				</div>
+	        </div>
+        </div>
+        <script type="text/javascript">
+        
+	        /* 上传控件 参数设置 */
+		    var uploader = new plupload.Uploader({
+		    	url: '/main/upi'
+	           ,browse_button: '_browse'
+	           ,multi_selection: false
+	           ,file_data_name: 'images'
+		       ,headers: {
+		    	   'X-CSRF-TOKEN': $("meta[name='_csrf']").attr("content")
+		       }
+	           ,filters: {
+					mime_types: [
+						{title: "图片类型", extensions: "jpg,jpeg"}
+					]
+		    		,max_file_size: '100kb'
+		    		,prevent_duplicates: false
+	           }
+	       });
+        
+			$(document).ready(function(){
+				
+				secjs.init();
+				
+				$('#_user_ext_sex').btSelect({
+		        	code: 'XB'
+		        	,width: 150
+		        });
+				
+				$('#_user_ext_birthday').datetimepicker({
+		        	language: 'zh-CN'
+		        	,minView: 'month'
+		        	,autoclose: true
+		            ,format: 'yyyy-mm-dd'
+		            ,clearBtn: true
+		        });
+				
+				/* 上传控件初始化 */
+		        uploader.init();
+		        
+		        /* 上传控件 添加文件 */
+		        uploader.bind('FilesAdded',function(uploader,files){
+		            var file = files[0];
+		            var preloader = new moxie.image.Image();
+		            preloader.onload = function() {
+		                $('#_showImage').attr("src", preloader.getAsDataURL());
+		                $('#_images').val(preloader.getAsDataURL());
+		                preloader.destroy();
+		                preloader = null;
+		             };
+		             preloader.onerror = function(error){
+		            	 message.warning("添加文件失败");
+		            	 return;
+		             }
+		             preloader.load(file.getSource());
+		             uploader.start();
+		        });
+		        
+		        uploader.bind('BeforeUpload',function(uploader,files){
+		        	uploader.setOption("multipart_params", {
+		                "userId": $("#_user_ext_userId").val()
+		            });
+		        });
+		        
+		        /* 上传控件 错误监听 */
+		        uploader.bind('Error',function(uploader,errObject){
+		        	message.warning(errObject.message);
+		        });
+		        
+		      	//加载头像文件
+				$("#_showImage").attr("src","/main/loadPartraitByActiveUser?t=" + Math.random());
+		      
+				/* 验证用户扩展信息表单 */
+				$('#_user_ext_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						mobile:{
+							validators:{
+								regexp: {
+		                            regexp: /^1\d{10}$/,
+		                            message: '手机号格式错误'
+		                        }
+							}
+						}
+						,tel:{
+							validators:{
+								stringLength:{
+									max: 20,
+									message: '固定电话长度应小于20位'
+								},
+								regexp: {
+		                            regexp: /^[0-9-]+$/,
+		                            message: '固定电话格式只能输入数字和-'
+		                        }
+							}
+						}
+						,email:{
+							validators:{
+								stringLength:{
+									max: 100,
+									message: '长度应小于100个字'
+								},
+								emailAddress:{
+									message: '邮箱格式不正确'
+								}
+							}
+						}
+					}
+				});
+				
+				/* 保存编辑用户扩展信息 */
+				$('#_user_ext_submit').click(function(){
+					
+            		var _form = $('#_user_ext_form');
+					_form.bootstrapValidator('validate');
+					var flag = _form.data('bootstrapValidator').isValid();
+					if(flag){
+						$.post('../main/saveExt', _form.serialize(),function(data){
+							if(!$.isEmptyObject(data)){
+								message.saveSuccess();
+							}else{
+								message.saveFall();
+							}
+						});
+					}
+				});
+				
+				$('#_change_password_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						op:{
+							trigger:"change",
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								remote: {
+			                        url: "../main/validatePasswordByActiveUser",
+			                        message: '原密码错误，请重新输入或者联系管理员',
+			                        type: 'POST',
+			                        delay: 300
+			                    }
+							}
+						},
+						lp:{
+							trigger:"change",
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength: {
+									min: 6,
+									max: 50,
+									message: '密码的长度应大于6小于50个字符'
+								}
+							}
+						},
+						lps:{
+							trigger:"change",
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								identical:{
+									field:"lp",
+									message:"密码的长度应大于6小于50个字符"
+								}
+							}
+						}
+					}
+				});
+				
+				
+ 				$('#_change_password_submit').click(function(){
+					
+ 					var _form = $('#_change_password_form');
+ 					_form.bootstrapValidator('validate');
+					var flag = _form.data('bootstrapValidator').isValid();
+					if(flag){
+						$.post('../main/cp', _form.serialize(),function(data){
+							if(data){
+								_form[0].reset();
+								_form.data('bootstrapValidator').resetForm();
+								message.info("修改密码成功，请重新登录。")
+							}else{
+								message.warning("修改密码失败，请联系管理员。")
+							}
+						});
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

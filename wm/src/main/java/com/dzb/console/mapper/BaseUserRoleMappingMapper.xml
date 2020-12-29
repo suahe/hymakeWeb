@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	@Description t_base_user_role_mapping 表数据库操作SQL语句
+	@author 38840472@qq.com
+	@date 2018-12-19 16:05:21
+	@version 1.0
+	@remark create by ca
+-->
+
+<mapper namespace="com.dzb.console.mapper.BaseUserRoleMappingMapper">
+
+	<!-- 
+		USER_ROLE_MAPPING_ID				varchar			#{userRoleMappingId}			用户角色映射编号
+		ROLE_ID				varchar			#{roleId}			角色编号
+		USER_ID				varchar			#{userId}			用户编号
+	-->
+
+	<sql id="all">
+			USER_ROLE_MAPPING_ID
+			,ROLE_ID
+			,USER_ID
+	</sql>
+	
+	<select id="selectPagination" resultType="baseUserRoleMappingEntity" parameterType="baseUserRoleMappingEntity">
+		select 
+			<include refid="all" /> 
+		from 
+			t_base_user_role_mapping
+	</select>
+	
+	<select id="selectByPkey" resultType="baseUserRoleMappingEntity" parameterType="String">
+		select 
+			<include refid="all" />
+		from 
+			t_base_user_role_mapping
+		where 
+			USER_ROLE_MAPPING_ID = #{userRoleMappingId}
+	</select>
+	
+	<insert id="insert" parameterType="baseUserRoleMappingEntity">
+		insert into t_base_user_role_mapping (
+			USER_ROLE_MAPPING_ID
+			,ROLE_ID
+			,USER_ID
+		) values (
+			#{userRoleMappingId}
+			,#{roleId}
+			,#{userId}
+		)
+	</insert>
+	
+	<update id="update" parameterType="baseUserRoleMappingEntity">
+		update t_base_user_role_mapping set 
+			ROLE_ID = #{roleId}
+			,USER_ID = #{userId}
+		where
+			USER_ROLE_MAPPING_ID = #{userRoleMappingId}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from t_base_user_role_mapping where USER_ROLE_MAPPING_ID = #{userRoleMappingId}
+	</delete>
+	
+	<select id="selectByUserId" resultType="String" parameterType="String" >
+		select 
+			ROLE_ID
+		from 
+			t_base_user_role_mapping
+		where 
+			USER_ID = #{userId}
+	</select>
+	
+	<select id="selectUserByRoleIdPagination" resultType="baseUserEntity" parameterType="String">
+		select
+			t_base_user.USER_ID
+			,t_base_user.NAME
+			,t_base_user.USERNAME
+		from
+			t_base_user
+		left join
+			t_base_user_role_mapping
+		on
+			t_base_user.USER_ID = t_base_user_role_mapping.USER_ID
+		where
+			ROLE_ID = #{roleId}
+	</select>
+	
+	<select id="selectUnUserByRoleIdPagination" resultType="baseUserEntity" parameterType="baseUserRoleMappingEntity">
+		select
+			t_base_user.USER_ID
+			,t_base_user.NAME
+			,t_base_user.USERNAME
+		from
+			t_base_user where t_base_user.USER_ID not in (
+				select 
+					t_base_user_role_mapping.USER_ID 
+				from 
+					t_base_user_role_mapping
+				where
+					t_base_user_role_mapping.ROLE_ID = #{roleId}
+			)
+			<if test="username != '' and username != null">
+				and( USERNAME like concat('%',#{username},'%')
+			</if>
+			<if test="name != '' and name != null">
+				or NAME like concat('%',#{name},'%'))
+			</if>
+	</select>
+	
+	<delete id="deleteByUserIdAndRoleId" parameterType="baseUserEntity">
+		delete from t_base_user_role_mapping where ROLE_ID = #{roleId} and USER_ID = #{userId}
+	</delete>
+	
+	<select id="searchUserByRoleIdPagination" resultType="baseUserEntity" parameterType="baseUserRoleMappingEntity">
+		select
+			t_base_user.USER_ID
+			,t_base_user.NAME
+			,t_base_user.USERNAME
+		from
+			t_base_user
+		left join
+			t_base_user_role_mapping
+		on
+			t_base_user.USER_ID = t_base_user_role_mapping.USER_ID
+		where
+			ROLE_ID = #{roleId}
+			<if test="username != '' and username != null">
+				and( USERNAME like concat('%',#{username},'%')
+			</if>
+			<if test="name != '' and name != null">
+				or NAME like concat('%',#{name},'%'))
+			</if>
+	</select>
+</mapper>

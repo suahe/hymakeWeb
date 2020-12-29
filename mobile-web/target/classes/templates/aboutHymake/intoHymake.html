@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'走进海迈 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .main-content{
+
+        }
+        .proTopLabel {
+            padding: 0.35rem 0.5rem;
+            font-size: 0;
+        }
+
+        .proTopLabel a {
+            display: inline-block;
+            width: 1.5rem;
+            height: 0.68rem;
+            margin-right: 0.16rem;
+            text-align: center;
+            line-height: 0.68rem;
+            font-size: 0.28rem;
+            color: #6C6C6C;
+            border: 1px solid #DDDDDD;
+        }
+
+        .proTopLabel a:hover{
+            text-decoration: none;
+        }
+        .proTopLabel a:nth-child(4n) {
+            margin-right: 0;
+        }
+
+        .proTopLabel a.on {
+            color: #005bac;
+            text-decoration: none;
+            border-color: #449ef9;
+        }
+
+        .company-profile-bg{
+            background-color: #f4f4f5;
+        }
+        .company-profile-con{
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            padding-bottom: 0.61rem;
+        }
+        .enter-hymake-title{
+            padding-bottom: 0.4rem;
+        }
+        .enter-hymake-title h4 {
+            color: #0066cc;
+            text-align: center;
+            position: relative;
+            padding: 0;
+            padding-top: 0.55rem;
+            padding-bottom: 0.25rem;
+            display: inline-block;
+            margin: 0;
+            float: none !important;
+            left: 50%;
+            transform:translate(-50%,0);
+            font-size: 0.4rem;
+        }
+        .enter-hymake-title h4:after {
+            content: '';
+            width: 30%;
+            height: 2px;
+            background-color: #0066cc;
+            position: absolute;
+            left: 50%;
+            transform:translate(-50%,0);
+            bottom: 0;
+            min-width: 35px;
+        }
+        .company-profile-des{
+            font-size: 0.28rem;
+            color: #666666;
+            text-align: justify;
+        }
+        .company-profile-des p{
+            margin-bottom: 0.12rem;
+        }
+        .hymake-name{
+            font-size: 0.28rem;
+            color: #000000;
+        }
+        .indent-2{
+            text-indent: 2em;
+        }
+        .leader-profile-bg{
+            background-color: #ffffff;
+        }
+        .leader-profile-con{
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            padding-bottom: 0.7rem;
+        }
+        .leader-header{
+            padding-top: 0.14rem;
+            text-align: center;
+        }
+        .leader-header-img{
+            width: 2.45rem;
+            height: 2.46rem;
+        }
+        .article-con{
+            font-size: 0.28rem;
+            color: #666666;
+            padding-top: 0.26rem;
+            text-align: justify;
+        }
+        .article-sign-name{
+            font-size: 0.32rem;
+            color: #333333;
+            font-weight: 500;
+            display: flex;
+            justify-content:flex-end;
+        }
+        .industry-accu-img{
+            width: 1rem;
+            height: 1rem;
+            margin-top: 0.18rem;
+            flex-shrink: 0;
+        }
+        .industry-accu-bg{
+            background-color: #f4f4f5;
+        }
+        .industry-accu-con{
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            padding-bottom: 0.7rem;
+        }
+        .industry-accu-row-bg{
+            background-color: #ffffff;
+        }
+        .industry-accu-row{
+            display: flex;
+            padding: 0.22rem 0.2rem;
+        }
+        .industry-accu-profile{
+            margin-left: 0.5rem;
+        }
+        .industry-accu-title{
+            font-size: 0.38rem;
+            color: #333333;
+            text-align: justify;
+        }
+        .industry-accu-content{
+            font-size: 0.28rem;
+            color: #666666;
+            text-align: justify;
+        }
+        .navFix{
+            background:#FFF;
+            position:sticky;
+            top:1.12rem;
+            z-index:2;
+        }
+    </style>
+</head>
+<body>
+<!--引入头部-->
+<th:block th:replace="common/layout::header"/>
+<main class="main-content">
+    <div>
+        <img class="w-100" src="/image/intoHymake/into-hymake-banner.png" alt="">
+    </div>
+    <div id="aboutHymakeNav" class="proTopLabel">
+        <a class="on" href="/aboutHymake/intoHymake">走进海迈</a>
+        <a href="/aboutHymake/chronology">成长历程</a>
+        <a href="/aboutHymake/contactUs">联系我们</a>
+        <a href="/aboutHymake/joinHymake">加入海迈</a>
+    </div>
+    <div class="company-profile-bg">
+        <div class="company-profile-con">
+            <div class="enter-hymake-title">
+                <h4>走进海迈</h4>
+            </div>
+            <div class="company-profile-des">
+                <p class="indent-2">
+                    <span class="hymake-name">厦门海迈科技股份有限公司</span>（证券简称：海迈科技，证券代码：830892）创建于2002年，是国家高新技术企业、福建省企业技术中心、福建省建设领域信息化工程技术研究中心的依托单位，是福建省版权保护重点企业、福建省创新试点企业、福建省科技小巨人领军企业。
+                </p>
+                <p class="indent-2">
+                    海迈科技，给建筑赋予生命，让生活融于自然，推动信息技术与建筑业的深度融合：为建设相关方，提供建设成本管理的产品服务与综合解决方案；为建设工程招投标、政府采购、产权交易等公共资源交易和企业采购，提供综合解决方案；为监管方、建设方、施工方，提供建设工程项目管理、质量、安全、档案、信用等产品服务；为小区、园区、开发区，提供建筑运维、房产服务的综合解决方案和智慧服务；面向建设领域的机构和从业人员，提供线上线下的培训服务……
+                </p>
+                <p class="indent-2 mb-0">
+                    作为建筑数据服务商，海迈科技以“居善地、心善渊、与善仁、言善信、正善治、事善能、动善时”为理念，将建筑全生命期服务融入“数字中国，智慧城市”的建设进程，为健康建筑与智慧城市的综合解决方案赋予“安全、绿色、智慧”的创新内涵。“构建数字建筑，赋能产业升级，服务现代生活，共促和谐发展”，海迈科技作为中国建筑数据服务商的领先实践者，正以独具匠心的鲜明特色，翻开中国建设信息化进程的崭新一页。
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="leader-profile-bg">
+        <div class="leader-profile-con">
+            <div class="enter-hymake-title">
+                <h4>领军人物</h4>
+            </div>
+            <div class="leader-header">
+                <img class="leader-header-img" src="/image/intoHymake/leader-header.png" alt="">
+            </div>
+            <div class="article-con">
+                “居善地，心善渊，与善仁，言善信，正善治，事善能，动善时。夫惟不争，故无尤。”
+                这是海迈作为高新科技企业、软件企业追求和践行的经营之道。
+            </div>
+            <div class="article-sign-name">——李敏（董事长）</div>
+        </div>
+    </div>
+    <div class="industry-accu-bg">
+        <div class="industry-accu-con">
+            <div class="enter-hymake-title">
+                <h4>行业累积</h4>
+            </div>
+            <div class="industry-accu-row-bg">
+                <div class="industry-accu-row">
+                    <img class="industry-accu-img" src="/image/intoHymake/intellectual-property.png" alt="">
+                    <div class="industry-accu-profile">
+                        <div class="industry-accu-title">
+                            知识产权
+                        </div>
+                        <div class="industry-accu-content">
+                            海迈科技拥有发明专利和软件著作权200多项，覆盖建设信息化领域的各个方面。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 0.3rem;" class="industry-accu-row-bg">
+                <div class="industry-accu-row">
+                    <img class="industry-accu-img" src="/image/intoHymake/industry-status.png" alt="">
+                    <div class="industry-accu-profile">
+                        <div class="industry-accu-title">
+                            行业地位
+                        </div>
+                        <div class="industry-accu-content">
+                            海迈科技作为建筑信息化领域的领先实践者，在国家级行业协会、多个委员会中，担任副主任委员角色。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 0.3rem;" class="industry-accu-row-bg">
+                <div class="industry-accu-row">
+                    <img class="industry-accu-img" src="/image/intoHymake/important-projects.png" alt="">
+                    <div class="industry-accu-profile">
+                        <div class="industry-accu-title">
+                            重要专项
+                        </div>
+                        <div class="industry-accu-content">
+                            海迈科技主导和参与多项国家部委、省、市的重大和重要专项，引领建设信息化领域的技术发展趋势。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 0.3rem;" class="industry-accu-row-bg">
+                <div class="industry-accu-row">
+                    <img class="industry-accu-img" src="/image/intoHymake/research-cooperation.png" alt="">
+                    <div class="industry-accu-profile">
+                        <div class="industry-accu-title">
+                            产学研合作
+                        </div>
+                        <div class="industry-accu-content">
+                            海迈科技与科研院所、高等学校和重点企业建立不同层级的合作，联合开展理论研究、技术攻关与人才培养。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 0.3rem;" class="industry-accu-row-bg">
+                <div class="industry-accu-row">
+                    <img class="industry-accu-img" src="/image/intoHymake/qualification-honor.png" alt="">
+                    <div class="industry-accu-profile">
+                        <div class="industry-accu-title">
+                            资质荣誉
+                        </div>
+                        <div class="industry-accu-content">
+                            海迈科技具有建设信息领域的全面资质，多次荣获国际、行业、省市的重点表彰。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var headHeight=200;  //这个高度其实有更好的办法的。使用者根据自己的需要可以手工调整。
+        var label=$("#aboutHymakeNav");
+        $(window).scroll(function(){
+            if($(this).scrollTop()>headHeight){
+                label.addClass("navFix");
+            }
+            else{
+                label.removeClass("navFix");
+            }
+        })
+    })
+</script>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

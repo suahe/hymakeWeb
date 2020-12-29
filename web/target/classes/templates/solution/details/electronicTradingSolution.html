@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans" >
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta" />
+    <meta name="keywords" th:content="${keywords}" />
+    <title th:text="'电子交易解决方案详情页 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static" />
+    <th:block th:replace="common/analytics::baidu" />
+    <style>
+        .computer-icon{
+            width: 27px;
+            height: 23px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+<!-- 头部分-->
+<th:block th:replace="common/layout::header" />
+
+<div class="d-flex justify-content-center detail-bg">
+    <div style="margin-top: 60px">
+        <img class="detail-title-l"  src="/image/common/title_icon_L.png" alt="">
+        <b class="detail-title">电子交易解决方案</b>
+        <img class="detail-title-r" src="/image/common/title_icon_R.png" alt="">
+    </div>
+</div>
+
+<div class="container detail-body">
+    <p class="detail-text text-indent-2">
+        通过电子招标投标交易平台、政企采购平台、电子保函平台、3D电子摇球软件、远程智慧评标平台、场地预约系统、投标保证金系统、专家抽取通知系统、评标变声澄清系统等系列产品，为各行业的招标采购提供“专业、全面、可靠、合规”的全过程电子化交易解决方案，以及完善的平台级服务。覆盖公开招标、邀请招标、竞争性谈判、竞争性磋商、单一来源采购、询价、竞价、拍卖等不同方式；满足工程、货物、服务等不同类型；支持网上投标、远程开标、异地评标等不同形态；集成云计算、人脸识别、视频直播、智能门禁等不同技术，具有五位一体的强大安全保障体系。同时，与各级公共平台共享数据和业务接口，实现协同共享。
+    </p>
+    <div class="text-center">
+        <div class="detail-classify-title">
+            价值亮点
+        </div>
+        <div class="d-flex justify-content-center">
+            <hr class="detail-line-center ">
+        </div>
+    </div>
+    <div class="row" style="margin-top:40px;">
+        <div class="d-flex justify-content-between">
+            <div style="padding-right:40px;border-right: 1px solid #ededed;">
+                <img style="margin-top:20px;margin-left: 40px;" src="/image/solution/details/electronicTradingSolution/img1.png" alt="">
+            </div>
+            <div style="margin-left: 50px;">
+                <div class="detail-little-title" style="margin-top: -10px;">多种交易模式</div>
+                <div class="detail-text" style="margin-top: 10px">
+                    依照《招标投标法》、《政府采购法》等规范设计，并且提供拍卖、竞价等更多的交易方式。
+                </div>
+                <div class="detail-little-title" style="margin-top: 15px">降低成本</div>
+                <div class="detail-text"  style="margin-top: 10px">
+                    可快速在云平台上搭建交易平台，免去购置硬件网络和后期维护的费用，快速见效。
+                </div>
+                <div class="detail-little-title" style="margin-top: 15px">针对性强</div>
+                <div class="detail-text"  style="margin-top: 10px">
+                    主要针对场外交易，可根据交易方式的不同量身定制合适的交易平台。
+                </div>
+                <div class="detail-little-title" style="margin-top: 15px">多种客户端支持</div>
+                <div class="detail-text"  style="margin-top: 10px">
+                    除传统电脑浏览器支持外，提供多种移动交易方式。
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <div class="detail-classify-title" style="margin-top:96px">
+            交易方式
+        </div>
+        <div class="d-flex justify-content-center">
+            <hr class="detail-line-center ">
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 20px">
+       <div class="col-1-5">
+           <div class="text-center detail-text">
+               <div><span style="color: #2387f8;margin-right: 8px;margin-left: -16px;">●</span>公开招标</div>
+               <div><span style="color: #2387f8;margin-right: 8px;">●</span>竞争性磋商</div>
+           </div>
+       </div>
+        <div class="col-1-5">
+            <div class="text-center detail-text">
+                <div><span style="color: #2387f8;margin-right: 8px;">●</span>邀请招标</div>
+                <div><span style="color: #2387f8;margin-right: 8px;">●</span>挂牌交易</div>
+            </div>
+        </div>
+        <div class="col-1-5">
+            <div class="text-center detail-text">
+                <div><span style="color: #2387f8;margin-right: 8px;">●</span>单一来源采购</div>
+                <div><span style="color: #2387f8;margin-right: 8px;margin-left: -32px;">●</span>竞价交易</div>
+            </div>
+        </div>
+        <div class="col-1-5">
+            <div class="text-center detail-text">
+                <div><span style="color: #2387f8;margin-right: 8px;">●</span>询价</div>
+                <div><span style="color: #2387f8;margin-right: 8px;">●</span>拍卖</div>
+            </div>
+        </div>
+        <div class="col-1-5">
+            <div class="text-center detail-text">
+                <div><span style="color: #2387f8;margin-right: 8px;">●</span>竞争性谈判</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+</body>
+</html>

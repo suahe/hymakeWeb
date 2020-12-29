@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'建设成本管控解决方案 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .main-content{
+
+        }
+        .detail-title{
+            padding-bottom: 0.4rem;
+        }
+        .detail-title h4 {
+            color: #0066cc;
+            text-align: center;
+            position: relative;
+            padding: 0;
+            padding-top: 0.55rem;
+            padding-bottom: 0.25rem;
+            display: inline-block;
+            margin: 0;
+            float: none !important;
+            left: 50%;
+            transform:translate(-50%,0);
+            font-size: 0.4rem;
+        }
+        .detail-title h4:after {
+            content: '';
+            width: 30%;
+            height: 2px;
+            background-color: #0066cc;
+            position: absolute;
+            left: 50%;
+            transform:translate(-50%,0);
+            bottom: 0;
+            min-width: 35px;
+        }
+        .detail-text{
+            font-size: 0.28rem;
+            color: #666666;
+            text-indent: 2em;
+            text-align: justify;
+        }
+        .detail-text p{
+            margin-bottom: 0.12rem;
+        }
+        .detail-pad{
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+
+    </style>
+</head>
+<body>
+<!--引入详情页头部-->
+<th:block th:replace="common/layout::detail-header"/>
+<main class="main-content">
+    <div class="detail-pad">
+        <div class="detail-text" style="padding-top: 0.61rem;padding-bottom: 0.49rem;">
+            <p>
+                海迈科技以全过程建设成本管理与控制为目标，以项目为主线，打造全过程建设成本管控平台，贯穿项目决策、设计、招投标、施工和竣工结算的全过程，实现多方责任主体的协同。
+            </p>
+            <p>
+                针对造价咨询单位、建设单位以及施工企业的造价业务过程和造价成果的管理，建立一套适应多种角色的造价业务核心功能，并实现造价全过程管理的业务系统。支持与造价软件数据交换，对造价数据进行存储、共享；建立项目跟踪机制，高效主动地进行项目管理。通过数据分析、对比和统计，实现造价业务数据的积累、再利用；作为内部工作平台，协调工作、统一管理，提高工作效率和整体管理水平。
+            </p>
+        </div>
+        <img class="w-100" src="/image/solution/details/constructionCostControlSolution/img1.png" alt="">
+        <div class="detail-text" style="padding-top: 0.61rem;padding-bottom: 0.61rem;">
+            面向政府部门、建设（代建）单位，打造基于建设过程动态成本监管的财政投资项目评审及管控系统，建立项目信息库，构建项目全过程的造价审核管理，将项目设计概算、施工预算(控制价)、竣工结算及中标信息和合同信息内容整合为一体。以项目概算为基础，控制项目投资；督促项目业主单位及时办理工程竣工结算及财务决算，提升项目服务和监管能力；实现项目进度与资金拨付相匹配，提高政府主管部门对项目全过程资金成本监控，规范资金拨付流程；提供领导驾驶舱，方便管理层查看管理过程的数据统计和数据分析，达到管理过程可视化、成果图表化、效能最大化的效果。
+        </div>
+    </div>
+
+</main>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

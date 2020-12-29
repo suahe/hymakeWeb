@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hymake.mobileWeb.mapper.ProductMapper">
+	<sql id="all">
+			product_id
+			,title
+			,belong_page_type
+			,content
+			,icon_path
+			,url
+			,sequ
+			,push_time
+	</sql>
+
+	<select id="selectPagination" resultType="ProductEntity">
+		SELECT <include refid="all" />
+		FROM t_product p
+		WHERE
+		belong_page_type = #{belongPageType} and push_time is not null
+		<if test="labelId!=null and labelId!=-1">
+		and p.product_id in (
+			SELECT DISTINCT lp.product_id FROM  t_label_product lp
+			WHERE  lp.label_id = #{labelId}
+		)
+		</if>
+		<if test="dropDownBoxId!=null and dropDownBoxId!=-1">
+			and p.product_id in (
+			SELECT DISTINCT ddp.product_id FROM  t_drop_down_box_product ddp
+			WHERE  ddp.drop_down_box_id = #{dropDownBoxId}
+			)
+		</if>
+		ORDER BY belong_page_type ASC ,sequ ASC
+	</select>
+
+
+</mapper>

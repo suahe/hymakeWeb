@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	@Description t_poster_item 表数据库操作SQL语句
+	@author daizb@hymake.com
+	@date 2020-06-15 09:19:15
+	@version 1.0
+	@remark create by ca
+-->
+
+<mapper namespace="com.hymake.web.mapper.PosterItemMapper">
+
+	<!-- 
+		POSTER_ITEM_ID				bigint			#{posterItemId}			图片编号
+		TYPE				varchar			#{type}			类型
+		NAME				varchar			#{name}			名称
+		MEDIA_TYPE				varchar			#{mediaType}			媒体文件类型
+		PATH				varchar			#{path}			媒体文件地址
+		URL				varchar			#{url}			链接地址
+		IS_TARGET				varchar			#{isTarget}			链接方式
+		SEQU				int			#{sequ}			排序
+		PUSH_TIME				datetime			#{pushTime}			推送时间
+		UPDATE_USERID				varchar			#{updateUserid}			更新人
+		UPDATE_TIME				datetime			#{updateTime}			更新时间
+	-->
+
+	<sql id="all">
+			POSTER_ITEM_ID
+			,NAME
+			,TYPE
+			,MEDIA_TYPE
+			,PATH
+			,URL
+			,IS_TARGET
+			,SEQU
+			,PUSH_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+	</sql>
+	
+	<select id="selectByType" resultType="posterItemEntity" parameterType="String">
+		select 
+			NAME
+			,PATH
+			,URL
+			,IS_TARGET
+			,SEQU
+		from 
+			t_poster_item
+		where
+			t_poster_item.TYPE = #{type}
+			and t_poster_item.PUSH_TIME is not NULL
+		order by
+			t_poster_item.SEQU DESC
+	</select>
+	
+</mapper>

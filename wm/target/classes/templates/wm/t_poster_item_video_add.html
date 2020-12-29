@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>公告信息管理--新增视频</title>
+    	<th:block th:replace="fragments/include::common_header" />
+	</head>
+	<style type="text/css">
+		
+	</style>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h4>公告信息管理--新增视频</h4>
+				</div>
+				<div class="ibox-content">
+					<form id="_t_poster_video_form" class="form-horizontal">
+						<div class="row" >
+							<div class="col-xs-6">
+								<input type="text" id="_posterItemId" name="posterItemId" value="0" style="display: none;">
+								<input type="text" id="_posterType" name="type" value="SP" style="display: none;">
+								<div class="form-group">
+									<label for="name" class="col-xs-2 control-label">名称</label>
+									<div class="col-xs-10">
+										<input type="text" id="_name" name="name" class="form-control" placeholder="请输入名称" >
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="url" class="col-xs-2 control-label">链接地址</label>
+									<div class="col-xs-10">
+										<input type="text" id="_url" name="url" class="form-control" placeholder="请输入链接地址" >
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="url" class="col-xs-2 control-label">跳转方式</label>
+									<div class="col-xs-10">
+	                                    <select id="_isTarget" name="isTarget"></select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<input type="text" id="_media" name="media" style="display: none;" >
+								<div id="_browse_bar" style="width: 398px; margin: 0 auto;">
+									<div style="width: 398px; text-align: center; border: 2px solid #E5E6E7; cursor: pointer;">
+										<video id="_showVideo" src="" controls="controls" width="394px" poster="/images/video_poster.jpg"></video>
+									</div>
+									<div style="height: 5px;"></div>
+									<button id="_browse" type="button" class="btn btn-block btn-outline btn-primary">添加视频</button>
+									<button id="_del_browse" type="button" class="btn btn-block btn-outline btn-danger" style="display: none;">删除视频</button>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12" style="text-align: center;">
+								<button id="_back_button" type="button" class="btn btn-default">返回</button>
+								<button id="_t_poster_video_button" type="button" class="btn btn-primary">保存信息</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	    <script type="text/javascript">
+	    
+	    	/* 上传控件 参数设置 */
+		    var uploader = new plupload.Uploader({
+	           browse_button: '_browse'
+	           ,multi_selection: false
+	           ,filters: {
+					mime_types: [
+						{title: "视频类型", extensions: "mp4"}
+					]
+		    		,max_file_size: '2mb'
+		    		,prevent_duplicates: false
+	           }
+	       });
+    
+			$(document).ready(function(){
+
+		        secjs.init();
+		        
+		        $('#_back_button').click(function(){
+		        	main.loadHTML("../pic/load",'main');
+		        });
+		        
+		        $('#_isTarget').btSelect({
+		        	code: 'TZFS'
+		        	,width: 150
+		        });
+		        
+		        
+		        /* 上传控件初始化 */
+		        uploader.init();
+		        
+		        /* 上传控件 添加文件 */
+		        uploader.bind('FilesAdded',function(uploader,files){
+		            var file = files[0];
+					var reader = new FileReader();
+					reader.readAsDataURL(file.getNative());
+					reader.onload = function (e) {
+						$('#_showVideo').attr("src", this.result);
+						$('#_media').val(this.result);
+		                $('#_del_browse').css("display","inline");
+		                $('#_browse').css("display","none");
+		                reader = null;
+					};
+					reader.onerror = function(error){
+		            	 message.warning("添加视频失败");
+		            }
+		        });
+		        
+		        /* 上传控件 错误监听 */
+		        uploader.bind('Error',function(uploader,errObject){
+		        	message.warning(errObject.message);
+		        });
+		        
+		        /*  删除图片 按钮点击事件 */
+		        $('#_browse_bar').on('click', '#_del_browse', function(event){
+		        	$('#_showVideo').attr("src", "");
+	                $('#_media').val();
+	                $(this).css("display","none");
+	                $('#_browse').css("display","inline");
+		        });
+		        
+		        /* 验证新增信息表单 */
+				$('#_t_poster_video_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						isTarget:{
+							validators:{
+								callback:{
+									message: '必选'
+									,callback: function(value, validator) {
+										if (value == null) {
+											return false;
+										} else {
+											return true;
+										}
+									}
+								}
+							}
+						}
+						,name: {
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 100,
+									message: '长度应小于100个字'
+								}
+							}
+						}
+						,url: {
+							validators:{
+								stringLength:{
+									max: 200,
+									message: '长度应小于200个字'
+								}
+							}
+						}
+					}
+				});
+		        
+		        /* 保存新增信息 */
+				$('#_t_poster_video_button').click(function(){
+				
+					var _form = $('#_t_poster_video_form');
+					_form.bootstrapValidator('validate');
+					var flag = _form.data('bootstrapValidator').isValid();
+					if(flag){
+						$.post('../pic/save', _form.serialize(),function(r){
+							if(r > 0){
+								main.loadHTML("../pic/load",'main');
+							}else{
+								message.saveFall();
+							}
+						});
+					}
+				});
+			})
+	    </script>
+	</body>
+</html>

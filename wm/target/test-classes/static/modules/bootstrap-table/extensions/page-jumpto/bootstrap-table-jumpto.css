@@ -1,0 +1,9 @@
+.jumpto input {
+    height: 33px;
+    line-height: 1.428571429;
+    width: 50px;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-align: center;
+    display: inline-block;
+}

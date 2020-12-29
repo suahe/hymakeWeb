@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>菜单权限管理</title>
+		<th:block th:replace="fragments/include::common_header" />
+	</head>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content">
+	        <div class="ibox">
+	            <div class="ibox-title">
+	                <h4>菜单权限管理</h4>
+	            </div>
+	            <div class="ibox-content">
+	            	<div class="row">
+	            		<div class="col-xs-5">
+	            			<div class="ibox">
+					            <div class="ibox-title">
+				            		<button id="_menu_add_button" class="btn btn-outline btn-primary" type="button">新增</button>
+									<button id="_menu_edit_button" class="btn btn-outline btn-primary" type="button">编辑</button>
+									<button id="_menu_del_button" class="btn btn-outline btn-danger" type="button">删除</button>
+									<button id="_refresh_button" class="btn btn-outline btn-primary" type="button">刷新缓存</button>
+									<button id="_up_menu_button" type="button" class="btn btn-outline btn-primary"><i class="fa fa-arrow-up"></i></button>
+									<button id="_down_menu_button" type="button" class="btn btn-outline btn-primary"><i class="fa fa-arrow-down"></i></button>
+					            </div>
+					            <div class="ibox-content">
+					            	<div id="_menu_tree"></div>
+					            </div>
+				           	</div>
+	            		</div>
+	            		<div class="col-xs-7">
+							<div class="ibox">
+					            <div class="ibox-title">
+					            	<h4 class="pull-left" style="padding-bottom: 8px;">角色信息</h4>
+					            </div>
+					            <div class="ibox-content">
+					            	<div id="_role_tree"></div>
+					            </div>
+				           	</div>
+	            		</div>
+					</div>
+	            </div>
+	        </div>
+        </div>
+		
+		<div class="modal fade" id="_menu_add_window" tabindex="-1" role="dialog" aria-labelledby="#_menu_add_window">
+			<div class="modal-dialog" role="document" style="width: 450px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">新增菜单信息<small style="padding: 0px 5px;">如果资源信息为空，请用"-"代替</small>
+						</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_menu_add_form" class="form-horizontal">
+							<input type="hidden" id="menuPid" name="menuPid" /> <!-- 菜单父编号  -->
+							<div class="form-group">
+								<label for="menuName" class="col-xs-3 control-label">菜单名称</label>
+								<div class="col-xs-9">
+									<input type="text" name="menuName" class="form-control" placeholder="请输入菜单名称" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="iconCss" class="col-xs-3 control-label">图标信息</label>
+								<div class="col-xs-2">
+									<div class="form-control">
+										<i id="_add_display_iconCss" class="fa fa-th-large"></i>
+									</div>
+								</div>
+								<div class="col-xs-4">
+									<input type="text" id="_add_iconCss" name="iconCss" value="fa-th-large" class="form-control" placeholder="请输入图标信息" >
+								</div>
+								<div class="col-xs-3">
+									<button type="button" class="link_icon_page_button btn btn-default">图标库</button>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="url" class="col-xs-3 control-label">资源信息</label>
+								<div class="col-xs-9">
+									<input type="text" name="url" class="form-control" placeholder="请输入资源信息" >
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" id="_menu_add_form_submit" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="_menu_edit_window" tabindex="-1" role="dialog" aria-labelledby="#_menu_edit_window">
+			<div class="modal-dialog" role="document" style="width: 450px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">编辑菜单信息<small style="padding: 0px 5px;">如果资源信息为空，请用"-"代替</small>
+						</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_menu_edit_form" class="form-horizontal">
+							<input type="hidden" id="_edit_menuId" name="menuId" /> <!-- 菜单编号  -->
+							<div class="form-group">
+								<label for="menuName" class="col-xs-3 control-label">菜单名称</label>
+								<div class="col-xs-9">
+									<input type="text" id="_edit_menuName" name="menuName" class="form-control" placeholder="请输入菜单名称" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="iconCss" class="col-xs-3 control-label">图标信息</label>
+								<div class="col-xs-2">
+									<div class="form-control">
+										<i id="_edit_display_iconCss" class="fa fa-th-large"></i>
+									</div>
+								</div>
+								<div class="col-xs-4">
+									<input type="text" id="_edit_iconCss" name="iconCss" class="form-control" placeholder="请输入图标信息" >
+								</div>
+								<div class="col-xs-3">
+									<button type="button" class="link_icon_page_button btn btn-default">图标库</button>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="url" class="col-xs-3 control-label">资源信息</label>
+								<div class="col-xs-9">
+									<input type="text" id="_edit_url" name="url" class="form-control" placeholder="请输入资源信息" >
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" id="_menu_edit_form_submit" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function(){
+
+				/*初始化Token*/
+				secjs.init();
+				menuTree();
+				
+				$('#_add_iconCss').focusout(function() {
+					$('#_add_display_iconCss').removeClass().addClass('fa '+ $(this).val());
+				});
+				
+				$('#_edit_iconCss').focusout(function() {
+					$('#_edit_display_iconCss').removeClass().addClass('fa '+ $(this).val());
+				});
+				
+				
+				$('.link_icon_page_button').click(function(){
+					 window.open("../html/icons.html");
+				});
+				
+				$('#_refresh_button').click(function(){
+					$.getJSON('../bmc/refresh', {}, function(r){
+						if(r){
+							message.info('刷新缓存成功');
+						}else{
+							message.warning('刷新缓存失败');
+						}
+					})
+				});
+				
+				/** 验证新增表单 */
+				$('#_menu_add_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						menuName:{
+							trigger:"change",
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength: {
+									max: 50,
+									message: '值须小于50字符'
+								}
+							}
+						},
+						url:{
+							trigger:"change",
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength: {
+									max: 50,
+									message: '值须小于50字符'
+								}
+							}
+						}
+					}
+				});
+				
+				/** 打开新增表单 */
+				$('#_menu_add_button').click(function(){
+					
+					$('#_menu_add_form')[0].reset();
+					var _menuPid = "";
+					var tree = $('#_menu_tree');
+					var treeData = tree.treeview('getSelected');
+					if(typeof(treeData) == "undefined" || treeData.length == 0){
+						/*没有选节点 默认给-*/
+						_menuPid = "-";
+					}else{
+						var level = treeview.getLevel(tree, treeData);
+						if(level >= 3){
+							message.info("系统只支持三级菜单。");
+							return;
+						}else{
+							_menuPid = treeData[0].id;
+						}
+					}
+					$("#menuPid").val(_menuPid);
+					$('#_menu_add_window').modal('show');
+				});
+				
+				/** 保存新增表单 */
+				$('#_menu_add_form_submit').click(function(){
+					
+					$('#_menu_add_form').bootstrapValidator('validate');
+					var flag = $("#_menu_add_form").data('bootstrapValidator').isValid();
+					if(flag){
+						$.ajax({
+						    url:'../bmc/add',
+						    data: $("#_menu_add_form").serialize(),
+						    type: "POST",
+						    success:function(result){
+						    	if(1 == result){
+						        	menuTree();
+						        	$('#_menu_add_form')[0].reset();
+						        	$('#_menu_add_window').modal('hide');
+						        }else{
+						        	message.saveFall();
+						        }
+						    }
+						});
+					}
+				});
+				
+				/** 验证编辑表单 */
+				$('#_menu_edit_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						menuName:{
+							trigger:"change",
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength: {
+									max: 50,
+									message: '值须小于50字符'
+								}
+							}
+						},
+						url:{
+							trigger:"change",
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength: {
+									max: 50,
+									message: '值须小于50字符'
+								}
+							}
+						}
+					}
+				});
+				
+				/**打开编辑表单 */
+				$('#_menu_edit_button').click(function(){
+					
+					$('#_menu_edit_form')[0].reset();
+					var treeData = $('#_menu_tree').treeview('getSelected');
+					if (typeof(treeData) == "undefined" || treeData.length == 0){
+						message.selectOne();
+					}else{
+						var _menuId = treeData[0].id;
+						$.ajax({
+						    url:'../bmc/view',
+						    data:{'menuId':_menuId},
+						    type: "GET",
+						    success:function(result){
+						    	if(result){
+						    		$("#_edit_menuId").val(result.menuId);
+									$("#_edit_menuName").val(result.menuName);
+									$("#_edit_url").val(result.url);
+									$("#_edit_iconCss").val(result.iconCss);
+									$('#_edit_display_iconCss').removeClass().addClass('fa '+ result.iconCss);
+									$('#_menu_edit_window').modal('show');
+						        }else{
+						        	message.loadFall();
+						        }
+						    }
+						});
+					}
+				});
+				
+				/** 保存编辑表单 */
+				$('#_menu_edit_form_submit').click(function(){
+					
+					$('#_menu_edit_form').bootstrapValidator('validate');
+					var flag = $("#_menu_edit_form").data('bootstrapValidator').isValid();
+					if(flag){
+						$.ajax({
+						    url:'../bmc/edit',
+						    data: $("#_menu_edit_form").serialize(),
+						    type: "POST",
+						    success:function(result){
+						    	if(1 == result){
+						        	menuTree();
+						        	$('#_menu_edit_form')[0].reset();
+						        	$('#_menu_edit_window').modal('hide');
+						        }else{
+						        	message.saveFall();
+						        }
+						    }
+						});
+					}
+				});
+				
+				/* 删除信息 */
+				$('#_menu_del_button').click(function () {
+				  
+					var treeData = $('#_menu_tree').treeview('getSelected');
+					var _isLeaf = treeData[0].nodes;
+					if(typeof(_isLeaf) == "undefined"){
+						if (typeof(treeData) != "undefined" && treeData.length != 0){
+							swal({
+								type: "warning",
+								title: "确认要删除？",
+								text: "你的操作会删除选择的记录",
+								showCancelButton: true,
+								cancelButtonText: "取消",
+								confirmButtonColor: "#1AB394",
+								confirmButtonText: "确定删除？",
+								closeOnConfirm: false
+							}, function () {
+								var _menuId = treeData[0].id;
+								$.get('../bmc/del', {'menuId':_menuId},function(result){
+									if(result = 1){
+										message.delSuccess();
+										menuTree();
+									}else{
+										message.delFall();
+									}
+								})
+							});
+						}else{
+							message.selectOne();
+						}
+					} else {
+						bootbox.alert({
+							size: "small",
+							title: "系统提示",
+							message: "请先删除叶子节点",
+							timer: 1500
+						});
+					}
+				});
+				
+				/* 排序下降一位 */
+				$('#_down_menu_button').click(function(){
+					
+					var treeData = $('#_menu_tree').treeview('getSelected');
+					if (typeof(treeData) != 'undefined' && treeData.length != 0){
+						$.getJSON('../bmc/down', {'menuId':treeData[0].id}, function(data) {
+							if(data > 0){
+								menuTree();
+							}else{
+								message.info('该节点已经不能移动');
+							}
+						});
+					}else{
+						message.selectOne();
+					}
+				});
+				
+				/* 排序上升一位 */
+				$('#_up_menu_button').click(function(){
+					
+					var treeData = $('#_menu_tree').treeview('getSelected');
+					if (typeof(treeData) != 'undefined' && treeData.length != 0){
+						$.getJSON('../bmc/up', {'menuId':treeData[0].id}, function(data) {
+							if(data > 0){
+								menuTree();
+							}else{
+								message.info('该节点已经不能移动');
+							}
+						});
+					}else{
+						message.selectOne();
+					}
+				});
+				
+			});
+			
+			function menuTree(){
+				
+				$("#_role_tree").empty();
+				$.ajax({
+					type: "GET",
+					url: "../bmc/tree",
+					async: false,
+					success: function(resultData){
+						var data = JSON.stringify(resultData);
+						$('#_menu_tree').treeview({
+							selectedBackColor: '#1ab394',
+							data:data,
+							enableLinks:true,
+							levels:4,
+							onNodeSelected:function(event, node){
+								roleTree(node.id);
+							},
+							onNodeUnselected:function(event, node){
+								$("#_role_tree").empty();
+							}
+						});
+					}
+				});
+			}
+			
+			function roleTree(menuId){
+				
+				var menuId,roleId;
+				var treeData = $('#_menu_tree').treeview('getSelected');
+				menuId = treeData[0].id;
+				$.ajax({
+					type: "GET",
+					url: "../bmc/roleTree",
+					async: false,
+					data:{menuId:menuId},
+					success: function(resultData){
+						var data = JSON.stringify(resultData);
+						$('#_role_tree').treeview({
+							selectedBackColor: '#1ab394',
+							data:data,
+							enableLinks:true,
+							showCheckbox:true,
+							levels:4,
+							onNodeChecked(event,data){
+								roleId = data.id;
+								$.ajax({
+									type: "GET",
+									url: "../bmc/author",
+									data:{menuId:menuId,roleId:roleId},
+									async: false,
+									success: function(resultData){
+										var data = JSON.stringify(resultData);
+										
+									}
+								});
+							},
+							onNodeUnchecked(event,data){
+								roleId = data.id;
+								$.ajax({
+									type: "GET",
+									url: "../bmc/unAuthor",
+									data:{menuId:menuId,roleId:roleId},
+									async: false,
+									success: function(resultData){
+										var data = JSON.stringify(resultData);
+									}
+								});
+							}
+						});
+					}
+				});
+			}
+		</script>	
+	</body>
+</html>

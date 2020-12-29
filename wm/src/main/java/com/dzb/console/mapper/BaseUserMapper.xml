@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	@Description t_base_user 表数据库操作SQL语句
+	@author 38840472@qq.com
+	@date 2018-12-18 16:24:42
+	@version 1.0
+	@remark create by ca
+-->
+
+<mapper namespace="com.dzb.console.mapper.BaseUserMapper">
+
+	<!-- 
+		USER_ID				varchar			#{userId}			用户编号
+		USERNAME				varchar			#{username}			账号
+		PASSWORD				varchar			#{password}			密码
+		NAME				varchar			#{name}			用户名
+		IS_DEL				int			#{isDel}			有效状态
+		CREATE_USERID				varchar			#{createUserid}			创建人
+		CREATE_TIME				timestamp			#{createTime}			创建时间
+		UPDATE_USERID				varchar			#{updateUserid}			更新人
+		UPDATE_TIME				timestamp			#{updateTime}			更新时间
+	-->
+
+	<sql id="all">
+			USER_ID
+			,USERNAME
+			,PASSWORD
+			,NAME
+			,IS_DEL
+			,CREATE_USERID
+			,CREATE_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+	</sql>
+	
+	<select id="selectPagination" resultType="baseUserEntity" parameterType="baseUserEntity">
+		select 
+			USER_ID
+			,USERNAME
+			,NAME
+			,IS_DEL
+			,CREATE_USERID
+			,CREATE_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+		from 
+			t_base_user
+		<where>
+			<if test="username != '' and username != null">
+				USERNAME like concat('%',#{username},'%')
+			</if>
+			<if test="name != '' and name != null">
+				or NAME like concat('%',#{name},'%')
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectByPkey" resultType="baseUserEntity" parameterType="String">
+		select 
+			USER_ID
+			,USERNAME
+			,NAME
+			,IS_DEL
+			,CREATE_USERID
+			,CREATE_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+		from 
+			t_base_user
+		where 
+			USER_ID = #{userId}
+	</select>
+	
+	<insert id="insert" parameterType="baseUserEntity">
+		insert into t_base_user (
+			USER_ID
+			,USERNAME
+			,PASSWORD
+			,NAME
+			,IS_DEL
+			,CREATE_USERID
+			,CREATE_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+		) values (
+			#{userId}
+			,#{username}
+			,#{password}
+			,#{name}
+			,#{isDel}
+			,#{createUserid}
+			,#{createTime}
+			,#{updateUserid}
+			,#{updateTime}
+		)
+	</insert>
+	
+	<update id="update" parameterType="baseUserEntity">
+		update t_base_user set 
+			USERNAME = #{username}
+			,NAME = #{name}
+			,UPDATE_USERID = #{updateUserid}
+			,UPDATE_TIME = #{updateTime}
+		where
+			USER_ID = #{userId}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from t_base_user where USER_ID = #{userId}
+	</delete>
+	
+	<update id="updateIsDel" parameterType="baseUserEntity">
+		update t_base_user set 
+			IS_DEL = #{isDel}
+			,UPDATE_USERID = #{updateUserid}
+			,UPDATE_TIME = #{updateTime}
+		where
+			USER_ID = #{userId}
+	</update>
+	
+	<select id="selectPasswordByUsername" resultType="baseUserEntity" parameterType="String">
+		select 
+			USER_ID
+			,USERNAME
+			,PASSWORD
+			,NAME
+			,IS_DEL
+			,CREATE_USERID
+			,CREATE_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+		from 
+			t_base_user
+		where 
+			USERNAME = #{username}
+			and IS_DEL = 0
+	</select>
+	
+	<select id="selectPasswordByUserId" resultType="String" parameterType="String">
+		select 
+			PASSWORD
+		from 
+			t_base_user
+		where 
+			USER_ID = #{userId}
+			and IS_DEL = 0
+	</select>
+	
+	<update id="updatePassword" parameterType="baseUserEntity">
+		update t_base_user set 
+			PASSWORD = #{password}
+		where
+			USER_ID = #{userId}
+	</update>
+	
+	<select id="selectByMail" resultType="baseUserEntity" parameterType="String">
+		select 
+			<include refid="all"/>
+		from 
+			t_base_user
+		where 
+			EMAIL = #{email}
+			and IS_DEL = 0
+	</select>
+	
+</mapper>

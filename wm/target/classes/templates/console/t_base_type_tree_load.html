@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>t_base_type 表列表信息</title>
+    <th:block th:replace="fragments/include::common_header" />
+	</head>
+	<style type="text/css">
+		
+	</style>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content">
+	        <div class="ibox">
+	            <div class="ibox-title">
+	                <h4 style="float: left;">数据字典管理（树型）</h4>
+	                <div style="float: right;">
+	                </div>
+	            </div>
+	            <div class="ibox-content">
+	            	<div class="row">
+	            		<div class="col-md-5">
+	            			<div style="float: left; padding-bottom: 10px;" >
+								<button id="_add_button" type="button" class="btn btn-outline btn-primary">增加</button>
+								<button id="_edit_button" type="button" class="btn btn-outline btn-primary">编辑</button>
+								<button id="_del_button" type="button" class="btn btn-outline btn-danger">删除</button>
+	                        </div>
+	                        <div style="float: right;">
+	                        	<button id="_link_list_button" type="button" class="btn btn-primary">前往列表</button>
+	                        	<!-- <button id="_excel_button" type="button" class="btn btn-outline btn-primary">导出</button> -->
+	                        </div>
+                        	<table id="_t_base_type"></table>
+	            		</div>
+	            		<div class="col-md-7">
+	            			<div class="row">
+	            				<div class="col-md-12">
+	            					<div style="float: left; padding-bottom: 10px;" >
+										<button id="_add_tree_button" type="button" class="btn btn-outline btn-primary">增加</button>
+										<button id="_edit_tree_button" type="button" class="btn btn-outline btn-primary">编辑</button>
+										<button id="_del_tree_button" type="button" class="btn btn-outline btn-danger">删除</button>
+										<button id="_up_tree_button" type="button" class="btn btn-outline btn-primary"><i class="fa fa-arrow-up"></i></button>
+										<button id="_down_tree_button" type="button" class="btn btn-outline btn-primary"><i class="fa fa-arrow-down"></i></button>
+			                        </div>
+			                        <!-- <div style="float: right;">
+			                        	<button id="_add_button" type="button" class="btn btn-outline btn-primary">导入模板下载</button>
+			                        	<button id="_add_button" type="button" class="btn btn-outline btn-primary">导入</button>
+			                        </div> -->
+	            				</div>
+	            			</div>
+	            			<div class="row">
+	            				<div class="col-md-12">
+	                       			<div id="_base_type_tree"></div>
+	                       		</div>
+	                       	</div>
+	            		</div>
+					</div>
+	            </div>
+	        </div>
+        </div>
+	            
+       	<!-- 新增信息模态窗口 -->
+        <div class="modal fade" id="_t_base_type_add_window" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">新增字典--新增</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_t_base_type_add_form" class="form-horizontal">
+							<input type="hidden" id="_type_add" name="type" class="form-control" value="2" >
+							<div class="form-group">
+								<label for="name" class="col-lg-2 control-label">名称</label>
+								<div class="col-lg-10">
+									<input type="text" id="_name_add" name="name" class="form-control" placeholder="请输入名称" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="code" class="col-lg-2 control-label">代码</label>
+								<div class="col-lg-10">
+									<input type="text" id="_code_add" name="code" class="form-control" placeholder="请输入代码" >
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="_t_base_type_add_close_button" type="button" class="btn btn-default">取消</button>
+						<button id="_t_base_type_add_button" type="button" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 编辑信息模态窗口 -->
+        <div class="modal fade" id="_t_base_type_edit_window" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">新增字典--编辑</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_t_base_type_edit_form" class="form-horizontal">
+							<input type="hidden" id="_baseTypeId_edit" name="baseTypeId" >
+							<input type="hidden" id="_type_edit" name="type">
+							<input type="hidden" id="_ver_edit" name="ver">
+							<div class="form-group">
+								<label for="name" class="col-lg-2 control-label">名称</label>
+								<div class="col-lg-10">
+									<input type="text" id="_name_edit" name="name" class="form-control" placeholder="请输入名称" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="code" class="col-lg-2 control-label">代码</label>
+								<div class="col-lg-10">
+									<input type="text" id="_code_edit" name="code" class="form-control" placeholder="请输入代码" >
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="_t_base_type_edit_close_button" type="button" class="btn btn-default">取消</button>
+						<button id="_t_base_type_edit_button" type="button" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 新增树节点项模态窗口模态窗口 -->
+		<div class="modal fade" id="_add_tree_window" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document" style="width: 400px;">
+				<div class="modal-content">
+					<div class="modal-header">
+		        		<h4 class="modal-title">新增树节点</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_add_tree_form" class="form-horizontal">
+							<input type="hidden" id="_baseTypeId_add_tree" name="baseTypeId" >
+							<input type="hidden" id="_baseTypeTreePid_add_tree" name="baseTypeTreePid" >
+							<div class="form-group">
+								<label for="_add_tree_name" class="col-xs-3 control-label" >名称</label>
+								<div class="col-xs-9">
+									<input type="text" class="form-control" id="_add_tree_name" name="name" placeholder="请输入名称">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="_add_tree_value" class="col-xs-3 control-label" >代码</label>
+								<div class="col-xs-9">
+									<input type="text" class="form-control" id="_add_tree_value" name="value" placeholder="请输入代码">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="_add_tree_close_button" type="button" class="btn btn-default">取消</button>
+						<button id="_add_tree_save_button" type="button" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 编辑树节点项模态窗口 -->
+		<div class="modal fade" id="_edit_tree_window" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document" style="width: 400px;">
+				<div class="modal-content">
+					<div class="modal-header">
+		        		<h4 class="modal-title">编辑树节点</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_edit_tree_form" class="form-horizontal">
+							<input type="hidden" id="_baseTypeId_edit_tree" name="baseTypeId" >
+							<input type="hidden" id="_baseTypeTreeId_edit_tree" name="baseTypeTreeId" >
+							<input type="hidden" id="_baseTypeTreePid_edit_tree" name="baseTypeTreePid" >
+							<div class="form-group">
+								<label for="_edit_tree_name" class="col-xs-3 control-label" >名称</label>
+								<div class="col-xs-9">
+									<input type="text" class="form-control" id="_edit_tree_name" name="name" placeholder="请输入名称">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="_edit_tree_value" class="col-xs-3 control-label" >代码</label>
+								<div class="col-xs-9">
+									<input type="text" class="form-control" id="_edit_tree_value" name="value" placeholder="请输入代码">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="_edit_tree_close_button" type="button" class="btn btn-default">取消</button>
+						<button id="_edit_tree_save_button" type="button" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+   		<script type="text/javascript">
+			$(document).ready(function(){
+		        /*初始化Token*/
+		        secjs.init();
+		        var _baseTypeId = "-";
+		        baseTypeTree(_baseTypeId);
+		        
+				/* t_base_type表列表信息*/
+				$("#_t_base_type").bootstrapTable({
+					url: '../btc/list'	//URL
+					,method: 'GET'		//请求模式"GET","POST"
+					,totalField: 'total'
+					,dataField: 'list'
+					,pagination: true	//显示分页控件
+					,pageSize: 20		//每页默认条数
+					,pageList: [20,50,100]		//可选择分页条数
+					,sidePagination: "server"	//设置分页模式"server","client"
+					,singleSelect: true		//设置是否单选
+					,clickToSelect: true
+					,columns: [{	//列信息
+						checkbox: true
+						,valign: 'middle'
+					}
+					,{
+						field: 'baseTypeId'
+						,title: '编号'
+						,halign: 'center'
+						,align: 'left'
+						,valign: 'middle'
+						,visible: false
+					}
+					,{
+						field: 'name'
+						,title: '名称'
+						,halign: 'center'
+						,align: 'left'
+						,valign: 'middle'
+						,visible: true
+					}
+					,{
+						field: 'code'
+						,title: '代码'
+						,halign: 'center'
+						,align: 'left'
+						,valign: 'middle'
+						,visible: true
+					}
+					]
+					,onCheck: function(row, $element) {
+						_baseTypeId = row.baseTypeId;
+						baseTypeTree(_baseTypeId);
+					}
+					,queryParams: function (params) {	//设置查询条件
+						return {
+							"offset": params.offset		//分页起点
+							,"limit": params.limit		//分页度量
+							,"type": 2	//获取类型是树型的数据
+						};
+					}
+				});
+	        
+				/* 弹出新增信息窗口 */
+				$("#_add_button").click(function(){
+					$('#_t_base_type_add_form')[0].reset();
+					$('#_t_base_type_add_window').modal('show');
+				});
+	        
+				/* 保存新增信息 */
+				$('#_t_base_type_add_button').click(function(){
+					var _form = $('#_t_base_type_add_form');
+					_form.bootstrapValidator('validate');
+					var flag = _form.data('bootstrapValidator').isValid();
+					if(flag){
+						$.ajax({
+							type: "POST",
+							url: '../btc/add',
+							data: _form.serialize(),
+							success: function(r){
+								if(r > 0){
+									$("#_t_base_type").bootstrapTable('refresh');
+									$('#_t_base_type_add_window').modal('hide');
+								}else{
+									message.saveFall();
+								}
+							}
+						});
+					}
+				});
+	        
+				/* 关闭新增信息窗口 */
+				$('#_t_base_type_add_close_button').click(function(){
+					$('#_t_base_type_add_window').modal('hide');
+				});
+	        
+	        /* 弹出编辑信息窗口 */
+	        $("#_edit_button").click(function(){
+	          
+	          $('#_t_base_type_edit_form')[0].reset();
+	                var row = $('#_t_base_type').bootstrapTable('getSelections');
+	                if (row != undefined && row.length != 0){
+	                  var _baseTypeId = row[0].baseTypeId;
+	            $.ajax({
+	              type: "GET",
+	              url: '../btc/loadEdit',
+	              data: {'baseTypeId':_baseTypeId},
+	              success: function(r){
+	                $.setForm('#_t_base_type_edit_form',r);
+	                $('#_t_base_type_edit_window').modal('show');
+	              }
+	            });
+	          }else{
+	        	  message.selectOne();
+	          }
+	        });
+	        
+			/* 保存编辑信息 */
+			$('#_t_base_type_edit_button').click(function(){
+			
+				var _form = $('#_t_base_type_edit_form');
+				_form.bootstrapValidator('validate');
+				var flag = _form.data('bootstrapValidator').isValid();
+				if(flag){
+					$.ajax({
+						type: "POST",
+						url: '../btc/edit',
+						data: _form.serialize(),
+						success: function(r){
+							if(r > 0){
+								$("#_t_base_type").bootstrapTable('refresh');
+								$('#_t_base_type_edit_window').modal('hide');
+							}else{
+								message.saveFall();
+							}
+						}
+					});
+				}
+			});
+	        
+	        /* 关闭编辑信息窗口 */
+	        $('#_t_base_type_edit_close_button').click(function(){
+	        
+	          $('#_t_base_type_edit_window').modal('hide');
+	        });
+	
+	        /* 删除信息 */
+	        $('#_del_button').click(function () {
+	          
+				var row = $('#_t_base_type').bootstrapTable('getSelections');
+				if (row != undefined && row.length != 0){
+					swal({
+						title: "确认要删除？",
+						text: "你的操作会删除选择的记录",
+						type: "warning",
+						showCancelButton: true,
+						cancelButtonText: "取消",
+						confirmButtonColor: "#1AB394",
+						confirmButtonText: "确定删除？",
+						closeOnConfirm: false
+					}, function () {
+						var _baseTypeId = row[0].baseTypeId;
+						$.ajax({
+							type: "GET",
+							url: '../btc/del',
+							data: {'baseTypeId':_baseTypeId},
+							success: function(r){
+								if(r > 0){
+									swal({
+										title: "删除成功!",
+										text: "您所选中的记录删除成功。",
+										type: "success",
+										confirmButtonColor: "#1AB394",
+										confirmButtonText: "确定"
+									});
+									$("#_t_base_type").bootstrapTable('refresh');
+								}else{
+									swal({
+										title: "删除失败!",
+										text: "您所选中的记录删除失败，请联系管理员。",
+										type: "error",
+										confirmButtonColor: "#1AB394",
+										confirmButtonText: "确定"
+									});
+								}
+							}
+						})
+					});
+				}else{
+					swal({
+						title: "请选择记录",
+						text: "选择需要删除的记录。",
+						type: "warning",
+						confirmButtonColor: "#1AB394",
+						confirmButtonText: "确定",
+						allowOutsideClick: true,
+						timer: 1500
+					});
+				}
+			});
+	        
+			/* 跳转到树形数据字典管理页面 */
+			$('#_link_list_button').click(function(){
+				main.loadHTML("../btc/load",'main');
+			});
+			
+			/* 弹出新增树节点项模态窗口模态窗口 */
+			$('#_add_tree_button').click(function(){
+				
+				var row = $('#_t_base_type').bootstrapTable('getSelections');
+				if (typeof(row) != 'undefined' && row.length != 0){
+					var treeData = $('#_base_type_tree').treeview('getSelected');
+					if (typeof(treeData) != 'undefined' && treeData.length != 0){
+						$('#_add_tree_form')[0].reset();
+						$('#_baseTypeId_add_tree').val(row[0].baseTypeId);
+						$('#_baseTypeTreePid_add_tree').val(treeData[0].id);
+						$('#_add_tree_window').modal('show');
+					}else{
+						$('#_add_tree_form')[0].reset();
+						$('#_baseTypeId_add_tree').val(row[0].baseTypeId);
+						$('#_baseTypeTreePid_add_tree').val('-');
+						$('#_add_tree_window').modal('show');
+					}
+				}else{
+					message.selectOne();
+				}
+			});
+			
+			/* 验证表单 */
+			$('#_add_tree_form').bootstrapValidator({
+				message: '验证提示信息',
+				fields: {
+					name:{
+						validators:{
+							notEmpty:{
+								message: '必填'
+							},
+							stringLength:{
+								max: 100,
+								message: '长度应小于100个字'
+							}
+						}
+					},
+					value:{
+						validators:{
+							notEmpty:{
+								message: '必填'
+							},
+							stringLength:{
+								max: 100,
+								message: '长度应小于100个字'
+							},
+							regexp:{
+								regexp: /^[A-Z\d]+$/,
+								message: '必须为大写字母和数字'
+							}
+						}
+					}
+				}
+			});
+			
+			/* 保存新增树节点项模态窗口 */
+			$('#_add_tree_save_button').click(function(){
+				
+				$('#_add_tree_form').bootstrapValidator('validate');
+				var flag = $('#_add_tree_form').data('bootstrapValidator').isValid();
+				$.post('../bttc/add', $('#_add_tree_form').serialize(), function(data) {
+					if(data > 0){
+						baseTypeTree($('#_baseTypeId_add_tree').val());
+						$('#_add_tree_form')[0].reset();
+						$('#_add_tree_window').modal('hide');
+						
+					}
+				});
+				
+			});
+			/* 关闭新增树节点项模态窗口模态窗口 */
+			$('#_add_tree_close_button').click(function(){
+				$('#_add_tree_form')[0].reset();
+				$('#_add_tree_window').modal('hide');
+			});
+			
+			
+			/* 弹出编辑树节点项模态窗口 */
+			$('#_edit_tree_button').click(function(){
+				
+				var row = $('#_t_base_type').bootstrapTable('getSelections');
+				if (typeof(row) != 'undefined' && row.length != 0){
+					var treeData = $('#_base_type_tree').treeview('getSelected');
+					if (typeof(treeData) != 'undefined' && treeData.length != 0){
+						$('#_edit_tree_form')[0].reset();
+						$.getJSON('../bttc/view', {'baseTypeTreeId':treeData[0].id}, function(data) {
+							$.setForm('#_edit_tree_form',data);
+							$('#_edit_tree_window').modal('show');
+						});
+					}else{
+						message.selectOne();
+					}
+				}else{
+					message.selectOne();
+				}
+			});
+			
+			/* 验证表单 */
+			$('#_edit_tree_form').bootstrapValidator({
+				message: '验证提示信息',
+				fields: {
+					name:{
+						validators:{
+							notEmpty:{
+								message: '必填'
+							},
+							stringLength:{
+								max: 100,
+								message: '长度应小于100个字'
+							}
+						}
+					},
+					value:{
+						validators:{
+							notEmpty:{
+								message: '必填'
+							},
+							stringLength:{
+								max: 100,
+								message: '长度应小于100个字'
+							},
+							regexp:{
+								regexp: /^[A-Z\d]+$/,
+								message: '必须为大写字母和数字'
+							}
+						}
+					}
+				}
+			});
+			
+			/* 保存编辑树节点项 */
+			$('#_edit_tree_save_button').click(function(){
+				
+				$('#_edit_tree_form').bootstrapValidator('validate');
+				var flag = $('#_edit_tree_form').data('bootstrapValidator').isValid();
+				if(flag){
+					$.post('../bttc/edit', $('#_edit_tree_form').serialize(), function(data) {
+						if(data > 0){
+							baseTypeTree($('#_baseTypeId_edit_tree').val());
+							$('#_edit_tree_form')[0].reset();
+							$('#_edit_tree_window').modal('hide');
+						}else{
+							message.saveFall();
+						}
+					});
+				}
+			});
+			/* 关闭编辑树节点项模态窗口 */
+			$('#_edit_tree_close_button').click(function(){
+				
+				$('#_edit_tree_form')[0].reset();
+				$('#_edit_tree_window').modal('hide');
+			});
+			
+			/* 关删除列表项 */
+			$('#_del_tree_button').click(function(){
+				
+				var treeData = $('#_base_type_tree').treeview('getSelected');
+				if (typeof(treeData) != 'undefined' && treeData.length != 0){
+					if(typeof(treeData[0].nodes) != "undefined"){
+						message.info("请先删除叶子节点。");
+					}else{
+						swal({
+							title: "确认要删除？",
+							text: "你的操作会删除选择的记录",
+							type: "warning",
+							showCancelButton: true,
+							cancelButtonText: "取消",
+							confirmButtonColor: "#1AB394",
+							confirmButtonText: "确定删除？",
+							closeOnConfirm: false
+						}, function () {
+							$.ajax({
+								type: "GET",
+								url: '../bttc/del',
+								data: {'baseTypeTreeId':treeData[0].id},
+								success: function(r){
+									if(r > 0){
+										swal({
+											title: "删除成功!",
+											text: "您所选中的记录删除成功。",
+											type: "success",
+											confirmButtonColor: "#1AB394",
+											confirmButtonText: "确定"
+										});
+										baseTypeTree(_baseTypeId);
+									}else{
+										swal({
+											title: "删除失败!",
+											text: "您所选中的记录删除失败，请联系管理员。",
+											type: "error",
+											confirmButtonColor: "#1AB394",
+											confirmButtonText: "确定"
+										});
+									}
+								}
+							})
+						});
+					}
+				}else{
+					message.selectOne();
+				}
+			});
+			
+			/* 排序下降一位 */
+			$('#_down_tree_button').click(function(){
+				
+				var treeData = $('#_base_type_tree').treeview('getSelected');
+				if (typeof(treeData) != 'undefined' && treeData.length != 0){
+					$.getJSON('../bttc/down', {'baseTypeTreeId':treeData[0].id}, function(data) {
+						if(data > 0){
+							baseTypeTree(_baseTypeId);
+						}else{
+							message.info('该节点已经不能移动');
+						}
+					});
+				}else{
+					message.selectOne();
+				}
+			});
+			
+			/* 排序上升一位 */
+			$('#_up_tree_button').click(function(){
+				
+				var treeData = $('#_base_type_tree').treeview('getSelected');
+				if (typeof(treeData) != 'undefined' && treeData.length != 0){
+					$.getJSON('../bttc/up', {'baseTypeTreeId':treeData[0].id}, function(data) {
+						if(data > 0){
+							baseTypeTree(_baseTypeId);
+						}else{
+							message.info('该节点已经不能移动');
+						}
+					});
+				}else{
+					message.selectOne();
+				}
+			});
+			
+		});
+     	 
+		function baseTypeTree(_baseTypeId){
+			
+			$.get('../bttc/tree', {'baseTypeId':_baseTypeId},function(r){
+				var data = JSON.stringify(r);
+				$('#_base_type_tree').treeview({
+					selectedBackColor: '#1ab394',
+					data:data,
+					enableLinks:true,
+					levels:4
+				});
+			})
+		}
+      </script>
+	</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'客户服务 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .bg-title{
+            font-weight: bold;
+            font-size: 32px;
+            color: #000000;
+        }
+
+        .left-line {
+            height: 2px;
+            width: 125px;
+            background-color: #005cbf;
+            margin-left: 0px
+        }
+
+        .lt-title{
+            font-size: 18px;
+            color: #000000;
+            font-weight:bold;
+        }
+
+        .lt-title-line{
+            height: 1px;
+            width: 360px;
+            margin-top: 9px;
+            margin-bottom: 12px
+        }
+
+        .main-contect-phone-icon{
+            margin-top: -10px;
+        }
+
+        .phone-icon{
+            margin-top: -3px;
+        }
+
+        .main-contect-tel{
+            color: #0066cc;
+            font-size: 24px;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+
+        .prefix-title{
+            font-size: 16px;
+            color: #333333;
+            margin-left: 20px;
+        }
+
+        .font-16px-33{
+            font-size: 16px;
+            color: #333333;
+        }
+
+        .qq-btn-div{
+            border-radius: 20px;
+            height: 33px;
+            margin-top: 7px
+        }
+
+        .btn-outline-black {
+            color: #333333;
+            border-color: #d6d6d6;
+        }
+
+        .btn-outline-black:hover {
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .qq-icon{
+            margin-left: 27px;
+        }
+
+        .qq-number{
+            margin-left: 12px;
+            margin-right: 26px;
+            margin-top: -2px;
+        }
+
+        /*.toast-center-center {
+            top: 50%;
+            left: 50%;
+            margin-top: -30px;
+            margin-left: -150px;
+        }*/
+
+        .modal{
+            z-index: 10000;
+        }
+    </style>
+</head>
+<body>
+<!-- 头部分-->
+<th:block th:replace="common/layout::header"/>
+<div>
+    <img class="card-img-top" src="/image/customerService/customer_service_banner.png">
+</div>
+<div class="container" style="margin-top: 64px;margin-bottom: 80px;">
+    <div>
+        <div class="bg-title">
+            联系我们
+        </div>
+        <hr class="left-line"/>
+        <div class="row">
+            <div class="col-4">
+                <div class="lt-title">7×24小时服务热线</div>
+                <hr class="lt-title-line" style="margin-bottom: 4px">
+                <div>
+                    <img class="main-contect-phone-icon" src="/image/customerService/phone.png" alt="">
+                    <span class="main-contect-tel">0592-5070808</span>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="lt-title">业务服务热线</div>
+                <hr class="lt-title-line">
+                <div>
+                    <img class="phone-icon" src="/image/customerService/phone.png" alt="">
+                    <span class="prefix-title">造价产品：</span> <span>0592-5070808-1</span>
+                </div>
+                <div style="margin-top: 11px">
+                    <!--<img class="phone-icon" src="/image/customerService/phone.png" alt="">-->
+                    <span class="prefix-title" style="margin-left: 46px">公共资源：</span> <span>0592-5070808-2</span>
+                </div>
+                <div style="margin-top: 11px">
+                    <!--<img class="phone-icon" src="/image/customerService/phone.png" alt="">-->
+                    <span class="prefix-title" style="margin-left: 46px">建设工程：</span> <span>0592-5070808-3</span>
+                </div>
+                <div style="margin-top: 11px">
+                    <!--<img class="phone-icon" src="/image/customerService/phone.png" alt="">-->
+                    <span class="prefix-title" style="margin-left: 46px">房产集成：</span> <span>0592-5070808-4</span>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="lt-title">公司传真</div>
+                <hr class="lt-title-line">
+                <div>
+                    <img src="/image/customerService/fax.png" alt="">
+                    <span style="margin-left: 20px">0592-5090758</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div style="margin-top: 56px">
+        <div class="bg-title">
+            QQ客服
+        </div>
+        <hr class="left-line" style="width: 115px;"/>
+        <div class="row d-flex justify-content-between" style="margin-top: 34px;">
+            <hr style="width: 27%;margin-left: 15px;"/>
+            <div style="font-size: 16px;color: #333333;">加入下方对应qq群，客服工程师将竭诚为您提供专业化的在线服务</div>
+            <hr style="width: 27%;margin-right: 15px;"/>
+        </div>
+        <div class="row" style="margin-top: 30px">
+            <div class="col-2">
+                <div class="text-center font-16px-33">
+                    海迈_造价之家_福州
+                </div>
+                <div class="btn d-flex justify-content-center btn-outline-black qq-btn-div">
+                    <img class="qq-icon" src="/image/customerService/qq.png" alt="">
+                    <span class="qq-number" data-clipboard-text="526568436">526568436</span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="text-center font-16px-33">
+                    海迈_造价之家_厦门
+                </div>
+                <div class="btn d-flex justify-content-center btn-outline-black qq-btn-div">
+                    <img class="qq-icon" src="/image/customerService/qq.png" alt="">
+                    <span class="qq-number" data-clipboard-text="571348595">571348595</span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="text-center font-16px-33">
+                    海迈_造价之家_宁德
+                </div>
+                <div class="btn d-flex justify-content-center btn-outline-black qq-btn-div">
+                    <img class="qq-icon" src="/image/customerService/qq.png" alt="">
+                    <span class="qq-number" data-clipboard-text="107235075">107235075</span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="text-center font-16px-33">
+                    海迈_造价之家_莆田
+                </div>
+                <div class="btn d-flex justify-content-center btn-outline-black qq-btn-div">
+                    <img class="qq-icon" src="/image/customerService/qq.png" alt="">
+                    <span class="qq-number" data-clipboard-text="538716377">538716377</span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="text-center font-16px-33">
+                    海迈_造价之家_泉州
+                </div>
+                <div class="btn d-flex justify-content-center btn-outline-black qq-btn-div">
+                    <img class="qq-icon" src="/image/customerService/qq.png" alt="">
+                    <span class="qq-number" data-clipboard-text="386705058">386705058</span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="text-center font-16px-33">
+                    海迈_造价之家_漳州
+                </div>
+                <div class="btn d-flex justify-content-center btn-outline-black qq-btn-div">
+                    <img class="qq-icon" src="/image/customerService/qq.png" alt="">
+                    <span class="qq-number" data-clipboard-text="11120194">11120194</span>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 42px">
+            <div class="col-2">
+                <div class="text-center font-16px-33">
+                    海迈_造价之家_龙岩
+                </div>
+                <div class="btn d-flex justify-content-center btn-outline-black qq-btn-div">
+                    <img class="qq-icon" src="/image/customerService/qq.png" alt="">
+                    <span class="qq-number" data-clipboard-text="469838368">469838368</span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="text-center font-16px-33">
+                    海迈_造价之家_三明
+                </div>
+                <div class="btn d-flex justify-content-center btn-outline-black qq-btn-div">
+                    <img class="qq-icon" src="/image/customerService/qq.png" alt="">
+                    <span class="qq-number" data-clipboard-text="100925196">100925196</span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="text-center font-16px-33">
+                    海迈_造价之家_南平
+                </div>
+                <div class="btn d-flex justify-content-center btn-outline-black qq-btn-div">
+                    <img class="qq-icon" src="/image/customerService/qq.png" alt="">
+                    <span class="qq-number" data-clipboard-text="25137643">25137643</span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="text-center font-16px-33">
+                    海迈_造价之家_BIM
+                </div>
+                <div class="btn d-flex justify-content-center btn-outline-black qq-btn-div">
+                    <img class="qq-icon" src="/image/customerService/qq.png" alt="">
+                    <span class="qq-number" data-clipboard-text="558925635">558925635</span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="text-center font-16px-33">
+                    海迈土建算量会员群
+                </div>
+                <div class="btn d-flex justify-content-center btn-outline-black qq-btn-div">
+                    <img class="qq-icon" src="/image/customerService/qq.png" alt="">
+                    <span class="qq-number" data-clipboard-text="679797737">679797737</span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="text-center font-16px-33">
+                    海迈爽算安装交流一群
+                </div>
+                <div class="btn d-flex justify-content-center btn-outline-black qq-btn-div">
+                    <img class="qq-icon" src="/image/customerService/qq.png" alt="">
+                    <span class="qq-number" data-clipboard-text="58101285">58101285</span>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 42px">
+            <div class="col-2">
+                <div class="text-center font-16px-33">
+                    海迈_造价之家_电力
+                </div>
+                <div class="btn d-flex justify-content-center btn-outline-black qq-btn-div">
+                    <img class="qq-icon" src="/image/customerService/qq.png" alt="">
+                    <span class="qq-number" data-clipboard-text="315080958">315080958</span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="text-center font-16px-33">
+                    监管系统企业交流群
+                </div>
+                <div class="btn d-flex justify-content-center btn-outline-black qq-btn-div">
+                    <img class="qq-icon" src="/image/customerService/qq.png" alt="">
+                    <span class="qq-number" data-clipboard-text="607818799">607818799</span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="text-center font-16px-33">
+                    海迈备考交流群
+                </div>
+                <div class="btn d-flex justify-content-center btn-outline-black qq-btn-div">
+                    <img class="qq-icon" src="/image/customerService/qq.png" alt="">
+                    <span class="qq-number" data-clipboard-text="498290885">498290885</span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="text-center font-16px-33">
+                    海迈工程造价培训
+                </div>
+                <div class="btn d-flex justify-content-center btn-outline-black qq-btn-div">
+                    <img class="qq-icon" src="/image/customerService/qq.png" alt="">
+                    <span class="qq-number" data-clipboard-text="237317768">237317768</span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="text-center font-16px-33">
+                    建设工程电子招投标
+                </div>
+                <!--<div class="btn d-flex justify-content-center btn-outline-black qq-btn-div" data-toggle="modal" data-target="#exampleModal">-->
+                <div class="btn d-flex justify-content-center btn-outline-black qq-btn-div">
+                    <img class="qq-icon" src="/image/customerService/qq.png" alt="">
+                    <span class="qq-number" data-clipboard-text="835607643">835607643</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">提示消息</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    复制成功!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>-->
+</div>
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+<script src="/js/clipboard/clipboard.js"></script>
+<!--<link href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+<script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>-->
+
+<link rel="stylesheet" href="/css/msgbox/msgbox.css" />
+<script type="text/javascript" src="/js/msgbox/msgbox.min.js"></script>
+<script type="text/javascript">
+    /*toastr.options.positionClass = 'toast-center-right';*/
+    $('.btn').click(function () {
+        new ClipboardJS('.qq-number');
+        //alert弹窗
+        /*alert("复制成功");*/
+        //toastr弹窗
+        /*toastr.options = {autoDismiss:true,closeButton:true,timeOut:1000}
+        toastr.success('复制成功');*/
+        //msgbox弹窗
+        ZENG.msgbox.show('复制QQ群号码成功!', 4, 5000);
+    })
+
+
+    $('.btn').mouseenter(function(){
+        var that = $(this);
+        var qqIcon = that.children('img')
+        qqIcon.attr('src','/image/customerService/qq_active.png');
+    });
+
+    $('.btn').mouseleave(function(){
+        var that = $(this);
+        var qqIcon = that.children('img')
+        qqIcon.attr('src','/image/customerService/qq.png')
+    });
+</script>
+
+</body>
+</html>

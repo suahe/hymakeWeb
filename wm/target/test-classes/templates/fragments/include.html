@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	<head>
+		<title>公用模板页面</title>
+    	<th:block th:fragment="common_header">
+    	<meta name="_csrf" th:content="${_csrf.token}">
+    	<meta name="_csrf_header" th:content="${_csrf.headerName}">
+    	<link rel="shortcut icon" href="../favicon.ico">
+    	<link th:href="@{/modules/bootstrap/css/bootstrap.css}" rel="stylesheet" type="text/css" />
+    	<link th:href="@{/css/main.css}" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" th:src="@{/js/jquery-3.3.1.js}" charset="utf-8"></script>
+		<!-- BootStrap dropdown 组件 注意：必须在bootstrap.js前引用 -->
+	    <script type="text/javascript" th:src="@{/modules/popper/popper.js}" charset="utf-8"></script>
+		<!-- BootStrap 主JS -->
+		<script type="text/javascript" th:src="@{/modules/bootstrap/js/bootstrap.js}" charset="utf-8"></script>
+		<!-- Srping Security CSRF 令牌 AJAX方式必须-->
+		<script type="text/javascript" th:src="@{/js/secjs.js}" charset="utf-8"></script>
+		<!-- 图标字体库 -->
+		<link th:href="@{/modules/font-awesome-4.7.0/css/font-awesome.css}" rel="stylesheet" type="text/css" />
+		<!-- 动画库 -->
+		<link th:href="@{/modules/animate/animate.css}" rel="stylesheet" type="text/css" />
+		<!-- inspinia -->
+		<link th:href="@{/modules/inspinia/style.css}" rel="stylesheet" type="text/css" />
+		<!-- inspinia -->
+		<script type="text/javascript" th:src="@{/modules/inspinia/inspinia.js}" charset="utf-8"></script>
+		<!-- metisMenu侧边菜单栏 -->
+		<!-- <link th:href="@{/modules/metisMenu/metisMenu.css}" rel="stylesheet" type="text/css" /> -->
+		<script type="text/javascript" th:src="@{/modules/metisMenu/jquery.metisMenu.js}" charset="utf-8"></script>
+	    <!-- 页面加载进度条 -->
+	    <script type="text/javascript" th:src="@{/modules/pace/pace.js}" charset="utf-8"></script>
+	    <!-- slimScroll滚动条 -->
+	    <script type="text/javascript" th:src="@{/modules/slimscroll/jquery.slimscroll.js}" charset="utf-8"></script>
+	    
+	    <link th:href="@{/modules/bootstrap-table/bootstrap-table.css}" rel="stylesheet" type="text/css" />
+	    <script type="text/javascript" th:src="@{/modules/bootstrap-table/bootstrap-table.js}" charset="utf-8"></script>
+		<script type="text/javascript" th:src="@{/modules/bootstrap-table/locale/bootstrap-table-zh-CN.js}" charset="utf-8"></script>
+		
+		<link th:href="@{/modules/bootstrap-table/extensions/page-jumpto/bootstrap-table-jumpto.css}" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" th:src="@{/modules/bootstrap-table/extensions/page-jumpto/bootstrap-table-jumpto.js}" charset="utf-8" ></script>
+		
+		<link th:href="@{/modules/bootstrapvalidator/css/bootstrapValidator.css}" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" th:src="@{/modules/bootstrapvalidator/js/bootstrapValidator.js}" charset="utf-8" ></script>
+		<script type="text/javascript" th:src="@{/modules/bootstrapvalidator/js/language/zh_CN.js}" charset="utf-8" ></script>
+		
+		<script type="text/javascript" th:src="@{/modules/bootstrap-bootbox/bootbox.js}" charset="utf-8"></script>
+		
+		<script type="text/javascript" th:src="@{/js/form.json.js}" charset="utf-8"></script>
+		
+		<link th:href="@{/modules/bootstrap-treeview/bootstrap-treeview.css}" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" th:src="@{/modules/bootstrap-treeview/bootstrap-treeview.js}" charset="utf-8"></script>
+		<script type="text/javascript" th:src="@{/js/treeview.js}" charset="utf-8"></script>
+		
+		<link th:href="@{/modules/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css}" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" th:src="@{/modules/bootstrap-datetimepicker/bootstrap-datetimepicker.js}" charset="utf-8"></script>
+		<script type="text/javascript" th:src="@{/modules/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js}" charset="utf-8"></script>
+		
+		<link th:href="@{/modules/bootstrap-multiselect/bootstrap-multiselect.css}" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" th:src="@{/modules/bootstrap-multiselect/bootstrap-multiselect.js}" charset="utf-8"></script>
+		
+		
+		<link th:href="@{/modules/webuploader/webuploader.css}" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" th:src="@{/modules/webuploader/webuploader.js}" charset="utf-8"></script>
+		
+		<!-- sweetalert弹出插件 -->
+		<link th:href="@{/modules/bootstrap-sweetalert/sweetalert.css}" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" th:src="@{/modules/bootstrap-sweetalert/sweetalert.min.js}" charset="utf-8"></script>
+		
+		<!-- iCheck -->
+		<link th:href="@{/modules/iCheck/css/custom.css}" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" th:src="@{/modules/iCheck/js/icheck.min.js}" charset="utf-8"></script>
+		
+		<!-- select2 -->
+		<link th:href="@{/modules/bootstrap-select2/select2.min.css}" rel="stylesheet" type="text/css" />
+		<link th:href="@{/modules/bootstrap-select2/select2-bootstrap.css}" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" th:src="@{/modules/bootstrap-select2/select2.full.js}" charset="utf-8"></script>
+		<script type="text/javascript" th:src="@{/modules/bootstrap-select2/i18n/zh-CN.js}" charset="utf-8"></script>
+		<link th:href="@{/modules/bootstrap-select2/select2-ext.css}" rel="stylesheet" type="text/css" />
+		
+		<script type="text/javascript" th:src="@{/js/jquery.basetype.js}" charset="utf-8"></script>
+		
+		<script type="text/javascript" th:src="@{/js/basetype.js}" charset="utf-8"></script>
+		
+		<script type="text/javascript" th:src="@{/js/baseurl.js}" charset="utf-8"></script>
+		
+		<script type="text/javascript" th:src="@{/js/message.js}" charset="utf-8"></script>
+		
+		<script type="text/javascript" th:src="@{/js/main.js}" charset="utf-8"></script>
+		
+		<link th:href="@{/modules/summernote/summernote.css}" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" th:src="@{/modules/summernote/summernote.js}" charset="utf-8"></script>
+		<script type="text/javascript" th:src="@{/modules/summernote/lang/summernote-zh-CN.js}" charset="utf-8"></script>
+		
+		<link th:href="@{/modules/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css}" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" th:src="@{/modules/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js}" charset="utf-8"></script>
+		
+		<link th:href="@{/modules/awesome-checkbox/awesome-checkbox.css}" rel="stylesheet" type="text/css" />
+		
+		<script type="text/javascript" th:src="@{/js/json.form.js}" charset="utf-8"></script>
+		
+		<!-- <link th:href="@{/modules/video/video-js.css}" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" th:src="@{/modules/video/video.js}" charset="utf-8"></script>
+		<script type="text/javascript" th:src="@{/modules/video/zh-CN.js}" charset="utf-8"></script> -->
+		
+		<script type="text/javascript" th:src="@{/modules/plupload/plupload.full.min.js}" charset="utf-8"></script>
+		<script type="text/javascript" th:src="@{/modules/plupload/i18n/zh_CN.js}" charset="utf-8"></script>
+		
+		<script type="text/javascript" th:src="@{/js/form.initjson.js}" charset="utf-8"></script>
+		
+		<script type="text/javascript" th:src="@{/js/form.options.js}" charset="utf-8"></script>
+		
+		</th:block>
+	</head>
+	<body>
+	</body>
+</html>

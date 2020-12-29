@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	@Description t_base_operationlog 表数据库操作SQL语句
+	@author 38840472@qq.com
+	@date 2019-01-10 14:47:58
+	@version 1.0
+	@remark create by ca
+-->
+
+<mapper namespace="com.dzb.console.mapper.BaseOperationlogMapper">
+
+	<!-- 
+		OPERATIONLOG_ID				varchar			#{operationlogId}			操作日志信息编号
+		LOG_TIME				datetime			#{logTime}			日志时间
+		USER_ID				varchar			#{userId}			用户编号
+		USERLOG_ID				varchar			#{userlogId}			用户日志编号
+		MODULE_NAME				varchar			#{moduleName}			模块名称
+		SUBMODULE_NAME				varchar			#{submoduleName}			子模块名称
+		CLASS_NAME				varchar			#{className}			类名
+		METHOD_NAME				varchar			#{methodName}			方法名
+		PARAMS				text			#{params}			参数
+	-->
+
+	<sql id="all">
+			OPERATIONLOG_ID
+			,LOG_TIME
+			,USER_ID
+			,USERLOG_ID
+			,MODULE_NAME
+			,SUBMODULE_NAME
+			,CLASS_NAME
+			,METHOD_NAME
+			,PARAMS
+	</sql>
+	
+	<select id="selectPagination" resultType="baseOperationlogEntity" parameterType="baseOperationlogEntity">
+		SELECT
+			t_base_operationlog.LOG_TIME,
+			t_base_operationlog.MODULE_NAME,
+			t_base_operationlog.SUBMODULE_NAME,
+			t_base_user.USERNAME,
+			t_base_operationlog.OPERATIONLOG_ID,
+			t_base_operationlog.USERLOG_ID
+		FROM
+			t_base_operationlog
+		LEFT JOIN 
+			t_base_user 
+		ON 
+			t_base_operationlog.USER_ID = t_base_user.USER_ID
+		<where>
+			<if test="moduleName != '' and moduleName != null and submoduleName != '' and submoduleName != null and username != '' and username != null">
+				t_base_operationlog.MODULE_NAME like concat('%',#{moduleName},'%') 
+				or t_base_operationlog.SUBMODULE_NAME like concat('%',#{submoduleName},'%')
+				or t_base_user.USERNAME like concat('%', #{username},'%')
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectByPkey" resultType="baseOperationlogEntity" parameterType="String">
+		select 
+			<include refid="all" />
+		from 
+			t_base_operationlog
+		where 
+			OPERATIONLOG_ID = #{operationlogId}
+	</select>
+	
+	<insert id="insert" parameterType="baseOperationlogEntity">
+		insert into t_base_operationlog (
+			OPERATIONLOG_ID
+			,LOG_TIME
+			,USER_ID
+			,USERLOG_ID
+			,MODULE_NAME
+			,SUBMODULE_NAME
+			,CLASS_NAME
+			,METHOD_NAME
+			,PARAMS
+		) values (
+			#{operationlogId}
+			,#{logTime}
+			,#{userId}
+			,#{userlogId}
+			,#{moduleName}
+			,#{submoduleName}
+			,#{className}
+			,#{methodName}
+			,#{params}
+		)
+	</insert>
+	
+</mapper>

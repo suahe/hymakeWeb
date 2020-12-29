@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'404错误页面 - ' + ${title}"></title>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .error{
+            position: static;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+        }
+        .error-bg{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: #ccc url('/image/error/error_bg.png') repeat center center;
+        }
+        .error-con{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -330px;
+            margin-top: -150px;
+            text-align: center;
+            z-index: 99999;
+        }
+        .error-img {
+            float: left;
+            width: 281px;
+            height: 281px;
+            text-align: center;
+            margin: 50px auto!important;
+        }
+
+        .img-responsive {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+        .error-text {
+            height: 281px;
+            margin-top: 4.5rem;
+            margin-left: 20rem;
+            text-align: center;
+        }
+
+        .error .error-text h3 {
+            font-size: 26px;
+            margin-bottom: 66px;
+            margin-top: 0;
+            padding-top: 50px;
+            color: #666666;
+            font-weight: bold;
+        }
+
+        .error-btn {
+            padding: 0;
+            color: #fff;
+            text-align: center;
+        }
+
+        .error-btn-prev {
+            display: inline-block;
+            width: 120px;
+            height: 40px;
+            line-height: 40px;
+            color: #fff;
+            background-color: #fdbc28;
+            box-shadow: 0px 5px 9px 0px rgba(113, 83, 13, .2);
+            border-radius: 20px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .error-btn-index {
+            display: inline-block;
+            width: 120px;
+            height: 40px;
+            line-height: 40px;
+            color: #fff;
+            background-color: #00a4ff;
+            -webkit-box-shadow: 0px 5px 9px 0px rgba(7, 58, 102, .2);
+            box-shadow: 0px 5px 9px 0px rgba(7, 58, 102, .2);
+            border-radius: 20px;
+        }
+
+        .error-btn a{
+            text-decoration-line: none;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <section class="error">
+        <div class="error-bg">
+            <div class="error-con">
+                <div class="error-img"><img src="/image/error/404-img.png" alt="" class="img-responsive">
+                </div>
+                <div class="error-text"><h3>404！抱歉页面无法预览</h3>
+                    <!--<p>请您点击按钮返回其他页面</p>-->
+                    <div class="error-btn">
+                        <a href="/" class="error-btn-prev">返回上一页</a>
+                        <a href="/" class="error-btn-index nuxt-link-active">返回首页</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

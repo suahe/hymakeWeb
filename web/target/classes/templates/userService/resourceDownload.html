@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans" >
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta" />
+    <meta name="keywords" th:content="${keywords}" />
+    <title th:text="'资源下载 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static" />
+    <th:block th:replace="common/analytics::baidu" />
+    <style scoped="scoped">
+        .vertical-line {
+            width: 1px;
+            height: 23px;
+            border: 2px solid #005fb9;
+            float: left;
+            margin-top: 10px;
+            margin-right: 12px;
+        }
+
+        .bg-title{
+            font-size: 22px;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        .resource-download-card{
+            width: 386px;
+            height: 320px;
+            background: url('/image/resourceDownload/resource_download_bg.png');
+        }
+
+        .resource-download-card-body{
+            padding: 40px;
+        }
+
+        .icon_img{
+            width: 56px;
+            height: 56px;
+        }
+
+        .resource-download-card-title{
+            font-size: 22px;
+            color: #333333;
+            font-weight: bold;
+            margin-left: 12px;
+            margin-top: 8px;
+        }
+
+        .resource-download-card-text{
+            font-size: 16px;
+            color: #666666;
+            margin-top: 15px;
+            text-align: justify;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+
+        .resource-download-btn-div{
+            margin-top: 24px;
+        }
+
+        .resource-download-btn-div>a{
+            font-size: 16px;
+            padding: 0.25rem 0.8rem;
+        }
+
+        .btn-outline-primary:focus, .btn-outline-primary.focus{
+            box-shadow:0 0 0 #ffffff;
+        }
+    </style>
+</head>
+<body>
+<!-- 头部分-->
+<th:block th:replace="common/layout::header" />
+
+<div>
+    <img class="card-img-top" src="/image/resourceDownload/resource_download_banner.png">
+</div>
+
+<div class="container" style="margin-top: 40px;margin-bottom: 80px;">
+    <!--先注释不进行分部门-->
+    <!--<div>
+        <span class="text-center">
+            <div class="vertical-line"></div>
+            <span class="bg-title">造价产品事业部</span>
+        </span>
+    </div>-->
+
+    <div class="row" style="margin-top: 20px">
+        <!--<div class="col-4">
+            <div class="card resource-download-card">
+                <div class="card-body resource-download-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/resourceDownload/price_software_member_version_icon.png" alt="">
+                        <div class="card-title resource-download-card-title">
+                            海迈计价软件(会员版)
+                        </div>
+                    </div>
+                    <p class="card-text resource-download-card-text">
+                        海迈计价软件(会员版)，涵盖最新2013清单、福建省2017版费用定额及全专业定额，适用福建全省。支持清单计价、定额计价、模拟清单三种模式，广泛再政府、业主、设计、施工企业中使用，满足工程各阶段造价编制需要。
+                    </p>
+                    <div class="resource-download-btn-div">
+                        <a target="_blank" href="http://www.zaojia.cn/product/list/jj" class="btn btn-outline-primary btn-lg">立即下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card resource-download-card" style="margin-left: -5px">
+                <div class="card-body resource-download-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/resourceDownload/price_software_tender_version_icon.png" alt="">
+                        <div class="card-title resource-download-card-title">
+                            海迈计价软件(投标版)
+                        </div>
+                    </div>
+                    <p class="card-text resource-download-card-text">
+                        海迈计价软件(轨道板)，内置《2013年建设工程工程量清单计价规范》(GB50500-2013)、厦门轨道清单、城市轨道交通工程预算定额（GCG103-2008)、厦门城市轨道交通工程预算定额及福建省2017预算定额等，软件满足各地区轨道交通工程概算、预算、招投标以及施工结算、竣工结算全过程造价编制的需求。
+                    </p>
+                    <div class="resource-download-btn-div">
+                        <a target="_blank" href="http://www.zaojia.cn/product/list/jj" class="btn btn-outline-primary btn-lg">立即下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <div class="col-4">
+            <div class="card resource-download-card">
+                <div class="card-body resource-download-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/resourceDownload/price_cloud_icon.png" alt="">
+                        <div class="card-title resource-download-card-title">
+                            海迈云计价平台
+                        </div>
+                    </div>
+                    <p class="card-text resource-download-card-text">
+                        海迈云计价平台是海迈科技全新打造、拥有自主知识产权的一体化综合计价软件平台。平台以海迈造价会员体系为基础，依托互联网+云+大数据+BIM等先进技术，集成多种工程台账模式，整合海迈全方位的在线资源服务，创新性的将概算、预算、结算及投标报价的工程造价全过程全业务嵌入同一平台，旨在为客户提供更便捷、高效的工作模式及更快乐的工作桌面环境。
+                    </p>
+                    <div class="resource-download-btn-div">
+                        <a target="_blank" href="http://www.zaojia.cn/product/list/jj" class="btn btn-outline-primary btn-lg">立即下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card resource-download-card" style="margin-left: -5px;">
+                <div class="card-body resource-download-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/resourceDownload/preTendeEvaluation.png" alt="">
+                        <div class="card-title resource-download-card-title">
+                            海迈投标预评估软件
+                        </div>
+                    </div>
+                    <p class="card-text resource-download-card-text">
+                        根据评标规则快速比对投标清单和招标清单的数据差异，降低因数据错误而导致的废标风险；还包含投标文件软硬件信息的查看，提供导出差异数据，为客户的投标工作提供了安全、有效的保障。WEB版可用海迈会员账号便捷登录，随时随地，超便捷办公。
+                    </p>
+                    <div class="resource-download-btn-div">
+                        <a target="_blank" href="http://tb.hymake.net/newIndex" class="btn btn-outline-primary btn-lg">立即下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card resource-download-card" style="margin-left: -10px;">
+                <div class="card-body resource-download-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/resourceDownload/engineere_calculation_software_icon.png" alt="">
+                        <div class="card-title resource-download-card-title">
+                            海迈土建算量软件
+                        </div>
+                    </div>
+                    <p class="card-text resource-download-card-text">
+                        海迈土建算量软件是一款以Excel输入为基础,井辅以自研的CAD插件，自动读取图形数据，构建土建与钢筋工程量构成要素、构件之间相互关系，形成土建工程计量相关联的构件组成模块，按福建省现行建筑工程计量规则，自动计算出量并完成套价工作。
+                    </p>
+                    <div class="resource-download-btn-div">
+                        <a target="_blank" href="http://www.zaojia.cn/product/list/jj" class="btn btn-outline-primary btn-lg">立即下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 20px">
+        <div class="col-4">
+            <div class="card resource-download-card">
+                <div class="card-body resource-download-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/resourceDownload/install_calculation_software.png" alt="">
+                        <div class="card-title resource-download-card-title">
+                            海迈安装算量软件
+                        </div>
+                    </div>
+                    <p class="card-text resource-download-card-text">
+                        海迈安装算量软件是一款应用于建设工程 招投标阶段、施工阶段和结算阶段的机电工程计算软件，专业内容包含电气专业、给排水专业、通风空调专业、智能化专业等。主要面向建设工程领域中业主、施工企业、中介咨询某单位的工程造价人员。
+                    </p>
+                    <div class="resource-download-btn-div">
+                        <a target="_blank" href="http://www.zaojia.cn/product/list/jj" class="btn btn-outline-primary btn-lg">立即下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card resource-download-card" style="margin-left: -5px;">
+                <div class="card-body resource-download-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/resourceDownload/engineere_quantity_calculation_software_icon.png" alt="">
+                        <div class="card-title resource-download-card-title">
+                            海迈工程量计算书软件
+                        </div>
+                    </div>
+                    <p class="card-text resource-download-card-text">
+                        海迈工程量计算书软件是一款模拟手工计算底稿的算量软件，符合造价员手动算量的思维，精确计算，量入为出，可与海迈计价软件无缝对接。适用于建设工程招投标阶段、施工阶段和结算阶段，主要面向建设工程领域中业主、施工企业、中介咨询等单位的工程造价人员。
+                    </p>
+                    <div class="resource-download-btn-div">
+                        <a target="_blank" href="http://www.zaojia.cn/product/list/jj" class="btn btn-outline-primary btn-lg">立即下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card resource-download-card" style="margin-left: -10px;">
+                <div class="card-body resource-download-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/resourceDownload/evaluation_assistant_software_icon.png" alt="">
+                        <div class="card-title resource-download-card-title">
+                            海迈工程评标辅助软件
+                        </div>
+                    </div>
+                    <p class="card-text resource-download-card-text">
+                        海迈工程评标辅助软件是应用于建设工程招投标阶段评标环节的辅助评标软件。软件基于福建省房屋建筑和市政基础设施工程标准施工招投标文件中的评标办法及相关政策文件规定，为招标代理和评标专家提供专业、高效的商务文件评审功能。同时，可对接海迈计价软件。
+                    </p>
+                    <div class="resource-download-btn-div">
+                        <a target="_blank" href="http://www.zaojia.cn/product/list/jj" class="btn btn-outline-primary btn-lg">立即下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 20px">
+        <div class="col-4">
+            <div class="card resource-download-card">
+                <div class="card-body resource-download-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/resourceDownload/cost_assistant_icon.png" alt="">
+                        <div class="card-title resource-download-card-title">
+                            海迈造价助手
+                        </div>
+                    </div>
+                    <p class="card-text resource-download-card-text">
+                        方便造价从业人员日常工作的在线服务平台，内容包括：软件下载、在线升级、刊物品牌材机包、品牌询价、造价工具等。
+                    </p>
+                    <div class="resource-download-btn-div">
+                        <a target="_blank" href="http://www.zaojia.cn/product/list/jj" class="btn btn-outline-primary btn-lg">立即下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card resource-download-card" style="margin-left: -5px">
+                <div class="card-body resource-download-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/resourceDownload/bim_family_space_software_icon.png" alt="">
+                        <div class="card-title resource-download-card-title">
+                            海迈BIM族空间软件
+                        </div>
+                    </div>
+                    <p class="card-text resource-download-card-text">
+                        基于Revit软件的免费族库管理软件，汇聚各大专业族文件，有近万免费族，支持一键载入Revit软件，快速简单。
+                    </p>
+                    <div class="resource-download-btn-div">
+                        <a target="_blank" href="http://www.zaojia.cn/hymakeBIM/list/zkj" class="btn btn-outline-primary btn-lg">立即下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card resource-download-card" style="margin-left: -10px;">
+                <div class="card-body resource-download-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/resourceDownload/model_engineer.png" alt="">
+                        <div class="card-title resource-download-card-title">
+                            海迈BIM建模(土建)
+                        </div>
+                    </div>
+                    <p class="card-text resource-download-card-text">
+                        基于Revit软件的土建快速建模软件，全面支持各种异型结构识别和转化，集成模型深化、调整等辅助功能。
+                    </p>
+                    <div class="resource-download-btn-div">
+                        <a target="_blank" href="http://www.zaojia.cn/hymakeBIM/list/zkj" class="btn btn-outline-primary btn-lg">立即下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 20px">
+        <div class="col-4">
+            <div class="card resource-download-card">
+                <div class="card-body resource-download-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/resourceDownload/model_electromechanical.png" alt="">
+                        <div class="card-title resource-download-card-title">
+                            海迈BIM建模(机电)
+                        </div>
+                    </div>
+                    <p class="card-text resource-download-card-text">
+                        基于Revit软件的机电快速建模软件，全面支持各种形式的管道连接，一键优化机电模型的管道翻弯、登高。
+                    </p>
+                    <div class="resource-download-btn-div">
+                        <a target="_blank" href="http://www.zaojia.cn/hymakeBIM/list/zkj" class="btn btn-outline-primary btn-lg">立即下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card resource-download-card" style="margin-left: -5px">
+                <div class="card-body resource-download-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/resourceDownload/model_construction.png" alt="">
+                        <div class="card-title resource-download-card-title">
+                            海迈BIM建模(施工)
+                        </div>
+                    </div>
+                    <p class="card-text resource-download-card-text">
+                        基于Revit软件的场地布置快速建模软件，可自动生成道路，一键布置路口，砌体排砖、用砖量统计一步搞定，全面支持安全文明检查。
+                    </p>
+                    <div class="resource-download-btn-div">
+                        <a target="_blank" href="http://www.zaojia.cn/hymakeBIM/list/zkj" class="btn btn-outline-primary btn-lg">立即下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card resource-download-card" style="margin-left: -10px;">
+                <div class="card-body resource-download-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/resourceDownload/calculation_engineer.png" alt="">
+                        <div class="card-title resource-download-card-title">
+                            海迈BIM算量(土建)
+                        </div>
+                    </div>
+                    <p class="card-text resource-download-card-text">
+                        基于BIM的土建钢筋一体化算量软件，支持全国清单和定额计算规则，一键创建房间和房间装修，实时查看构件钢筋三维和工程量。
+                    </p>
+                    <div class="resource-download-btn-div">
+                        <a target="_blank" href="http://www.zaojia.cn/hymakeBIM/list/zkj" class="btn btn-outline-primary btn-lg">立即下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 20px">
+        <div class="col-4">
+            <div class="card resource-download-card">
+                <div class="card-body resource-download-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/resourceDownload/calculation_electromechanical.png" alt="">
+                        <div class="card-title resource-download-card-title">
+                            海迈BIM算量(机电)
+                        </div>
+                    </div>
+                    <p class="card-text resource-download-card-text">
+                        一键套清单和定额、一键汇总计算工程量，快速准确；选中构件即可查看构件工程量；无缝对接海迈BIM计价软件。
+                    </p>
+                    <div class="resource-download-btn-div">
+                        <a target="_blank" href="http://www.zaojia.cn/hymakeBIM/list/zkj" class="btn btn-outline-primary btn-lg">立即下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card resource-download-card" style="margin-left: -5px;">
+                <div class="card-body resource-download-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/resourceDownload/hyz.png" alt="">
+                        <div class="card-title resource-download-card-title">
+                            海易招
+                        </div>
+                    </div>
+                    <p class="card-text resource-download-card-text">
+                        基础产品海易招电子交易平台，是为第三方主体打造的专有电子交易平台，通过云服务、移动交易，提供更安全、更简易、更快捷的交易服务。平台具备满足“多交易模式、低成本搭建、多终端支持”的特点，适用于建设工程招标投标、政企采购、产权交易等业务领域，支持公开招标、邀请招标、竞争性谈判、竞争性磋商、单一来源采购、询价、挂牌交易、竞价交易、拍卖等类别的交易方式。同时，该平台可为运营方进行量身定制化服务。
+                    </p>
+                    <div class="resource-download-btn-div">
+                        <a target="_blank" href="http://www.hyebid.cn/hyweb/hyebid/toolList.do" class="btn btn-outline-primary btn-lg">立即下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card resource-download-card" style="margin-left: -10px;">
+                <div class="card-body resource-download-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/resourceDownload/electronic_archive_icon.png" alt="">
+                        <div class="card-title resource-download-card-title">
+                            海迈电子档案(编制端)
+                        </div>
+                    </div>
+                    <p class="card-text resource-download-card-text">
+                        扩展产品电子档案平台，是为建筑企业提供新型的文件管理方式，通过电子文件的形式取代纸质文件，在实现无纸化的同时，节省大量时间；利用云技术与分布式架构，在保证企业资料安全不丢失的同时，获得更高的服务稳定性和更低的维护成本；结合电子签章及校验技术，使得电子档案具有与纸质资料同等的法律效力。同时，平台具有规范印章使用、操作可追溯，以及资料集中、成本降低、节能减耗的优点。
+                    </p>
+                    <div class="resource-download-btn-div">
+                        <a target="_blank" href="http://www.efileyun.com/home/Index/download.html" class="btn btn-outline-primary btn-lg">立即下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--先注释不进行分部门-->
+  <!--  <div style="margin-top: 70px">
+        <span class="text-center">
+            <div class="vertical-line"></div>
+            <span class="bg-title">公共资源事业部</span>
+        </span>
+    </div>
+
+    <div class="row" style="margin-top: 30px">
+        <div class="col-4">
+            <div class="card resource-download-card">
+                <div class="card-body resource-download-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/resourceDownload/hyz.png" alt="">
+                        <div class="card-title resource-download-card-title">
+                            海易招
+                        </div>
+                    </div>
+                    <p class="card-text resource-download-card-text">
+                        基础产品海易招电子交易平台，是为第三方主体打造的专有电子交易平台，通过云服务、移动交易，提供更安全、更简易、更快捷的交易服务。平台具备满足“多交易模式、低成本搭建、多终端支持”的特点，适用于建设工程招标投标、政企采购、产权交易等业务领域，支持公开招标、邀请招标、竞争性谈判、竞争性磋商、单一来源采购、询价、挂牌交易、竞价交易、拍卖等类别的交易方式。同时，该平台可为运营方进行量身定制化服务。
+                    </p>
+                    <div class="resource-download-btn-div">
+                        <a target="_blank" href="http://www.hyebid.cn/hyweb/hyebid/toolList.do" class="btn btn-outline-primary btn-lg">立即下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+    <!--<div style="margin-top: 70px">
+        <span class="text-center">
+            <div class="vertical-line"></div>
+            <span class="bg-title">建设工程事业部</span>
+        </span>
+    </div>
+
+    <div class="row" style="margin-top: 30px">
+        <div class="col-4">
+            <div class="card resource-download-card">
+                <div class="card-body resource-download-card-body">
+                    <div class="d-flex">
+                        <img class="icon_img" src="/image/resourceDownload/electronic_archive_icon.png" alt="">
+                        <div class="card-title resource-download-card-title">
+                            海迈电子档案(编制端)
+                        </div>
+                    </div>
+                    <p class="card-text resource-download-card-text">
+                        扩展产品电子档案平台，是为建筑企业提供新型的文件管理方式，通过电子文件的形式取代纸质文件，在实现无纸化的同时，节省大量时间；利用云技术与分布式架构，在保证企业资料安全不丢失的同时，获得更高的服务稳定性和更低的维护成本；结合电子签章及校验技术，使得电子档案具有与纸质资料同等的法律效力。同时，平台具有规范印章使用、操作可追溯，以及资料集中、成本降低、节能减耗的优点。
+                    </p>
+                    <div class="resource-download-btn-div">
+                        <a target="_blank" href="http://www.efileyun.com/home/Index/download.html" class="btn btn-outline-primary btn-lg">立即下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+</div>
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+</body>
+</html>
+<script>
+    $('.card').mouseenter(function () {
+        var that = $(this);
+        that.addClass("aceive-shadow");
+    })
+
+    $('.card').mouseleave(function () {
+        //获取所有的.card元素
+        var cards = $('.card');
+        cards.removeClass("aceive-shadow");
+    })
+</script>

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	@Description t_news 表数据库操作SQL语句
+	@author daizb@hymake.com
+	@date 2020-06-03 13:39:45
+	@version 1.0
+	@remark create by ca
+-->
+
+<mapper namespace="com.dzb.wm.mapper.NewsMapper">
+
+	<!-- 
+		NEWS_ID				bigint			#{newsId}			资讯编号
+		IS_HEADLINE		varchar				#{isHeadline}		是否头条新闻
+		MEDIA_TYPE		varchar				#{mediaType}		媒体文件类型
+		EXT				varchar				#{ext}				扩展名
+		PATH			varchar				#{path}				媒体文件地址
+		NEW_TYPE				varchar			#{newType}			新闻类型
+		KEYWORDS				varchar			#{keywords}			关键词
+		TITLE				varchar			#{title}			标题
+		OVERVIEW				varchar			#{overview}			摘要
+		CONTENT				mediumtext			#{content}			内容
+		URL				varchar			#{url}			链接
+		AUTHOR				varchar			#{author}			作者
+		PUSH_TIME				datetime			#{pushTime}			推送时间
+		UPDATE_TIME				datetime			#{updateTime}			更新时间
+		UPDATE_USERID				varchar			#{updateUserid}			更新人
+	-->
+
+	<sql id="all">
+			NEWS_ID
+			,IS_HEADLINE
+			,MEDIA_TYPE
+			,EXT
+			,PATH
+			,NEW_TYPE
+			,KEYWORDS
+			,TITLE
+			,OVERVIEW
+			,CONTENT
+			,URL
+			,AUTHOR
+			,PUSH_TIME
+			,UPDATE_TIME
+			,UPDATE_USERID
+	</sql>
+	
+	<select id="selectPagination" resultType="newsEntity" parameterType="newsEntity">
+		select 
+			NEWS_ID
+			,IS_HEADLINE
+			,MEDIA_TYPE
+			,EXT
+			,PATH
+			,NEW_TYPE
+			,KEYWORDS
+			,TITLE
+			,OVERVIEW
+			,URL
+			,AUTHOR
+			,PUSH_TIME
+			,UPDATE_TIME
+			,UPDATE_USERID
+		from 
+			t_news
+		<where>
+			<if test="null != title and '' != title">
+				TITLE like concat('%',#{title},'%')
+			</if>
+			<if test='pushState'>
+				and PUSH_TIME is null
+			</if>
+			<if test="targetSelf and !targetBlack">
+				and URL is null 
+			</if>
+			<if test="!targetSelf and targetBlack">
+				and URL is not null
+			</if>
+			<if test="headline">
+				and PATH is not null
+			</if>
+			<if test="null != newType and '' != newType">
+				and NEW_TYPE = #{newType}
+			</if>
+			<if test="null != pushTimeStart">
+				and DATE_FORMAT(PUSH_TIME, '%Y-%m-%d') &gt;= DATE_FORMAT(#{pushTimeStart}, '%Y-%m-%d')
+			</if>
+			<if test="null != pushTimeEnd">
+				and DATE_FORMAT(PUSH_TIME, '%Y-%m-%d') &lt;= DATE_FORMAT(#{pushTimeEnd}, '%Y-%m-%d')
+			</if>
+		</where>
+		<if test='!sortUpdateTime'>
+			order by
+				IS_HEADLINE DESC, PUSH_TIME DESC
+		</if>
+		<if test='sortUpdateTime'>
+			order by
+				IS_HEADLINE DESC, UPDATE_TIME DESC
+		</if>
+	</select>
+	
+	<select id="selectAllPushList" resultType="newsEntity">
+		select 
+			NEWS_ID
+			,NEW_TYPE
+			,KEYWORDS
+			,OVERVIEW
+			,TITLE
+			,URL
+			,AUTHOR
+			,PUSH_TIME
+		from 
+			t_news
+		where
+			PUSH_TIME is not null
+		order by
+			PUSH_TIME DESC
+	</select>
+	
+	<select id="selectByPkey" resultType="newsEntity" parameterType="long">
+		select 
+			<include refid="all" />
+		from 
+			t_news
+		where 
+			NEWS_ID = #{newsId}
+	</select>
+	
+	<insert id="insert" parameterType="newsEntity">
+		insert into t_news (
+			NEWS_ID
+			,IS_HEADLINE
+			,MEDIA_TYPE
+			,EXT
+			,PATH
+			,NEW_TYPE
+			,KEYWORDS
+			,TITLE
+			,OVERVIEW
+			,CONTENT
+			,URL
+			,AUTHOR
+			,PUSH_TIME
+			,UPDATE_TIME
+			,UPDATE_USERID
+		) values (
+			#{newsId}
+			,#{isHeadline}
+			,#{mediaType}
+			,#{ext}
+			,#{path}
+			,#{newType}
+			,#{keywords}
+			,#{title}
+			,#{overview}
+			,#{content}
+			,#{url}
+			,#{author}
+			,#{pushTime}
+			,#{updateTime}
+			,#{updateUserid}
+		)
+	</insert>
+	
+	<update id="update" parameterType="newsEntity">
+		update t_news set
+			MEDIA_TYPE = #{mediaType}
+			,EXT = #{ext}
+			,PATH = #{path}
+			,NEW_TYPE = #{newType} 
+			,KEYWORDS = #{keywords}
+			,TITLE = #{title}
+			,OVERVIEW = #{overview}
+			,CONTENT = #{content}
+			,URL = #{url}
+			,AUTHOR = #{author}
+			,UPDATE_TIME = #{updateTime}
+			,UPDATE_USERID = #{updateUserid}
+		where
+			NEWS_ID = #{newsId}
+	</update>
+	
+	<update id="updateWithoutMedia" parameterType="newsEntity">
+		update t_news set
+			NEW_TYPE = #{newType} 
+			,KEYWORDS = #{keywords}
+			,TITLE = #{title}
+			,OVERVIEW = #{overview}
+			,CONTENT = #{content}
+			,URL = #{url}
+			,AUTHOR = #{author}
+			,UPDATE_TIME = #{updateTime}
+			,UPDATE_USERID = #{updateUserid}
+		where
+			NEWS_ID = #{newsId}
+	</update>
+	
+	<update id="updatePushTimeByNewsId" parameterType="newsEntity">
+		update t_news set
+			PUSH_TIME = #{pushTime}
+			,UPDATE_TIME = #{updateTime}
+			,UPDATE_USERID = #{updateUserid}
+		where
+			NEWS_ID = #{newsId}
+	</update>
+	
+	<update id="updateIsHeadlineByNewsId" parameterType="newsEntity">
+		update t_news set
+			IS_HEADLINE = #{isHeadline}
+			,UPDATE_TIME = #{updateTime}
+			,UPDATE_USERID = #{updateUserid}
+		where
+			NEWS_ID = #{newsId}
+	</update>
+	
+	<select id="countByIsHeadline" resultType="int">
+		select 
+			count(NEWS_ID)
+		from 
+			t_news
+		where 
+			IS_HEADLINE = 1
+	</select>
+	
+	<delete id="delete" parameterType="long">
+		delete from t_news where NEWS_ID = #{newsId}
+	</delete>
+	
+</mapper>

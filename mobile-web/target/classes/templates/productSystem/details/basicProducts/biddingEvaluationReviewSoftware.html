@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'招投标评估评审软件 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <style scoped="scoped">
+        .main-content{
+
+        }
+        .detail-title{
+            padding-bottom: 0.4rem;
+        }
+        .detail-title h4 {
+            color: #0066cc;
+            text-align: center;
+            position: relative;
+            padding: 0;
+            padding-top: 0.55rem;
+            padding-bottom: 0.25rem;
+            display: inline-block;
+            margin: 0;
+            float: none !important;
+            left: 50%;
+            transform:translate(-50%,0);
+            font-size: 0.4rem;
+        }
+        .detail-title h4:after {
+            content: '';
+            width: 30%;
+            height: 2px;
+            background-color: #0066cc;
+            position: absolute;
+            left: 50%;
+            transform:translate(-50%,0);
+            bottom: 0;
+            min-width: 35px;
+        }
+        .detail-text{
+            font-size: 0.28rem;
+            color: #666666;
+            text-indent: 2em;
+            text-align: justify;
+        }
+        .detail-pad{
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+        .icon-part{
+            display: flex;
+        }
+        .left-icon-part{
+            width: 50%;
+            text-align: center;
+        }
+        .right-icon-part{
+            width: 50%;
+            text-align: center;
+        }
+        .icon-title{
+            font-size: 0.3rem;
+            color: #333333;
+            padding-top: 0.1rem;
+            padding-bottom: 0.25rem;
+        }
+        .icon{
+            width: 0.93rem;
+            height: 0.93rem;
+        }
+        .detail-text-pad{
+            margin-top: -0.14rem;
+            padding: 0 0.5rem 0.61rem 0.5rem;
+        }
+        .core-values-part{
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+        .core-values-cls{
+            padding-bottom: 0.75rem;
+        }
+        .core-values-cls-title{
+            font-size: 0.3rem;
+            color: #333333;
+            padding-top: 0.1rem;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+<!--引入详情页头部-->
+<th:block th:replace="common/layout::detail-header"/>
+<main class="main-content">
+    <div class="detail-pad">
+        <div class="detail-text" style="padding-top: 0.61rem;padding-bottom: 0.61rem;">
+            基础产品招标投标评估评审软件，面向招标代理、评标专家和投标人，分别推出建设工程招投标的评标辅助系统及投标预评估系统。系统基于建设工程招投标，釆用经评审的最低投标价中标法规定的商务标评标办法研发而成，辅助房建、市政、轨道、电力类建设工程招投标阶段的评标工作。
+        </div>
+    </div>
+    <div class="soft-cha-part">
+        <div class="detail-title">
+            <h4>软件特点</h4>
+        </div>
+        <div class="icon-part">
+            <div class="left-icon-part">
+                <img class="icon" src="/image/productSystem/details/basicProducts/biddingEvaluationReviewSoftware/zhi-neng-ping-biao.png" alt="">
+                <div class="icon-title">智能评标</div>
+            </div>
+            <div class="right-icon-part">
+                <img class="icon" src="/image/productSystem/details/basicProducts/biddingEvaluationReviewSoftware/kuai-su-shen-cha.png" alt="">
+                <div class="icon-title">快速审查</div>
+            </div>
+        </div>
+        <div class="icon-part">
+            <div class="left-icon-part">
+                <img class="icon" src="/image/productSystem/details/basicProducts/biddingEvaluationReviewSoftware/duo-tai-zhan-shi.png" alt="">
+                <div class="icon-title">多态展现</div>
+            </div>
+            <div class="right-icon-part">
+                <img class="icon" src="/image/productSystem/details/basicProducts/biddingEvaluationReviewSoftware/dui-jie-ji-jia.png" alt="">
+                <div class="icon-title">对接计价</div>
+            </div>
+        </div>
+        <div class="detail-text detail-text-pad">
+            本产品根据评标规则，快速准确评审投标清单，多方位展示检查结果，自动汇总不合理报价并推荐中标候选人。软件具备通用接口对接计价、评审结果多态展现、快速审查、智能评标的特点。
+        </div>
+    </div>
+    <div class="core-values-part">
+        <div class="detail-title">
+            <h4>核心价值</h4>
+        </div>
+        <div class="core-values-cls">
+            <img class="w-100" src="/image/productSystem/details/basicProducts/biddingEvaluationReviewSoftware/mo-ni-tou-biao.png" alt="">
+            <div class="core-values-cls-title">模拟投标预测</div>
+        </div>
+        <div class="core-values-cls">
+            <img class="w-100" src="/image/productSystem/details/basicProducts/biddingEvaluationReviewSoftware/tou-biao-shu-ju.png" alt="">
+            <div class="core-values-cls-title">投标数据评审</div>
+        </div>
+        <div class="core-values-cls">
+            <img class="w-100" src="/image/productSystem/details/basicProducts/biddingEvaluationReviewSoftware/kai-fang-shu-ju.png" alt="">
+            <div class="core-values-cls-title">开放数据接口</div>
+        </div>
+        <div class="core-values-cls">
+            <img class="w-100" src="/image/productSystem/details/basicProducts/biddingEvaluationReviewSoftware/zi-dong-tao-ding.png" alt="">
+            <div class="core-values-cls-title">自动套定额</div>
+        </div>
+    </div>
+</main>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	@Description t_base_user_ext 表数据库操作SQL语句
+	@author 38840472@qq.com
+	@date 2020-04-23 16:20:03
+	@version 1.0
+	@remark create by ca
+-->
+
+<mapper namespace="com.dzb.console.mapper.BaseUserExtMapper">
+
+	<!-- 
+		USER_EXT_ID				varchar			#{userExtId}			用户扩展信息编号
+		USER_ID				varchar			#{userId}			用户编号
+		SEX				varchar			#{sex}			性别
+		BIRTHDAY				date			#{birthday}			生日
+		EMAIL				varchar			#{email}			邮箱
+		MOBILE				varchar			#{mobile}			移动电话
+		TEL				varchar			#{tel}			固定电话
+		CREATE_USERID				varchar			#{createUserid}			创建人
+		CREATE_TIME				timestamp			#{createTime}			创建时间
+		UPDATE_USERID				varchar			#{updateUserid}			更新人
+		UPDATE_TIME				timestamp			#{updateTime}			更新时间
+	-->
+
+	<sql id="all">
+			USER_EXT_ID
+			,USER_ID
+			,SEX
+			,BIRTHDAY
+			,EMAIL
+			,MOBILE
+			,TEL
+			,CREATE_USERID
+			,CREATE_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+	</sql>
+	
+	<select id="selectByUserId" resultType="baseUserExtEntity" parameterType="String">
+		select 
+			<include refid="all" />
+		from 
+			t_base_user_ext
+		where 
+			USER_ID = #{userId}
+	</select>
+	
+	<insert id="insert" parameterType="baseUserExtEntity">
+		insert into t_base_user_ext (
+			USER_EXT_ID
+			,USER_ID
+			,SEX
+			,BIRTHDAY
+			,EMAIL
+			,MOBILE
+			,TEL
+			,CREATE_USERID
+			,CREATE_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+		) values (
+			#{userExtId}
+			,#{userId}
+			,#{sex}
+			,#{birthday}
+			,#{email}
+			,#{mobile}
+			,#{tel}
+			,#{createUserid}
+			,#{createTime}
+			,#{updateUserid}
+			,#{updateTime}
+		)
+	</insert>
+	
+	<update id="update" parameterType="baseUserExtEntity">
+		update t_base_user_ext set 
+			SEX = #{sex}
+			,BIRTHDAY = #{birthday}
+			,EMAIL = #{email}
+			,MOBILE = #{mobile}
+			,TEL = #{tel}
+			,UPDATE_USERID = #{updateUserid}
+			,UPDATE_TIME = #{updateTime}
+		where
+			USER_EXT_ID = #{userExtId}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from t_base_user_ext where USER_EXT_ID = #{userExtId}
+	</delete>
+	
+</mapper>

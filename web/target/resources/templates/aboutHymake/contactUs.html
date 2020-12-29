@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'联系我们 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <script src="http://api.map.baidu.com/api?v=2.0&ak=W1a6ywZFkybedSCHadpRbkz4w5HYfG4R" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<!-- 头部分-->
+<th:block th:replace="common/layout::header"/>
+
+<style scoped="scoped">
+    .bg-title{
+        font-size: 32px;
+        color: #000000;
+        letter-spacing: 1.5px;
+        font-weight: bold;
+    }
+
+    .left-line {
+        height: 2px;
+        width: 130px;
+        background-color: #005cbf;
+        margin-left: 0px
+    }
+
+    .site-name{
+        font-size: 18px;
+        color: #333333;
+        font-weight: bold;
+        letter-spacing: 1.5px;
+    }
+
+    .site-name-line{
+        width: 360px;
+        height: 2px;
+    }
+
+    .position-icon{
+        width: 23px;
+        height: 24px;
+        margin-top: 3px;
+    }
+
+    .address{
+        font-size: 16px;
+        color: #333333;
+        letter-spacing: 1.5px;
+        margin-left: 20px;
+    }
+    .map>a{
+        text-decoration-line: none;
+        margin-left: 15px;
+    }
+
+    .direction-icon{
+        margin-left: 5px;
+    }
+
+    .l-20px{
+        margin-left: 20px;
+    }
+
+    .t-14px{
+        margin-top: 14px;
+    }
+
+    #allmap{
+        height: 500px;
+        width: 100%;
+        margin-top: 80px;
+    }
+
+
+</style>
+<div>
+    <img class="card-img-top" src="/image/contactUs/contact_us_banner.png">
+</div>
+<div class="container" style="margin-top: 64px;margin-bottom: 80px;">
+    <div>
+        <div class="bg-title">联系方式</div>
+        <hr class="left-line"/>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="site-name">公司总部</div>
+            <hr class="site-name-line">
+            <div  class="map d-flex">
+                <img class="position-icon" src="/image/contactUs/position.png" alt="">
+                <span class="address">
+                    福建省厦门市软件园二期观日路
+                    <br/>
+                    20号之一栋
+                </span>
+                <a href="javascript:;">
+                    位置
+                    <img class="direction-icon" src="/image/contactUs/direction.png" alt="">
+                </a>
+            </div>
+            <div class="t-14px">
+                <img src="/image/contactUs/phone.png" alt="">
+                <span class="l-20px">0592-5070808</span>
+            </div>
+            <!--<div class="t-14px">
+                <img src="/image/contactWe/fax.png" alt="">
+                <span class="l-20px">0592-5090768</span>
+            </div>-->
+            <div class="t-14px">
+                <img src="/image/contactUs/mail.png" alt="">
+                <span class="l-20px">service@hymake.com</span>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="site-name">福建海迈</div>
+            <hr class="site-name-line">
+            <div class="map d-flex">
+                <img class="position-icon" src="/image/contactUs/position.png" alt="">
+                <span class="address">
+                    福建省福州市台江区宁化街道祥
+                    <br/>
+                    坂街26号富力中心A座4层
+                </span>
+                <a href="javascript:;">
+                    位置
+                    <img class="direction-icon" src="/image/contactUs/direction.png" alt="">
+                </a>
+            </div>
+            <div class="t-14px">
+                <img src="/image/contactUs/phone.png" alt="">
+                <span class="l-20px">0591-87836019</span>
+            </div>
+            <div class="t-14px">
+                <img src="/image/contactUs/mail.png" alt="">
+                <span class="l-20px">fjhymake@hymake.com</span>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 63px">
+        <div class="col-4">
+            <div class="site-name">海南海迈</div>
+            <hr class="site-name-line">
+            <div class="map d-flex">
+                <img class="position-icon" src="/image/contactUs/position.png" alt="">
+                <span class="address">
+                    海南省三亚市天涯区海润路33号
+                    <br/>
+                    海润工业园内
+                </span>
+                <a href="javascript:;">
+                    位置
+                    <img class="direction-icon" src="/image/contactUs/direction.png" alt="">
+                </a>
+            </div>
+            <div class="t-14px">
+                <img src="/image/contactUs/phone.png" alt="">
+                <span class="l-20px">0898-66290169</span>
+            </div>
+            <div class="t-14px">
+                <img src="/image/contactUs/mail.png" alt="">
+                <span class="l-20px">service@hymake.com</span>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="site-name">海口海迈</div>
+            <hr class="site-name-line">
+            <div class="map d-flex">
+                <img class="position-icon" src="/image/contactUs/position.png" alt="">
+                <span class="address">
+                    海南省海口市人民大道33号新宏
+                    <br/>
+                    兴大厦5楼
+                </span>
+                <a href="javascript:;">
+                    位置
+                    <img class="direction-icon" src="/image/contactUs/direction.png" alt="">
+                </a>
+            </div>
+            <div class="t-14px">
+                <img src="/image/contactUs/phone.png" alt="">
+                <span class="l-20px">0898-66290169</span>
+            </div>
+            <div class="t-14px">
+                <img src="/image/contactUs/mail.png" alt="">
+                <span class="l-20px">hkhymake@hymake.com</span>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="site-name">培训中心</div>
+            <hr class="site-name-line">
+            <div class="map d-flex">
+                <img class="position-icon" src="/image/contactUs/position.png" alt="">
+                <span class="address">
+                    福建省厦门市思明区吕岭路1819
+                    <br/>
+                    号精图大厦A座3楼
+                </span>
+                <a href="javascript:;">
+                    位置
+                    <img class="direction-icon" src="/image/contactUs/direction.png" alt="">
+                </a>
+            </div>
+            <div class="t-14px">
+                <img src="/image/contactUs/phone.png" alt="">
+                <span class="l-20px">0592-5051767</span>
+            </div>
+            <div class="t-14px">
+                <img src="/image/contactUs/mail.png" alt="">
+                <span  class="l-20px">training@hymake.com</span>
+            </div>
+        </div>
+    </div>
+    <div id="allmap"></div>
+</div>
+
+<th:block th:replace="common/layout::rightTools"/>
+<th:block th:replace="common/layout::footer"/>
+</body>
+</html>
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    showLocation(118.186142,24.493433,"公司总部","福建省厦门市软件园二期观日路20号之一栋",307,64);
+
+    function showLocation(longitude,latitude,companyName,address,windowWidth,windowHeiht){
+        var sContent =companyName+"<br>"+address;
+        var point = new BMap.Point(longitude,latitude);  	// 创建点坐标
+        map.centerAndZoom(point, 18);
+        map.enableScrollWheelZoom(true);             		// 初始化地图，设置中心点坐标和地图级别
+
+        map.addControl(new BMap.NavigationControl());
+        map.addControl(new BMap.ScaleControl());
+        map.addControl(new BMap.OverviewMapControl());
+        map.addControl(new BMap.MapTypeControl());
+
+        var mapType1 = new BMap.MapTypeControl({mapTypes: [BMAP_NORMAL_MAP,BMAP_HYBRID_MAP]});
+        var mapType2 = new BMap.MapTypeControl({anchor: BMAP_ANCHOR_TOP_LEFT});
+        var overView = new BMap.OverviewMapControl();
+        var overViewOpen = new BMap.OverviewMapControl({isOpen:true, anchor: BMAP_ANCHOR_BOTTOM_RIGHT});
+        //添加地图类型和缩略图
+
+        map.addControl(mapType1);     //2D图，卫星图
+        map.addControl(mapType2);     //左上角，默认地图控件
+        map.setCurrentCity("");    //由于有3D图，需要设置城市哦
+        map.addControl(overView);     //添加默认缩略地图控件
+        //map.addControl(overViewOpen);   //右下角，打开
+
+        var navigationControl = new BMap.NavigationControl({
+            // 靠左上角位置
+            anchor: BMAP_ANCHOR_TOP_LEFT,
+            // LARGE类型
+            type: BMAP_NAVIGATION_CONTROL_LARGE,
+            // 启用显示定位
+            enableGeolocation: true // 会多出一个点
+        });
+        map.addControl(navigationControl);
+        // 添加定位控件
+        var geolocationControl = new BMap.GeolocationControl();
+        geolocationControl.addEventListener("locationSuccess", function(e){
+            // 定位成功事件
+            var address = '';
+            address += e.addressComponent.province;
+            address += e.addressComponent.city;
+            address += e.addressComponent.district;
+            address += e.addressComponent.street;
+            address += e.addressComponent.streetNumber;
+        });
+        geolocationControl.addEventListener("locationError",function(e){
+            // 定位失败事件
+            alert(e.message);
+        });
+        map.addControl(geolocationControl);
+        var Opts = {
+            width:windowWidth,
+            height:windowHeiht
+        }
+        var infoWindow = new BMap.InfoWindow(sContent,Opts);  	// 创建信息窗口对象
+        map.openInfoWindow(infoWindow,point); 				// 开启信息窗口
+
+        var marker = new BMap.Marker(point,{icon:new BMap.Icon("/image/contactWe/markers.png", new BMap.Size(23, 25), {
+                offset: new BMap.Size(10, 25), // 指定定位位置
+                imageOffset: new BMap.Size(0, 0 - 11 * 25) // 设置图片偏移
+            })});
+        map.addOverlay(marker);                     		// 将标注添加到地图中
+        marker.addEventListener("click", function(){        // 给标注添加点击事件
+            this.openInfoWindow(infoWindow);
+        });
+    }
+    // 用经纬度设置地图中心点
+    $('.map.d-flex a').click(function (longitude,latitude) {
+        var parent = $(this).parent();
+        var text = parent.text();
+        //去除回车和空格
+        if(text){
+            text = text.replace(/[\r\n]/g,"").replace(/[ ]/g,"");
+        }
+        if(text.indexOf("福建省厦门市软件园二期观日路20号")!=-1){
+            showLocation(118.186142,24.493433,"公司总部","福建省厦门市软件园二期观日路20号之一栋",307,64);
+        }else if(text.indexOf("福建省福州市台江区宁化街道祥坂街26号富力中心A座")!=-1){
+            showLocation(119.286852,26.069222,"福建海迈","福建省福州市台江区宁化街道祥坂街26号富力中心A座4层",408,64);
+        }else if(text.indexOf("海南省三亚市天涯区海润路33号海润工业园内")!=-1){
+            showLocation(109.505784,18.300686,"海南海迈","海南省三亚市天涯区海润路33号海润工业园内",308,64);
+        }else if(text.indexOf("海南省海口市人民大道33号新宏兴大厦")!=-1){
+            showLocation(110.34731,20.061191,"海口海迈","海南省海口市人民大道33号新宏兴大厦5楼",301,64);
+        }else if(text.indexOf("福建省厦门市思明区吕岭路1819号精图大厦A座")!=-1){
+            showLocation(118.192377,24.487263,"培训中心","福建省厦门市思明区吕岭路1819号精图大厦A座3楼",363,64);
+        }
+        //屏幕移动到地图位置
+        var windowTop = $('#allmap').offset().top;
+        $('body,html').animate({scrollTop: windowTop-390}, 'fast');
+    });
+</script>
+

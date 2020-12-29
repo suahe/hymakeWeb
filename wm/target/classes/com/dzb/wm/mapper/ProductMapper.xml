@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dzb.wm.mapper.ProductMapper">
+	<sql id="all">
+			product_id
+			,title
+			,belong_page_type
+			,content
+			,icon_path
+			,url
+			,sequ
+			,push_time
+	</sql>
+
+	<select id="selectPagination" resultType="ProductEntity">
+		SELECT <include refid="all" />
+		FROM t_product
+		WHERE 1 = 1
+		<if test="belongPageType != null and belongPageType != ''">
+			and belong_page_type = #{belongPageType}
+		</if>
+		<if test="title != null and title != ''">
+			and title like '%${title}%'
+		</if>
+		ORDER BY belong_page_type ASC ,sequ ASC
+	</select>
+
+	<insert id="insert" parameterType="ProductEntity">
+		insert into t_product (
+			product_id
+			,belong_page_type
+			,title
+			,content
+			,icon_path
+			,url
+			,sequ
+			,update_userid
+			,update_time
+		)
+		values(
+			#{productId}
+			,#{belongPageType}
+			,#{title}
+			,#{content}
+			,#{iconPath}
+			,#{url}
+			,#{sequ}
+			,#{updateUserid}
+			,#{updateTime}
+		)
+	</insert>
+
+	<delete id="del" parameterType="long">
+		delete from t_product where product_id = #{productId}
+	</delete>
+
+	<select id="getByPkey" resultType="ProductEntity">
+		select <include refid="all" /> from
+		t_product where product_id = #{productId}
+	</select>
+
+	<update id="update" parameterType="ProductEntity">
+		update t_product set
+		title = #{title},belong_page_type = #{belongPageType},content = #{content},
+		icon_path = #{iconPath},url = #{url},sequ = #{sequ}
+		,update_userid = #{updateUserid},update_time = #{updateTime}
+		where product_id = #{productId}
+	</update>
+
+	<select id="getProductsByLabelId" resultType="ProductEntity">
+		SELECT p.product_id,p.title
+		<if test="labelId != null">
+			, IF(EXISTS(
+			SELECT * FROM t_label_product lp WHERE lp.product_id = p.product_id AND lp.label_id = #{labelId}
+			),1,0) AS selected
+		</if>
+		FROM t_product p where p.belong_page_type = #{belongPageType}
+	</select>
+
+	<select id="getProductsByDropDownBoxId" resultType="ProductEntity">
+		SELECT p.product_id,p.title
+		<if test="dropDownBoxId != null">
+			, IF(EXISTS(
+			SELECT * FROM t_drop_down_box_product ddp WHERE ddp.product_id = p.product_id AND ddp.drop_down_box_id = #{dropDownBoxId}
+			),1,0) AS selected
+		</if>
+		FROM t_product p where p.belong_page_type = #{belongPageType}
+	</select>
+
+	<update id="updateState" parameterType="ProductEntity">
+		update t_product set
+		push_time = #{pushTime}
+		where product_id = #{productId}
+	</update>
+</mapper>

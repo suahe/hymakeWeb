@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>系统常量管理</title>
+		<th:block th:replace="fragments/include::common_header" />
+	</head>
+	<style type="text/css">
+		
+	</style>
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h4>系统常量管理</h4>
+				</div>
+				<div class="ibox-content">
+					<div class="row">
+						<div class="col-xs-12">
+							<div style="padding-bottom: 10px;" >
+								<button id="_add_button" type="button" class="btn btn-outline btn-primary">增加</button>
+								<button id="_del_button" type="button" class="btn btn-outline btn-danger">删除</button>
+								<button id="_cache_button" type="button" class="btn btn-outline btn-primary">统计信息</button>
+							</div>
+							<table id="_t_base_constant"></table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+       	<!-- 新增信息模态窗口 -->
+       	<div class="modal fade" id="_t_base_constant_add_window" tabindex="-1" role="dialog" aria-labelledby="#_t_base_constant_add_window">
+			<div class="modal-dialog" role="document" style="width: 450px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">系统常量管理--新增</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_t_base_constant_add_form" class="form-horizontal">
+							<input type="text" id="_constantId_add" name="constantId" value="0" style="display: none;" >
+							<div class="form-group">
+								<label for="name" class="col-xs-3 control-label">常量名称</label>
+								<div class="col-xs-9">
+									<input type="text" id="_name_add" name="name" class="form-control" placeholder="请输入常量名称" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="keyword" class="col-xs-3 control-label">常量键</label>
+								<div class="col-xs-6">
+									<input type="text" id="_keyword_add" name="keyword" class="form-control" placeholder="请输入常量键" >
+								</div>
+								<div class="col-xs-3" style="text-align: right;">
+									<button id="_pyhandler_add_button" type="button" class="btn btn-primary">辅助生成</button>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="value" class="col-xs-3 control-label">常量值</label>
+								<div class="col-xs-9">
+									<input type="text" id="_value_add" name="value" class="form-control" placeholder="请输入常量值" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="remark" class="col-xs-3 control-label">备注</label>
+								<div class="col-xs-9">
+									<textarea rows="3" id="_remark_add" name="remark" class="form-control" placeholder="请输入备注"></textarea>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="_t_base_constant_add_close_button" type="button" class="btn btn-default">取消</button>
+						<button id="_t_base_constant_add_button" type="button" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 编辑信息模态窗口 -->
+		<div class="modal fade" id="_t_base_constant_edit_window" tabindex="-1" role="dialog" aria-labelledby="#_t_base_constant_edit_window">
+			<div class="modal-dialog" role="document" style="width: 450px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">系统常量管理--编辑</h4>
+					</div>
+					<div class="modal-body">
+						<form id="_t_base_constant_edit_form" class="form-horizontal">
+							<input type="text" id="_constantId_edit" name="constantId" style="display: none;" >
+							<div class="form-group">
+								<label for="name" class="col-xs-3 control-label">常量名称</label>
+								<div class="col-xs-9">
+									<input type="text" id="_name_edit" name="name" class="form-control" placeholder="请输入常量名称" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="keyword" class="col-xs-3 control-label">常量键</label>
+								<div class="col-xs-6">
+									<input type="text" id="_keyword_edit" name="keyword" class="form-control" placeholder="请输入常量键" >
+								</div>
+								<div class="col-xs-3" style="text-align: right;">
+									<button id="_pyhandler_edit_button" type="button" class="btn btn-primary">辅助生成</button>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="value" class="col-xs-3 control-label">常量值</label>
+								<div class="col-xs-9">
+									<input type="text" id="_value_edit" name="value" class="form-control" placeholder="请输入常量值" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="remark" class="col-xs-3 control-label">备注</label>
+								<div class="col-xs-9">
+									<textarea rows="3" id="_remark_edit" name="remark" class="form-control" placeholder="请输入备注"></textarea>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="_t_base_constant_edit_close_button" type="button" class="btn btn-default">取消</button>
+						<button id="_t_base_constant_edit_button" type="button" class="btn btn-primary">保存信息</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 缓存统计模态窗口 -->
+       	<div class="modal fade" id="_t_base_constant_cache_window" tabindex="-1" role="dialog" aria-labelledby="#_t_base_constant_cache_window">
+			<div class="modal-dialog" role="document" style="width: 450px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">缓存统计信息</h4>
+					</div>
+					<div class="modal-body">
+						<table class="table">
+                            <thead>
+	                            <tr>
+	                                <th>项</th>
+	                                <th>值</th>
+	                            </tr>
+                            </thead>
+                            <tbody id="_cache_list">
+	                           
+                            </tbody>
+                        </table>
+					</div>
+					<div class="modal-footer">
+						<button id="_cache_close_button" type="button" class="btn btn-default">取消</button>
+						<button id="_cache_refresh_button" type="button" class="btn btn-primary">刷新统计数据</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	    <script type="text/javascript">
+			$(document).ready(function(){
+
+		        /* 初始化Token */
+		        secjs.init();
+	        
+		        /* t_base_constant表列表信息*/
+		        $("#_t_base_constant").bootstrapTable({
+					url: '../bcc/list'
+					,method: 'GET'
+					,totalField: 'total'
+					,dataField: 'list'
+					,pagination: true
+					,pageSize: 10
+					,pageList: [10,20,100]
+					,sidePagination: "server"
+					,singleSelect: true
+					,clickToSelect: true
+					,columns: [
+						{checkbox: true,valign: 'middle'}
+						,{field: 'constantId',title: '常量编号',halign: 'center',align: 'left',valign: 'middle',visible: false}
+						,{field: 'name',title: '常量名称',halign: 'center',align: 'left',valign: 'middle',visible: true
+							,formatter:function(value,row,index){
+								return '<a class="edit" data-id="'+row.constantId+'" href="javascript:void(0);">'+ value +'</a>'
+							}
+						}
+						,{field: 'keyword',title: '常量键',halign: 'center',align: 'left',valign: 'middle',visible: true}
+						,{field: 'value',title: '常量值',halign: 'center',align: 'left',valign: 'middle',visible: true}
+					]
+					,queryParams: function (params) {	//设置查询条件
+						 return {
+							"offset": params.offset
+							,"limit": params.limit
+						};
+					}
+		        });
+	        
+		        /* 弹出新增信息窗口 */
+		        $("#_add_button").click(function(){
+					$('#_t_base_constant_add_form')[0].reset();
+					$('#_t_base_constant_add_window').modal('show');
+		        });
+		        
+		        /* 验证新增信息表单 */
+				$('#_t_base_constant_add_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						name:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 50,
+									message: '长度应小于50个字'
+								}
+							}
+						}
+						,keyword:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 50,
+									message: '长度应小于50个字'
+								},
+								remote: {
+			                        url: "../bcc/countByKeyword?count=1",
+			                        message: '常量键已存在，请重新输入',
+			                        type: 'GET',
+			                        delay: 300
+			                    }
+							}
+						}
+						,value:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 100,
+									message: '长度应小于100个字'
+								}
+							}
+						}
+					}
+				});
+		        
+				/* 辅助生成 按钮点击事件 */
+		        $("#_pyhandler_add_button").click(function(){
+		        	$.get('../pyc/toPyFl', {'hanzi':$('#_name_add').val()},function(r){
+		        		$('#_keyword_add').val(r);
+		        		$("#_t_base_constant_add_form").reValid('keyword');
+		        	});
+		        });
+				
+		        /* 辅助生成 按钮点击事件 */
+		        $("#_pyhandler_edit_button").click(function(){
+		        	$.get('../pyc/toPyFl', {'hanzi':$('#_name_edit').val()},function(r){
+		        		$('#_keyword_edit').val(r);
+		        		$("#_t_base_constant_edit_form").reValid('keyword');
+		        	});
+		        });
+	        
+				/* 保存新增信息 */
+				$('#_t_base_constant_add_button').click(function(){
+				
+					var _form = $('#_t_base_constant_add_form');
+					_form.bootstrapValidator('validate');
+					var flag = _form.data('bootstrapValidator').isValid();
+					if(flag){
+						$.post('../bcc/add', _form.serialize(),function(r){
+							if(r > 0){
+								$("#_t_base_constant").bootstrapTable('refresh');
+								_form.data('bootstrapValidator').resetForm();
+								$('#_t_base_constant_add_window').modal('hide');
+								message.saveSuccess();
+							}else{
+								message.saveFall();
+							}
+						});
+					}
+				});
+	        
+				/* 关闭新增信息窗口 */
+				$('#_t_base_constant_add_close_button').click(function(){
+					$('#_t_base_constant_add_window').modal('hide');
+				});
+				
+				/* 编辑  链接点击事件 */
+				$("#_t_base_constant").on("click",".edit",function(event){
+					
+					$('#_t_base_constant_edit_form')[0].reset();
+					$.get('../bcc/view', {'constantId':$(this).data('id')},function(r){
+						$.setForm('#_t_base_constant_edit_form',r);
+						$('#_t_base_constant_edit_window').modal('show');
+					});
+				});
+				
+				/* 验证编辑信息表单 */
+				$('#_t_base_constant_edit_form').bootstrapValidator({
+					message: '验证提示信息',
+					fields: {
+						name:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 50,
+									message: '长度应小于50个字'
+								}
+							}
+						}
+						,keyword:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 50,
+									message: '长度应小于50个字'
+								},
+								remote: {
+			                        url: "../bcc/countByKeyword?count=2",
+			                        message: '常量键已存在，请重新输入',
+			                        type: 'GET',
+			                        delay: 300
+			                    }
+							}
+						}
+						,value:{
+							validators:{
+								notEmpty:{
+									message: '必填'
+								},
+								stringLength:{
+									max: 100,
+									message: '长度应小于100个字'
+								}
+							}
+						}
+					}
+				});
+	        
+				/* 保存编辑信息 */
+				$('#_t_base_constant_edit_button').click(function(){
+				
+					var _form = $('#_t_base_constant_edit_form');
+					_form.bootstrapValidator('validate');
+					var flag = _form.data('bootstrapValidator').isValid();
+					if(flag){
+						$.post('../bcc/edit', _form.serialize(),function(r){
+							if(r > 0){
+								$("#_t_base_constant").bootstrapTable('refresh');
+								_form.data('bootstrapValidator').resetForm();
+								$('#_t_base_constant_edit_window').modal('hide');
+								message.saveSuccess();
+							}else{
+								message.saveFall();
+							}
+						});
+					}
+				});
+	        
+				/* 关闭编辑信息窗口 */
+				$('#_t_base_constant_edit_close_button').click(function(){
+					$('#_t_base_constant_edit_window').modal('hide');
+				});
+
+				/* 删除信息 */
+				$('#_del_button').click(function () {
+				  
+					var row = $('#_t_base_constant').bootstrapTable('getSelections');
+					if (typeof(row) != 'undefined' && row.length != 0){
+						swal({
+							type: "warning",
+							title: "确认要删除？",
+							text: "你的操作会删除选择的记录",
+							showCancelButton: true,
+							cancelButtonText: "取消",
+							confirmButtonColor: "#1AB394",
+							confirmButtonText: "确定删除？",
+							closeOnConfirm: false
+						}, function () {
+							var _constantId = row[0].constantId;
+							$.get('../bcc/del', {'constantId':_constantId},function(r){
+								if(r > 0){
+									message.delSuccess();
+									$("#_t_base_constant").bootstrapTable('refresh');
+								}else{
+									message.delFall();
+								}
+							})
+						});
+					}else{
+						message.selectOne();
+					}
+				});
+				
+				/* 弹出缓存统计信息窗口 */
+		        $("#_cache_button").click(function(){
+					
+					$.getJSON('../bcc/stats', {},function(r){
+						$('#_cache_list').empty();
+						for(var key in r){
+							$('#_cache_list').append("<tr><td>"+key+"</td><td>"+r[key]+"</td></tr>")
+						}
+					});
+					$('#_t_base_constant_cache_window').modal('show');
+		        });
+				
+		        /* 弹出缓存统计信息窗口 */
+		        $("#_cache_refresh_button").click(function(){
+					
+					$.getJSON('../bcc/stats', {},function(r){
+						$('#_cache_list').empty();
+						for(var key in r){
+							$('#_cache_list').append("<tr><td>"+key+"</td><td>"+r[key]+"</td></tr>")
+						}
+					});
+		        });
+		        
+		        /* 弹出缓存统计信息窗口 */
+		        $("#_cache_close_button").click(function(){
+		        	$('#_t_base_constant_cache_window').modal('hide');
+		        });
+		        
+				
+			})
+	    </script>
+	</body>
+</html>

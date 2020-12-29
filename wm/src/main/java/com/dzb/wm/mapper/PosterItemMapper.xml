@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	@Description t_poster_item 表数据库操作SQL语句
+	@author daizb@hymake.com
+	@date 2020-06-15 09:19:15
+	@version 1.0
+	@remark create by ca
+-->
+
+<mapper namespace="com.dzb.wm.mapper.PosterItemMapper">
+
+	<!-- 
+		POSTER_ITEM_ID				bigint			#{posterItemId}			图片编号
+		TYPE				varchar			#{type}			类型
+		NAME				varchar			#{name}			名称
+		MEDIA_TYPE				varchar			#{mediaType}			媒体文件类型
+		PATH				varchar			#{path}			媒体文件地址
+		URL				varchar			#{url}			链接地址
+		IS_TARGET				varchar			#{isTarget}			链接方式
+		SEQU				int			#{sequ}			排序
+		PUSH_TIME				datetime			#{pushTime}			推送时间
+		UPDATE_USERID				varchar			#{updateUserid}			更新人
+		UPDATE_TIME				datetime			#{updateTime}			更新时间
+	-->
+
+	<sql id="all">
+			POSTER_ITEM_ID
+			,NAME
+			,TYPE
+			,MEDIA_TYPE
+			,PATH
+			,MOBILE_MEDIA_TYPE
+			,MOBILE_PATH
+			,URL
+			,MOBILE_URL
+			,IS_TARGET
+			,SEQU
+			,PUSH_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+	</sql>
+	
+	<select id="selectPagination" resultType="posterItemEntity" parameterType="posterItemEntity">
+		select 
+			<include refid="all" /> 
+		from 
+			t_poster_item
+		<where>
+			<if test="type != '' and type != null">
+				and t_poster_item.TYPE = #{type}
+			</if>
+		</where>
+		order by
+			t_poster_item.SEQU DESC
+	</select>
+	
+	<select id="countByType" resultType="int" parameterType="posterItemEntity">
+		select 
+			count(POSTER_ITEM_ID)
+		from 
+			t_poster_item
+		<where>
+			t_poster_item.PUSH_TIME is not null
+			<if test="type != '' and type != null">
+				and t_poster_item.TYPE = #{type}
+			</if>
+		</where>
+		order by
+			t_poster_item.SEQU DESC
+	</select>
+	
+	<select id="selectByValid" resultType="posterItemEntity" parameterType="posterItemEntity">
+		select 
+			<include refid="all" /> 
+		from 
+			t_poster_item
+		where
+			t_poster_item.TYPE = #{type}
+			and t_poster_item.PUSH_TIME = 0
+		order by
+			t_poster_item.SEQU DESC
+	</select>
+	
+	<select id="selectByPkey" resultType="posterItemEntity" parameterType="long">
+		select 
+			<include refid="all" />
+		from 
+			t_poster_item
+		where 
+			POSTER_ITEM_ID = #{posterItemId}
+	</select>
+	
+	<insert id="insert" parameterType="posterItemEntity">
+		insert into t_poster_item (
+			POSTER_ITEM_ID
+			,NAME
+			,TYPE
+			,MEDIA_TYPE
+			,PATH
+			,MOBILE_MEDIA_TYPE
+			,MOBILE_PATH
+			,URL
+			,MOBILE_URL
+			,IS_TARGET
+			,SEQU
+			,PUSH_TIME
+			,UPDATE_USERID
+			,UPDATE_TIME
+		) values (
+			#{posterItemId}
+			,#{name}
+			,#{type}
+			,#{mediaType}
+			,#{path}
+			,#{mobileMediaType}
+			,#{mobilePath}
+			,#{url}
+			,#{mobileUrl}
+			,#{isTarget}
+			,#{sequ}
+			,#{pushTime}
+			,#{updateUserid}
+			,#{updateTime}
+		)
+	</insert>
+	
+	<select id="selectMaxSequ" resultType="Integer">
+		select 
+			MAX(sequ) as sequ
+		from 
+			t_poster_item
+	</select>
+	
+	<update id="update" parameterType="posterItemEntity">
+		update t_poster_item set 
+			NAME = #{name}
+			,TYPE = #{type}
+			,URL = #{url}
+			,MOBILE_URL = #{mobileUrl}
+			,MEDIA_TYPE = #{mediaType}
+			,PATH = #{path}
+			,MOBILE_MEDIA_TYPE = #{mobileMediaType}
+			,MOBILE_PATH = #{mobilePath}
+			,IS_TARGET = #{isTarget}
+			,UPDATE_USERID = #{updateUserid}
+			,UPDATE_TIME = #{updateTime}
+		where
+			POSTER_ITEM_ID = #{posterItemId}
+	</update>
+	
+	<update id="updateWithoutMedia" parameterType="posterItemEntity">
+		update t_poster_item set 
+			NAME = #{name}
+			,TYPE = #{type}
+			,URL = #{url}
+			,IS_TARGET = #{isTarget}
+			,UPDATE_USERID = #{updateUserid}
+			,UPDATE_TIME = #{updateTime}
+		where
+			POSTER_ITEM_ID = #{posterItemId}
+	</update>
+	
+	<update id="updatePushTimeByPosterItemId" parameterType="posterItemEntity">
+		update t_poster_item set 
+			PUSH_TIME = #{pushTime}
+			,UPDATE_USERID = #{updateUserid}
+			,UPDATE_TIME = #{updateTime}
+		where
+			POSTER_ITEM_ID = #{posterItemId}
+	</update>
+	
+	<delete id="delete" parameterType="long">
+		delete from t_poster_item where POSTER_ITEM_ID = #{posterItemId}
+	</delete>
+	
+	<select id="selectDownBySequAndPosterId" resultType="posterItemEntity" parameterType="posterItemEntity">
+		select 
+			POSTER_ITEM_ID
+			,SEQU
+		from
+			t_poster_item
+		where 
+			SEQU &lt; #{sequ}
+		order by
+			SEQU DESC
+		limit 0,1
+	</select>
+	
+	<select id="selectUpBySequAndPosterId" resultType="posterItemEntity" parameterType="posterItemEntity">
+		select 
+			POSTER_ITEM_ID
+			,SEQU
+		from
+			t_poster_item
+		where 
+			SEQU &gt; #{sequ}
+		order by
+			SEQU
+		limit 0,1
+	</select>
+	
+	<update id="updateSequ" parameterType="posterItemEntity">
+		update t_poster_item set 
+			SEQU = #{sequ}
+			,UPDATE_USERID = #{updateUserid}
+			,UPDATE_TIME = #{updateTime}
+		where
+			POSTER_ITEM_ID = #{posterItemId}
+	</update>
+	
+</mapper>

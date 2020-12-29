@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="common/layout::meta"/>
+    <meta name="keywords" th:content="${keywords}"/>
+    <title th:text="'新闻资讯 - ' + ${title}"></title>
+    <th:block th:replace="common/layout::static"/>
+    <th:block th:replace="common/analytics::baidu"/>
+    <script type="text/javascript" src="/js/dropload/dropload.min.js" charset="utf-8"></script>
+    <style scoped="scoped">
+        .main-content{
+
+        }
+        .proTopLabel {
+            padding: 0.35rem 0.5rem;
+            font-size: 0;
+        }
+
+        .proTopLabel a {
+            display: inline-block;
+            width: 1.5rem;
+            height: 0.68rem;
+            margin-right: 0.16rem;
+            text-align: center;
+            line-height: 0.68rem;
+            font-size: 0.28rem;
+            color: #6C6C6C;
+            border: 1px solid #DDDDDD;
+        }
+
+        .proTopLabel a:hover{
+            text-decoration: none;
+        }
+        .proTopLabel a:nth-child(4n) {
+            margin-right: 0;
+        }
+
+        .proTopLabel a.on {
+            color: #005bac;
+            text-decoration: none;
+            border-color: #449ef9;
+        }
+
+        .search-part{
+            padding:0 0.5rem;
+            /*min-height: 4rem;*/
+        }
+        .search-info{
+            font-size: 0.26rem;
+            color: #666666;
+        }
+        /*.search-content{
+            display: -webkit-box;
+            overflow: hidden;
+            white-space: normal!important;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            font-size: 0.28rem;
+        }*/
+        .search-content>a{
+            text-decoration: none;
+            font-size: 0.28rem;
+            color: #333333;
+            text-align: justify;
+        }
+        .search-title{
+            display: -webkit-box;
+            overflow: hidden;
+            white-space: normal!important;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            margin-bottom: 0.03rem;
+            font-size: 0.36rem;
+        }
+        .search-title >a{
+            text-decoration: none;
+            font-size: 0.36rem;
+            color: #147AF1;
+            text-align: justify;
+            font-weight: 500;
+        }
+        .search-title>a:hover {
+            color: #0066cc;
+        }
+        .search-source{
+            font-size: 0.28rem;
+            color: #999;
+        }
+
+
+        .dropload-up, .dropload-down {
+            position: relative;
+            height: 0;
+            overflow: hidden;
+            color: #999999;
+            font-size: 0.24rem;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+
+        .dropload-down {
+            height: 0.5rem;
+        }
+
+        .dropload-refresh, .dropload-update, .dropload-load, .dropload-noData {
+            height: 0.5rem;
+            line-height: 0.5rem;
+            text-align: center;
+        }
+
+        .dropload-load .loading {
+            display: inline-block;
+            height: 0.16rem;
+            width: 0.16rem;
+            border-radius: 100%;
+            margin: 0rem 0.1rem;
+            border: 1px solid #999;
+            border-bottom-color: transparent;
+            vertical-align: middle;
+            -webkit-animation: rotate 0.75s linear infinite;
+            animation: rotate 0.75s linear infinite;
+        }
+        .search-top{
+            padding-left: 0.5rem;
+        }
+        .search-top a{
+            display: inline-block;
+            padding-left: 0.3rem;
+            line-height: 0.94rem;
+            background: url(/image/search/ico_jt_zuo_hei.png) no-repeat left center;
+            background-size: 0.14rem;
+            font-size: 0.28rem;
+            color: #333333;
+            text-decoration: none;
+        }
+        #search-st{
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+        #search-st .searchBox {
+            height: 0.84rem;
+            margin-bottom: 0.3rem;
+            line-height: 0.84rem;
+            font-size: 0;
+            padding-left: 0.25rem;
+            border: 1px solid #C5C5C5;
+            box-sizing: border-box;
+        }
+        #search-st .searchBox input {
+            width: 5.3rem;
+            vertical-align: middle;
+            font-size: 0.28rem;
+            color: #666;
+        }
+        .searchBox button {
+            width: 0.78rem;
+            height: 100%;
+            background: url(/image/navbar/search.png) no-repeat center;
+            background-size: 0.4rem;
+            vertical-align: middle;
+        }
+        #search-st input, button, img {
+            border: none;
+            background: none;
+            border-radius: 0;
+        }
+        #search-st input:focus {
+            outline: none;
+        }
+        .search-div{
+            padding-bottom: 0.4rem;
+        }
+        .searchBlank{
+            margin-top: 0.4rem;
+        }
+        .searchBlank p{
+            font-size: 0.28rem;
+            margin-bottom: 0.5rem;
+            color: #666666;
+        }
+        .searchBlank h2{
+            font-size: 0.51rem;
+            color: #333333;
+            line-height: 1.5;
+        }
+        .searchBlank h3{
+            font-size: 0.28rem;
+            color: #666666;
+        }
+        .searchBlank a {
+            color: #147AF1;
+            padding-right: 0.42rem;
+            background: url(/image/search/icon_jt_you.png) no-repeat right center;
+            background-size: 0.14rem;
+            font-size: 0.28rem;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<!--引入头部-->
+<th:block th:replace="common/layout::header"/>
+<main class="main-content">
+    <div class="search-top">
+        <a href="/">首页</a>
+    </div>
+    <div id="search-st">
+        <form action="/search" method="get">
+            <div class="searchBox">
+                <input type="text" name="keyword" id="search-in" th:value="${keyword}" placeholder="输入搜索内容">
+                <button type="submit"></button>
+            </div>
+        </form>
+    </div>
+
+    <div id="searchs" class="search-part">
+
+    </div>
+</main>
+<script type="text/javascript">
+    var all_pages = "7";
+    var p = 0;
+    $(function () {
+        //当内容高度不够手机屏幕高度，增加高度
+        var mobileHeight=window.innerHeight;
+        var bodyHeight =  $('body').css('height').replace('px','');
+        if (mobileHeight>bodyHeight){
+            var contentHeight = mobileHeight - bodyHeight - 24;
+            $('#searchs').css('minHeight',contentHeight+'px');
+        }
+
+        var keyword = $('#search-in').val();
+        // dropload
+        if (all_pages > 0) {
+            $('.main-content').dropload({
+                scrollArea: window,
+                //上拉
+                domDown: {
+                    domClass: 'dropload-down',
+                    domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+                    domLoad: '<div class="dropload-load">加载中<span class="loading"></span></div>',
+                    domNoData: '<div class="dropload-noData">已加载全部</div>'
+                },
+                //上拉在后面插入内容
+                loadDownFn: function (me) {
+                    if (all_pages == 1) {
+                        me.lock();
+                        me.noData();
+                        me.resetload();
+                        return;
+                    }
+
+                    p++;
+                    var data = {"keyword": keyword, "page": p};
+                    $.ajax({
+                        type: 'POST',
+                        url: "/search/searchsPage",
+                        dataType: 'json',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: data,
+                        success: function (data) {
+                            /*var r_data = JSON.parse(JSON.stringify(data));*/
+                            var r_data = data;
+                            if (r_data.list != "") {
+                                var result = "";
+                                $.each(r_data.list, function (i, item) {
+                                    result += '<div class="search-div">' +
+                                        '            <div class="search-title">' +
+                                        '                <a href="'+item.url+'">'+item.title+'</a>' +
+                                        '            </div>' +
+                                        '            <div class="search-content">\n' +
+                                        '                <a href="'+item.url+'">'+(item.content==null?'':item.content)+'</a>' +
+                                        '            </div>' +
+                                        '            <div class="search-source" >' +
+                                        '                来源：'+item.source +
+                                        '            </div>' +
+                                        '        </div>';
+                                });
+                                $("#searchs").append(result);
+                                var p_num = r_data.pages;
+                                if (p_num == 1) {
+                                    //$(".load.load1").css("display", "none");
+                                    me.lock();
+                                    me.noData();
+                                    me.resetload();
+                                    return;
+                                }
+                                if (r_data.pages == p) {
+                                    //$(".load.load1").css("display", "none");
+                                    me.lock();
+                                    me.noData();
+                                }
+                                // 每次数据加载完，必须重置
+                                me.resetload();
+                                //$(".soluWrap.pad35").attr("data_p", p);
+
+                            } else {
+                                //设置为不显示
+                                var result = "";
+                                $('.dropload-down').css("height","0");
+                                if(keyword==""){
+                                    result +='<div class="searchBlank">' +
+                                        '            <p>请输入关键字哦~</p>' +
+                                        '            <h3><a href="/">返回首页</a></h3>' +
+                                        '     </div>';
+                                }else {
+                                    result +='<div class="searchBlank">\n' +
+                                        '                        <h2>搜索不到您要的结果，换个关键词试试哦</h2>\n' +
+                                        '            <p>可能您输入的关键词有误，请重新输入！</p>\n' +
+                                        '                        <h3><a href="/">返回首页</a></h3>\n' +
+                                        '        </div>'
+                                }
+                                $("#searchs").append(result);
+                                //$(".load.load1").css("display", "none");
+                                me.lock();
+                                me.noData();
+                                me.resetload();
+                            }
+                        },
+                        error: function (xhr, type) {
+                            // alert('请刷新重试');
+                            // 即使加载出错，也得重置
+                            me.resetload();
+                        }
+                    });
+                },
+                threshold: 400
+            });
+        }
+        $('#searchs').on('click', '.clearfloat', function (e) {
+            e.preventDefault();
+
+            var param = {
+                page: p,
+                top: $(window).scrollTop()
+            };
+            var list = $('#searchs').html();
+            var aList = JSON.stringify(list);
+            var aParam = JSON.stringify(param);
+            // alert('sess'+p);
+            // console.log(aList);
+            sessionStorage.setItem('productList', aList);
+            sessionStorage.setItem('productParam', aParam);
+            window.location.href = $(this).attr('href');
+        })
+    });
+</script>
+<th:block th:replace="common/layout::footer"/>
+
+
+</body>
+</html>

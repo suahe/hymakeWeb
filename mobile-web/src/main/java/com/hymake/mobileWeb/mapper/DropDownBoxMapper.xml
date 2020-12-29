@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hymake.mobileWeb.mapper.DropDownBoxMapper">
+
+	<sql id="all">
+			drop_down_box_id
+			,belong_page_type
+			,name
+			,sequ
+			,push_time
+	</sql>
+
+	<select id="getByBelongPageType" resultType="DropDownBoxEntity">
+		select <include refid="all"></include>
+		from t_drop_down_box
+		where belong_page_type =#{belongPageType}  and push_time is not null
+	</select>
+
+	<select id="getByPkey" resultType="DropDownBoxEntity">
+		select <include refid="all"></include>
+		from t_drop_down_box
+		where drop_down_box_id =#{dropDownBoxId}
+	</select>
+
+	<select id="getByName" resultType="DropDownBoxEntity">
+		select <include refid="all"></include>
+		from t_drop_down_box
+		where name = #{dropDownBoxName}
+	</select>
+</mapper>

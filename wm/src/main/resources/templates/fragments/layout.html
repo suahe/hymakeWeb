@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="_csrf" th:content="${_csrf.token}">
+    	<meta name="_csrf_header" th:content="${_csrf.headerName}">
+	</head>
+	<body>
+		<div th:fragment="logo">
+			<nav class="navbar navbar-inverse navbar-fixed-top">
+				<div class="container">
+					<div class="navbar-header">
+						<a class="navbar-brand" th:href="@{/}">
+							<i class="glyphicon glyphicon-education"></i>
+							--
+						</a>
+					</div>
+				</div>
+			</nav>
+		</div>
+		<div th:fragment="header">
+			<style>
+				.nav > li:hover .dropdown-menu {
+					display: block;
+				}
+			</style>
+			<nav class="navbar navbar-inverse navbar-fixed-top">
+				<div class="container">
+					<div class="navbar-header">
+						<a class="navbar-brand" th:href="@{/}">
+							<i class="glyphicon glyphicon-education"></i>
+							--
+						</a>
+					</div>
+					<div class="navbar-collapse collapse">
+						<ul class="nav navbar-nav menuBar">
+							<li th:each="tree:${menuBarTree}">
+								<a th:if="${tree.url} == '-'" href="javascript:void(0);" ><span th:text="${tree.text}"></span><span th:unless="${tree.nodes} == null" class="caret"></span></a>
+								<a th:unless="${tree.url} == '-'" th:href="@{${tree.url}}" ><span th:text="${tree.text}"></span><span th:unless="${tree.nodes} == null" class="caret"></span></a>
+								<ul class="dropdown-menu" th:unless="${tree.nodes} == null" >
+									<li th:each="node:${tree.nodes}"><a th:href="@{${node.url}}" th:text="${node.text}"></a></li>
+								</ul>
+							</li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li>
+								<a id="_changePassword_button" href="javascript:void(0);">
+									<i class="glyphicon glyphicon-user" style="padding: 0px 2px 0px 2px;"></i>
+									<span sec:authentication="principal.name" style="padding: 0px 2px 0px 2px;"></span>
+									(<span sec:authentication="principal.username" style="padding: 0px 2px 0px 2px;"></span>)
+								</a>
+							</li>
+							<li>
+								<form name="logout" th:action="@{/logout}" method="post">
+								</form>
+								<a href="javascript:document.logout.submit();">
+									<i class="glyphicon glyphicon-off"></i>退出
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+			
+			<!-- Modal -->
+			<div class="modal fade" id="_changePassword" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">修改用户密码</h4>
+						</div>
+						<div class="modal-body">
+							<form id="_changePassword_form" class="form-horizontal">
+								<div class="form-group">
+									<label for="roleId" class="col-sm-3 control-label">原始密码</label>
+									<div class="col-sm-6">
+										<input type="password" name="op" class="form-control" placeholder="请输入原始密码" >
+									</div>
+									<div class="col-sm-3" id="_valid_op" style="font-size: 18px;">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="roleName" class="col-sm-3 control-label">新密码</label>
+									<div class="col-sm-6">
+										<input type="password" name="lp" class="form-control" placeholder="请输入新密码" >
+									</div>
+									<div class="col-sm-3" id="_valid_lp" style="font-size: 18px;">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="rolePid" class="col-sm-3 control-label">确认密码</label>
+									<div class="col-sm-6">
+										<input type="password" name="lps" class="form-control" placeholder="请输入确认密码" >
+									</div>
+									<div class="col-sm-3" id="_valid_lps" style="font-size: 18px;">
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="button" id="_submit" class="btn btn-primary">修改密码</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<script type="text/javascript">
+				$(document).ready(function(){
+					
+					bootbox.setDefaults("locale","zh_CN");
+					
+					var local_url = window.location.pathname;
+					$(".menuBar a").each(function(i,n){
+						var _url = $(this).attr("href");
+						if(local_url == _url){
+							$(this).parent("li").addClass("active");
+							if($(this).parent().parent('.dropdown-menu').length == 1){
+								$(this).parents("li").addClass("active");
+							}
+						}
+					});
+					
+					secjs.init();
+					
+					$('#_changePassword_form').bootstrapValidator({
+						message: '验证提示信息',
+						feedbackIcons: {
+							valid: 'glyphicon glyphicon-ok',
+							invalid: 'glyphicon glyphicon-remove',
+							validating: 'glyphicon glyphicon-refresh'
+						},
+						fields: {
+							op:{
+								container:"#_valid_op",
+								trigger:"change",
+								validators:{
+									notEmpty:{
+										message: '必填'
+									}
+								}
+							},
+							lp:{
+								container:"#_valid_lp",
+								trigger:"change",
+								validators:{
+									notEmpty:{
+										message: '必填'
+									},
+									stringLength: {
+										min: 6,
+										max: 50,
+										message: '大于6小于50'
+									}
+								}
+							},
+							lps:{
+								container:"#_valid_lps",
+								trigger:"change",
+								validators:{
+									notEmpty:{
+										message: '必填'
+									},
+									identical:{
+										field:"lp",
+										message:"二次密码不一致"
+									}
+								}
+							}
+						}
+					});
+					
+					$('#_changePassword_button').click(function(){
+						
+						$('#_changePassword_form')[0].reset();
+						/*TODO 这里修改修改 */
+						//$("#_changePassword_form").data('bootstrapValidator').resetForm();
+						
+						$('#_changePassword').modal('show');
+					});
+					
+					$('#_submit').click(function(){
+						
+						$('#_changePassword_form').bootstrapValidator('validate');
+					
+						var flag = $("#_changePassword_form").data('bootstrapValidator').isValid();
+						if(flag){
+							var data = $('#_changePassword_form').serialize();
+							var submitData = decodeURIComponent(data,true);
+							$.ajax({
+							    url:'../cp',
+							    data:submitData,
+							    type: "POST",
+							    cache:false,
+							    async:true,
+							    beforeSend:function(){
+							        //请求前
+							    },
+							    success:function(result){
+							        if(result){
+							        	$('#_changePassword').modal('hide');
+							        }else{
+							        	bootbox.alert({size: "small",title: "系统提示",message: "原始密码错误，修改密码失败！"});
+							        }
+							    }
+							});
+						}
+					});
+				});
+			</script>
+		</div>
+	</body>
+</html>
